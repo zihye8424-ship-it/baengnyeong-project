@@ -1,7 +1,9 @@
 "use client";
 
+import { supabase } from "./lib/supabase";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+
 type QnaQuestion = {
   id: number;
   category: string;
@@ -35,6 +37,8 @@ export default function Home() {
   const [showBus, setShowBus] = useState(false);
   const [showMart, setShowMart] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
+  const [todayVisitors, setTodayVisitors] = useState(0);
+const [totalVisitors, setTotalVisitors] = useState(0);
   
   const [busDirection, setBusDirection] = useState("북포리");
 
@@ -81,6 +85,49 @@ export default function Home() {
       isFaq: true,
     },
   ]);
+  useEffect(() => {
+    const updateVisitorStats = async () => {
+      const today = new Date().toISOString().slice(0, 10);
+      const visitedKey = `visited-${today}`;
+  
+      const { data } = await supabase
+        .from("visitor_stats")
+        .select("*")
+        .eq("id", 1)
+        .single();
+  
+      if (!data) return;
+  
+      if (localStorage.getItem(visitedKey)) {
+        setTodayVisitors(data.today_count);
+        setTotalVisitors(data.total_count);
+        return;
+      }
+  
+      const isNewDay = data.last_date !== today;
+      const newTodayCount = isNewDay ? 1 : data.today_count + 1;
+      const newTotalCount = data.total_count + 1;
+  
+      const { data: updatedData } = await supabase
+        .from("visitor_stats")
+        .update({
+          today_count: newTodayCount,
+          total_count: newTotalCount,
+          last_date: today,
+        })
+        .eq("id", 1)
+        .select()
+        .single();
+  
+      if (updatedData) {
+        localStorage.setItem(visitedKey, "true");
+        setTodayVisitors(updatedData.today_count);
+        setTotalVisitors(updatedData.total_count);
+      }
+    };
+  
+    updateVisitorStats();
+  }, []);
   useEffect(() => {
     const savedQuestions = localStorage.getItem("qnaQuestions");
   
@@ -383,6 +430,43 @@ export default function Home() {
   </div>
 </header>
       {/* HERO */}
+      {/* PDF 판매 */}
+<section className="max-w-6xl mx-auto px-6 py-12">
+  <div className="bg-gradient-to-r from-sky-600 to-blue-700 rounded-3xl p-10 text-white shadow-2xl text-center">
+
+    <h2 className="text-4xl font-bold mb-4">
+      📘 백령도 현실 여행 가이드
+    </h2>
+
+    <p className="text-lg mb-6">
+      28년 거주 주민이 직접 만든 백령도 여행 PDF
+    </p>
+
+    <div className="grid md:grid-cols-4 gap-4 text-left max-w-4xl mx-auto mb-8">
+      <div>✅ 관광지</div>
+      <div>✅ 맛집</div>
+      <div>✅ 숙소</div>
+      <div>✅ 군인면회</div>
+      <div>✅ 숨은명소</div>
+      <div>✅ 배편</div>
+      <div>✅ 여행팁</div>
+      <div>✅ 지도</div>
+    </div>
+
+    <p className="text-3xl font-bold mb-6">
+      💰 4,900원
+    </p>
+
+    <a
+      href="https://open.kakao.com/o/pUnS91Ai"
+      target="_blank"
+      className="inline-block bg-yellow-400 text-black px-10 py-4 rounded-full font-bold text-xl hover:scale-105 transition"
+    >
+      📩 오픈채팅으로 구매하기
+    </a>
+
+  </div>
+</section>
       <section className="relative h-[80vh] w-full">
 
         <Image
@@ -442,61 +526,59 @@ export default function Home() {
         </div>
 
       </section>
-    {/* 방문자 현황 */}
+   {/* 방문자 현황 */}
 <section className="max-w-6xl mx-auto px-6 py-12">
+  <div className="grid md:grid-cols-3 gap-6">
 
-<div className="grid md:grid-cols-3 gap-6">
+    <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
+      <div className="text-5xl mb-3">👀</div>
 
-  <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
+      <h3 className="text-2xl font-bold mb-2">
+        오늘 방문자
+      </h3>
 
-    <div className="text-5xl mb-3">
-      👀
+      <p className="text-4xl font-extrabold text-sky-500">
+        {todayVisitors.toLocaleString()}
+      </p>
+
+      <p className="text-gray-500 mt-2">
+        Today
+      </p>
     </div>
 
-    <h3 className="text-2xl font-bold mb-2">
-      오늘 방문자
-    </h3>
+    <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
+      <div className="text-5xl mb-3">👥</div>
 
-    <p className="text-4xl font-extrabold text-sky-500">
-      준비중
-    </p>
+      <h3 className="text-2xl font-bold mb-2">
+        누적 방문자
+      </h3>
 
-  </div>
+      <p className="text-4xl font-extrabold text-green-500">
+        {totalVisitors.toLocaleString()}
+      </p>
 
-  <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
-
-    <div className="text-5xl mb-3">
-      👥
+      <p className="text-gray-500 mt-2">
+        Total
+      </p>
     </div>
 
-    <h3 className="text-2xl font-bold mb-2">
-      누적 방문자
-    </h3>
+    <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
+      <div className="text-5xl mb-3">📸</div>
 
-    <p className="text-4xl font-extrabold text-green-500">
-      집계중
-    </p>
+      <h3 className="text-2xl font-bold mb-2">
+        등록 사진
+      </h3>
 
-  </div>
+      <p className="text-4xl font-extrabold text-orange-500">
+        60
+      </p>
 
-  <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
-
-    <div className="text-5xl mb-3">
-      📸
+      <p className="text-gray-500 mt-2">
+        Photos
+      </p>
     </div>
 
-    <h3 className="text-2xl font-bold mb-2">
-      등록 사진
-    </h3>
-
-    <p className="text-4xl font-extrabold text-orange-500">
-      60
-    </p>
-
   </div>
-
-</div>
-
 </section>
 {/* 제보센터 */}
 <section className="max-w-6xl mx-auto px-6 py-16">
