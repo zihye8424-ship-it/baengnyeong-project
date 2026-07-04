@@ -31,6 +31,9 @@ export default function Home() {
 
   // Q&A
   const [qnaCategory, setQnaCategory] = useState("전체");
+  const [notices, setNotices] = useState<any[]>([]);
+const [placeViews, setPlaceViews] = useState<any[]>([]);
+const [placeLikes, setPlaceLikes] = useState<any[]>([]);
 
   const categories = [
     { name: "전체", icon: "🏝️" },
@@ -208,7 +211,112 @@ export default function Home() {
       )
     );
   });
-useEffect(() => {
+
+  useEffect(() => {
+    loadNotices();
+    loadPlaceLikes();
+    loadPlaceViews();
+    updateVisitorStats();
+  }, []);
+
+  async function loadNotices() {
+    const { data, error } = await supabase
+      .from("notices")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(3);
+
+    if (!error && data) {
+      setNotices(data);
+    }
+  }
+
+  async function loadPlaceLikes() {
+    const { data, error } = await supabase
+      .from("place_likes")
+      .select("*");
+
+    if (!error && data) {
+      setPlaceLikes(data);
+    }
+  }
+
+  async function handlePlaceLike(placeName: string) {
+    const likeKey = `place-like-${placeName}`;
+
+    if (localStorage.getItem(likeKey)) {
+      alert("이미 좋아요를 눌렀어요 😊");
+      return;
+    }
+
+    const { data } = await supabase
+      .from("place_likes")
+      .select("*")
+      .eq("place_name", placeName)
+      .single();
+
+    if (data) {
+      await supabase
+        .from("place_likes")
+        .update({
+          like_count: data.like_count + 1,
+        })
+        .eq("place_name", placeName);
+    } else {
+      await supabase.from("place_likes").insert([
+        {
+          place_name: placeName,
+          like_count: 1,
+        },
+      ]);
+    }
+
+    localStorage.setItem(likeKey, "true");
+    loadPlaceLikes();
+  }
+
+  async function loadPlaceViews() {
+    const { data, error } = await supabase
+      .from("place_views")
+      .select("*");
+
+    if (!error && data) {
+      setPlaceViews(data);
+    }
+  }
+
+  async function handlePlaceView(placeName: string) {
+    const today = new Date().toISOString().slice(0, 10);
+    const viewKey = `place-view-${placeName}-${today}`;
+
+    if (localStorage.getItem(viewKey)) return;
+
+    const { data } = await supabase
+      .from("place_views")
+      .select("*")
+      .eq("place_name", placeName)
+      .single();
+
+    if (data) {
+      await supabase
+        .from("place_views")
+        .update({
+          view_count: data.view_count + 1,
+        })
+        .eq("place_name", placeName);
+    } else {
+      await supabase.from("place_views").insert([
+        {
+          place_name: placeName,
+          view_count: 1,
+        },
+      ]);
+    }
+
+    localStorage.setItem(viewKey, "true");
+    loadPlaceViews();
+  }
+
   const updateVisitorStats = async () => {
     const today = new Date().toISOString().slice(0, 10);
     const visitedKey = `visited-${today}`;
@@ -248,11 +356,7 @@ useEffect(() => {
       setTotalVisitors(updatedData.total_count);
     }
   };
-
-  updateVisitorStats();
-}, []);
-
-return (
+  return (
 
     <main className="bg-white min-h-screen text-gray-900">
       {/* HEADER */}
@@ -895,24 +999,42 @@ return (
                       </div>
                     )}
 
-                    {place.tip && (
-                      <div className="flex items-center gap-2 text-sm text-orange-500 font-semibold mb-5">
-                        <span>{place.tip}</span>
-                      </div>
-                    )}
+{place.tip && (
+  <div className="flex items-center gap-2 text-sm text-orange-500 font-semibold mb-5">
+    <span>{place.tip}</span>
+  </div>
+)}
 
-                    <div className="mt-auto pt-5">
+<div className="mt-auto pt-5 space-y-3">
+  <div className="flex justify-between text-sm text-gray-500">
+    <span>
+      👀 {placeViews.find((item) => item.place_name === place.name)?.view_count || 0}
+    </span>
 
-                      <a
-                        href={place.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full bg-black text-white py-3 rounded-2xl font-semibold hover:bg-blue-600 transition duration-300"
-                      >
-                        📍 위치 확인하기
-                      </a>
+    <span>
+      ❤️ {placeLikes.find((item) => item.place_name === place.name)?.like_count || 0}
+    </span>
+  </div>
 
-                    </div>
+  <button
+    onClick={() => handlePlaceLike(place.name)}
+    className="w-full bg-rose-500 text-white py-3 rounded-2xl font-semibold hover:bg-rose-600 transition"
+  >
+    ❤️ 좋아요
+  </button>
+
+  <a
+    href={place.link}
+    onClick={() => handlePlaceView(place.name)}
+    
+    
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center justify-center w-full bg-black text-white py-3 rounded-2xl font-semibold hover:bg-blue-600 transition"
+  >
+    📍 위치 확인하기
+  </a>
+</div>
 
                   </div>
                 </div>
