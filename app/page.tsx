@@ -4,31 +4,15 @@ import { supabase } from "./lib/supabase";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-type QnaQuestion = {
-  id: number;
-  category: string;
-  title: string;
-  answer: string;
-  isFaq: boolean;
-  nickname?: string;
-  content?: string;
-  date?: string;
-  isAnswered?: boolean;
-};
-const sectionClass = "max-w-7xl mx-auto px-6 py-20";
-const cardClass =
-  "bg-white rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 p-6";
-const gridClass = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8";
-const sectionTitleClass =
-  "text-3xl md:text-4xl font-bold text-gray-800 text-center mb-8";
-const btnClass =
-  "rounded-xl px-6 py-3 font-semibold transition-all duration-300 hover:opacity-90";
-const imgClass =
-  "rounded-2xl object-cover hover:scale-105 transition h-48 w-full";
-
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("전체");
   const [selectedIsland, setSelectedIsland] = useState("백령도");
+
+  // 방문자
+  const [todayVisitors, setTodayVisitors] = useState(0);
+  const [totalVisitors, setTotalVisitors] = useState(0);
+
+  // 펼치기/접기
   const [showStay, setShowStay] = useState(false);
   const [showFood, setShowFood] = useState(false);
   const [showTaxi, setShowTaxi] = useState(false);
@@ -37,210 +21,26 @@ export default function Home() {
   const [showBus, setShowBus] = useState(false);
   const [showMart, setShowMart] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
-  const [todayVisitors, setTodayVisitors] = useState(0);
-const [totalVisitors, setTotalVisitors] = useState(0);
-  
+
+  // 버스
   const [busDirection, setBusDirection] = useState("북포리");
 
+  // 검색
   const [staySearch, setStaySearch] = useState("");
   const [foodSearch, setFoodSearch] = useState("");
 
+  // Q&A
   const [qnaCategory, setQnaCategory] = useState("전체");
-  const [qnaSearch, setQnaSearch] = useState("");
-  const [qnaNickname, setQnaNickname] = useState("");
-  const [qnaFormCategory, setQnaFormCategory] = useState("기타");
-  const [qnaTitle, setQnaTitle] = useState("");
-  const [qnaContent, setQnaContent] = useState("");
-  const [qnaQuestions, setQnaQuestions] = useState<QnaQuestion[]>([
-    {
-      id: 1,
-      category: "관광지",
-      title: "1박2일이면 관광지를 다 볼 수 있나요?",
-      answer:
-        "백령도는 섬이 꽤 넓어서 1박2일이면 핵심 명소 위주로 돌아보는 게 좋아요. 두무진, 사곶해변, 끝섬전망대 정도는 충분히 가능하지만, 여유롭게 전부 둘러보기엔 시간이 조금 부족할 수 있어요 😊",
-      isFaq: true,
-    },
-    {
-      id: 2,
-      category: "군인면회",
-      title: "군인 외출 6시간이면 어디가 좋을까요?",
-      answer:
-        "6시간이면 식사후 → 사진찍기 좋은 관광지 한두곳 픽~(개인적으로 콩돌해안이나 사곶해변이 사진찍기 예쁘더라구요~) → 감성카페(베이커리카페 자연마을에서) 한 잔 정도가 딱 좋아요. 시간 여유가 있으면 두무진 드라이브까지 가보셔도 좋습니다!",
-      isFaq: true,
-    },
-    {
-      id: 3,
-      category: "배편",
-      title: "멀미약은 언제 먹는 게 좋나요?",
-      answer:
-        "출항 30분~1시간 전에 미리 드시는 걸 추천해요. 배에 탄 뒤에 먹으면 효과가 늦을 수 있거든요. 아네론, 토라베로푸라는 일본 멀미약이 순하면서 멀미도 적은것같더라구요! 백령도 보건소에서도 간단한 진료 후 멀미약 조제해주시는데 요것도 백령도 주민들은 많이 복용하세요!",
-      isFaq: true,
-    },
-    {
-      id: 4,
-      category: "숙소",
-      title: "숙소는 어느 지역이 편한가요?",
-      answer:
-        "진촌지역이 관공서 주변으로 식당·편의점·관광 이동 모두 편해서 처음 오시는 분들께 가장 많이 추천드려요. 조용한 분위기를 원하시면 사곶 쪽도 좋아요.그외 지역은 민박들이 곳곳이 숨어있어요~ 숙소 시설이 더 궁굼하신분은 Q&A에 글 남겨주시면 제가 도움드릴께요~",
-      isFaq: true,
-    },
-  ]);
-  useEffect(() => {
-    const updateVisitorStats = async () => {
-      const today = new Date().toISOString().slice(0, 10);
-      const visitedKey = `visited-${today}`;
-  
-      const { data } = await supabase
-        .from("visitor_stats")
-        .select("*")
-        .eq("id", 1)
-        .single();
-  
-      if (!data) return;
-  
-      if (localStorage.getItem(visitedKey)) {
-        setTodayVisitors(data.today_count);
-        setTotalVisitors(data.total_count);
-        return;
-      }
-  
-      const isNewDay = data.last_date !== today;
-      const newTodayCount = isNewDay ? 1 : data.today_count + 1;
-      const newTotalCount = data.total_count + 1;
-  
-      const { data: updatedData } = await supabase
-        .from("visitor_stats")
-        .update({
-          today_count: newTodayCount,
-          total_count: newTotalCount,
-          last_date: today,
-        })
-        .eq("id", 1)
-        .select()
-        .single();
-  
-      if (updatedData) {
-        localStorage.setItem(visitedKey, "true");
-        setTodayVisitors(updatedData.today_count);
-        setTotalVisitors(updatedData.total_count);
-      }
-    };
-  
-    updateVisitorStats();
-  }, []);
-  useEffect(() => {
-    const savedQuestions = localStorage.getItem("qnaQuestions");
-  
-    if (savedQuestions) {
-      setQnaQuestions(JSON.parse(savedQuestions));
-    }
-  }, []);
-  const qnaCategories = [
-    { name: "전체", icon: "📋" },
-    { name: "배편", icon: "🚢" },
-    { name: "숙소", icon: "🏨" },
+
+  const categories = [
+    { name: "전체", icon: "🏝️" },
+    { name: "관광지", icon: "📸" },
     { name: "맛집", icon: "🍜" },
-    { name: "관광지", icon: "🌊" },
-    { name: "교통", icon: "🚕" },
+    { name: "숙박", icon: "🏨" },
+    { name: "개인택시", icon: "🚕" },
+    { name: "렌트카", icon: "🚗" },
+    { name: "특산물", icon: "🎁" },
   ];
-
-  const qnaAnswerExamples = [
-    {
-      id: 1,
-      category: "배편",
-      question: "인천에서 백령도 배는 매일 운항하나요?",
-      answer:
-        "날씨와 바람에 따라 결항될 수 있어요. 출발 전날 KOMSA나 고려고속훼리 사이트에서 운항 여부 꼭 확인하세요! 결항이 잦은 편이라 여유 일정 잡으시는 걸 추천드려요 🚢",
-    },
-    {
-      id: 2,
-      category: "맛집",
-      question: "백령도에서 꼭 먹어봐야 할 음식이 있나요?",
-      answer:
-        "홍합밥, 짠지떡, 칼국수, 냉면이 대표예요! 특히 냉면, 홍합밥은 현지인도 자주 찾는 메뉴라 꼭 한번 드셔보세요. 식당마다 맛이 조금씩 달라서 여러 곳 경험해보시는 것도 좋아요 🍜",
-    },
-    {
-      id: 3,
-      category: "가족여행",
-      question: "아이랑 같이 가도 괜찮을까요?",
-      answer:
-        "네, 가족 여행하기 좋은 섬이에요! 사곶해변은 모래사장이 넓어서 아이들이 뛰어놀기 좋고, 두무진 유람선도 아이들이 좋아해요. 다만 바람이 강할 수 있으니 겉옷 챙기세요 👨‍👩‍👧‍👦",
-    },
-  ];
-
-  const filteredQnaQuestions = qnaQuestions.filter((item) => {
-    const categoryMatch =
-      qnaCategory === "전체" || item.category === qnaCategory;
-    const searchMatch =
-      qnaSearch === "" ||
-      item.title.includes(qnaSearch) ||
-      item.answer.includes(qnaSearch);
-    return categoryMatch && searchMatch;
-  });
-
-  const handleQnaSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const handleAnswer = (id: number) => {
-      const text = prompt("답변을 입력하세요");
-    
-      if (!text) return;
-    
-      setQnaQuestions((prev) =>
-        prev.map((q) =>
-          q.id === id
-            ? {
-                ...q,
-                answer: text,
-                isAnswered: true,
-              }
-            : q
-        )
-      );
-    };
-  
-    if (!qnaNickname.trim() || !qnaTitle.trim() || !qnaContent.trim()) {
-      alert("닉네임, 제목, 내용을 모두 입력해주세요.");
-      return;
-    }
-  
-    const updatedQuestions = [
-      {
-        id: Date.now(),
-        category: qnaFormCategory,
-        title: qnaTitle,
-        answer: "",
-        isFaq: false,
-        nickname: qnaNickname,
-        content: qnaContent,
-        date: new Date().toLocaleDateString(),
-        isAnswered: false,
-      },
-      ...qnaQuestions,
-    ];
-  
-    setQnaQuestions(updatedQuestions);
-  
-    localStorage.setItem(
-      "qnaQuestions",
-      JSON.stringify(updatedQuestions)
-    );
-  
-    setQnaNickname("");
-    setQnaTitle("");
-    setQnaContent("");
-    setQnaFormCategory("기타");
-  
-    alert("질문이 등록되었어요! 😊");
-  };
-    const categories = [
-      { name: "전체", icon: "🏝️" },
-      { name: "관광지", icon: "📸" },
-      { name: "맛집", icon: "🍜" },
-      { name: "숙박", icon: "🏨" },
-      { name: "개인택시", icon: "🚕" },
-      { name: "렌트카", icon: "🚗" },
-      { name: "특산물", icon: "🎁" },
-    ];
   const places = [
     {
       name: "두무진",
@@ -408,8 +208,51 @@ const [totalVisitors, setTotalVisitors] = useState(0);
       )
     );
   });
+useEffect(() => {
+  const updateVisitorStats = async () => {
+    const today = new Date().toISOString().slice(0, 10);
+    const visitedKey = `visited-${today}`;
 
-  return (
+    const { data } = await supabase
+      .from("visitor_stats")
+      .select("*")
+      .eq("id", 1)
+      .single();
+
+    if (!data) return;
+
+    if (localStorage.getItem(visitedKey)) {
+      setTodayVisitors(data.today_count);
+      setTotalVisitors(data.total_count);
+      return;
+    }
+
+    const isNewDay = data.last_date !== today;
+    const newTodayCount = isNewDay ? 1 : data.today_count + 1;
+    const newTotalCount = data.total_count + 1;
+
+    const { data: updatedData } = await supabase
+      .from("visitor_stats")
+      .update({
+        today_count: newTodayCount,
+        total_count: newTotalCount,
+        last_date: today,
+      })
+      .eq("id", 1)
+      .select()
+      .single();
+
+    if (updatedData) {
+      localStorage.setItem(visitedKey, "true");
+      setTodayVisitors(updatedData.today_count);
+      setTotalVisitors(updatedData.total_count);
+    }
+  };
+
+  updateVisitorStats();
+}, []);
+
+return (
 
     <main className="bg-white min-h-screen text-gray-900">
       {/* HEADER */}
@@ -442,7 +285,7 @@ const [totalVisitors, setTotalVisitors] = useState(0);
       28년 거주 주민이 직접 만든 백령도 여행 PDF
     </p>
 
-    <div className="grid md:grid-cols-4 gap-4 text-left max-w-4xl mx-auto mb-8">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-left max-w-4xl mx-auto mb-8">      
       <div>✅ 관광지</div>
       <div>✅ 맛집</div>
       <div>✅ 숙소</div>
@@ -454,7 +297,7 @@ const [totalVisitors, setTotalVisitors] = useState(0);
     </div>
 
     <p className="text-3xl font-bold mb-6">
-      💰 4,900원
+      💰 6,000원
     </p>
 
     <a
@@ -510,75 +353,66 @@ const [totalVisitors, setTotalVisitors] = useState(0);
               📸 관광지 보기
             </button>
 
-            <button
-              onClick={() =>
-                document
-                  .getElementById("qna")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-              className="bg-sky-400 text-white px-6 py-3 rounded-full font-semibold hover:bg-sky-500 transition"
-            >
-              💬 Q&A
-            </button>
-
           </div>
 
         </div>
 
       </section>
-   {/* 방문자 현황 */}
+    {/* 방문자 현황 */}
 <section className="max-w-6xl mx-auto px-6 py-12">
-  <div className="grid md:grid-cols-3 gap-6">
 
-    <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
-      <div className="text-5xl mb-3">👀</div>
+<div className="grid md:grid-cols-3 gap-6">
 
-      <h3 className="text-2xl font-bold mb-2">
-        오늘 방문자
-      </h3>
+  <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
 
-      <p className="text-4xl font-extrabold text-sky-500">
-        {todayVisitors.toLocaleString()}
-      </p>
-
-      <p className="text-gray-500 mt-2">
-        Today
-      </p>
+    <div className="text-5xl mb-3">
+      👀
     </div>
 
-    <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
-      <div className="text-5xl mb-3">👥</div>
+    <h3 className="text-2xl font-bold mb-2">
+      오늘 방문자
+    </h3>
 
-      <h3 className="text-2xl font-bold mb-2">
-        누적 방문자
-      </h3>
-
-      <p className="text-4xl font-extrabold text-green-500">
-        {totalVisitors.toLocaleString()}
-      </p>
-
-      <p className="text-gray-500 mt-2">
-        Total
-      </p>
-    </div>
-
-    <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
-      <div className="text-5xl mb-3">📸</div>
-
-      <h3 className="text-2xl font-bold mb-2">
-        등록 사진
-      </h3>
-
-      <p className="text-4xl font-extrabold text-orange-500">
-        60
-      </p>
-
-      <p className="text-gray-500 mt-2">
-        Photos
-      </p>
-    </div>
+    <p className="text-4xl font-extrabold text-sky-500">
+  {todayVisitors.toLocaleString()}명
+</p>
 
   </div>
+
+  <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
+
+    <div className="text-5xl mb-3">
+      👥
+    </div>
+
+    <h3 className="text-2xl font-bold mb-2">
+      누적 방문자
+    </h3>
+
+    <p className="text-4xl font-extrabold text-green-500">
+  {totalVisitors.toLocaleString()}명
+</p>
+
+  </div>
+
+  <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
+
+    <div className="text-5xl mb-3">
+      📸
+    </div>
+
+    <h3 className="text-2xl font-bold mb-2">
+      등록 사진
+    </h3>
+
+    <p className="text-4xl font-extrabold text-orange-500">
+      60
+    </p>
+
+  </div>
+
+</div>
+
 </section>
 {/* 제보센터 */}
 <section className="max-w-6xl mx-auto px-6 py-16">
@@ -943,18 +777,6 @@ const [totalVisitors, setTotalVisitors] = useState(0);
             </button>
 
           ))}
-
-          <button
-            onClick={() =>
-              document
-                .getElementById("qna")
-                ?.scrollIntoView({ behavior: "smooth" })
-            }
-            className="px-5 py-3 rounded-full border transition font-medium flex items-center gap-2 bg-sky-100 hover:bg-sky-200 border-sky-300 text-sky-800"
-          >
-            <span>💬</span>
-            <span>Q&A</span>
-          </button>
 
         </div>
 
@@ -1934,8 +1756,7 @@ const [totalVisitors, setTotalVisitors] = useState(0);
           🗓️ 백령도 추천 여행 시기
         </h2>
 
-        <div className="grid md:grid-cols-4 gap-6">
-
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="bg-white rounded-3xl shadow-lg p-8">
             <h3 className="text-2xl font-bold mb-4">
               🌸 봄
@@ -2467,284 +2288,6 @@ const [totalVisitors, setTotalVisitors] = useState(0);
   </div>
 
 </section>
-      {/* Q&A SECTION */}
-      <section
-        id="qna"
-        className="bg-gradient-to-b from-sky-50 to-blue-50 py-20"
-      >
-        <div className="max-w-7xl mx-auto px-6">
-
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              💬 쩨쩨에게 물어보세요
-            </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
-              백령도 여행, 군인면회, 숙소, 맛집, 배편 등 궁금한 점을 남겨주세요.
-              <br className="hidden sm:block" />
-              백령도 28년 주민 쩨쩨가 아는 선에서 답변해드릴게요 😊
-            </p>
-          </div>
-
-          {/* 검색창 */}
-          <div className="mb-8">
-            <input
-              type="text"
-              placeholder="🔍 궁금한 내용을 검색해보세요..."
-              value={qnaSearch}
-              onChange={(e) => setQnaSearch(e.target.value)}
-              className="w-full border border-sky-200 rounded-2xl px-5 py-4 shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-400"
-            />
-          </div>
-
-          {/* 카테고리 선택 */}
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
-            {qnaCategories.map((qnaCat) => (
-              <button
-                key={qnaCat.name}
-                onClick={() => setQnaCategory(qnaCat.name)}
-                className={`px-4 py-2 rounded-full border transition font-medium flex items-center gap-2 text-sm md:text-base ${
-                  qnaCategory === qnaCat.name
-                    ? "bg-sky-500 text-white border-sky-500 shadow-md"
-                    : "bg-white hover:bg-sky-50 border-sky-200 text-gray-700"
-                }`}
-              >
-                <span>{qnaCat.icon}</span>
-                <span>{qnaCat.name}</span>
-              </button>
-            ))}
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8 mb-12">
-            <div className="bg-white rounded-3xl shadow-lg p-6 md:p-8 border border-sky-100">
-              <h3 className="text-2xl font-bold mb-6 text-sky-800">
-                ✍️ 질문 남기기
-              </h3>
-              <form onSubmit={handleQnaSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    닉네임
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="닉네임을 입력해주세요"
-                    value={qnaNickname}
-                    onChange={(e) => setQnaNickname(e.target.value)}
-                    className="w-full border border-sky-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-400"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    카테고리
-                  </label>
-                  <select
-                    value={qnaFormCategory}
-                    onChange={(e) => setQnaFormCategory(e.target.value)}
-                    className="w-full border border-sky-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-400 bg-white"
-                  >
-                    {qnaCategories
-                      .filter((qnaCat) => qnaCat.name !== "전체")
-                      .map((qnaCat) => (
-                        <option key={qnaCat.name} value={qnaCat.name}>
-                          {qnaCat.icon} {qnaCat.name}
-                        </option>
-                      ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    질문 제목
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="질문 제목을 입력해주세요"
-                    value={qnaTitle}
-                    onChange={(e) => setQnaTitle(e.target.value)}
-                    className="w-full border border-sky-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-400"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    질문 내용
-                  </label>
-                  <textarea
-                    placeholder="궁금한 내용을 자세히 적어주세요"
-                    value={qnaContent}
-                    onChange={(e) => setQnaContent(e.target.value)}
-                    rows={4}
-                    className="w-full border border-sky-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-400 resize-none"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-sky-500 hover:bg-sky-600 text-white py-3 rounded-2xl font-bold transition shadow-md"
-                >
-                  질문 등록하기
-                </button>
-              </form>
-            </div>
-
-            {/* 많이 묻는 질문 */}
-            <div>
-              <h3 className="text-2xl font-bold mb-6 text-sky-800">
-                🔥 많이 묻는 질문
-              </h3>
-              <div className="space-y-4">
-                {qnaQuestions
-                  .filter((item) => item.isFaq)
-                  .map((item) => (
-                    <div
-                      key={item.id}
-                      className="bg-white rounded-2xl shadow-md p-5 border border-sky-100 hover:shadow-lg transition"
-                    >
-                      <span className="inline-block text-xs font-semibold bg-sky-100 text-sky-700 px-3 py-1 rounded-full mb-2">
-                        {item.category}
-                      </span>
-                      <h4 className="font-bold text-gray-900 mb-2">
-                        Q. {item.title}
-                      </h4>
-                      <p className="text-xs text-gray-400 mb-2">
-  👤 {item.nickname || "익명"} · {item.date}
-</p>
-                      <p className="text-gray-600 text-sm leading-relaxed">
-                      {!item.isFaq && (
-  <span className="inline-block bg-yellow-100 text-yellow-700 text-xs px-3 py-1 rounded-full mb-2">
-    ⏳ 답변 대기중
-  </span>
-)}
-                        {item.answer}
-                      </p>
-                    </div>
-                  ))}
-              </div>
-            </div>
-
-          </div>
-
-          {/* 쩨쩨 답변 예시 */}
-          <div className="mb-12">
-            <h3 className="text-2xl font-bold mb-6 text-center text-sky-800">
-              🙋 쩨쩨 답변 예시
-            </h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              {qnaAnswerExamples.map((example) => (
-                <div
-                  key={example.id}
-                  className="bg-white rounded-3xl shadow-lg p-6 border border-sky-100 hover:-translate-y-1 transition"
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 bg-sky-400 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                      쩨
-                    </div>
-                    <div>
-                      <p className="font-bold text-gray-900">쩨쩨</p>
-                      <p className="text-xs text-sky-600">
-                        백령도 28년 주민 · {example.category}
-                      </p>
-                    </div>
-                  </div>
-                  <p className="text-sm font-semibold text-gray-800 mb-3">
-                    Q. {example.question}
-                  </p>
-                  <p className="text-gray-600 text-sm leading-relaxed bg-sky-50 rounded-xl p-4">
-                    {example.answer}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* 검색/필터 결과 */}
-          {filteredQnaQuestions.length > 0 && (
-            <div>
-              <h3 className="text-2xl font-bold mb-6 text-sky-800">
-                📋 질문 목록
-              </h3>
-              <div className="grid sm:grid-cols-2 gap-4">
-                {filteredQnaQuestions.map((item) => (
-                  <div
-                    key={item.id}
-                    className="bg-white rounded-2xl shadow-md p-5 border border-sky-100"
-                  >
-                    <span className="inline-block text-xs font-semibold bg-blue-100 text-blue-700 px-3 py-1 rounded-full mb-2">
-                      {item.category}
-                    </span>
-                    <h4 className="font-bold text-gray-900 mb-2">
-                      {item.title}
-                    </h4>
-                    {item.content && (
-                      <p className="text-gray-500 text-sm mb-2">
-                        {item.content}
-                      </p>
-                    )}
-                    <p className="text-gray-600 text-sm leading-relaxed bg-sky-50 rounded-xl p-3">
-                      💬 {item.answer}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-        </div>
-      </section>
-      {/* 업데이트 예정 */}
-      <section className="max-w-6xl mx-auto px-6 py-16">
-
-<div className="bg-white rounded-3xl shadow-xl p-10 border border-gray-100">
-
-  <h2 className="text-4xl font-bold text-center mb-8">
-    🚧 업데이트 예정
-  </h2>
-
-  <p className="text-center text-gray-500 mb-10">
-    백령도 여행자들에게 더 많은 정보를 제공하기 위해
-    계속 업데이트하고 있습니다.
-  </p>
-
-  <div className="grid md:grid-cols-2 gap-6">
-
-    <div className="bg-sky-50 rounded-2xl p-6">
-      <h3 className="font-bold text-xl mb-3">
-        📸 사진첩 100선
-      </h3>
-      <p className="text-gray-600">
-        백령도의 사계절과 숨은 풍경 추가 예정
-      </p>
-    </div>
-
-    <div className="bg-sky-50 rounded-2xl p-6">
-      <h3 className="font-bold text-xl mb-3">
-        🏝️ 대청도 여행정보
-      </h3>
-      <p className="text-gray-600">
-        관광지 · 맛집 · 숙소 정보 추가 예정
-      </p>
-    </div>
-
-    <div className="bg-sky-50 rounded-2xl p-6">
-      <h3 className="font-bold text-xl mb-3">
-        🌊 소청도 여행정보
-      </h3>
-      <p className="text-gray-600">
-        분바위와 숨은 명소 정보 확대 예정
-      </p>
-    </div>
-
-    <div className="bg-sky-50 rounded-2xl p-6">
-      <h3 className="font-bold text-xl mb-3">
-        🪖 군인면회 가이드
-      </h3>
-      <p className="text-gray-600">
-        외출 · 외박 코스 및 추천 장소 추가 예정
-      </p>
-    </div>
-
-  </div>
-
-</div>
-</section>
-{/* 다음 섹션 */}
-
       {/* FLOATING QUICK MENU */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
 
