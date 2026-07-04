@@ -34,6 +34,7 @@ export default function Home() {
   const [notices, setNotices] = useState<any[]>([]);
 const [placeViews, setPlaceViews] = useState<any[]>([]);
 const [placeLikes, setPlaceLikes] = useState<any[]>([]);
+const [popularPlaces, setPopularPlaces] = useState<any[]>([]);
 
   const categories = [
     { name: "전체", icon: "🏝️" },
@@ -216,6 +217,7 @@ const [placeLikes, setPlaceLikes] = useState<any[]>([]);
     loadNotices();
     loadPlaceLikes();
     loadPlaceViews();
+    loadPopularPlaces();
     updateVisitorStats();
   }, []);
 
@@ -288,15 +290,15 @@ const [placeLikes, setPlaceLikes] = useState<any[]>([]);
   async function handlePlaceView(placeName: string) {
     const today = new Date().toISOString().slice(0, 10);
     const viewKey = `place-view-${placeName}-${today}`;
-
+  
     if (localStorage.getItem(viewKey)) return;
-
+  
     const { data } = await supabase
       .from("place_views")
       .select("*")
       .eq("place_name", placeName)
       .single();
-
+  
     if (data) {
       await supabase
         .from("place_views")
@@ -312,33 +314,59 @@ const [placeLikes, setPlaceLikes] = useState<any[]>([]);
         },
       ]);
     }
-
+  
     localStorage.setItem(viewKey, "true");
-    loadPlaceViews();
+  
+    await loadPlaceViews();
+    await loadPopularPlaces();
   }
-
+  
+  async function loadPopularPlaces() {
+    const { data: views } = await supabase.from("place_views").select("*");
+    const { data: likes } = await supabase.from("place_likes").select("*");
+  
+    const ranking = places.map((place) => {
+      const view =
+        views?.find((v) => v.place_name === place.name)?.view_count || 0;
+  
+      const like =
+        likes?.find((l) => l.place_name === place.name)?.like_count || 0;
+  
+      return {
+        ...place,
+        view,
+        like,
+        score: view + like * 2,
+      };
+    });
+  
+    ranking.sort((a, b) => b.score - a.score);
+  
+    setPopularPlaces(ranking.slice(0, 10));
+  }
+  
   const updateVisitorStats = async () => {
     const today = new Date().toISOString().slice(0, 10);
     const visitedKey = `visited-${today}`;
-
+  
     const { data } = await supabase
       .from("visitor_stats")
       .select("*")
       .eq("id", 1)
       .single();
-
+  
     if (!data) return;
-
+  
     if (localStorage.getItem(visitedKey)) {
       setTodayVisitors(data.today_count);
       setTotalVisitors(data.total_count);
       return;
     }
-
+  
     const isNewDay = data.last_date !== today;
     const newTodayCount = isNewDay ? 1 : data.today_count + 1;
     const newTotalCount = data.total_count + 1;
-
+  
     const { data: updatedData } = await supabase
       .from("visitor_stats")
       .update({
@@ -349,15 +377,15 @@ const [placeLikes, setPlaceLikes] = useState<any[]>([]);
       .eq("id", 1)
       .select()
       .single();
-
+  
     if (updatedData) {
       localStorage.setItem(visitedKey, "true");
       setTodayVisitors(updatedData.today_count);
       setTotalVisitors(updatedData.total_count);
     }
   };
+  
   return (
-
     <main className="bg-white min-h-screen text-gray-900">
       {/* HEADER */}
 <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
@@ -885,6 +913,35 @@ const [placeLikes, setPlaceLikes] = useState<any[]>([]);
         </div>
 
       </section>
+      {/* 인기 관광지 TOP10 */}
+{popularPlaces.length > 0 && (
+  <section className="max-w-7xl mx-auto px-6 py-16">
+    <h2 className="text-4xl font-bold text-center mb-10">
+      🏆 실시간 인기 관광지 TOP 10
+    </h2>
+
+    <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-5">
+      {popularPlaces.map((place, index) => (
+        <div
+          key={place.name}
+          className="bg-white rounded-3xl shadow-lg p-5 text-center border hover:shadow-xl transition"
+        >
+          <div className="text-3xl font-extrabold mb-3">
+            {index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : `${index + 1}위`}
+          </div>
+
+          <h3 className="font-bold text-lg mb-2">
+            {place.name}
+          </h3>
+
+          <p className="text-sm text-gray-500">
+            👀 {place.view} · ❤️ {place.like}
+          </p>
+        </div>
+      ))}
+    </div>
+  </section>
+)}
       {/* PLACE CARDS */}
       <div className="text-center mb-14">
 
