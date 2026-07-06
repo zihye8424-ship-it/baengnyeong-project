@@ -4,9 +4,11 @@ import { supabase } from "./lib/supabase";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
+
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("전체");
   const [selectedIsland, setSelectedIsland] = useState("백령도");
+  
 
   // 방문자
   const [todayVisitors, setTodayVisitors] = useState(0);
@@ -34,6 +36,7 @@ export default function Home() {
   const [notices, setNotices] = useState<any[]>([]);
 const [placeViews, setPlaceViews] = useState<any[]>([]);
 const [placeLikes, setPlaceLikes] = useState<any[]>([]);
+const [myCourse, setMyCourse] = useState<any[]>([]);
 const [popularPlaces, setPopularPlaces] = useState<any[]>([]);
 
   const categories = [
@@ -219,8 +222,13 @@ const [popularPlaces, setPopularPlaces] = useState<any[]>([]);
     loadPlaceViews();
     loadPopularPlaces();
     updateVisitorStats();
+  
+    const savedCourse = localStorage.getItem("myCourse");
+    if (savedCourse) {
+      setMyCourse(JSON.parse(savedCourse));
+    }
   }, []);
-
+ 
   async function loadNotices() {
     const { data, error } = await supabase
       .from("notices")
@@ -244,6 +252,33 @@ const [popularPlaces, setPopularPlaces] = useState<any[]>([]);
   }
 
   async function handlePlaceLike(placeName: string) {
+    function handleAddCourse(place: any) {
+      const exists = myCourse.find((item) => item.name === place.name);
+    
+      if (exists) {
+        alert("이미 여행코스에 담겨 있어요 😊");
+        return;
+      }
+    
+      const updatedCourse = [...myCourse, place];
+      setMyCourse(updatedCourse);
+      localStorage.setItem("myCourse", JSON.stringify(updatedCourse));
+    
+      alert(`${place.name}이 여행코스에 담겼어요!`);
+    }
+    
+    function handleRemoveCourse(placeName: string) {
+      const updatedCourse = myCourse.filter((item) => item.name !== placeName);
+      setMyCourse(updatedCourse);
+      localStorage.setItem("myCourse", JSON.stringify(updatedCourse));
+    }
+    
+    function handleClearCourse() {
+      if (!confirm("여행코스를 모두 삭제할까요?")) return;
+    
+      setMyCourse([]);
+      localStorage.removeItem("myCourse");
+    }
     const likeKey = `place-like-${placeName}`;
 
     if (localStorage.getItem(likeKey)) {
@@ -288,6 +323,33 @@ const [popularPlaces, setPopularPlaces] = useState<any[]>([]);
   }
 
   async function handlePlaceView(placeName: string) {
+    function handleAddCourse(place: any) {
+      const exists = myCourse.find((item) => item.name === place.name);
+    
+      if (exists) {
+        alert("이미 여행코스에 담겨 있어요 😊");
+        return;
+      }
+    
+      const updatedCourse = [...myCourse, place];
+      setMyCourse(updatedCourse);
+      localStorage.setItem("myCourse", JSON.stringify(updatedCourse));
+    
+      alert(`${place.name}이 여행코스에 담겼어요!`);
+    }
+    
+    function handleRemoveCourse(placeName: string) {
+      const updatedCourse = myCourse.filter((item) => item.name !== placeName);
+      setMyCourse(updatedCourse);
+      localStorage.setItem("myCourse", JSON.stringify(updatedCourse));
+    }
+    
+    function handleClearCourse() {
+      if (!confirm("여행코스를 모두 삭제할까요?")) return;
+    
+      setMyCourse([]);
+      localStorage.removeItem("myCourse");
+    }
     const today = new Date().toISOString().slice(0, 10);
     const viewKey = `place-view-${placeName}-${today}`;
   
@@ -458,7 +520,7 @@ const [popularPlaces, setPopularPlaces] = useState<any[]>([]);
             서해 최북단의 특별한 섬, 백령도
           </h2>
 
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6 drop-shadow-2xl">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-4 sm:mb-6 drop-shadow-2xl leading-tight">
             백령도의 모든 정보
           </h1>
 
@@ -1074,23 +1136,21 @@ const [popularPlaces, setPopularPlaces] = useState<any[]>([]);
   </div>
 
   <button
-    onClick={() => handlePlaceLike(place.name)}
-    className="w-full bg-rose-500 text-white py-3 rounded-2xl font-semibold hover:bg-rose-600 transition"
-  >
-    ❤️ 좋아요
-  </button>
+  onClick={() => handlePlaceLike(place.name)}
+  className="w-full bg-rose-500 text-white py-3 rounded-2xl font-semibold hover:bg-rose-600 transition"
+>
+  ❤️ 좋아요
+</button>
 
-  <a
-    href={place.link}
-    onClick={() => handlePlaceView(place.name)}
-    
-    
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-flex items-center justify-center w-full bg-black text-white py-3 rounded-2xl font-semibold hover:bg-blue-600 transition"
-  >
-    📍 위치 확인하기
-  </a>
+<a
+  href={place.link}
+  onClick={() => handlePlaceView(place.name)}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-flex items-center justify-center w-full bg-black text-white py-3 rounded-2xl font-semibold hover:bg-blue-600 transition"
+>
+  📍 위치 확인하기
+</a>
 </div>
 
                   </div>
@@ -1101,6 +1161,7 @@ const [popularPlaces, setPopularPlaces] = useState<any[]>([]);
           </section>
 
         )}
+        
  {/* PHOTO GALLERY */}
  <section
   id="gallery"
