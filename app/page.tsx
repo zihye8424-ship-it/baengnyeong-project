@@ -1,5 +1,7 @@
 "use client";
 
+import MyCourse from "./components/MyCourse";
+import AddCourseButton from "./components/AddCourseButton";
 import { supabase } from "./lib/supabase";
 import Image from "next/image";
 import { useState, useEffect } from "react";
@@ -975,6 +977,7 @@ const [popularPlaces, setPopularPlaces] = useState<any[]>([]);
         </div>
 
       </section>
+      <MyCourse />
       {/* 인기 관광지 TOP10 */}
 {popularPlaces.length > 0 && (
   <section className="max-w-7xl mx-auto px-6 py-16">
@@ -1135,6 +1138,7 @@ const [popularPlaces, setPopularPlaces] = useState<any[]>([]);
     </span>
   </div>
 
+  <AddCourseButton place={place} />
   <button
   onClick={() => handlePlaceLike(place.name)}
   className="w-full bg-rose-500 text-white py-3 rounded-2xl font-semibold hover:bg-rose-600 transition"
