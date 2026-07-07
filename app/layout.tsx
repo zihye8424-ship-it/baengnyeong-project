@@ -9,6 +9,9 @@ const noto = Noto_Sans_KR({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://baengnyeong-project.vercel.app"),
+  verification: {
+    google: "qqZlGHOjedc6maVhPYD1R2qih2x35JQNvBKUhxcHmyo",
+  },
 
   title: {
     default: "백령도의 모든 정보 | 백령도 여행·맛집·숙소·군인면회",
