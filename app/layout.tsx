@@ -86,17 +86,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-     <body className={noto.className}>
-  <Script
-    async
-    strategy="afterInteractive"
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7447739021733048"
-    crossOrigin="anonymous"
-  />
+<html lang="ko">
+  <head>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7447739021733048"
+      crossOrigin="anonymous"
+    ></script>
+  </head>
 
-  {children}
-</body>
-    </html>
+  <body className={noto.className}>
+    {children}
+  </body>
+</html>
   );
 }
