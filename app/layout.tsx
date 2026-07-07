@@ -1,3 +1,4 @@
+import Script from "next/script";
 import "./globals.css";
 import { Noto_Sans_KR } from "next/font/google";
 import type { Metadata } from "next";
@@ -86,7 +87,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={noto.className}>{children}</body>
+      <body className={noto.className}>
+  <Script
+    src="https://www.googletagmanager.com/gtag/js?id=G-18RYWMRK8Y"
+    strategy="afterInteractive"
+  />
+  <Script id="google-analytics" strategy="afterInteractive">
+    {`
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-18RYWMRK8Y');
+    `}
+  </Script>
+
+  {children}
+</body>
     </html>
   );
 }
