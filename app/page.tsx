@@ -119,7 +119,7 @@ const [popularPlaces, setPopularPlaces] = useState<any[]>([]);
     {
       name: "사자바위",
       island: "백령도",
-      image: "/images/saja.jpg",
+      image: "/images/sajabawi.jpg",
       category: "관광지",
       description: "사자의 형상을 닮은 백령도의 대표 해안 바위",
       link: "https://map.naver.com/v5/search/사자바위",
