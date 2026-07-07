@@ -87,19 +87,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={noto.className}>
+     <body className={noto.className}>
   <Script
-    src="https://www.googletagmanager.com/gtag/js?id=G-18RYWMRK8Y"
+    async
     strategy="afterInteractive"
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7447739021733048"
+    crossOrigin="anonymous"
   />
-  <Script id="google-analytics" strategy="afterInteractive">
-    {`
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-18RYWMRK8Y');
-    `}
-  </Script>
 
   {children}
 </body>
