@@ -119,7 +119,7 @@ const [popularPlaces, setPopularPlaces] = useState<any[]>([]);
     {
       name: "사자바위",
       island: "백령도",
-      image: "/images/sajabawi.jpg",
+      image: "/images/sajabawi2.jpg",
       category: "관광지",
       description: "사자의 형상을 닮은 백령도의 대표 해안 바위",
       link: "https://map.naver.com/v5/search/사자바위",
@@ -1050,12 +1050,13 @@ const [popularPlaces, setPopularPlaces] = useState<any[]>([]);
                 >
 
                   <div className="relative h-72">
-                    <Image
-                      src={place.image}
-                      alt={place.name}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
+                  <Image
+  src={place.image}
+  alt={place.name}
+  fill
+  unoptimized
+  className="object-cover group-hover:scale-105 transition-transform duration-700"
+/>
                   </div>
 
                   <div className="p-6 flex flex-col flex-1">
