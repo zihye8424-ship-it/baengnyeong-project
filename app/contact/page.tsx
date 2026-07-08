@@ -19,7 +19,7 @@ export default function ContactPage() {
         <p>쩨쩨</p>
 
         <p className="font-bold mt-6 mb-2">이메일</p>
-        <p>zihye8424@gmail.com</p>
+        <p>zihye7@naver.com</p>
 
         <p className="font-bold mt-6 mb-2">운영 목적</p>
         <p>
