@@ -4,6 +4,7 @@ import MyCourse from "./components/MyCourse";
 import AddCourseButton from "./components/AddCourseButton";
 import { supabase } from "./lib/supabase";
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 
 
@@ -40,6 +41,20 @@ const [placeViews, setPlaceViews] = useState<any[]>([]);
 const [placeLikes, setPlaceLikes] = useState<any[]>([]);
 const [myCourse, setMyCourse] = useState<any[]>([]);
 const [popularPlaces, setPopularPlaces] = useState<any[]>([]);
+
+// AI 여행 플래너
+const [plannerDuration, setPlannerDuration] = useState("1박 2일");
+const [plannerCompanion, setPlannerCompanion] = useState("가족");
+const [plannerTheme, setPlannerTheme] = useState("자연·사진");
+const [plannerTransport, setPlannerTransport] = useState("렌터카·자가용");
+const [plannerSeason, setPlannerSeason] = useState("봄");
+const [plannerResult, setPlannerResult] = useState<any[] | null>(null);
+const [plannerTips, setPlannerTips] = useState<string[]>([]);
+
+// 통합 검색
+const [globalSearch, setGlobalSearch] = useState("");
+const [searchResults, setSearchResults] = useState<any[]>([]);
+const [showSearchResults, setShowSearchResults] = useState(false);
 
   const categories = [
     { name: "전체", icon: "🏝️" },
@@ -449,6 +464,145 @@ const [popularPlaces, setPopularPlaces] = useState<any[]>([]);
     }
   };
   
+  function makeTravelPlan() {
+    const themeStops: Record<string, string[]> = {
+      "자연·사진": ["두무진", "콩돌해안", "사곶해변", "끝섬전망대"],
+      "아이와 가족": ["심청각", "사곶해변", "콩돌해안", "백령도 사진명소"],
+      "군인 면회": ["진촌 시내", "사곶해변", "콩돌해안", "현지 맛집"],
+      "역사·안보": ["천안함 위령탑", "중화동교회", "심청각", "끝섬전망대"],
+      "맛집·카페": ["백령면옥", "현지인 추천 식당", "두무나루카페", "바다 전망 카페"],
+      "힐링·느긋하게": ["하늬해안", "콩돌해안", "두무진", "노을 감상"],
+    };
+
+    const selectedStops = themeStops[plannerTheme] || themeStops["자연·사진"];
+    const dayCount = plannerDuration === "당일" ? 1 : plannerDuration === "1박 2일" ? 2 : 3;
+
+    const templates = [
+      {
+        title: "백령도 첫인상과 대표 명소",
+        schedule: [
+          { time: "오전", place: "용기포항 도착 · 차량 인수", detail: "배에서 내린 뒤 교통수단을 정리하고 여행을 시작해요." },
+          { time: "점심", place: plannerTheme === "맛집·카페" ? selectedStops[0] : "진촌 현지 식당", detail: "냉면, 칼국수, 한식 등 현지 메뉴로 든든하게 시작해요." },
+          { time: "오후", place: selectedStops[0], detail: `${plannerTheme} 취향을 반영한 첫 번째 핵심 코스예요.` },
+          { time: "늦은 오후", place: selectedStops[1], detail: "이동 동선을 줄이면서 백령도의 풍경을 여유롭게 즐겨요." },
+          { time: "저녁", place: "진촌 시내 또는 숙소 근처", detail: "저녁식사 후 숙소 체크인과 휴식을 추천해요." },
+        ],
+      },
+      {
+        title: "백령도 핵심 절경 완성",
+        schedule: [
+          { time: "아침", place: "숙소 조식 · 출발 준비", detail: "기상과 배편 공지를 먼저 확인해요." },
+          { time: "오전", place: selectedStops[2], detail: "사람이 붐비기 전 대표 명소를 먼저 둘러봐요." },
+          { time: "점심", place: "현지인 추천 맛집", detail: "이동 경로와 가까운 식당을 선택하면 시간을 아낄 수 있어요." },
+          { time: "오후", place: selectedStops[3], detail: "사진 촬영과 산책 시간을 넉넉히 잡아두세요." },
+          { time: "저녁", place: "노을 명소 · 숙소", detail: "날씨가 좋으면 끝섬전망대나 서쪽 해안에서 노을을 즐겨요." },
+        ],
+      },
+      {
+        title: "숨은 이야기와 여유로운 마무리",
+        schedule: [
+          { time: "아침", place: "하늬해안", detail: "조용한 아침 바다와 생태 풍경을 감상해요." },
+          { time: "오전", place: plannerTheme === "역사·안보" ? "천안함 위령탑" : "심청각", detail: "백령도의 자연뿐 아니라 이야기까지 함께 만나봐요." },
+          { time: "점심", place: "진촌 시내", detail: "마지막 식사와 특산물 구입 시간을 함께 잡아요." },
+          { time: "오후", place: "용기포항 이동", detail: "출항 1시간 전까지 여유 있게 도착하는 일정이에요." },
+        ],
+      },
+    ];
+
+    const transportTip = plannerTransport === "도보·대중교통"
+      ? "백령도는 관광지 사이 거리가 멀어 공영버스 시간표와 개인택시 번호를 미리 저장하세요."
+      : "차량 이동 시 주유소 위치와 반납 시간을 미리 확인하면 일정이 훨씬 편해요.";
+
+    const companionTip = plannerCompanion === "아이 동반"
+      ? "아이와 함께라면 해안 산책 시간을 짧게 나누고 간식과 여벌옷을 준비하세요."
+      : plannerCompanion === "부모님"
+      ? "부모님과 함께라면 계단과 경사가 적은 사곶해변·콩돌해안을 중심으로 여유 있게 이동하세요."
+      : plannerCompanion === "군인 면회"
+      ? "외출·복귀 시간을 최우선으로 두고 진촌 시내와 가까운 코스를 먼저 배치하세요."
+      : "동행자의 체력에 맞춰 명소 한 곳당 40~60분 정도 여유를 두세요.";
+
+    const seasonTip: Record<string, string> = {
+      봄: "봄에는 바닷바람이 차가울 수 있으니 얇은 겉옷을 챙기세요.",
+      여름: "여름에는 햇빛이 강하므로 모자, 선크림, 생수를 준비하세요.",
+      가을: "가을은 일교차가 커서 바람막이와 가벼운 보온의류가 좋아요.",
+      겨울: "겨울에는 결항 가능성이 있으니 일정 앞뒤로 여유를 두고 방풍용품을 준비하세요.",
+    };
+
+    setPlannerResult(templates.slice(0, dayCount));
+    setPlannerTips([
+      transportTip,
+      companionTip,
+      seasonTip[plannerSeason],
+      "백령도 여행 전날과 당일 아침에 여객선 운항 여부를 꼭 확인하세요.",
+    ]);
+
+    setTimeout(() => {
+      document.getElementById("planner-result")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  }
+
+  const quickSearchItems = [
+    { name: "맛집 전체보기", category: "맛집", icon: "🍜", description: "백령도 음식점과 대표메뉴, 전화번호를 확인하세요.", target: "food" },
+    { name: "숙소 전체보기", category: "숙박", icon: "🏨", description: "백령도 숙박업소와 연락처를 한눈에 확인하세요.", target: "stay" },
+    { name: "개인택시", category: "교통", icon: "🚕", description: "백령도 개인택시 업체와 전화번호를 확인하세요.", target: "taxi" },
+    { name: "렌터카", category: "교통", icon: "🚗", description: "백령도 렌터카 업체 정보를 확인하세요.", target: "rentcar" },
+    { name: "배편 예약", category: "여행정보", icon: "🚢", description: "백령도 여객선 예약과 운항 정보를 확인하세요.", target: "live-info" },
+    { name: "군인 면회 여행", category: "군인면회", icon: "🪖", description: "군인 면회에 맞춘 여행 일정을 만들어보세요.", target: "ai-planner" },
+    { name: "백령도 AI 여행 플래너", category: "여행코스", icon: "✨", description: "기간과 동행에 맞는 백령도 일정을 자동으로 만들어드려요.", target: "ai-planner" },
+    { name: "백령도 사진첩", category: "사진", icon: "📸", description: "백령도의 아름다운 풍경 사진을 감상하세요.", target: "gallery" },
+  ];
+
+  function runGlobalSearch(keyword?: string) {
+    const query = (keyword ?? globalSearch).trim();
+    setGlobalSearch(query);
+
+    if (!query) {
+      setSearchResults([]);
+      setShowSearchResults(true);
+      return;
+    }
+
+    const normalized = query.toLowerCase().replace(/\s/g, "");
+    const placeResults = places
+      .filter((place) =>
+        [place.name, place.category, place.description, place.location, place.tip]
+          .filter(Boolean)
+          .join(" " )
+          .toLowerCase()
+          .replace(/\s/g, "")
+          .includes(normalized)
+      )
+      .map((place) => ({ ...place, icon: "📍", target: "place-section", type: "place" }));
+
+    const menuResults = quickSearchItems.filter((item) =>
+      [item.name, item.category, item.description]
+        .join(" " )
+        .toLowerCase()
+        .replace(/\s/g, "")
+        .includes(normalized)
+    );
+
+    setSearchResults([...placeResults, ...menuResults].slice(0, 12));
+    setShowSearchResults(true);
+
+    setTimeout(() => {
+      document.getElementById("search-results")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  }
+
+  function openSearchResult(item: any) {
+    if (item.target === "food") { setSelectedCategory("맛집"); setShowFood(true); }
+    if (item.target === "stay") { setSelectedCategory("숙박"); setShowStay(true); }
+    if (item.target === "taxi") { setSelectedCategory("개인택시"); setShowTaxi(true); }
+    if (item.target === "rentcar") { setShowRentcar(true); }
+    if (item.target === "gallery") { setShowGallery(true); }
+    if (item.type === "place") { setSelectedIsland(item.island || "백령도"); setSelectedCategory("관광지"); }
+
+    setTimeout(() => {
+      document.getElementById(item.target)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 150);
+  }
+
   return (
     <main className="bg-white min-h-screen text-gray-900">
       {/* HEADER */}
@@ -469,43 +623,6 @@ const [popularPlaces, setPopularPlaces] = useState<any[]>([]);
   </div>
 </header>
       {/* HERO */}
-      {/* PDF 판매 */}
-<section className="max-w-6xl mx-auto px-6 py-12">
-  <div className="bg-gradient-to-r from-sky-600 to-blue-700 rounded-3xl p-10 text-white shadow-2xl text-center">
-
-    <h2 className="text-4xl font-bold mb-4">
-      📘 백령도 현실 여행 가이드
-    </h2>
-
-    <p className="text-lg mb-6">
-      28년 거주 주민이 직접 만든 백령도 여행 PDF
-    </p>
-
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-left max-w-4xl mx-auto mb-8">      
-      <div>✅ 관광지</div>
-      <div>✅ 맛집</div>
-      <div>✅ 숙소</div>
-      <div>✅ 군인면회</div>
-      <div>✅ 숨은명소</div>
-      <div>✅ 배편</div>
-      <div>✅ 여행팁</div>
-      <div>✅ 지도</div>
-    </div>
-
-    <p className="text-3xl font-bold mb-6">
-      💰 6,000원
-    </p>
-
-    <a
-      href="https://open.kakao.com/o/pUnS91Ai"
-      target="_blank"
-      className="inline-block bg-yellow-400 text-black px-10 py-4 rounded-full font-bold text-xl hover:scale-105 transition"
-    >
-      📩 오픈채팅으로 구매하기
-    </a>
-
-  </div>
-</section>
       <section className="relative h-[80vh] w-full">
 
         <Image
@@ -554,6 +671,209 @@ const [popularPlaces, setPopularPlaces] = useState<any[]>([]);
         </div>
 
       </section>
+
+{/* 통합 검색 */}
+<section id="global-search" className="relative z-10 max-w-6xl mx-auto px-6 -mt-10 pb-10">
+  <div className="rounded-[2rem] bg-white p-6 md:p-9 shadow-2xl border border-gray-100">
+    <div className="text-center mb-6">
+      <p className="font-bold text-sky-600 mb-2">백령도 통합검색</p>
+      <h2 className="text-3xl md:text-4xl font-extrabold">무엇을 찾고 계신가요?</h2>
+      <p className="mt-3 text-gray-500">관광지·맛집·숙소·교통·여행정보를 한 번에 찾아보세요.</p>
+    </div>
+
+    <form
+      onSubmit={(e) => { e.preventDefault(); runGlobalSearch(); }}
+      className="flex flex-col sm:flex-row gap-3 max-w-4xl mx-auto"
+    >
+      <div className="relative flex-1">
+        <span className="absolute left-5 top-1/2 -translate-y-1/2 text-2xl">🔍</span>
+        <input
+          value={globalSearch}
+          onChange={(e) => setGlobalSearch(e.target.value)}
+          placeholder="예: 두무진, 군인 면회, 숙소, 맛집"
+          className="w-full rounded-2xl border-2 border-gray-200 bg-gray-50 py-5 pl-14 pr-5 text-lg outline-none transition focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-100"
+        />
+      </div>
+      <button type="submit" className="rounded-2xl bg-black px-8 py-5 text-lg font-bold text-white hover:bg-sky-600 transition">
+        검색하기
+      </button>
+    </form>
+
+    <div className="mt-6 flex flex-wrap justify-center gap-2">
+      <span className="py-2 text-sm font-bold text-gray-500">🔥 인기검색어</span>
+      {["두무진", "사곶해변", "군인 면회", "맛집", "숙소", "배편", "렌터카", "사진첩"].map((keyword) => (
+        <button key={keyword} type="button" onClick={() => runGlobalSearch(keyword)} className="rounded-full bg-sky-50 px-4 py-2 text-sm font-bold text-sky-700 hover:bg-sky-600 hover:text-white transition">
+          #{keyword}
+        </button>
+      ))}
+    </div>
+
+    {showSearchResults && (
+      <div id="search-results" className="scroll-mt-24 mt-8 border-t pt-8">
+        <div className="flex items-center justify-between gap-4 mb-5">
+          <h3 className="text-2xl font-extrabold">
+            {globalSearch ? `“${globalSearch}” 검색결과` : "검색어를 입력해주세요"}
+          </h3>
+          {searchResults.length > 0 && <span className="text-sm font-bold text-sky-600">{searchResults.length}개 결과</span>}
+        </div>
+
+        {globalSearch && searchResults.length === 0 ? (
+          <div className="rounded-2xl bg-gray-50 p-8 text-center">
+            <div className="text-5xl mb-3">🔎</div>
+            <p className="font-bold text-lg">일치하는 정보가 아직 없어요.</p>
+            <p className="mt-2 text-gray-500">다른 단어로 검색하거나 제보센터를 이용해주세요.</p>
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 gap-4">
+            {searchResults.map((item, index) => (
+              <button
+                key={`${item.name}-${index}`}
+                type="button"
+                onClick={() => openSearchResult(item)}
+                className="group flex items-start gap-4 rounded-2xl border border-gray-200 p-5 text-left hover:border-sky-400 hover:bg-sky-50 transition"
+              >
+                <div className="text-3xl">{item.icon || "📍"}</div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h4 className="text-lg font-extrabold group-hover:text-sky-700">{item.name}</h4>
+                    <span className="rounded-full bg-gray-100 px-2.5 py-1 text-xs font-bold text-gray-600">{item.category}</span>
+                  </div>
+                  <p className="mt-2 line-clamp-2 text-sm leading-6 text-gray-600">{item.description}</p>
+                  <p className="mt-3 text-sm font-bold text-sky-600">바로 보기 →</p>
+                </div>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    )}
+  </div>
+</section>
+
+{/* AI 여행 플래너 */}
+<section id="ai-planner" className="max-w-7xl mx-auto px-6 py-20">
+  <div className="overflow-hidden rounded-[2rem] bg-gradient-to-br from-slate-950 via-blue-950 to-sky-700 shadow-2xl">
+    <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
+      <div className="p-8 md:p-12 text-white">
+        <span className="inline-flex rounded-full bg-white/10 px-4 py-2 text-sm font-bold ring-1 ring-white/20">
+          ✨ 맞춤 일정 자동 생성
+        </span>
+        <h2 className="mt-6 text-4xl md:text-5xl font-extrabold leading-tight">
+          백령도 AI 여행 플래너
+        </h2>
+        <p className="mt-5 text-lg leading-8 text-sky-100">
+          여행 기간과 동행, 관심사를 선택하면 백령도 이동 동선을 고려한 맞춤 일정을 바로 만들어드려요.
+        </p>
+
+        <div className="mt-8 grid grid-cols-2 gap-3 text-sm">
+          {["대표 관광지", "현지 맛집", "이동 순서", "계절별 준비팁"].map((item) => (
+            <div key={item} className="rounded-2xl bg-white/10 px-4 py-3 ring-1 ring-white/10">
+              ✓ {item}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="bg-white p-7 md:p-10">
+        <div className="grid sm:grid-cols-2 gap-5">
+          <label className="block">
+            <span className="mb-2 block font-bold text-gray-800">🗓️ 여행 기간</span>
+            <select value={plannerDuration} onChange={(e) => setPlannerDuration(e.target.value)} className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-4 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100">
+              <option>당일</option><option>1박 2일</option><option>2박 3일</option>
+            </select>
+          </label>
+
+          <label className="block">
+            <span className="mb-2 block font-bold text-gray-800">👥 누구와 가나요?</span>
+            <select value={plannerCompanion} onChange={(e) => setPlannerCompanion(e.target.value)} className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-4 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100">
+              <option>혼자</option><option>연인</option><option>가족</option><option>아이 동반</option><option>부모님</option><option>군인 면회</option>
+            </select>
+          </label>
+
+          <label className="block">
+            <span className="mb-2 block font-bold text-gray-800">💙 여행 취향</span>
+            <select value={plannerTheme} onChange={(e) => setPlannerTheme(e.target.value)} className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-4 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100">
+              <option>자연·사진</option><option>아이와 가족</option><option>군인 면회</option><option>역사·안보</option><option>맛집·카페</option><option>힐링·느긋하게</option>
+            </select>
+          </label>
+
+          <label className="block">
+            <span className="mb-2 block font-bold text-gray-800">🚗 이동수단</span>
+            <select value={plannerTransport} onChange={(e) => setPlannerTransport(e.target.value)} className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-4 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100">
+              <option>렌터카·자가용</option><option>도보·대중교통</option>
+            </select>
+          </label>
+
+          <label className="block sm:col-span-2">
+            <span className="mb-2 block font-bold text-gray-800">🌿 여행 계절</span>
+            <div className="grid grid-cols-4 gap-2">
+              {["봄", "여름", "가을", "겨울"].map((season) => (
+                <button key={season} type="button" onClick={() => setPlannerSeason(season)} className={`rounded-2xl px-3 py-3 font-bold transition ${plannerSeason === season ? "bg-sky-600 text-white shadow-lg" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}>
+                  {season}
+                </button>
+              ))}
+            </div>
+          </label>
+        </div>
+
+        <button onClick={makeTravelPlan} className="mt-7 w-full rounded-2xl bg-gradient-to-r from-sky-500 to-blue-700 px-6 py-5 text-xl font-extrabold text-white shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
+          ✨ 나만의 백령도 일정 만들기
+        </button>
+        <p className="mt-3 text-center text-xs text-gray-400">
+          현재는 백령도 현지 정보를 기반으로 일정을 자동 조합하는 무료 버전입니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {plannerResult && (
+    <div id="planner-result" className="scroll-mt-24 mt-10 rounded-[2rem] border border-sky-100 bg-sky-50 p-6 md:p-10 shadow-xl">
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+        <div>
+          <p className="font-bold text-sky-600">AI 추천 일정 완성</p>
+          <h3 className="mt-1 text-3xl md:text-4xl font-extrabold text-gray-900">
+            {plannerDuration} · {plannerCompanion} 맞춤 여행
+          </h3>
+          <p className="mt-3 text-gray-600">{plannerTheme} 중심 · {plannerTransport} · {plannerSeason} 여행</p>
+        </div>
+        <button onClick={makeTravelPlan} className="rounded-full bg-white px-5 py-3 font-bold text-sky-700 shadow hover:shadow-md">
+          🔄 일정 다시 만들기
+        </button>
+      </div>
+
+      <div className="space-y-7">
+        {plannerResult.map((day, dayIndex) => (
+          <article key={dayIndex} className="overflow-hidden rounded-3xl bg-white shadow-lg">
+            <div className="bg-gradient-to-r from-sky-600 to-blue-700 px-6 py-5 text-white">
+              <p className="text-sm font-bold text-sky-100">DAY {dayIndex + 1}</p>
+              <h4 className="mt-1 text-2xl font-extrabold">{day.title}</h4>
+            </div>
+            <div className="divide-y divide-gray-100">
+              {day.schedule.map((item: any, itemIndex: number) => (
+                <div key={itemIndex} className="grid md:grid-cols-[110px_1fr] gap-3 px-6 py-5">
+                  <span className="h-fit w-fit rounded-full bg-sky-100 px-4 py-2 text-sm font-extrabold text-sky-700">{item.time}</span>
+                  <div>
+                    <h5 className="text-lg font-extrabold text-gray-900">📍 {item.place}</h5>
+                    <p className="mt-2 leading-7 text-gray-600">{item.detail}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div className="mt-8 rounded-3xl bg-amber-50 p-6 ring-1 ring-amber-200">
+        <h4 className="text-xl font-extrabold text-amber-900">💡 이 여행에 꼭 필요한 팁</h4>
+        <ul className="mt-4 space-y-3 text-amber-950">
+          {plannerTips.map((tip, index) => (
+            <li key={index} className="flex gap-3"><span>✓</span><span>{tip}</span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  )}
+</section>
     {/* 방문자 현황 */}
 <section className="max-w-6xl mx-auto px-6 py-12">
 
@@ -718,7 +1038,7 @@ const [popularPlaces, setPopularPlaces] = useState<any[]>([]);
 
 </section>
       {/* LIVE INFO */}
-      <section className="max-w-7xl mx-auto px-6 py-10">
+      <section id="live-info" className="max-w-7xl mx-auto px-6 py-10">
 
         <div className="grid md:grid-cols-3 gap-6">
 
@@ -1150,6 +1470,16 @@ const [popularPlaces, setPopularPlaces] = useState<any[]>([]);
   </div>
 
   <AddCourseButton place={place} />
+
+  {place.name === "두무진" && (
+    <Link
+      href="/place/dumujin"
+      className="inline-flex items-center justify-center w-full bg-sky-600 text-white py-3 rounded-2xl font-semibold hover:bg-sky-700 transition"
+    >
+      📖 두무진 백과사전 보기
+    </Link>
+  )}
+
   <button
   onClick={() => handlePlaceLike(place.name)}
   className="w-full bg-rose-500 text-white py-3 rounded-2xl font-semibold hover:bg-rose-600 transition"
