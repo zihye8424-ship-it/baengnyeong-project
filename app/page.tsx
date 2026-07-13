@@ -1533,7 +1533,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         </h2>
 
         <p className="text-gray-600">
-          (사진작가 윤학진님) & 백령도의 모습
+          (사진작가 윤학진님 외 사진협찬) & 백령도의 모습
         </p>
 
       </div>
