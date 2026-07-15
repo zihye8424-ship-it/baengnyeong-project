@@ -1102,44 +1102,186 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         </div>
         </section>
 {/* 백령도 소개 */}
-<section className="max-w-6xl mx-auto px-6 py-12">
-  <div className="bg-white rounded-3xl shadow-lg p-8 leading-8">
-    <h2 className="text-3xl font-bold text-sky-700 mb-6">
+<section className="max-w-6xl mx-auto px-6 py-16">
+  <div className="bg-white rounded-3xl shadow-lg p-10 leading-9">
+
+    <h2 className="text-4xl font-bold text-sky-700 mb-8">
       🌊 백령도는 어떤 곳인가요?
     </h2>
 
-    <p className="text-gray-700 mb-5">
-      백령도는 대한민국 서해 최북단에 위치한 아름다운 섬으로,
-      유네스코 세계지질공원에 포함된 뛰어난 자연경관과 다양한
-      해안 절경을 자랑하는 대표적인 여행지입니다.
-      두무진, 사곶해변, 콩돌해안, 하늬해안, 심청각 등
-      백령도에서만 만날 수 있는 특별한 관광명소가 많습니다.
+    <p className="text-gray-700 mb-6">
+      백령도는 대한민국 서해 최북단에 위치한 섬으로 인천광역시 옹진군에 속해 있습니다.
+      인천항에서 여객선을 이용해 약 4시간 정도 이동하면 만날 수 있으며,
+      국내에서는 쉽게 볼 수 없는 웅장한 해안절벽과 천혜의 자연환경,
+      그리고 다양한 지질 명소를 품고 있는 특별한 여행지입니다.
+      북한 장산곶과 가장 가까운 섬이라는 지리적 특징도 가지고 있어
+      자연과 역사, 안보를 함께 경험할 수 있는 곳으로 많은 여행객들의 관심을 받고 있습니다.
     </p>
 
-    <p className="text-gray-700 mb-5">
-      백령도는 가족여행, 커플여행, 군인 면회, 낚시여행,
-      힐링여행을 즐기기 좋은 섬입니다.
-      계절마다 다른 풍경을 볼 수 있으며,
-      특히 봄과 가을은 여행하기 가장 좋은 시기로 많은 관광객이
-      찾고 있습니다.
+    <p className="text-gray-700 mb-6">
+      백령도를 대표하는 관광지는 단연 두무진입니다.
+      수천만 년 동안 형성된 기암절벽과 푸른 서해가 어우러진 풍경은
+      대한민국 최고의 해안 절경 가운데 하나로 꼽힙니다.
+      유람선을 타면 해안을 따라 이어지는 기암괴석을 가까이에서 감상할 수 있으며,
+      날씨가 좋은 날에는 더욱 웅장한 자연의 모습을 만날 수 있습니다.
     </p>
 
-    <p className="text-gray-700 mb-5">
-      여행을 준비할 때는 배편 예약, 숙소 예약,
-      렌터카 및 개인택시 이용방법,
-      주요 관광지 위치와 이동시간 등을 미리 확인하면
-      더욱 편안하고 알찬 여행을 즐길 수 있습니다.
+    <p className="text-gray-700 mb-6">
+      사곶해변은 세계적으로도 보기 드문 천연비행장으로 유명합니다.
+      모래가 매우 단단하여 과거 실제 비행기가 이착륙했던 장소로 알려져 있으며,
+      지금은 넓고 아름다운 해변을 걸으며 산책을 즐길 수 있는 명소가 되었습니다.
+      또한 콩돌해안에서는 파도가 밀려올 때마다 들리는 아름다운 자갈 소리를 들을 수 있어
+      많은 관광객과 사진작가들이 찾고 있습니다.
+    </p>
+
+    <p className="text-gray-700 mb-6">
+      백령도는 사계절 모두 다른 매력을 가지고 있습니다.
+      봄에는 따뜻한 날씨와 야생화를,
+      여름에는 시원한 바다와 해변을,
+      가을에는 맑은 하늘과 아름다운 노을을,
+      겨울에는 철새와 고요한 겨울 바다를 만날 수 있습니다.
+      특히 봄과 가을은 여행하기 가장 좋은 시기로 꼽히며,
+      자연을 좋아하는 여행객들에게 많은 사랑을 받고 있습니다.
+    </p>
+
+    <p className="text-gray-700 mb-6">
+      백령도는 가족여행, 부모님과 함께하는 여행, 커플여행,
+      친구들과의 여행은 물론 군인 면회를 위한 방문객도 많은 지역입니다.
+      여행을 계획할 때는 여객선 예약과 숙소 예약을 미리 진행하는 것이 좋으며,
+      섬 내부 이동은 렌터카나 개인택시를 이용하면 더욱 편리하게 관광할 수 있습니다.
+    </p>
+
+    <p className="text-gray-700 mb-6">
+      백령도에는 현지 주민들이 운영하는 맛집과 숙박업소도 다양하게 있습니다.
+      신선한 해산물과 백령도식 냉면, 자연산 회 등 지역의 특색 있는 음식을 즐길 수 있으며,
+      바다가 보이는 숙소와 가족 단위 여행객을 위한 펜션도 많이 운영되고 있습니다.
+      여행 일정에 맞는 숙소를 선택하면 더욱 여유로운 여행을 즐길 수 있습니다.
+    </p>
+
+    <p className="text-gray-700 mb-6">
+      이 사이트는 백령도에서 28년 동안 생활한 운영자가 직접 경험한 내용을 바탕으로
+      여행객들이 꼭 필요한 정보를 쉽고 편리하게 확인할 수 있도록 제작한 여행 플랫폼입니다.
+      관광지, 맛집, 숙소, 배편 정보, 군인 면회 정보,
+      교통, 여행 코스, 여행 준비물, 계절별 여행 팁 등
+      실제 여행에 도움이 되는 정보를 지속적으로 업데이트하고 있습니다.
     </p>
 
     <p className="text-gray-700">
-      <strong>백령도의 모든 정보</strong>는
-      백령도에서 28년 동안 생활한 운영자가
-      직접 경험한 내용을 바탕으로 제작한 여행 플랫폼입니다.
-      관광지, 맛집, 숙소, 군인 면회, 교통,
-      배편, 여행코스, 여행 팁 등 최신 정보를
-      지속적으로 업데이트하여 누구나 쉽고 편리하게
-      백령도 여행을 준비할 수 있도록 돕고 있습니다.
+      처음 백령도를 방문하는 분부터 여러 번 여행을 다녀온 분들까지
+      모두가 편리하게 이용할 수 있는 여행 플랫폼을 목표로 운영하고 있습니다.
+      앞으로도 새로운 관광지와 맛집, 숙소, 축제, 특산품 등
+      최신 정보를 꾸준히 추가하여 백령도를 찾는 모든 분들에게 도움이 되는 사이트가 되겠습니다.
     </p>
+
+  </div>
+</section>
+{/* 백령도 FAQ */}
+<section className="max-w-6xl mx-auto px-6 py-16">
+  <div className="bg-gray-50 rounded-3xl p-10 shadow-lg">
+
+    <h2 className="text-4xl font-bold text-center mb-10">
+      ❓ 백령도 여행 자주 묻는 질문
+    </h2>
+
+    <div className="space-y-8">
+
+      <div>
+        <h3 className="text-2xl font-bold text-sky-700">
+          Q. 백령도는 어떻게 가나요?
+        </h3>
+        <p className="mt-3 text-gray-700 leading-8">
+          인천항에서 출발하는 여객선을 이용하면 됩니다.
+          계절과 기상상황에 따라 운항시간이 달라질 수 있으므로
+          출발 전 반드시 여객선 운항 여부를 확인하는 것이 좋습니다.
+        </p>
+      </div>
+
+      <div>
+        <h3 className="text-2xl font-bold text-sky-700">
+          Q. 백령도 여행은 몇 박이 좋나요?
+        </h3>
+        <p className="mt-3 text-gray-700 leading-8">
+          주요 관광지만 둘러본다면 1박 2일,
+          여유롭게 여행하려면 2박 3일을 추천합니다.
+        </p>
+      </div>
+
+      <div>
+        <h3 className="text-2xl font-bold text-sky-700">
+          Q. 렌터카가 꼭 필요한가요?
+        </h3>
+        <p className="mt-3 text-gray-700 leading-8">
+          관광지가 넓게 분포되어 있어 렌터카나 개인택시를 이용하면
+          훨씬 편하게 여행할 수 있습니다.
+        </p>
+      </div>
+
+      <div>
+        <h3 className="text-2xl font-bold text-sky-700">
+          Q. 가장 유명한 관광지는 어디인가요?
+        </h3>
+        <p className="mt-3 text-gray-700 leading-8">
+          두무진, 사곶해변, 콩돌해안, 끝섬전망대,
+          하늬해안이 대표 관광지입니다.
+        </p>
+      </div>
+
+      <div>
+        <h3 className="text-2xl font-bold text-sky-700">
+          Q. 백령도는 언제 가는 것이 좋나요?
+        </h3>
+        <p className="mt-3 text-gray-700 leading-8">
+          봄과 가을이 가장 인기가 많으며,
+          여름에는 해변을 즐기기 좋고
+          겨울에는 철새와 고요한 자연을 감상할 수 있습니다.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+{/* 최신 여행정보 */}
+<section className="max-w-6xl mx-auto px-6 py-16">
+  <h2 className="text-4xl font-bold text-center mb-10">
+    📰 최신 백령도 여행정보
+  </h2>
+
+  <div className="grid md:grid-cols-3 gap-6">
+
+    <div className="bg-white rounded-3xl shadow-lg p-6">
+      <h3 className="text-2xl font-bold mb-4">
+        🚢 백령도 배편 예약
+      </h3>
+
+      <p className="text-gray-700 leading-7">
+        백령도 여행 전 가장 먼저 준비해야 하는 것은 여객선 예약입니다.
+        성수기에는 조기 매진되는 경우가 많으므로 미리 예약하는 것을 추천합니다.
+      </p>
+    </div>
+
+    <div className="bg-white rounded-3xl shadow-lg p-6">
+      <h3 className="text-2xl font-bold mb-4">
+        🌤️ 여행하기 좋은 계절
+      </h3>
+
+      <p className="text-gray-700 leading-7">
+        봄과 가을은 백령도를 가장 아름답게 즐길 수 있는 시기입니다.
+        여름은 해변 여행, 겨울은 철새 관찰 여행이 인기가 많습니다.
+      </p>
+    </div>
+
+    <div className="bg-white rounded-3xl shadow-lg p-6">
+      <h3 className="text-2xl font-bold mb-4">
+        📸 꼭 가봐야 할 명소
+      </h3>
+
+      <p className="text-gray-700 leading-7">
+        두무진, 사곶해변, 콩돌해안, 끝섬전망대,
+        하늬해안은 백령도를 대표하는 관광지입니다.
+      </p>
+    </div>
+
   </div>
 </section>
       {/* ISLAND MENU */}
