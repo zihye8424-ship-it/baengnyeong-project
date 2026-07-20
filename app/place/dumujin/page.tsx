@@ -138,9 +138,110 @@ export default function DumujinPage() {
               ))}
             </div>
           </div>
+<div className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+  <h2 className="text-3xl font-black">
+    📖 두무진의 역사와 유래
+  </h2>
 
-          <div className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
-            <h2 className="text-3xl font-black">🧭 주민 여행 팁</h2>
+  <div className="mt-6 space-y-5 leading-8 text-gray-700">
+    <p>
+      두무진은 백령도를 대표하는 자연경관으로, 오랜 세월 동안 파도와 바람이
+      만들어 낸 기암절벽이 이어지는 곳입니다. 독특한 바위들이 해안을 따라
+      펼쳐져 있어 백령도를 찾는 여행객이라면 가장 먼저 방문하는 명소로
+      손꼽힙니다.
+    </p>
+
+    <p>
+      '두무진'이라는 이름은 여러 장군이 머리를 맞대고 회의를 하는 모습처럼
+      바위들이 모여 있는 모습에서 유래했다는 이야기가 전해집니다. 실제로
+      코끼리바위, 장군바위, 촛대바위 등 다양한 이름이 붙은 기암괴석을
+      볼 수 있으며, 보는 위치에 따라 전혀 다른 형태로 보이는 것이
+      두무진의 큰 매력입니다.
+    </p>
+
+    <p>
+      두무진 일대는 백령·대청 국가지질공원의 대표 지질 명소로 알려져 있으며,
+      수천만 년에 걸친 지질 활동과 침식 작용으로 형성된 암석층을 가까이에서
+      관찰할 수 있습니다. 아름다운 풍경뿐 아니라 지질학적 가치도 높아
+      자연을 배우고 체험할 수 있는 장소로도 많은 관심을 받고 있습니다.
+    </p>
+
+    <p>
+      현재 두무진은 백령도를 대표하는 관광지이자 사진 명소로 많은 여행객이
+      찾고 있으며, 해안 산책로와 유람선을 통해 서로 다른 각도에서
+      웅장한 절벽과 서해의 아름다운 풍경을 감상할 수 있습니다.
+    </p>
+  </div>
+</div>
+         
+         <div className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+  <h2 className="text-3xl font-black">🧭 주민 여행 팁</h2>
+
+  <div className="mt-6 space-y-4 leading-8 text-gray-700">
+    <p>
+      ✅ 두무진은 바닷바람이 강한 날이 많으므로 얇은 바람막이나 겉옷을 준비하면 더욱 편안하게 둘러볼 수 있습니다.
+    </p>
+
+    <p>
+      ✅ 해안 산책로에는 계단과 경사진 구간이 있어 미끄럼 방지 기능이 있는 운동화를 착용하는 것을 추천합니다.
+    </p>
+
+    <p>
+      ✅ 유람선은 기상과 파도 상황에 따라 운항이 취소될 수 있으므로 출발 전에 운항 여부를 확인하는 것이 좋습니다.
+    </p>
+
+    <p>
+      ✅ 사진 촬영은 오전이나 해 질 무렵이 가장 아름답습니다. 특히 노을이 질 때 절벽과 바다가 어우러진 풍경이 인상적입니다.
+    </p>
+
+    <p>
+      ✅ 성수기에는 관광객이 많아 오전 일찍 방문하면 보다 여유롭게 산책과 사진 촬영을 즐길 수 있습니다.
+    </p>
+  </div>
+</div>   
+  <div className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+  <h2 className="text-3xl font-black">🗺️ 함께 가기 좋은 코스</h2>
+  <div className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+  <h2 className="text-3xl font-black">
+    🍀 계절별 두무진 여행 추천
+  </h2>
+
+  <div className="mt-6 grid gap-5 md:grid-cols-2">
+
+    <div className="rounded-2xl bg-green-50 p-6">
+      <h3 className="text-xl font-bold text-green-700">🌸 봄</h3>
+      <p className="mt-3 leading-7 text-gray-700">
+        따뜻한 날씨와 맑은 하늘 덕분에 트레킹을 즐기기에 가장 좋은 계절입니다.
+        바람이 비교적 잔잔한 날이 많아 유람선 이용도 편안합니다.
+      </p>
+    </div>
+
+    <div className="rounded-2xl bg-sky-50 p-6">
+      <h3 className="text-xl font-bold text-sky-700">☀️ 여름</h3>
+      <p className="mt-3 leading-7 text-gray-700">
+        푸른 바다와 절벽의 대비가 가장 아름다운 시기입니다.
+        햇볕이 강하므로 모자와 생수를 준비하면 더욱 쾌적하게 여행할 수 있습니다.
+      </p>
+    </div>
+
+    <div className="rounded-2xl bg-orange-50 p-6">
+      <h3 className="text-xl font-bold text-orange-700">🍁 가을</h3>
+      <p className="mt-3 leading-7 text-gray-700">
+        선선한 날씨와 높은 하늘 덕분에 사진 촬영 명소로 가장 인기가 많은 계절입니다.
+        노을과 함께 보는 두무진 풍경은 많은 여행객이 추천하는 장면입니다.
+      </p>
+    </div>
+
+    <div className="rounded-2xl bg-slate-100 p-6">
+      <h3 className="text-xl font-bold text-slate-700">❄️ 겨울</h3>
+      <p className="mt-3 leading-7 text-gray-700">
+        겨울 바다의 웅장한 풍경을 감상할 수 있지만 강풍으로 유람선 운항이 제한될 수 있습니다.
+        방문 전 기상 상황과 운항 여부를 확인하는 것이 좋습니다.
+      </p>
+    </div>
+
+  </div>
+</div>
 
             <div className="mt-6 space-y-4 leading-7 text-gray-700">
               <p>• 바람이 강한 날이 많아 얇은 바람막이를 챙기는 것이 좋아요.</p>

@@ -179,21 +179,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       tip: "⛪ 역사여행",
       link: "https://map.naver.com/v5/search/중화동교회",
     },
-    {
-      name: "대청도 옥죽포",
-      island: "대청도",
-      image: "/images/daechung.jpg",
-      category: "관광지",
-      description: "대청도의 아름다운 해안 절경",
-    },
-
-    {
-      name: "소청도 분바위",
-      island: "소청도",
-      image: "/images/socheong.jpg",
-      category: "관광지",
-      description: "신비로운 지형의 소청도 명소",
-    },
+  
     {
       name: "백령도 감성카페",
       image: "/images/emotioncafe.jpg",
@@ -1102,6 +1088,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         </div>
         </section>
 {/* 백령도 소개 */}
+{selectedIsland === "백령도" && (
 <section className="max-w-6xl mx-auto px-6 py-16">
   <div className="bg-white rounded-3xl shadow-lg p-10 leading-9">
 
@@ -1175,9 +1162,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
   </div>
 </section>
+)}
 {/* 백령도 FAQ */}
+{selectedIsland === "백령도" && (
 <section className="max-w-6xl mx-auto px-6 py-16">
-  <div className="bg-gray-50 rounded-3xl p-10 shadow-lg">
 
     <h2 className="text-4xl font-bold text-center mb-10">
       ❓ 백령도 여행 자주 묻는 질문
@@ -1238,10 +1226,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       </div>
 
     </div>
-
-  </div>
 </section>
+)}
 {/* 최신 여행정보 */}
+{selectedIsland === "백령도" && (
 <section className="max-w-6xl mx-auto px-6 py-16">
   <h2 className="text-4xl font-bold text-center mb-10">
     📰 최신 백령도 여행정보
@@ -1284,11 +1272,12 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
   </div>
 </section>
+)}
       {/* ISLAND MENU */}
       <section className="max-w-7xl mx-auto px-6 pt-12">
         <div className="flex justify-center gap-4 flex-wrap">
 
-          {["백령도", "대청도", "소청도"].map((island) => (
+          {["백령도",].map((island) => (
             <button
               key={island}
               onClick={() => setSelectedIsland(island)}
@@ -1342,8 +1331,6 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                   category.name === "군인면회" ||
                   category.name === "가족여행"
                 ) {
-
-                  setSelectedIsland("백령도");
 
                   setShowStay(false);
                   setShowFood(false);
