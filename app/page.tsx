@@ -529,6 +529,13 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
   const quickSearchItems = [
     { name: "맛집 전체보기", category: "맛집", icon: "🍜", description: "백령도 음식점과 대표메뉴, 전화번호를 확인하세요.", target: "food" },
+    {
+  name: "황해도식 냉면투어",
+  category: "맛집",
+  icon: "🍜",
+  description: "백령도의 대표 냉면집 5곳을 모두 둘러보세요.",
+  target: "naengmyeon",
+},
     { name: "숙소 전체보기", category: "숙박", icon: "🏨", description: "백령도 숙박업소와 연락처를 한눈에 확인하세요.", target: "stay" },
     { name: "개인택시", category: "교통", icon: "🚕", description: "백령도 개인택시 업체와 전화번호를 확인하세요.", target: "taxi" },
     { name: "렌터카", category: "교통", icon: "🚗", description: "백령도 렌터카 업체 정보를 확인하세요.", target: "rentcar" },
@@ -1163,6 +1170,127 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   </div>
 </section>
 )}
+<div className="bg-white rounded-3xl shadow-lg overflow-hidden">
+
+  <a
+    href="/images/seal.jpg"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="block"
+  >
+    <Image
+      src="/images/seal.jpg"
+      alt="점박이물범"
+      width={500}
+      height={300}
+      className="block w-full h-56 object-cover hover:opacity-90 transition duration-300 cursor-pointer"
+    />
+  </a>
+
+  <div className="p-6">
+    <h3 className="text-2xl font-bold mb-3">
+      🦭 점박이물범
+    </h3>
+
+    <p className="text-gray-600 leading-7">
+      백령도는 우리나라에서 점박이물범을 가장 가까이에서
+      관찰할 수 있는 대표 지역입니다.
+      매년 많은 관광객과 사진작가들이 찾습니다.
+    </p>
+  </div>
+
+</div>
+<div className="bg-white rounded-3xl shadow-lg overflow-hidden">
+
+  <a
+    href="/images/rose.jpg"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="block"
+  >
+    <Image
+      src="/images/rose.jpg"
+      alt="해당화"
+      width={500}
+      height={300}
+      className="block w-full h-56 object-cover hover:opacity-90 transition duration-300 cursor-pointer"
+    />
+  </a>
+
+  <div className="p-6">
+    <h3 className="text-2xl font-bold mb-3">
+      🌹 해당화
+    </h3>
+
+    <p className="text-gray-600 leading-7">
+      백령도 해안에서 자라는 아름다운 야생화로
+      봄과 초여름이면 붉은 꽃이 피어
+      관광객들의 사랑을 받고 있습니다.
+    </p>
+  </div>
+
+</div>
+<div className="bg-white rounded-3xl shadow-lg overflow-hidden">
+
+  <a
+    href="/images/bird.jpg"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="block"
+  >
+    <Image
+      src="/images/bird.jpg"
+      alt="철새"
+      width={500}
+      height={300}
+      className="block w-full h-56 object-cover hover:opacity-90 transition duration-300 cursor-pointer"
+    />
+  </a>
+
+  <div className="p-6">
+    <h3 className="text-2xl font-bold mb-3">
+      🦅 철새
+    </h3>
+
+    <p className="text-gray-600 leading-7">
+      백령도는 동아시아 철새 이동경로에 위치해
+      봄과 가을이면 다양한 철새를
+      관찰할 수 있는 생태관광지입니다.
+    </p>
+  </div>
+
+</div>
+<div className="bg-white rounded-3xl shadow-lg overflow-hidden">
+
+  <a
+    href="/images/plant.jpg"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="block"
+  >
+    <Image
+      src="/images/plant.jpg"
+      alt="해안절벽과 괭이갈매기"
+      width={500}
+      height={300}
+      className="block w-full h-56 object-cover hover:opacity-90 transition duration-300 cursor-pointer"
+    />
+  </a>
+
+  <div className="p-6">
+    <h3 className="text-2xl font-bold mb-3">
+      🏞️ 해안절벽과 괭이갈매기
+    </h3>
+
+    <p className="text-gray-600 leading-7">
+      백령도는 웅장한 해안절벽과 푸른 서해가 어우러진 아름다운
+      자연경관을 자랑합니다. 절벽 주변에는 괭이갈매기가 무리를
+      지어 서식하며 힘차게 비행하는 모습을 가까이에서 볼 수 있어
+      백령도를 대표하는 자연생태 명소로 손꼽힙니다.
+    </p>
+  </div>
+
+</div>
 {/* 백령도 FAQ */}
 {selectedIsland === "백령도" && (
 <section className="max-w-6xl mx-auto px-6 py-16">
@@ -1635,7 +1763,60 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           </section>
 
         )}
-        
+        <section className="max-w-7xl mx-auto px-6 py-16">
+  <div className="grid md:grid-cols-2 gap-8">
+
+    {/* 옹진군청 */}
+    <a
+      href="https://www.ongjin.go.kr"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="rounded-3xl bg-white p-8 shadow hover:shadow-xl transition"
+    >
+      <div className="text-5xl">🏛</div>
+
+      <h2 className="mt-5 text-3xl font-black">
+        옹진군청
+      </h2>
+
+      <p className="mt-4 text-gray-600 leading-8">
+        관광정보, 축제, 행정서비스,
+        공지사항 등
+        백령도의 공식 정보를
+        확인할 수 있습니다.
+      </p>
+
+      <div className="mt-6 inline-block rounded-full bg-blue-600 px-6 py-3 text-white font-bold">
+        바로가기 →
+      </div>
+    </a>
+
+    {/* 옹진자연몰 */}
+    <a
+      href="https://www.ongjinmall.co.kr"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="rounded-3xl bg-white p-8 shadow hover:shadow-xl transition"
+    >
+      <div className="text-5xl">🛍</div>
+
+      <h2 className="mt-5 text-3xl font-black">
+        옹진자연몰
+      </h2>
+
+      <p className="mt-4 text-gray-600 leading-8">
+        백령도를 비롯한
+        옹진군 주민들이 직접 판매하는
+        특산품 쇼핑몰입니다.
+      </p>
+
+      <div className="mt-6 inline-block rounded-full bg-green-600 px-6 py-3 text-white font-bold">
+        특산품 보러가기 →
+      </div>
+    </a>
+
+  </div>
+</section>
  {/* PHOTO GALLERY */}
  <section
   id="gallery"
@@ -2028,9 +2209,24 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                               <td className="p-4 font-semibold">
                                 <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide py-1">
 
-                                  <span>
-                                    {food[0]}
-                                  </span>
+                                  {
+  [
+    "백령면옥",
+    "가을면옥",
+    "사곶냉면",
+    "시골칼국수&냉면",
+    "신화평양냉면",
+  ].includes(food[0]) ? (
+    <Link
+      href="/food/naengmyeon"
+      className="text-sky-600 font-bold hover:underline"
+    >
+      {food[0]}
+    </Link>
+  ) : (
+    <span>{food[0]}</span>
+  )
+}
 
                                   {food[0] === "뚱이네맛집" && (
                                     <span className="bg-orange-500 text-white text-xs px-2 py-1 rounded-full">
