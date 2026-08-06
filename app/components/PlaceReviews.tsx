@@ -11,7 +11,48 @@ type Review = {
   content: string;
   created_at?: string;
 };
+<div className="rounded-3xl bg-white p-8 shadow-sm">
+  <h2 className="text-3xl font-black">
+    🏛️ 전시관에서 꼭 봐야 할 공간
+  </h2>
 
+  <div className="mt-8 grid gap-6 md:grid-cols-3">
+
+    <div className="rounded-2xl border p-6">
+      <h3 className="text-xl font-bold">
+        🖼️ 백령도 옛 사진 전시
+      </h3>
+
+      <p className="mt-4 leading-7 text-gray-700">
+        과거 백령도 마을의 모습과 주민들의 생활상을 담은 사진들이 전시되어 있습니다.
+        현재와 비교하며 백령도의 변화를 한눈에 살펴볼 수 있는 공간입니다.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border p-6">
+      <h3 className="text-xl font-bold">
+        🖥️ 3D 스마트 체험존
+      </h3>
+
+      <p className="mt-4 leading-7 text-gray-700">
+        디지털 콘텐츠를 통해 백령도의 주요 관광지와 자연환경을 입체적으로
+        체험할 수 있는 공간으로 아이들과 함께 방문하기 좋습니다.
+      </p>
+    </div>
+
+    <div className="rounded-2xl border p-6">
+      <h3 className="text-xl font-bold">
+        💥 연평도 포격 포 잔해
+      </h3>
+
+      <p className="mt-4 leading-7 text-gray-700">
+        연평도 포격 당시 실제 사용되었던 포 잔해와 관련 자료가 전시되어 있으며,
+        백령도의 역사와 안보의 의미를 되새길 수 있습니다.
+      </p>
+    </div>
+
+  </div>
+</div>
 export default function PlaceReviews() {
   const [nickname, setNickname] = useState("");
   const [rating, setRating] = useState(5);
