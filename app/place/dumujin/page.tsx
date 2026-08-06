@@ -174,114 +174,94 @@ export default function DumujinPage() {
   </div>
 </div>
          
-         <div className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
-  <h2 className="text-3xl font-black">🧭 주민 여행 팁</h2>
+<div className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+  <h2 className="text-3xl font-black">
+    🧭 주민 여행 팁
+  </h2>
 
   <div className="mt-6 space-y-4 leading-8 text-gray-700">
     <p>
-      ✅ 두무진은 바닷바람이 강한 날이 많으므로 얇은 바람막이나 겉옷을 준비하면 더욱 편안하게 둘러볼 수 있습니다.
+      ✅ 두무진은 바닷바람이 강한 날이 많아 얇은 바람막이를 준비하면 더욱 편안하게 여행할 수 있습니다.
     </p>
 
     <p>
-      ✅ 해안 산책로에는 계단과 경사진 구간이 있어 미끄럼 방지 기능이 있는 운동화를 착용하는 것을 추천합니다.
+      ✅ 해안 산책로는 계단과 경사진 구간이 있어 미끄럼 방지 운동화를 착용하는 것을 추천합니다.
     </p>
 
     <p>
-      ✅ 유람선은 기상과 파도 상황에 따라 운항이 취소될 수 있으므로 출발 전에 운항 여부를 확인하는 것이 좋습니다.
+      ✅ 유람선은 기상과 파도에 따라 운항이 취소될 수 있으므로 출발 전 운항 여부를 확인하세요.
     </p>
 
     <p>
-      ✅ 사진 촬영은 오전이나 해 질 무렵이 가장 아름답습니다. 특히 노을이 질 때 절벽과 바다가 어우러진 풍경이 인상적입니다.
+      ✅ 사진 촬영은 오전이나 해 질 무렵이 가장 아름답습니다. 특히 노을과 기암절벽이 함께 어우러진 풍경은 두무진 최고의 포토존입니다.
     </p>
 
     <p>
-      ✅ 성수기에는 관광객이 많아 오전 일찍 방문하면 보다 여유롭게 산책과 사진 촬영을 즐길 수 있습니다.
+      ✅ 두무진을 둘러본 뒤 사곶해변이나 끝섬전망대를 함께 방문하면 하루 코스로 여행하기 좋습니다.
     </p>
   </div>
-</div>   
-  <div className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
-  <h2 className="text-3xl font-black">🗺️ 함께 가기 좋은 코스</h2>
-  <div className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+</div>
+
+<div className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
   <h2 className="text-3xl font-black">
     🍀 계절별 두무진 여행 추천
   </h2>
 
   <div className="mt-6 grid gap-5 md:grid-cols-2">
-
     <div className="rounded-2xl bg-green-50 p-6">
       <h3 className="text-xl font-bold text-green-700">🌸 봄</h3>
       <p className="mt-3 leading-7 text-gray-700">
-        따뜻한 날씨와 맑은 하늘 덕분에 트레킹을 즐기기에 가장 좋은 계절입니다.
-        바람이 비교적 잔잔한 날이 많아 유람선 이용도 편안합니다.
+        따뜻한 날씨와 맑은 하늘 덕분에 트레킹과 유람선을 즐기기에 가장 좋은 계절입니다.
       </p>
     </div>
 
     <div className="rounded-2xl bg-sky-50 p-6">
       <h3 className="text-xl font-bold text-sky-700">☀️ 여름</h3>
       <p className="mt-3 leading-7 text-gray-700">
-        푸른 바다와 절벽의 대비가 가장 아름다운 시기입니다.
-        햇볕이 강하므로 모자와 생수를 준비하면 더욱 쾌적하게 여행할 수 있습니다.
+        푸른 바다와 웅장한 절벽이 가장 아름답게 어우러지는 시기입니다. 햇볕이 강하므로 모자와 생수를 준비하세요.
       </p>
     </div>
 
     <div className="rounded-2xl bg-orange-50 p-6">
       <h3 className="text-xl font-bold text-orange-700">🍁 가을</h3>
       <p className="mt-3 leading-7 text-gray-700">
-        선선한 날씨와 높은 하늘 덕분에 사진 촬영 명소로 가장 인기가 많은 계절입니다.
-        노을과 함께 보는 두무진 풍경은 많은 여행객이 추천하는 장면입니다.
+        선선한 날씨와 아름다운 노을 덕분에 사진 촬영을 즐기기 가장 좋은 계절입니다.
       </p>
     </div>
 
     <div className="rounded-2xl bg-slate-100 p-6">
       <h3 className="text-xl font-bold text-slate-700">❄️ 겨울</h3>
       <p className="mt-3 leading-7 text-gray-700">
-        겨울 바다의 웅장한 풍경을 감상할 수 있지만 강풍으로 유람선 운항이 제한될 수 있습니다.
-        방문 전 기상 상황과 운항 여부를 확인하는 것이 좋습니다.
+        겨울 바다의 웅장한 풍경을 감상할 수 있지만 강풍이 잦으므로 따뜻한 복장을 추천합니다.
       </p>
     </div>
-
   </div>
 </div>
 
-            <div className="mt-6 space-y-4 leading-7 text-gray-700">
-              <p>• 바람이 강한 날이 많아 얇은 바람막이를 챙기는 것이 좋아요.</p>
-              <p>• 계단과 자갈길이 있어 미끄럽지 않은 운동화를 추천해요.</p>
-              <p>
-                • 유람선은 날씨와 파도에 따라 운항 여부가 달라질 수
-                있으니 현장에서 먼저 확인하세요.
-              </p>
-              <p>
-                • 사진은 오전의 맑은 빛이나 늦은 오후의 부드러운 빛에서
-                가장 입체적으로 나와요.
-              </p>
-              <p>
-                • 부모님이나 아이와 함께라면 무리해서 끝까지 걷기보다
-                전망이 좋은 구간 위주로 둘러보세요.
-              </p>
-            </div>
-          </div>
+<div className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+  <h2 className="text-3xl font-black">
+    🗺️ 함께 가기 좋은 코스
+  </h2>
 
-          <div className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
-            <h2 className="text-3xl font-black">🗺️ 함께 가기 좋은 코스</h2>
+  <div className="mt-6 grid gap-4 md:grid-cols-3">
+    {[
+      ["사곶해변", "천연비행장으로 유명한 백령도의 대표 해변"],
+      ["콩돌해안", "파도와 콩돌이 만들어내는 아름다운 해안"],
+      ["끝섬전망대", "백령도 최고의 노을을 감상할 수 있는 전망 명소"],
+    ].map(([name, description]) => (
+      <div
+        key={name}
+        className="rounded-2xl border border-gray-200 p-5 hover:shadow-lg transition"
+      >
+        <h3 className="font-extrabold text-lg">{name}</h3>
 
-            <div className="mt-6 grid gap-4 md:grid-cols-3">
-              {[
-                ["사곶해변", "천연비행장으로 알려진 넓은 해변"],
-                ["콩돌해안", "파도 소리와 둥근 콩돌이 매력적인 해안"],
-                ["끝섬전망대", "백령도 서쪽 바다와 노을을 보는 전망 명소"],
-              ].map(([name, description]) => (
-                <div
-                  key={name}
-                  className="rounded-2xl border border-gray-200 p-5"
-                >
-                  <h3 className="font-extrabold">{name}</h3>
-                  <p className="mt-2 text-sm leading-6 text-gray-600">
-                    {description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+        <p className="mt-2 text-sm leading-6 text-gray-600">
+          {description}
+        </p>
+      </div>
+    ))}
+  </div>
+</div>
         </article>
 
         <aside className="space-y-5">

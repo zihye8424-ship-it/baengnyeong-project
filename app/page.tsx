@@ -11,7 +11,7 @@ import { useState, useEffect } from "react";
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("전체");
   const [selectedIsland, setSelectedIsland] = useState("백령도");
-  
+   const [selectedSeason, setSelectedSeason] = useState("봄");
 
   // 방문자
   const [todayVisitors, setTodayVisitors] = useState(0);
@@ -808,8 +808,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             </div>
           </label>
         </div>
-
-        <button onClick={makeTravelPlan} className="mt-7 w-full rounded-2xl bg-gradient-to-r from-sky-500 to-blue-700 px-6 py-5 text-xl font-extrabold text-white shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
+                <button onClick={makeTravelPlan} className="mt-7 w-full rounded-2xl bg-gradient-to-r from-sky-500 to-blue-700 px-6 py-5 text-xl font-extrabold text-white shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
           ✨ 나만의 백령도 일정 만들기
         </button>
         <p className="mt-3 text-center text-xs text-gray-400">
@@ -867,6 +866,183 @@ const [showSearchResults, setShowSearchResults] = useState(false);
     </div>
   )}
 </section>
+
+{/* 계절별 백령도 */}
+<section className="max-w-7xl mx-auto px-6 py-20">
+  <div className="text-center mb-10">
+    <p className="font-bold text-sky-600 mb-2">사계절 여행 가이드</p>
+
+    <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">
+      🌿 계절마다 다른 백령도
+    </h2>
+
+    <p className="mt-4 text-lg text-gray-500">
+      봄·여름·가을·겨울 버튼을 눌러 계절별 풍경과 여행 팁을 확인하세요.
+    </p>
+  </div>
+
+  <div className="flex flex-wrap justify-center gap-3 mb-10">
+    {["봄", "여름", "가을", "겨울"].map((season) => (
+      <button
+        key={season}
+        type="button"
+        onClick={() => setSelectedSeason(season)}
+        className={`rounded-full px-7 py-3 font-extrabold transition ${
+          selectedSeason === season
+            ? "bg-sky-600 text-white shadow-lg"
+            : "bg-white text-gray-700 border border-gray-200 hover:bg-sky-50"
+        }`}
+      >
+        {season}
+      </button>
+    ))}
+  </div>
+
+  {selectedSeason === "봄" && (
+    <div className="grid lg:grid-cols-2 gap-8 items-center rounded-[2rem] bg-pink-50 p-6 md:p-10 shadow-lg">
+      <div className="relative h-[320px] md:h-[430px] overflow-hidden rounded-3xl">
+        <Image
+          src="/images/season-spring.jpg"
+          alt="봄의 백령도"
+          fill
+          className="object-cover"
+        />
+      </div>
+
+      <div>
+        <span className="inline-flex rounded-full bg-pink-100 px-4 py-2 font-bold text-pink-700">
+          🌸 봄 여행
+        </span>
+
+        <h3 className="mt-5 text-3xl md:text-4xl font-black">
+          따뜻한 바람과 함께 시작하는 백령도 여행
+        </h3>
+
+        <p className="mt-5 leading-8 text-gray-700">
+          봄에는 겨울보다 바람이 부드러워지고 섬 곳곳에서 새싹과 봄꽃을
+          만날 수 있습니다. 두무진과 사곶해변을 천천히 걷기에 좋고,
+          맑은 날에는 사진도 선명하게 나오는 계절입니다.
+        </p>
+
+        <div className="mt-6 grid sm:grid-cols-2 gap-3">
+          <div className="rounded-2xl bg-white p-4 font-bold">📸 추천: 두무진·사곶해변</div>
+          <div className="rounded-2xl bg-white p-4 font-bold">🧥 준비물: 얇은 바람막이</div>
+          <div className="rounded-2xl bg-white p-4 font-bold">🚶 추천활동: 해안 산책</div>
+          <div className="rounded-2xl bg-white p-4 font-bold">🗓️ 추천시기: 4월~5월</div>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {selectedSeason === "여름" && (
+    <div className="grid lg:grid-cols-2 gap-8 items-center rounded-[2rem] bg-sky-50 p-6 md:p-10 shadow-lg">
+      <div className="relative h-[320px] md:h-[430px] overflow-hidden rounded-3xl">
+        <Image
+          src="/images/season-summer.jpg"
+          alt="여름의 백령도"
+          fill
+          className="object-cover"
+        />
+      </div>
+
+      <div>
+        <span className="inline-flex rounded-full bg-sky-100 px-4 py-2 font-bold text-sky-700">
+          🌊 여름 여행
+        </span>
+
+        <h3 className="mt-5 text-3xl md:text-4xl font-black">
+          푸른 바다와 해안 풍경이 가장 빛나는 계절
+        </h3>
+
+        <p className="mt-5 leading-8 text-gray-700">
+          여름에는 백령도의 바다색이 가장 선명하고 해변 여행을 즐기기
+          좋습니다. 사곶해변, 콩돌해안, 하늬해안에서 시원한 풍경을
+          감상할 수 있으며 햇빛과 자외선 대비가 필요합니다.
+        </p>
+
+        <div className="mt-6 grid sm:grid-cols-2 gap-3">
+          <div className="rounded-2xl bg-white p-4 font-bold">🏖️ 추천: 사곶해변·콩돌해안</div>
+          <div className="rounded-2xl bg-white p-4 font-bold">🧴 준비물: 선크림·모자</div>
+          <div className="rounded-2xl bg-white p-4 font-bold">📷 추천활동: 해변 사진</div>
+          <div className="rounded-2xl bg-white p-4 font-bold">🗓️ 추천시기: 6월~8월</div>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {selectedSeason === "가을" && (
+    <div className="grid lg:grid-cols-2 gap-8 items-center rounded-[2rem] bg-amber-50 p-6 md:p-10 shadow-lg">
+      <div className="relative h-[320px] md:h-[430px] overflow-hidden rounded-3xl">
+        <Image
+          src="/images/season-autumn.jpg"
+          alt="가을의 백령도"
+          fill
+          className="object-cover"
+        />
+      </div>
+
+      <div>
+        <span className="inline-flex rounded-full bg-amber-100 px-4 py-2 font-bold text-amber-700">
+          🍂 가을 여행
+        </span>
+
+        <h3 className="mt-5 text-3xl md:text-4xl font-black">
+          선선한 날씨와 노을이 아름다운 백령도
+        </h3>
+
+        <p className="mt-5 leading-8 text-gray-700">
+          가을은 백령도를 여행하기 가장 편안한 계절 중 하나입니다.
+          낮에는 선선하고 해 질 무렵에는 붉은 노을이 아름다워
+          끝섬전망대와 서쪽 해안을 방문하기 좋습니다.
+        </p>
+
+        <div className="mt-6 grid sm:grid-cols-2 gap-3">
+          <div className="rounded-2xl bg-white p-4 font-bold">🌅 추천: 끝섬전망대·두무진</div>
+          <div className="rounded-2xl bg-white p-4 font-bold">🧣 준비물: 가벼운 겉옷</div>
+          <div className="rounded-2xl bg-white p-4 font-bold">🚗 추천활동: 해안 드라이브</div>
+          <div className="rounded-2xl bg-white p-4 font-bold">🗓️ 추천시기: 9월~10월</div>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {selectedSeason === "겨울" && (
+    <div className="grid lg:grid-cols-2 gap-8 items-center rounded-[2rem] bg-slate-100 p-6 md:p-10 shadow-lg">
+      <div className="relative h-[320px] md:h-[430px] overflow-hidden rounded-3xl">
+        <Image
+          src="/images/season-winter.jpg"
+          alt="겨울의 백령도"
+          fill
+          className="object-cover"
+        />
+      </div>
+
+      <div>
+        <span className="inline-flex rounded-full bg-slate-200 px-4 py-2 font-bold text-slate-700">
+          ❄️ 겨울 여행
+        </span>
+
+        <h3 className="mt-5 text-3xl md:text-4xl font-black">
+          고요하고 웅장한 겨울 바다를 만나는 계절
+        </h3>
+
+        <p className="mt-5 leading-8 text-gray-700">
+          겨울의 백령도는 바람이 강하고 날씨 변화가 크지만,
+          사람이 적어 조용한 풍경을 즐길 수 있습니다. 결항 가능성이
+          있으므로 배편과 기상 정보를 자주 확인하는 것이 중요합니다.
+        </p>
+
+        <div className="mt-6 grid sm:grid-cols-2 gap-3">
+          <div className="rounded-2xl bg-white p-4 font-bold">🌊 추천: 두무진·하늬해안</div>
+          <div className="rounded-2xl bg-white p-4 font-bold">🧤 준비물: 방풍·방한용품</div>
+          <div className="rounded-2xl bg-white p-4 font-bold">☕ 추천활동: 드라이브·카페</div>
+          <div className="rounded-2xl bg-white p-4 font-bold">🗓️ 추천시기: 12월~2월</div>
+        </div>
+      </div>
+    </div>
+  )}
+</section>
+
     {/* 방문자 현황 */}
 <section className="max-w-6xl mx-auto px-6 py-12">
 
