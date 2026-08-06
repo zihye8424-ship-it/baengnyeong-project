@@ -411,44 +411,47 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   }
   
   const updateVisitorStats = async () => {
-    const today = new Date().toISOString().slice(0, 10);
-    const visitedKey = `visited-${today}`;
-  
-    const { data } = await supabase
-      .from("visitor_stats")
-      .select("*")
-      .eq("id", 1)
-      .single();
-  
-    if (!data) return;
-  
-    if (localStorage.getItem(visitedKey)) {
-      setTodayVisitors(data.today_count);
-      setTotalVisitors(data.total_count);
-      return;
-    }
-  
-    const isNewDay = data.last_date !== today;
-    const newTodayCount = isNewDay ? 1 : data.today_count + 1;
-    const newTotalCount = data.total_count + 1;
-  
-    const { data: updatedData } = await supabase
-      .from("visitor_stats")
-      .update({
-        today_count: newTodayCount,
-        total_count: newTotalCount,
-        last_date: today,
-      })
-      .eq("id", 1)
-      .select()
-      .single();
-  
-    if (updatedData) {
-      localStorage.setItem(visitedKey, "true");
-      setTodayVisitors(updatedData.today_count);
-      setTotalVisitors(updatedData.total_count);
-    }
-  };
+  const today = new Date().toISOString().slice(0, 10);
+  const visitedKey = `visited-${today}`;
+
+  const { data } = await supabase
+    .from("visitor_stats")
+    .select("*")
+    .eq("id", 1)
+    .single();
+
+  if (!data) return;
+
+  if (localStorage.getItem(visitedKey)) {
+    setTodayVisitors(data.today_count);
+    setTotalVisitors(data.total_count);
+    return;
+  }
+
+  const isNewDay = data.last_date !== today;
+  const newTodayCount = isNewDay ? 1 : data.today_count + 1;
+  const newTotalCount = data.total_count + 1;
+
+  const { data: updatedData, error } = await supabase
+    .from("visitor_stats")
+    .update({
+      today_count: newTodayCount,
+      total_count: newTotalCount,
+      last_date: today,
+    })
+    .eq("id", 1)
+    .select()
+    .single();
+
+  console.log("updatedData:", updatedData);
+  console.log("error:", error);
+
+  if (updatedData) {
+    localStorage.setItem(visitedKey, "true");
+    setTodayVisitors(updatedData.today_count);
+    setTotalVisitors(updatedData.total_count);
+  }
+};
   
   function makeTravelPlan() {
     const themeStops: Record<string, string[]> = {
@@ -1904,14 +1907,30 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
   <AddCourseButton place={place} />
 
-  {place.name === "두무진" && (
+  {[
+  { name: "두무진", href: "/place/dumujin" },
+  { name: "끝섬전망대", href: "/place/kkeutseom" },
+  { name: "사곶해변", href: "/place/sagot" },
+  { name: "콩돌해안", href: "/place/kongdol" },
+  { name: "심청각", href: "/place/simcheonggak" },
+  { name: "하늬해안", href: "/place/hani" },
+  { name: "용틀임바위", href: "/place/dragon" },
+  { name: "사자바위", href: "/place/sajabawi" },
+  { name: "천안함 위령탑", href: "/place/cheonan" },
+  { name: "📸 사진찍기 좋은 녹색명소", href: "/place/photozone" },
+  { name: "서해최북단 백령도비", href: "/place/baengnyeong-bi" },
+  { name: "한국기독교의 섬", href: "/place/christian-island" },
+]
+  .filter((item) => item.name === place.name)
+  .map((item) => (
     <Link
-      href="/place/dumujin"
+      key={item.name}
+      href={item.href}
       className="inline-flex items-center justify-center w-full bg-sky-600 text-white py-3 rounded-2xl font-semibold hover:bg-sky-700 transition"
     >
-      📖 두무진 백과사전 보기
+      📖 백과사전 보기
     </Link>
-  )}
+  ))}
 
   <button
   onClick={() => handlePlaceLike(place.name)}
