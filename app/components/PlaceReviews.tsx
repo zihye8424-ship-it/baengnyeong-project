@@ -148,11 +148,11 @@ export default function PlaceReviews() {
           <p className="font-bold text-sky-600">방문자 이야기</p>
 
           <h2 className="mt-2 text-3xl font-black">
-            ⭐ 두무진 방문 리뷰
+            ⭐ 방문 리뷰
           </h2>
 
           <p className="mt-3 leading-7 text-gray-600">
-            두무진을 다녀온 경험과 여행 팁을 자유롭게 남겨주세요.
+            여행을 다녀온 경험과 여행 팁을 자유롭게 남겨주세요.
           </p>
         </div>
 
