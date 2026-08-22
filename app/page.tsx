@@ -37,6 +37,15 @@ export default function Home() {
 
   // Q&A
   const [qnaCategory, setQnaCategory] = useState("전체");
+  const [qnaFormCategory, setQnaFormCategory] = useState("배편");
+  const [qnaSearch, setQnaSearch] = useState("");
+  const [qnaNickname, setQnaNickname] = useState("");
+  const [qnaTitle, setQnaTitle] = useState("");
+  const [qnaContent, setQnaContent] = useState("");
+  const [qnaQuestions, setQnaQuestions] = useState<any[]>([]);
+  const [qnaLoading, setQnaLoading] = useState(false);
+  const [qnaSubmitting, setQnaSubmitting] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [notices, setNotices] = useState<any[]>([]);
 const [placeViews, setPlaceViews] = useState<any[]>([]);
 const [placeLikes, setPlaceLikes] = useState<any[]>([]);
@@ -228,6 +237,7 @@ link: "/place/christian-island",
     loadPlaceViews();
     loadPopularPlaces();
     updateVisitorStats();
+    loadQnaQuestions();
   
     const savedCourse = localStorage.getItem("myCourse");
     if (savedCourse) {
@@ -601,6 +611,69 @@ link: "/place/christian-island",
       document.getElementById(item.target)?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 150);
   }
+
+
+  async function loadQnaQuestions() {
+    setQnaLoading(true);
+    const { data, error } = await supabase
+      .from("qna_questions")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Q&A 불러오기 오류:", error);
+      setQnaLoading(false);
+      return;
+    }
+
+    setQnaQuestions(data ?? []);
+    setQnaLoading(false);
+  }
+
+  async function handleQnaSubmit() {
+    if (!qnaNickname.trim() || !qnaTitle.trim() || !qnaContent.trim()) {
+      alert("닉네임, 질문 제목, 질문 내용을 모두 입력해주세요.");
+      return;
+    }
+
+    setQnaSubmitting(true);
+
+    const { error } = await supabase.from("qna_questions").insert({
+      nickname: qnaNickname.trim(),
+      category: qnaFormCategory,
+      title: qnaTitle.trim(),
+      content: qnaContent.trim(),
+      answer: null,
+      is_faq: false,
+      is_answered: false,
+    });
+
+    if (error) {
+      console.error("Q&A 등록 오류:", error);
+      alert("질문 등록에 실패했습니다. 다시 시도해주세요.");
+      setQnaSubmitting(false);
+      return;
+    }
+
+    setQnaNickname("");
+    setQnaFormCategory("배편");
+    setQnaTitle("");
+    setQnaContent("");
+    await loadQnaQuestions();
+    setQnaSubmitting(false);
+    alert("질문이 등록되었습니다 😊");
+  }
+
+  const filteredQnaQuestions = qnaQuestions.filter((item) => {
+    const categoryOk = qnaCategory === "전체" || item.category === qnaCategory;
+    const keyword = qnaSearch.trim().toLowerCase();
+    const searchOk =
+      !keyword ||
+      String(item.title ?? "").toLowerCase().includes(keyword) ||
+      String(item.content ?? "").toLowerCase().includes(keyword) ||
+      String(item.answer ?? "").toLowerCase().includes(keyword);
+    return categoryOk && searchOk;
+  });
 
   return (
     <main className="bg-white min-h-screen text-gray-900">
@@ -1476,73 +1549,61 @@ link: "/place/christian-island",
 {/* 백령도 FAQ */}
 {selectedIsland === "백령도" && (
 <section className="max-w-6xl mx-auto px-6 py-16">
+  <div className="mb-8 rounded-[2rem] bg-gradient-to-br from-violet-50 to-fuchsia-50 p-6 md:p-8 border border-violet-100">
+    <p className="font-bold text-violet-700">여행 전 많이 묻는 질문</p>
+    <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
+      ❓ 백령도 여행 FAQ
+    </h2>
+    <p className="mt-3 max-w-3xl leading-7 text-gray-600">
+      질문을 누르면 답변이 펼쳐집니다. 더 궁금한 내용은 아래 Q&amp;A에서 직접 질문할 수 있습니다.
+    </p>
+  </div>
 
-    <div className="mb-8 rounded-[2rem] bg-gradient-to-br from-violet-50 to-fuchsia-50 p-6 md:p-8 border border-violet-100">
-          <p className="font-bold text-violet-700">여행 전 많이 묻는 질문</p>
-          <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
-            ❓ 백령도 여행 FAQ
-          </h2>
-          <p className="mt-3 max-w-3xl leading-7 text-gray-600">
-            배편·차량선적·숙박·교통 등 백령도 여행 전에 자주 궁금해하는 내용을 먼저 확인해 보세요.
-            더 궁금한 내용은 Q&amp;A에서 직접 질문할 수 있습니다.
-          </p>
-        </div>
+  <div className="space-y-3">
+    {[
+      {
+        q: "백령도는 어떻게 가나요?",
+        a: "인천항에서 출발하는 여객선을 이용하면 됩니다. 계절과 기상상황에 따라 운항시간이 달라질 수 있으므로 출발 전 반드시 여객선 운항 여부를 확인하는 것이 좋습니다.",
+      },
+      {
+        q: "백령도 여행은 몇 박이 좋나요?",
+        a: "주요 관광지만 둘러본다면 1박 2일, 여유롭게 여행하려면 2박 3일을 추천합니다.",
+      },
+      {
+        q: "렌터카가 꼭 필요한가요?",
+        a: "관광지가 넓게 분포되어 있어 렌터카나 개인택시를 이용하면 훨씬 편하게 여행할 수 있습니다.",
+      },
+      {
+        q: "가장 유명한 관광지는 어디인가요?",
+        a: "두무진, 사곶해변, 콩돌해안, 끝섬전망대, 하늬해안이 대표 관광지입니다.",
+      },
+      {
+        q: "백령도는 언제 가는 것이 좋나요?",
+        a: "봄과 가을이 가장 인기가 많으며, 여름에는 해변을 즐기기 좋고 겨울에는 철새와 고요한 자연을 감상할 수 있습니다.",
+      },
+    ].map((faq, index) => (
+      <div key={faq.q} className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+        <button
+          type="button"
+          onClick={() => setOpenFaq(openFaq === index ? null : index)}
+          className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left hover:bg-sky-50 transition"
+        >
+          <span className="text-lg md:text-xl font-extrabold text-sky-700">
+            Q. {faq.q}
+          </span>
+          <span className="shrink-0 text-2xl text-sky-600">
+            {openFaq === index ? "−" : "+"}
+          </span>
+        </button>
 
-    <div className="space-y-8">
-
-      <div>
-        <h3 className="text-2xl font-bold text-sky-700">
-          Q. 백령도는 어떻게 가나요?
-        </h3>
-        <p className="mt-3 text-gray-700 leading-8">
-          인천항에서 출발하는 여객선을 이용하면 됩니다.
-          계절과 기상상황에 따라 운항시간이 달라질 수 있으므로
-          출발 전 반드시 여객선 운항 여부를 확인하는 것이 좋습니다.
-        </p>
+        {openFaq === index && (
+          <div className="border-t border-gray-100 bg-gray-50 px-5 py-5">
+            <p className="leading-8 text-gray-700">A. {faq.a}</p>
+          </div>
+        )}
       </div>
-
-      <div>
-        <h3 className="text-2xl font-bold text-sky-700">
-          Q. 백령도 여행은 몇 박이 좋나요?
-        </h3>
-        <p className="mt-3 text-gray-700 leading-8">
-          주요 관광지만 둘러본다면 1박 2일,
-          여유롭게 여행하려면 2박 3일을 추천합니다.
-        </p>
-      </div>
-
-      <div>
-        <h3 className="text-2xl font-bold text-sky-700">
-          Q. 렌터카가 꼭 필요한가요?
-        </h3>
-        <p className="mt-3 text-gray-700 leading-8">
-          관광지가 넓게 분포되어 있어 렌터카나 개인택시를 이용하면
-          훨씬 편하게 여행할 수 있습니다.
-        </p>
-      </div>
-
-      <div>
-        <h3 className="text-2xl font-bold text-sky-700">
-          Q. 가장 유명한 관광지는 어디인가요?
-        </h3>
-        <p className="mt-3 text-gray-700 leading-8">
-          두무진, 사곶해변, 콩돌해안, 끝섬전망대,
-          하늬해안이 대표 관광지입니다.
-        </p>
-      </div>
-
-      <div>
-        <h3 className="text-2xl font-bold text-sky-700">
-          Q. 백령도는 언제 가는 것이 좋나요?
-        </h3>
-        <p className="mt-3 text-gray-700 leading-8">
-          봄과 가을이 가장 인기가 많으며,
-          여름에는 해변을 즐기기 좋고
-          겨울에는 철새와 고요한 자연을 감상할 수 있습니다.
-        </p>
-      </div>
-
-    </div>
+    ))}
+  </div>
 </section>
 )}
 {/* 최신 여행정보 */}
@@ -3491,6 +3552,142 @@ link: "/place/christian-island",
 
 </section>
       {/* FLOATING QUICK MENU */}
+
+      {/* Q&A - 실제 질문 등록/답변 표시 */}
+      <section id="qna" className="scroll-mt-24 max-w-7xl mx-auto px-6 py-20">
+        <div className="rounded-[2rem] bg-gradient-to-br from-sky-50 via-white to-violet-50 border border-sky-100 p-6 md:p-10 shadow-lg">
+          <div className="text-center">
+            <p className="font-bold text-sky-600">궁금한 점을 직접 물어보세요</p>
+            <h2 className="mt-2 text-3xl md:text-4xl font-extrabold">💬 백령도 여행 Q&amp;A</h2>
+            <p className="mt-3 text-gray-600 leading-7">
+              질문을 등록하면 관리자 답변을 이곳에서 확인할 수 있습니다.
+            </p>
+          </div>
+
+          <div className="mt-8 grid lg:grid-cols-[0.9fr_1.1fr] gap-6">
+            <div className="rounded-3xl bg-white p-6 md:p-8 shadow-sm border border-gray-100">
+              <h3 className="text-2xl font-extrabold">✍️ 질문 남기기</h3>
+              <p className="mt-2 text-sm text-gray-500">
+                전화번호·예약번호 등 개인정보는 작성하지 마세요.
+              </p>
+
+              <div className="mt-6 space-y-4">
+                <input
+                  value={qnaNickname}
+                  onChange={(e) => setQnaNickname(e.target.value)}
+                  placeholder="닉네임"
+                  maxLength={30}
+                  className="w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-sky-500"
+                />
+                <select
+                  value={qnaFormCategory}
+                  onChange={(e) => setQnaFormCategory(e.target.value)}
+                  className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 outline-none focus:border-sky-500"
+                >
+                  {["배편", "숙소", "맛집", "관광지", "교통"].map((category) => (
+                    <option key={category} value={category}>{category}</option>
+                  ))}
+                </select>
+                <input
+                  value={qnaTitle}
+                  onChange={(e) => setQnaTitle(e.target.value)}
+                  placeholder="질문 제목"
+                  maxLength={100}
+                  className="w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-sky-500"
+                />
+                <textarea
+                  value={qnaContent}
+                  onChange={(e) => setQnaContent(e.target.value)}
+                  placeholder="궁금한 내용을 자세히 적어주세요."
+                  rows={5}
+                  maxLength={1000}
+                  className="w-full resize-none rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-sky-500"
+                />
+                <button
+                  type="button"
+                  disabled={qnaSubmitting}
+                  onClick={handleQnaSubmit}
+                  className="w-full rounded-2xl bg-sky-600 px-5 py-4 font-extrabold text-white hover:bg-sky-700 transition disabled:opacity-60"
+                >
+                  {qnaSubmitting ? "등록 중..." : "💬 질문 등록하기"}
+                </button>
+              </div>
+            </div>
+
+            <div className="rounded-3xl bg-white p-6 md:p-8 shadow-sm border border-gray-100">
+              <h3 className="text-2xl font-extrabold">📋 등록된 질문</h3>
+
+              <input
+                value={qnaSearch}
+                onChange={(e) => setQnaSearch(e.target.value)}
+                placeholder="🔍 질문 검색"
+                className="mt-5 w-full rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-sky-500"
+              />
+
+              <div className="mt-4 flex flex-wrap gap-2">
+                {["전체", "배편", "숙소", "맛집", "관광지", "교통"].map((category) => (
+                  <button
+                    key={category}
+                    type="button"
+                    onClick={() => setQnaCategory(category)}
+                    className={`rounded-full px-4 py-2 text-sm font-bold ${
+                      qnaCategory === category
+                        ? "bg-sky-600 text-white"
+                        : "bg-sky-50 text-sky-700 hover:bg-sky-100"
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+
+              <div className="mt-6 max-h-[650px] space-y-4 overflow-y-auto pr-1">
+                {qnaLoading ? (
+                  <div className="rounded-2xl bg-gray-50 p-6 text-center text-gray-500">
+                    질문을 불러오는 중입니다...
+                  </div>
+                ) : filteredQnaQuestions.length === 0 ? (
+                  <div className="rounded-2xl bg-gray-50 p-6 text-center text-gray-500">
+                    등록된 질문이 없습니다.
+                  </div>
+                ) : (
+                  filteredQnaQuestions.map((item) => (
+                    <article key={item.id} className="rounded-2xl border border-gray-100 bg-gray-50 p-5">
+                      <div className="flex flex-wrap gap-2 text-xs font-bold">
+                        <span className="rounded-full bg-sky-100 px-3 py-1 text-sky-700">
+                          {item.category || "기타"}
+                        </span>
+                        {item.is_faq && (
+                          <span className="rounded-full bg-amber-100 px-3 py-1 text-amber-700">FAQ</span>
+                        )}
+                        <span className={`rounded-full px-3 py-1 ${
+                          item.is_answered
+                            ? "bg-emerald-100 text-emerald-700"
+                            : "bg-gray-200 text-gray-600"
+                        }`}>
+                          {item.is_answered ? "답변완료" : "답변대기"}
+                        </span>
+                      </div>
+
+                      <h4 className="mt-4 text-lg font-extrabold">Q. {item.title}</h4>
+                      <p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-gray-600">{item.content}</p>
+                      <p className="mt-3 text-xs text-gray-400">작성자: {item.nickname || "익명"}</p>
+
+                      {item.answer && (
+                        <div className="mt-4 rounded-2xl bg-white p-4">
+                          <p className="font-extrabold text-sky-700">A. 쩨쩨의 답변</p>
+                          <p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-gray-700">{item.answer}</p>
+                        </div>
+                      )}
+                    </article>
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
 
         <button
