@@ -74,7 +74,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       description:
         "수천만 년 동안 형성된 기암절벽과 푸른서해가 어우러진 백령도 대표 절경",
       location: "백령도 북서쪽",
-      link: "https://map.naver.com/",
+      link: "/place/dumujin",
     },
     {
       name: "끝섬전망대",
@@ -84,7 +84,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       description:
         "북한 장산곶과 사곶해변, 하늬해변까지 조망 가능한 백령도의 대표 전망 명소",
       location: "백령도 서쪽해안",
-      link: "https://map.naver.com/v5/search/끝섬전망대",
+      link: "/place/kkeutseom",
     },
     {
       name: "사곶해변",
@@ -94,7 +94,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       description:
         "천연비행장으로 유명한 세계적으로 희귀한 사빈 해변",
       location: "용기포항 인근",
-      link: "https://map.naver.com/v5/search/사곶해변",
+      link: "/place/sagot",
     },
     {
       name: "콩돌해안",
@@ -102,7 +102,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       image: "/images/kongdol.jpg",
       category: "관광지",
       description: "파도 소리가 아름다운 백령도 명소",
-      link: "https://map.naver.com/v5/search/콩돌해안",
+      link: "/place/kongdol",
     },
 
     {
@@ -111,7 +111,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       image: "/images/simcheonggak.jpg",
       category: "관광지",
       description: "심청전 설화가 전해지는 문화 명소",
-      link: "https://map.naver.com/v5/search/심청각",
+      link: "/place/simcheonggak",
     },
     {
       name: "하늬해안",
@@ -121,7 +121,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       description: "북한 장산곶 방향의 바다와 점박이물범 서식지를 함께 볼 수 있는 생태관광 명소",
       location: "북한 장산곶 방향이 보이는 백령도 북서쪽 해안",
       tip: "🦭 물범 관찰 추천",
-      link: "https://map.naver.com/v5/search/하늬해안",
+      link: "/place/hani",
     },
     {
   name: "용틀임바위",
@@ -129,7 +129,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   image: "/images/dragon.jpg",
   category: "관광지",
   description: "용이 몸을 비틀며 승천하는 모습을 닮은 백령도의 대표 지질명소",
-  link: "https://map.naver.com/v5/search/용틀임바위",
+  link: "/place/dragon",
 },
     {
       name: "사자바위",
@@ -137,7 +137,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       image: "/images/sajabawi2.jpg",
       category: "관광지",
       description: "사자의 형상을 닮은 백령도의 대표 해안 바위",
-      link: "https://map.naver.com/v5/search/사자바위",
+      link: "/place/sajabawi",
     },
     {
       name: "천안함 위령탑",
@@ -146,7 +146,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       category: "안보역사",
       description: "천안함 46용사를 추모하는 장소",
       location: "백령면 연화리",
-      link: "https://map.naver.com/v5/search/천안함위령탑",
+      link: "/place/cheonan",
     },
     {
       name: "📸 사진찍기 좋은 녹색명소",
@@ -157,7 +157,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         "백령도에서 꼭 사진을 남겨야 하는 숨은 포토스팟입니다.",
       location: "인천 옹진군 백령면 남포리 산2",
       tip: "📸 SNS 인기",
-      link: "https://map.naver.com/v5/search/인천%20옹진군%20백령면%20남포리%20산2",
+      link: "/place/photozone",
     },
     {
       name: "서해최북단 백령도비",
@@ -167,17 +167,17 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       description: "서해 최북단 백령도를 상징하는 기념비입니다. 많은 관광객들이 인증사진을 남기는 대표 포토존입니다.",
       location: "인천 옹진군 백령면 진촌리",
       tip: "📸 포토존",
-      link: "https://map.naver.com/v5/search/백령도비",
+      link: "/place/baengnyeong-bi",
     },
     {
-      name: "한국기독교의 섬",
+name: "한국기독교의 섬 / 한국기독교역사관",
 island: "백령도",
 image: "/images/christian-island.jpg",
 category: "안보역사",
-description: "백령도는 한국 초기 기독교 역사가 깊은 섬으로 여러 역사적인 교회와 유적을 만나볼 수 있습니다.",
+description: "백령도의 기독교 역사와 관련 자료를 살펴볼 수 있는 역사문화 공간입니다.",
 location: "인천 옹진군 백령면",
 tip: "⛪ 역사여행",
-link: "/place/christianity",
+link: "/place/christian-island",
     },
   
     {
@@ -1622,6 +1622,7 @@ link: "/place/christianity",
                   setShowStay(true);
                   setShowFood(true);
                   setShowTaxi(true);
+                  setShowRentcar(true);
                   setShowLocal(true);
 
                   window.scrollTo({
@@ -1642,6 +1643,7 @@ link: "/place/christianity",
                   setShowStay(false);
                   setShowFood(false);
                   setShowTaxi(false);
+                  setShowRentcar(false);
                   setShowLocal(false);
 
                   setTimeout(() => {
@@ -1660,6 +1662,7 @@ link: "/place/christianity",
                   setShowStay(true);
                   setShowFood(false);
                   setShowTaxi(false);
+                  setShowRentcar(false);
                   setShowLocal(false);
 
                   setTimeout(() => {
@@ -1678,6 +1681,7 @@ link: "/place/christianity",
                   setShowStay(false);
                   setShowFood(true);
                   setShowTaxi(false);
+                  setShowRentcar(false);
                   setShowLocal(false);
 
                   setTimeout(() => {
@@ -1696,11 +1700,31 @@ link: "/place/christianity",
                   setShowStay(false);
                   setShowFood(false);
                   setShowTaxi(true);
+                  setShowRentcar(false);
                   setShowLocal(false);
 
                   setTimeout(() => {
                     document
                       .getElementById("taxi")
+                      ?.scrollIntoView({
+                        behavior: "smooth",
+                      });
+                  }, 100);
+
+                }
+
+                // 렌트카
+                else if (category.name === "렌트카") {
+
+                  setShowStay(false);
+                  setShowFood(false);
+                  setShowTaxi(false);
+                  setShowRentcar(true);
+                  setShowLocal(false);
+
+                  setTimeout(() => {
+                    document
+                      .getElementById("rentcar")
                       ?.scrollIntoView({
                         behavior: "smooth",
                       });
@@ -1714,6 +1738,7 @@ link: "/place/christianity",
                   setShowStay(false);
                   setShowFood(false);
                   setShowTaxi(false);
+                  setShowRentcar(false);
                   setShowLocal(true);
 
                   setTimeout(() => {
