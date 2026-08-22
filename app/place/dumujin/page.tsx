@@ -312,7 +312,10 @@ export default function DumujinPage() {
           </div>
         </aside>
       </section>
-      <PlaceReviews />
+      <PlaceReviews
+  placeSlug="dumujin"
+  placeName="두무진"
+/>
     </main>
   );
 }
