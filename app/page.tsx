@@ -34,21 +34,8 @@ export default function Home() {
   const [staySearch, setStaySearch] = useState("");
   const [foodSearch, setFoodSearch] = useState("");
 
-  //         <div className="mb-8 rounded-[2rem] bg-gradient-to-br from-sky-50 to-indigo-50 p-6 md:p-8 border border-sky-100">
-          <p className="font-bold text-sky-700">궁금한 점을 직접 물어보세요</p>
-          <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
-            💬 백령도 여행 Q&amp;A
-          </h2>
-          <p className="mt-3 max-w-3xl leading-7 text-gray-600">
-            배편 · 숙소 · 맛집 · 관광지 · 교통 등 여행 중 궁금한 내용을 질문할 수 있어요.
-            등록된 질문은 관리자 답변 후 함께 확인할 수 있습니다.
-          </p>
-          <div className="mt-4 rounded-2xl bg-white/80 p-4 text-sm leading-6 text-gray-600">
-            🔒 전화번호·예약번호·주민등록번호 등 개인정보는 질문 내용에 작성하지 마세요.
-          </div>
-        </div>
 
-Q&A
+  // Q&A
   const [qnaCategory, setQnaCategory] = useState("전체");
   const [notices, setNotices] = useState<any[]>([]);
 const [placeViews, setPlaceViews] = useState<any[]>([]);
@@ -192,6 +179,8 @@ description: "백령도의 기독교 역사와 관련 자료를 살펴볼 수 �
 location: "인천 옹진군 백령면",
 tip: "⛪ 역사여행",
 link: "/place/christian-island",
+    
+      encyclopedia: "/place/christianity",
     },
   
     {
@@ -1987,7 +1976,7 @@ link: "/place/christian-island",
       href={item.href}
       className="inline-flex items-center justify-center w-full bg-sky-600 text-white py-3 rounded-2xl font-semibold hover:bg-sky-700 transition"
     >
-      📖 백과사전 보기
+      📖 상세정보 보기
     </Link>
   ))}
 

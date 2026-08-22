@@ -1,8 +1,8 @@
 "use client";
 
-import MyCourse from "./components/MyCourse";
-import AddCourseButton from "./components/AddCourseButton";
-import { supabase } from "./lib/supabase";
+import MyCourse from "../components/MyCourse";
+import AddCourseButton from "../components/AddCourseButton";
+import { supabase } from "../lib/supabase";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
