@@ -34,7 +34,21 @@ export default function Home() {
   const [staySearch, setStaySearch] = useState("");
   const [foodSearch, setFoodSearch] = useState("");
 
-  // Q&A
+  //         <div className="mb-8 rounded-[2rem] bg-gradient-to-br from-sky-50 to-indigo-50 p-6 md:p-8 border border-sky-100">
+          <p className="font-bold text-sky-700">궁금한 점을 직접 물어보세요</p>
+          <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
+            💬 백령도 여행 Q&amp;A
+          </h2>
+          <p className="mt-3 max-w-3xl leading-7 text-gray-600">
+            배편 · 숙소 · 맛집 · 관광지 · 교통 등 여행 중 궁금한 내용을 질문할 수 있어요.
+            등록된 질문은 관리자 답변 후 함께 확인할 수 있습니다.
+          </p>
+          <div className="mt-4 rounded-2xl bg-white/80 p-4 text-sm leading-6 text-gray-600">
+            🔒 전화번호·예약번호·주민등록번호 등 개인정보는 질문 내용에 작성하지 마세요.
+          </div>
+        </div>
+
+Q&A
   const [qnaCategory, setQnaCategory] = useState("전체");
   const [notices, setNotices] = useState<any[]>([]);
 const [placeViews, setPlaceViews] = useState<any[]>([]);
@@ -1474,9 +1488,16 @@ link: "/place/christian-island",
 {selectedIsland === "백령도" && (
 <section className="max-w-6xl mx-auto px-6 py-16">
 
-    <h2 className="text-4xl font-bold text-center mb-10">
-      ❓ 백령도 여행 자주 묻는 질문
-    </h2>
+    <div className="mb-8 rounded-[2rem] bg-gradient-to-br from-violet-50 to-fuchsia-50 p-6 md:p-8 border border-violet-100">
+          <p className="font-bold text-violet-700">여행 전 많이 묻는 질문</p>
+          <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
+            ❓ 백령도 여행 FAQ
+          </h2>
+          <p className="mt-3 max-w-3xl leading-7 text-gray-600">
+            배편·차량선적·숙박·교통 등 백령도 여행 전에 자주 궁금해하는 내용을 먼저 확인해 보세요.
+            더 궁금한 내용은 Q&amp;A에서 직접 질문할 수 있습니다.
+          </p>
+        </div>
 
     <div className="space-y-8">
 
@@ -1768,7 +1789,20 @@ link: "/place/christian-island",
         </div>
 
       </section>
-      <MyCourse />
+      <section id="my-course" className="scroll-mt-24">
+        <div className="mx-auto mb-5 max-w-7xl px-6">
+          <div className="rounded-[2rem] bg-gradient-to-br from-pink-50 to-rose-50 p-6 md:p-8 border border-pink-100">
+            <p className="font-bold text-pink-700">내가 고른 장소 모아보기</p>
+            <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
+              ❤️ 나만의 여행코스
+            </h2>
+            <p className="mt-3 leading-7 text-gray-600">
+              관광지와 추천코스에서 추가한 장소를 이곳에서 한 번에 확인할 수 있어요.
+            </p>
+          </div>
+        </div>
+        <MyCourse />
+      </section>
       {/* 인기 관광지 TOP10 */}
 {popularPlaces.length > 0 && (
   <section className="max-w-7xl mx-auto px-6 py-16">
@@ -2103,157 +2137,185 @@ link: "/place/christian-island",
       {/* STAY LIST SECTION */}
       <section
         id="stay"
-        className="max-w-7xl mx-auto px-6 pb-20"
+        className="scroll-mt-24 max-w-7xl mx-auto px-6 pb-20"
       >
-
         {(selectedCategory === "전체" ||
           selectedCategory === "숙박") && (
-
-            <>
-              <div className="text-center mb-10">
+          <>
+            <div className="rounded-[2rem] bg-gradient-to-br from-sky-50 to-blue-50 p-6 md:p-10 shadow-sm border border-sky-100">
+              <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+                <div>
+                  <p className="font-bold text-sky-600">백령도 숙박정보</p>
+                  <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
+                    🏨 숙박업소 한눈에 보기
+                  </h2>
+                  <p className="mt-3 leading-7 text-gray-600">
+                    숙박업소 이름·주소·전화번호를 확인하고 바로 전화할 수 있어요.
+                    예약 가능 여부와 요금은 방문 전 숙소에 직접 확인해 주세요.
+                  </p>
+                </div>
 
                 <button
+                  type="button"
                   onClick={() => setShowStay(!showStay)}
-                 className="bg-black text-white px-10 py-5 rounded-full text-2xl font-bold shadow-xl hover:bg-gray-800 hover:scale-105 transition duration-300"
-                 >
-                  🏨 {showStay ? "숙박업소 닫기 ▲" : "숙박업소 보기 ▼"}
+                  className="shrink-0 rounded-2xl bg-gray-900 px-7 py-4 text-lg font-extrabold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-sky-600"
+                >
+                  {showStay ? "숙박업소 닫기 ▲" : "숙박업소 전체보기 ▼"}
                 </button>
-
               </div>
 
               {showStay && (
+                <div className="mt-8">
+                  <div className="rounded-3xl bg-white p-5 md:p-7 shadow-lg">
+                    <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                      <div className="relative flex-1">
+                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-xl">
+                          🔎
+                        </span>
+                        <input
+                          type="text"
+                          placeholder="숙소명, 주소, 전화번호로 검색"
+                          value={staySearch}
+                          onChange={(e) => setStaySearch(e.target.value)}
+                          className="w-full rounded-2xl border-2 border-gray-200 bg-gray-50 py-4 pl-12 pr-4 text-base text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-100"
+                        />
+                      </div>
 
-                <>
+                      {staySearch && (
+                        <button
+                          type="button"
+                          onClick={() => setStaySearch("")}
+                          className="rounded-2xl bg-gray-100 px-5 py-4 font-bold text-gray-700 transition hover:bg-gray-200"
+                        >
+                          검색 초기화
+                        </button>
+                      )}
+                    </div>
 
-                  <div className="mb-6">
-                    <input
-                      type="text"
-                      placeholder="🏨 숙박업소 검색..."
-                      value={staySearch}
-                      onChange={(e) => setStaySearch(e.target.value)}
-                       className="bg-black text-white px-10 py-5 rounded-full text-2xl font-bold shadow-xl hover:bg-gray-800 hover:scale-105 transition duration-300"
-                    />
+                    <div className="mt-5 rounded-2xl bg-amber-50 p-4 text-sm leading-6 text-amber-900">
+                      💡 휴대폰에서는 전화번호를 누르면 바로 전화 연결할 수 있습니다.
+                      주소·연락처는 변경될 수 있으니 예약 전 다시 확인해 주세요.
+                    </div>
+
+                    <div className="mt-6 overflow-x-auto rounded-2xl border border-gray-100">
+                      <table className="w-full min-w-[720px] text-left border-collapse">
+                        <thead className="bg-gray-900 text-white">
+                          <tr>
+                            <th className="p-4 text-base">숙박명</th>
+                            <th className="p-4 text-base">소재지</th>
+                            <th className="p-4 text-base">전화번호</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          {[
+                            ["루시아펜션", "백령로307", "032-836-0410"],
+                            ["파라다이스모텔", "백령로461-14", "032-836-8118"],
+                            ["문화모텔", "백령로265", "032-836-7001"],
+                            ["백령통나무펜션", "백령로461-30", "010-9440-0545"],
+                            ["백령도월가(황토모텔)", "백령로271번길39", "032-836-8060"],
+                            ["백령로그펜션", "백령로461-37", "010-3374-9306"],
+                            ["백령리조텔", "백령로280번길55", "032-836-3233"],
+                            ["백령모텔", "백령로271번길24-3", "032-836-0633"],
+                            ["백령오션호텔&펜션", "백령로52", "010-6356-8118"],
+                            ["백령캠핑", "백령로363-17", "032-836-2080"],
+                            ["백령파란섬모텔", "백령로322", "032-836-3353"],
+                            ["아일랜드캐슬", "백령로215", "032-836-6700"],
+                            ["옹진모텔", "백령로278번길2-11", "032-836-8001"],
+                            ["퍼시픽 백령호텔(구.J&B호텔)", "백령로485", "032-836-2229"],
+                            ["통나무펜션A", "백령로461-29", "010-2123-0545"],
+                            ["트윈스모텔", "백령로264", "032-836-1100"],
+                            ["팰리스모텔", "백령로228", "010-6757-1660"],
+                            ["푸른바다펜션", "사곶로69", "010-2759-0581"],
+                            ["프로포즈모텔", "백령로297번길16", "032-836-5551"],
+                            ["항구모텔", "백령로24-1", "032-836-2945"],
+                            ["해송모텔", "백령로849", "032-836-0465"],
+                            ["해양숙박", "백령로32", "010-8936-0445"],
+                            ["감사한민박", "백령로316번길25-9", "010-9771-1796"],
+                            ["경일민박", "백령로278번안길25-9", "010-4500-9432"],
+                            ["고향펜션", "두무진로171-10", "010-5078-4557"],
+                            ["노블펜션민박", "백령로368", "032-836-2000"],
+                            ["다인민박", "백령남로723번길20", "010-6233-2996"],
+                            ["로즈마리민박", "백령로803", "032-836-6612"],
+                            ["무지개빛펜션민박", "두무진로171-18", "010-8203-8245"],
+                            ["문화스테이", "백령로643", "010-6337-7001"],
+                            ["민들레민박", "백령로830", "032-836-2219"],
+                            ["백령게스트하우스", "백령로178", "010-6332-0363"],
+                            ["백령연꽃민박", "관창길399", "032-836-1510"],
+                            ["백령콘도비치민박", "사곶로180-23", "010-9596-6706"],
+                            ["백령하늬해변펜션", "백령로254번길212", "010-8996-3232"],
+                            ["백학민박(솔잎이네)", "두무진로498", "010-3359-1132"],
+                            ["사계절민박", "백령로363-5", "010-3784-0836"],
+                            ["산과바다민박", "두무진로498", "010-2668-2668"],
+                            ["섬민박", "백령로28번길33", "010-3276-0236"],
+                            ["솔개펜션민박", "백령로271번길56", "010-3664-8056"],
+                            ["수려한민박", "백령로254번길200", "010-8922-3994"],
+                            ["스타펜션민박", "백령로370", "032-836-8003"],
+                            ["아름다운세상민박", "가을리833-2", "010-9596-3232"],
+                            ["영암민박", "백령로380번길210", "010-6329-1779"],
+                            ["아름드리민박", "백령로278번길38-13", "010-9596-3232"],
+                            ["우리섬펜션민박", "당후길35-16", "010-3499-1745"],
+                            ["우리집펜션", "두무진로171-22", "010-2511-0719"],
+                            ["이야기민박", "장촌길2", "010-2838-4656"],
+                            ["제일민박", "백령로348번길134", "010-4573-7784"],
+                            ["포시즌펜션", "백령로461-20", "010-2007-1841"],
+                            ["하늬바다민박", "백령로254번길153", "010-6320-0981"],
+                            ["하늬황토민박", "백령로316번길109-14", "010-6742-9952"],
+                            ["한채하우스민박", "백령로1111", "010-4751-0671"],
+                            ["해뜨는민박", "사곶로101", "010-4336-8063"],
+                            ["해사랑펜션", "두무진로171-24", "010-3939-4959"],
+                            ["현이네민박", "사곶로122번길54-12", "032-836-6091"],
+                            ["호수민박", "화동로138", "010-9183-2700"],
+                            ["황토민박", "장촌길217", "010-7336-1900"],
+                            ["흰날개펜션민박", "백령로254번길41", "010-7239-2126"],
+                            ["힐링민박", "백령로473", "010-3459-1161"],
+                          ]
+                            .filter((stay) => {
+                              const keyword = staySearch
+                                .trim()
+                                .toLowerCase()
+                                .replace(/\s/g, "");
+                              if (!keyword) return true;
+
+                              return stay
+                                .join(" ")
+                                .toLowerCase()
+                                .replace(/\s/g, "")
+                                .includes(keyword);
+                            })
+                            .sort((a, b) => a[0].localeCompare(b[0], "ko"))
+                            .map((stay, index) => (
+                              <tr
+                                key={`${stay[0]}-${index}`}
+                                className="border-t border-gray-100 transition hover:bg-sky-50"
+                              >
+                                <td className="p-4 font-extrabold text-gray-900">
+                                  {stay[0]}
+                                </td>
+
+                                <td className="p-4 text-gray-600">
+                                  {stay[1]}
+                                </td>
+
+                                <td className="p-4">
+                                  <a
+                                    href={`tel:${stay[2]}`}
+                                    className="inline-flex items-center gap-2 rounded-full bg-sky-600 px-4 py-2 font-bold text-white transition hover:bg-sky-700"
+                                  >
+                                    📞 {stay[2]}
+                                  </a>
+                                </td>
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
-
-                  <div className="overflow-x-auto bg-white rounded-3xl shadow-lg">
-
-                    <table className="w-full text-left border-collapse">
-
-                      <thead className="bg-gray-100">
-                        <tr>
-                          <th className="p-4 text-lg">숙박명</th>
-                          <th className="p-4 text-lg">소재지</th>
-                          <th className="p-4 text-lg">전화번호</th>
-                        </tr>
-                      </thead>
-
-                      <tbody>
-
-                        {[
-                          ["루시아펜션", "백령로307", "032-836-0410"],
-                          ["파라다이스모텔", "백령로461-14", "032-836-8118"],
-                          ["문화모텔", "백령로265", "032-836-7001"],
-                          ["백령통나무펜션", "백령로461-30", "010-9440-0545"],
-                          ["백령도월가(황토모텔)", "백령로271번길39", "032-836-8060"],
-                          ["백령로그펜션", "백령로461-37", "010-3374-9306"],
-                          ["백령리조텔", "백령로280번길55", "032-836-3233"],
-                          ["백령모텔", "백령로271번길24-3", "032-836-0633"],
-                          ["백령오션호텔&펜션", "백령로52", "010-6356-8118"],
-                          ["백령캠핑", "백령로363-17", "032-836-2080"],
-                          ["백령파란섬모텔", "백령로322", "032-836-3353"],
-                          ["아일랜드캐슬", "백령로215", "032-836-6700"],
-                          ["옹진모텔", "백령로278번길2-11", "032-836-8001"],
-                          ["퍼시픽 백령호텔(구.J&B호텔)", "백령로485", "032-836-2229"],
-                          ["통나무펜션A", "백령로461-29", "010-2123-0545"],
-                          ["트윈스모텔", "백령로264", "032-836-1100"],
-                          ["팰리스모텔", "백령로228", "010-6757-1660"],
-                          ["푸른바다펜션", "사곶로69", "010-2759-0581"],
-                          ["프로포즈모텔", "백령로297번길16", "032-836-5551"],
-                          ["항구모텔", "백령로24-1", "032-836-2945"],
-                          ["해송모텔", "백령로849", "032-836-0465"],
-                          ["해양숙박", "백령로32", "010-8936-0445"],
-                          ["감사한민박", "백령로316번길25-9", "010-9771-1796"],
-                          ["경일민박", "백령로278번안길25-9", "010-4500-9432"],
-                          ["고향펜션", "두무진로171-10", "010-5078-4557"],
-                          ["노블펜션민박", "백령로368", "032-836-2000"],
-                          ["다인민박", "백령남로723번길20", "010-6233-2996"],
-                          ["로즈마리민박", "백령로803", "032-836-6612"],
-                          ["무지개빛펜션민박", "두무진로171-18", "010-8203-8245"],
-                          ["문화스테이", "백령로643", "010-6337-7001"],
-                          ["민들레민박", "백령로830", "032-836-2219"],
-                          ["백령게스트하우스", "백령로178", "010-6332-0363"],
-                          ["백령연꽃민박", "관창길399", "032-836-1510"],
-                          ["백령콘도비치민박", "사곶로180-23", "010-9596-6706"],
-                          ["백령하늬해변펜션", "백령로254번길212", "010-8996-3232"],
-                          ["백학민박(솔잎이네)", "두무진로498", "010-3359-1132"],
-                          ["사계절민박", "백령로363-5", "010-3784-0836"],
-                          ["산과바다민박", "두무진로498", "010-2668-2668"],
-                          ["섬민박", "백령로28번길33", "010-3276-0236"],
-                          ["솔개펜션민박", "백령로271번길56", "010-3664-8056"],
-                          ["수려한민박", "백령로254번길200", "010-8922-3994"],
-                          ["스타펜션민박", "백령로370", "032-836-8003"],
-                          ["아름다운세상민박", "가을리833-2", "010-9596-3232"],
-                          ["영암민박", "백령로380번길210", "010-6329-1779"],
-                          ["아름드리민박", "백령로278번길38-13", "010-9596-3232"],
-                          ["우리섬펜션민박", "당후길35-16", "010-3499-1745"],
-                          ["우리집펜션", "두무진로171-22", "010-2511-0719"],
-                          ["이야기민박", "장촌길2", "010-2838-4656"],
-                          ["제일민박", "백령로348번길134", "010-4573-7784"],
-                          ["포시즌펜션", "백령로461-20", "010-2007-1841"],
-                          ["하늬바다민박", "백령로254번길153", "010-6320-0981"],
-                          ["하늬황토민박", "백령로316번길109-14", "010-6742-9952"],
-                          ["한채하우스민박", "백령로1111", "010-4751-0671"],
-                          ["해뜨는민박", "사곶로101", "010-4336-8063"],
-                          ["해사랑펜션", "두무진로171-24", "010-3939-4959"],
-                          ["현이네민박", "사곶로122번길54-12", "032-836-6091"],
-                          ["호수민박", "화동로138", "010-9183-2700"],
-                          ["황토민박", "장촌길217", "010-7336-1900"],
-                          ["흰날개펜션민박", "백령로254번길41", "010-7239-2126"],
-                          ["힐링민박", "백령로473", "010-3459-1161"],
-                        ]
-                          .filter((stay) =>
-                            stay[0].includes(staySearch)
-                          )
-                          .sort((a, b) => a[0].localeCompare(b[0], "ko"))
-                          .map((stay, index) => (
-                            <tr
-                              key={index}
-                              className="border-t hover:bg-gray-50"
-                            >
-                              <td className="p-4 font-semibold">
-                                {stay[0]}
-                              </td>
-
-                              <td className="p-4">
-                                {stay[1]}
-                              </td>
-
-                              <td className="p-4">
-                                <a
-                                  href={`tel:${stay[2]}`}
-                                  className="inline-block bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition"
-                                >
-                                  {stay[2]}
-                                </a>
-                              </td>
-
-                            </tr>
-                          ))}
-
-                      </tbody>
-
-                    </table>
-
-                  </div>
-
-                </>
-
+                </div>
               )}
-
-            </>
-
-          )}
-
+            </div>
+          </>
+        )}
       </section>
 
       {/* FOOD SECTION */}
@@ -2266,28 +2328,52 @@ link: "/place/christian-island",
           selectedCategory === "맛집") && (
 
             <>
-              <div className="text-center mb-6">
-                <button
-                  onClick={() => setShowFood(!showFood)}
-                   className="bg-black text-white px-10 py-5 rounded-full text-2xl font-bold shadow-xl hover:bg-gray-800 hover:scale-105 transition duration-300"
-                >
-                  <>
-                    🍜 {showFood ? "음식점 닫기 ▲" : "음식점 보기 ▼"}
-                  </>
-                </button>
+              <div className="rounded-[2rem] bg-gradient-to-br from-orange-50 to-amber-50 p-6 md:p-10 mb-6 border border-orange-100">
+                <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+                  <div>
+                    <p className="font-bold text-orange-600">백령도 음식정보</p>
+                    <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
+                      🍜 음식점 한눈에 보기
+                    </h2>
+                    <p className="mt-3 leading-7 text-gray-600">
+                      음식점 이름과 대표메뉴를 검색하고 전화번호를 눌러 바로 문의할 수 있어요.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowFood(!showFood)}
+                    className="shrink-0 rounded-2xl bg-gray-900 px-7 py-4 text-lg font-extrabold text-white shadow-lg transition hover:bg-orange-600"
+                  >
+                    {showFood ? "음식점 닫기 ▲" : "음식점 전체보기 ▼"}
+                  </button>
+                </div>
               </div>
 
               {showFood && (
                 <div className="bg-white rounded-3xl shadow-lg p-10 text-center text-gray-600">
                   <div className="overflow-x-auto bg-white rounded-3xl shadow-lg">
                     <div className="mb-6">
-                      <input
-                        type="text"
-                        placeholder="음식점 검색..."
-                        value={foodSearch}
-                        onChange={(e) => setFoodSearch(e.target.value)}
-                        className="w-full border rounded-2xl px-5 py-4 shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
-                      />
+                      <div className="flex flex-col gap-3 md:flex-row">
+                        <input
+                          type="text"
+                          placeholder="🔎 음식점명 · 대표메뉴 · 전화번호 검색"
+                          value={foodSearch}
+                          onChange={(e) => setFoodSearch(e.target.value)}
+                          className="w-full rounded-2xl border-2 border-gray-200 bg-gray-50 px-5 py-4 text-gray-900 shadow-sm outline-none transition focus:border-orange-500 focus:bg-white focus:ring-4 focus:ring-orange-100"
+                        />
+                        {foodSearch && (
+                          <button
+                            type="button"
+                            onClick={() => setFoodSearch("")}
+                            className="rounded-2xl bg-gray-100 px-5 py-4 font-bold text-gray-700 hover:bg-gray-200"
+                          >
+                            검색 초기화
+                          </button>
+                        )}
+                      </div>
+                      <p className="mt-3 rounded-2xl bg-amber-50 p-4 text-sm leading-6 text-amber-900">
+                        💡 영업시간과 휴무일은 달라질 수 있으니 방문 전 전화 확인을 추천합니다.
+                      </p>
                     </div>
 
                     <table className="w-full text-left border-collapse">
@@ -2418,6 +2504,20 @@ link: "/place/christian-island",
                           ["형준네 만두", "만두", "032-836-0427"],
                           ["호남횟집", "횟집 · 해산물", "010-9290-2212"],
                         ]
+                          .filter((food) => {
+                            const keyword = foodSearch
+                              .trim()
+                              .toLowerCase()
+                              .replace(/\s/g, "");
+
+                            if (!keyword) return true;
+
+                            return food
+                              .join(" ")
+                              .toLowerCase()
+                              .replace(/\s/g, "")
+                              .includes(keyword);
+                          })
                           .sort((a, b) => a[0].localeCompare(b[0], "ko"))
                           .map((food, index) => (
 
@@ -2544,123 +2644,111 @@ link: "/place/christian-island",
       {/* TAXI SECTION */}
       <section
         id="taxi"
-        className="max-w-7xl mx-auto px-6 pb-10"
+        className="scroll-mt-24 max-w-7xl mx-auto px-6 pb-10"
       >
-
         {(selectedCategory === "전체" ||
           selectedCategory === "개인택시") && (
-
-            <>
-              <div className="text-center mb-6">
-                <button
-                  onClick={() => setShowTaxi(!showTaxi)}
-                  className="bg-black text-white px-10 py-5 rounded-full text-2xl font-bold shadow-xl hover:bg-gray-800 hover:scale-105 transition duration-300"
-                >
-                  <>
-                    🚕 {showTaxi ? "개인택시 닫기 ▲" : "개인택시 보기 ▼"}
-                  </>
-                </button>
+          <div className="rounded-[2rem] bg-gradient-to-br from-yellow-50 to-amber-50 p-6 md:p-10 border border-yellow-100">
+            <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="font-bold text-amber-600">백령도 이동정보</p>
+                <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
+                  🚕 개인택시 한눈에 보기
+                </h2>
+                <p className="mt-3 leading-7 text-gray-600">
+                  백령도 개인택시 연락처를 확인하고 전화번호를 눌러 바로 문의할 수 있어요.
+                </p>
               </div>
 
-              {showTaxi && (
+              <button
+                type="button"
+                onClick={() => setShowTaxi(!showTaxi)}
+                className="shrink-0 rounded-2xl bg-gray-900 px-7 py-4 text-lg font-extrabold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-amber-500"
+              >
+                {showTaxi ? "개인택시 닫기 ▲" : "개인택시 전체보기 ▼"}
+              </button>
+            </div>
 
-                <div className="overflow-x-auto bg-white rounded-3xl shadow-lg">
-
-                  <table className="w-full text-left border-collapse">
-
-                    <thead className="bg-gray-100">
-                      <tr>
-                        <th className="p-4 text-lg">업체명</th>
-                        <th className="p-4 text-lg">전화번호</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-
-                      {[
-                        ["길택시", "032-836-7080"],
-                        ["김인택시", "032-836-4888"],
-                        ["선원택시", "032-836-3883"],
-                        ["영암택시", "032-836-0016"],
-                        ["일갑택시", "032-836-0155"],
-                        ["충열택시", "032-836-1302"],
-                        ["황금택시", "032-836-0065"],
-                      ]
-                        .sort((a, b) => a[0].localeCompare(b[0], "ko"))
-                        .map((taxi, index) => (
-
-                          <tr
-                            key={index}
-                            className="border-t hover:bg-gray-50"
-                          >
-                            <td className="p-4 font-semibold">
-                              {taxi[0]}
-                            </td>
-
-                            <td className="p-4">
-                              <a
-                                href={`tel:${taxi[1]}`}
-                                className="text-blue-600 hover:underline"
-                              >
-                                {taxi[1]}
-                              </a>
-                            </td>
-
-                          </tr>
-
-                        ))}
-
-                    </tbody>
-
-                  </table>
-
+            {showTaxi && (
+              <div className="mt-8 rounded-3xl bg-white p-5 md:p-7 shadow-lg">
+                <div className="rounded-2xl bg-amber-50 p-4 text-sm leading-6 text-amber-900">
+                  💡 배 도착 시간이나 관광 일정에 맞춰 이용하려면 미리 전화로 운행 가능 여부를 확인해 주세요.
                 </div>
 
-              )}
-            </>
+                <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {[
+                    ["길택시", "032-836-7080"],
+                    ["김인택시", "032-836-4888"],
+                    ["선원택시", "032-836-3883"],
+                    ["영암택시", "032-836-0016"],
+                    ["일갑택시", "032-836-0155"],
+                    ["충열택시", "032-836-1302"],
+                    ["황금택시", "032-836-0065"],
+                  ]
+                    .sort((a, b) => a[0].localeCompare(b[0], "ko"))
+                    .map((taxi, index) => (
+                      <div
+                        key={`${taxi[0]}-${index}`}
+                        className="rounded-2xl border border-gray-200 p-5 transition hover:border-amber-300 hover:shadow-md"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-yellow-100 text-xl">
+                            🚕
+                          </div>
+                          <div>
+                            <p className="font-extrabold text-gray-900">{taxi[0]}</p>
+                            <p className="mt-1 text-sm text-gray-500">개인택시</p>
+                          </div>
+                        </div>
 
-          )}
+                        <a
+                          href={`tel:${taxi[1]}`}
+                          className="mt-5 flex w-full items-center justify-center rounded-2xl bg-amber-500 px-4 py-3 font-extrabold text-white transition hover:bg-amber-600"
+                        >
+                          📞 {taxi[1]} 전화하기
+                        </a>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </section>
 
       {/* RENTCAR SECTION */}
       <section
         id="rentcar"
-        className="max-w-7xl mx-auto px-6 pb-10"
+        className="scroll-mt-24 max-w-7xl mx-auto px-6 pb-10"
       >
+        <div className="rounded-[2rem] bg-gradient-to-br from-blue-50 to-indigo-50 p-6 md:p-10 border border-blue-100">
+          <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="font-bold text-blue-600">백령도 이동정보</p>
+              <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
+                🚗 렌터카 한눈에 보기
+              </h2>
+              <p className="mt-3 leading-7 text-gray-600">
+                백령도 렌터카 업체 연락처를 확인하고 전화번호를 눌러 바로 예약 문의할 수 있어요.
+              </p>
+            </div>
 
-        <div className="text-center mb-6">
+            <button
+              type="button"
+              onClick={() => setShowRentcar(!showRentcar)}
+              className="shrink-0 rounded-2xl bg-gray-900 px-7 py-4 text-lg font-extrabold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-blue-600"
+            >
+              {showRentcar ? "렌터카 닫기 ▲" : "렌터카 전체보기 ▼"}
+            </button>
+          </div>
 
-          <button
-            onClick={() => setShowRentcar(!showRentcar)}
-             className="bg-black text-white px-10 py-5 rounded-full text-2xl font-bold shadow-xl hover:bg-gray-800 hover:scale-105 transition duration-300"
-          >
-            🚗 {showRentcar ? "렌트카 닫기 ▲" : "렌트카 보기 ▼"}
-          </button>
+          {showRentcar && (
+            <div className="mt-8 rounded-3xl bg-white p-5 md:p-7 shadow-lg">
+              <div className="rounded-2xl bg-blue-50 p-4 text-sm leading-6 text-blue-900">
+                💡 성수기에는 차량이 빨리 마감될 수 있어요. 차량 종류·요금·인수 장소는 예약 전에 업체에 직접 확인해 주세요.
+              </div>
 
-        </div>
-
-        {showRentcar && (
-
-          <div className="overflow-x-auto bg-white rounded-3xl shadow-lg">
-
-            <table className="w-full text-left border-collapse">
-
-              <thead className="bg-gray-100">
-
-                <tr>
-                  <th className="p-4 text-lg">
-                    업체명
-                  </th>
-
-                  <th className="p-4 text-lg">
-                    전화번호
-                  </th>
-                </tr>
-
-              </thead>
-
-              <tbody>
-
+              <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {[
                   ["경인렌터카", "032-836-8400"],
                   ["나나렌터카", "032-836-6699"],
@@ -2673,133 +2761,106 @@ link: "/place/christian-island",
                 ]
                   .sort((a, b) => a[0].localeCompare(b[0], "ko"))
                   .map((car, index) => (
-
-                    <tr
-                      key={index}
-                      className="border-t hover:bg-gray-50"
+                    <div
+                      key={`${car[0]}-${index}`}
+                      className="rounded-2xl border border-gray-200 p-5 transition hover:border-blue-300 hover:shadow-md"
                     >
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-100 text-xl">
+                          🚗
+                        </div>
+                        <div>
+                          <p className="font-extrabold text-gray-900">{car[0]}</p>
+                          <p className="mt-1 text-sm text-gray-500">렌터카 예약 문의</p>
+                        </div>
+                      </div>
 
-                      <td className="p-4 font-semibold">
-                        {car[0]}
-                      </td>
-
-                      <td className="p-4">
-
-                        <a
-                          href={`tel:${car[1]}`}
-                          className="text-blue-600 hover:underline"
-                        >
-                          📞 {car[1]}
-                        </a>
-
-                      </td>
-
-                    </tr>
-
+                      <a
+                        href={`tel:${car[1]}`}
+                        className="mt-5 flex w-full items-center justify-center rounded-2xl bg-blue-600 px-4 py-3 font-extrabold text-white transition hover:bg-blue-700"
+                      >
+                        📞 {car[1]} 전화하기
+                      </a>
+                    </div>
                   ))}
-
-              </tbody>
-
-            </table>
-
-          </div>
-
-        )}
-
+              </div>
+            </div>
+          )}
+        </div>
       </section>
+
+
       {/* LOCAL PRODUCT SECTION */}
       <section
         id="local"
-        className="max-w-7xl mx-auto px-6 pb-20"
+        className="scroll-mt-24 max-w-7xl mx-auto px-6 pb-20"
       >
-
         {(selectedCategory === "전체" ||
           selectedCategory === "특산물") && (
-
-            <>
-              <div className="text-center mb-6">
-                <button
-                  onClick={() => setShowLocal(!showLocal)}
-                 className="bg-black text-white px-10 py-5 rounded-full text-2xl font-bold shadow-xl hover:bg-gray-800 hover:scale-105 transition duration-300"
-                >
-                  🎁 {showLocal ? "특산물 닫기 ▲" : "특산물 보기 ▼"}
-                </button>
+          <div className="rounded-[2rem] bg-gradient-to-br from-rose-50 to-orange-50 p-6 md:p-10 border border-rose-100">
+            <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="font-bold text-rose-600">백령도 먹거리·선물</p>
+                <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
+                  🎁 백령도 특산물 한눈에 보기
+                </h2>
+                <p className="mt-3 leading-7 text-gray-600">
+                  백령도에서 많이 찾는 농수산물과 지역 특산물을 여행 전에 확인해 보세요.
+                </p>
               </div>
 
-              {showLocal && (
+              <button
+                type="button"
+                onClick={() => setShowLocal(!showLocal)}
+                className="shrink-0 rounded-2xl bg-gray-900 px-7 py-4 text-lg font-extrabold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-rose-600"
+              >
+                {showLocal ? "특산물 닫기 ▲" : "특산물 전체보기 ▼"}
+              </button>
+            </div>
 
-                <div className="grid md:grid-cols-3 gap-8">
-
-                  <div className="bg-white rounded-3xl shadow-lg p-8">
-
-                    <Image
-                      src="/images/sweetpotato.jpg"
-                      alt="백색고구마"
-                      width={500}
-                      height={300}
-                      className="rounded-2xl mb-4 object-cover h-48 w-full"
-                    />
-
-                    <h3 className="text-2xl font-bold mb-4">
-                      🍠 백령도 백색고구마
-                    </h3>
-
-                    <p className="text-gray-600 leading-relaxed">
-                      백령도의 대표 특산물로 담백하고 달콤한 맛이 특징입니다.
-                    </p>
-
-                  </div>
-
-                  <div className="bg-white rounded-3xl shadow-lg p-8">
-
-                    <Image
-                      src="/images/seafood.jpg"
-                      alt="백령도 해산물"
-                      width={500}
-                      height={300}
-                      className="rounded-2xl mb-4 object-cover h-48 w-full"
-                    />
-
-                    <h3 className="text-2xl font-bold mb-4">
-                      🦑 백령도 해산물
-                    </h3>
-
-                    <p className="text-gray-600 leading-relaxed">
-                      까나리, 우럭, 놀래미,홍합 등 신선한 해산물을 맛볼 수 있습니다.
-                    </p>
-
-                  </div>
-
-                  <div className="bg-white rounded-3xl shadow-lg p-8">
-
-                    <Image
-                      src="/images/LOCAL.jpg"
-                      alt="백령도 특산품"
-                      width={500}
-                      height={300}
-                      className="rounded-2xl mb-4 object-cover h-48 w-full"
-                    />
-
-                    <h3 className="text-2xl font-bold mb-4">
-                      🌹 특산품
-                    </h3>
-
-                    <p className="text-gray-600 leading-relaxed">
-                      백령도의 특색있는 특산품을 만나볼 수 있습니다.
-                    </p>
-
-                  </div>
-
+            {showLocal && (
+              <div className="mt-8">
+                <div className="rounded-2xl bg-white p-4 text-sm leading-6 text-gray-700 shadow-sm">
+                  💡 농수산물은 계절과 조업·수확 상황에 따라 판매 여부가 달라질 수 있습니다.
+                  구매 전 판매처에 재고와 판매 시기를 확인해 주세요.
                 </div>
 
-              )}
+                <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                  {[
+                    ["🌿", "백령도 약쑥", "백령도에서 자라는 향긋한 약쑥으로 다양한 지역 상품에 활용됩니다."],
+                    ["🐟", "까나리액젓", "백령도를 대표하는 수산 가공품 중 하나로 김치와 각종 요리에 활용됩니다."],
+                    ["🍠", "백고구마", "담백한 맛과 포슬한 식감이 특징인 백령도의 대표 농산물입니다."],
+                    ["🌊", "돌미역", "백령도 바다에서 나는 미역으로 국과 다양한 해조류 요리에 활용됩니다."],
+                    ["🌿", "다시마", "백령도 해역에서 생산되는 해조류로 육수와 요리에 활용하기 좋습니다."],
+                    ["🌾", "백령도쌀", "섬에서 재배되는 백령도 농산물로 지역 먹거리로 만나볼 수 있습니다."],
+                    ["🐚", "건홍합·냉동홍합", "백령도 바다의 홍합을 건조하거나 냉동한 수산물입니다."],
+                    ["🦪", "백령도 굴", "제철에 만날 수 있는 백령도의 신선한 수산물입니다."],
+                  ].map(([icon, name, description]) => (
+                    <div
+                      key={name}
+                      className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-gray-100 transition hover:-translate-y-1 hover:shadow-lg"
+                    >
+                      <div className="text-4xl">{icon}</div>
+                      <h3 className="mt-4 text-xl font-extrabold text-gray-900">{name}</h3>
+                      <p className="mt-3 text-sm leading-7 text-gray-600">{description}</p>
+                    </div>
+                  ))}
+                </div>
 
-            </>
-
-          )}
+                <div className="mt-6 rounded-3xl bg-gray-900 p-6 text-white md:flex md:items-center md:justify-between">
+                  <div>
+                    <h3 className="text-xl font-extrabold">특산물 구매 전 체크</h3>
+                    <p className="mt-2 text-sm leading-6 text-gray-300">
+                      생물·냉동 제품은 여행 일정과 선박 이동시간을 고려해 포장 방법도 함께 확인하세요.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </section>
 
-      {/* LOCAL PRODUCT SECTION */}
       {/* FISHING SECTION */}
       <section className="max-w-7xl mx-auto px-6 pb-20">
 
@@ -3187,51 +3248,65 @@ link: "/place/christian-island",
             <div className="space-y-6">
 
               {/* 버스 */}
-              <div className="bg-white rounded-3xl p-8 shadow">
-
-              <button
-  onClick={() => setShowBus(!showBus)}
-  className="w-full bg-blue-500 hover:bg-blue-600 text-white p-6 rounded-3xl shadow-lg transition flex justify-between items-center"
->
-  <div>
-    <h3 className="text-2xl font-bold">
-      🚌 백령도 공영버스 시간표
-    </h3>
-
-    <p className="text-blue-100 mt-2">
-      클릭해서 시간표 보기
-    </p>
-  </div>
-
-  <span className="text-3xl">
-    {showBus ? "▲" : "▼"}
-  </span>
-</button>
+              <div className="rounded-3xl bg-white p-8 shadow">
+                <button
+                  type="button"
+                  onClick={() => setShowBus(!showBus)}
+                  className="w-full rounded-3xl bg-gradient-to-r from-blue-600 to-sky-500 p-6 text-left text-white shadow-lg transition hover:-translate-y-0.5"
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-sm font-bold text-blue-100">백령도 교통정보</p>
+                      <h3 className="mt-1 text-2xl font-extrabold">
+                        🚌 백령도 공영버스 시간표
+                      </h3>
+                      <p className="mt-2 text-sm leading-6 text-blue-50">
+                        방향별 시간표 이미지를 크게 열어 확인할 수 있어요.
+                      </p>
+                    </div>
+                    <span className="text-3xl">{showBus ? "▲" : "▼"}</span>
+                  </div>
+                </button>
 
                 {showBus && (
+                  <div className="mt-6">
+                    <div className="rounded-2xl bg-blue-50 p-4 text-sm leading-6 text-blue-900">
+                      💡 운행 시간은 변경될 수 있으니 실제 이용 전 최신 시간표인지 확인해 주세요.
+                    </div>
 
-                  <div className="mt-6 border-t pt-6 flex gap-4 flex-wrap">
+                    <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                      <a
+                        href="/images/bus1.jpg"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-2xl border-2 border-gray-100 p-5 transition hover:border-blue-300 hover:shadow-md"
+                      >
+                        <div className="text-3xl">🚌</div>
+                        <h4 className="mt-3 text-lg font-extrabold text-gray-900">
+                          북포리 방향
+                        </h4>
+                        <p className="mt-2 text-sm text-gray-500">
+                          시간표 크게 보기 →
+                        </p>
+                      </a>
 
-                    <a
-                      href="/images/bus1.jpg"
-                      target="_blank"
-                      className="bg-black text-white px-6 py-4 rounded-2xl font-semibold"
-                    >
-                      🚌 북포리 방향
-                    </a>
-
-                    <a
-                      href="/images/bus2.jpg"
-                      target="_blank"
-                      className="bg-blue-500 text-white px-6 py-4 rounded-2xl font-semibold"
-                    >
-                      🚌 화동 방향
-                    </a>
-
+                      <a
+                        href="/images/bus2.jpg"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-2xl border-2 border-gray-100 p-5 transition hover:border-sky-300 hover:shadow-md"
+                      >
+                        <div className="text-3xl">🚌</div>
+                        <h4 className="mt-3 text-lg font-extrabold text-gray-900">
+                          화동 방향
+                        </h4>
+                        <p className="mt-2 text-sm text-gray-500">
+                          시간표 크게 보기 →
+                        </p>
+                      </a>
+                    </div>
                   </div>
-
                 )}
-
               </div>
 
               {/* 군인면회 */}
@@ -3266,76 +3341,84 @@ link: "/place/christian-island",
           </div>
 
         {/* 생활정보 */}
-<div className="bg-white rounded-3xl p-8 shadow">
+        <div className="grid gap-6 md:grid-cols-3">
 
-<h3 className="text-2xl font-bold mb-4">
-  📞 백령도 생활정보
-</h3>
+          <div className="rounded-3xl bg-white p-6 shadow">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-2xl">
+              📞
+            </div>
+            <h3 className="mt-4 text-2xl font-extrabold text-gray-900">
+              백령도 생활정보
+            </h3>
+            <p className="mt-2 text-sm leading-6 text-gray-600">
+              편의점 · 마트 등 여행 중 필요한 생활정보를 크게 확인할 수 있어요.
+            </p>
+            <a
+              href="/images/lifeinfo.jpg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 flex w-full items-center justify-center rounded-2xl bg-emerald-600 py-4 font-extrabold text-white transition hover:bg-emerald-700"
+            >
+              📋 생활정보 크게 보기
+            </a>
+          </div>
 
-<p className="text-gray-600 leading-relaxed mb-4">
-  편의점 · 마트 전화번호 한눈에 보기
-</p>
+          <div className="rounded-3xl bg-white p-6 shadow">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-100 text-2xl">
+              🏢
+            </div>
+            <h3 className="mt-4 text-2xl font-extrabold text-gray-900">
+              관공서 및 단체
+            </h3>
+            <p className="mt-2 text-sm leading-6 text-gray-600">
+              백령도에서 필요한 관공서와 주요 단체 연락처를 확인하세요.
+            </p>
+            <a
+              href="/images/contact.jpg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 flex w-full items-center justify-center rounded-2xl bg-blue-600 py-4 font-extrabold text-white transition hover:bg-blue-700"
+            >
+              📞 연락처 크게 보기
+            </a>
+          </div>
 
-<a
-  href="/images/lifeinfo.jpg"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="block bg-green-500 hover:bg-green-600 text-white text-center py-3 rounded-2xl font-bold transition"
->
-  📋 생활정보 보기
-</a>
+          <div className="rounded-3xl bg-white p-6 shadow">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-100 text-2xl">
+              🧭
+            </div>
+            <h3 className="mt-4 text-2xl font-extrabold text-gray-900">
+              여행정보
+            </h3>
+            <p className="mt-2 text-sm leading-6 text-gray-600">
+              백령도 여행에 필요한 안내 정보를 이미지로 크게 확인할 수 있어요.
+            </p>
+            <a
+              href="/images/travelinfo.jpg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 flex w-full items-center justify-center rounded-2xl bg-violet-600 py-4 font-extrabold text-white transition hover:bg-violet-700"
+            >
+              🧭 여행정보 크게 보기
+            </a>
+          </div>
 
-</div>
-        {/* 관공서 및 단체 */}
-        <div className="grid md:grid-cols-2 gap-6">
-
-{/* 관공서 및 단체 */}
-<div className="bg-white rounded-3xl p-6 shadow">
-  <h3 className="text-2xl font-bold mb-4">
-    📞 관공서 및 단체
-  </h3>
-
-  <a
-    href="/images/contact.jpg"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <img
-      src="/images/contact.jpg"
-      alt="관공서 및 단체"
-      className="h-40 w-full object-cover rounded-2xl"
-    />
-  </a>
-</div>
-
-{/* 여행정보 */}
-<div className="bg-white rounded-3xl p-6 shadow">
-  <h3 className="text-2xl font-bold mb-4">
-    🧭 여행정보
-  </h3>
-
-  <a
-    href="/images/travelinfo.jpg"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <img
-      src="/images/travelinfo.jpg"
-      alt="여행정보"
-      className="h-40 w-full object-cover rounded-2xl"
-    />
-  </a>
-</div>
-
-</div>
+        </div>
       </section>
 
       {/* COURSE SECTION */}
       <section className="max-w-7xl mx-auto px-6 pb-20">
 
-        <h2 className="text-4xl font-bold text-center mb-12">
-          🗺️ 백령도 추천 여행코스
-        </h2>
+        <div className="mb-8 rounded-[2rem] bg-gradient-to-br from-cyan-50 to-sky-50 p-6 md:p-8 border border-cyan-100">
+          <p className="font-bold text-cyan-700">백령도 일정 짜기</p>
+          <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
+            🗺️ 추천 여행코스
+          </h2>
+          <p className="mt-3 max-w-3xl leading-7 text-gray-600">
+            여행 기간에 맞는 기본 코스를 참고하고, 마음에 드는 장소는 나만의 여행코스에 추가해 보세요.
+            선박 운항과 날씨에 따라 실제 일정은 달라질 수 있습니다.
+          </p>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-8">
 
