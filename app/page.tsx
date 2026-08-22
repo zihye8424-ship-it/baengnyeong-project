@@ -171,13 +171,13 @@ const [showSearchResults, setShowSearchResults] = useState(false);
     },
     {
       name: "한국기독교의 섬",
-      island: "백령도",
-      image: "/images/christian-island.jpg",
-      category: "안보역사",
-      description: "백령도는 한국 초기 기독교 역사가 깊은 섬으로 여러 역사적인 교회와 유적을 만나볼 수 있습니다.",
-      location: "인천 옹진군 백령면",
-      tip: "⛪ 역사여행",
-      link: "https://map.naver.com/v5/search/중화동교회",
+island: "백령도",
+image: "/images/christian-island.jpg",
+category: "안보역사",
+description: "백령도는 한국 초기 기독교 역사가 깊은 섬으로 여러 역사적인 교회와 유적을 만나볼 수 있습니다.",
+location: "인천 옹진군 백령면",
+tip: "⛪ 역사여행",
+link: "/place/christianity",
     },
   
     {
