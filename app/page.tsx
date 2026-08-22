@@ -1967,7 +1967,7 @@ link: "/place/christian-island",
   { name: "천안함 위령탑", href: "/place/cheonan" },
   { name: "📸 사진찍기 좋은 녹색명소", href: "/place/photozone" },
   { name: "서해최북단 백령도비", href: "/place/baengnyeong-bi" },
-  { name: "한국기독교의 섬", href: "/place/christian-island" },
+  { name: "한국기독교의 섬 / 한국기독교역사관", href: "/place/christianity" },
 ]
   .filter((item) => item.name === place.name)
   .map((item) => (
