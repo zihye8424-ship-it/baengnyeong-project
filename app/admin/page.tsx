@@ -32,6 +32,7 @@ export default function AdminPage() {
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
+
     if (!password.trim()) {
       alert("비밀번호를 입력해주세요.");
       return;
@@ -75,6 +76,7 @@ export default function AdminPage() {
       .from("qna_questions")
       .select("*")
       .order("created_at", { ascending: false });
+
     if (!error && data) setQuestions(data);
   }
 
@@ -83,20 +85,24 @@ export default function AdminPage() {
       .from("notices")
       .select("*")
       .order("created_at", { ascending: false });
+
     if (!error && data) setNotices(data);
   }
 
   async function handleCreateNotice(e: React.FormEvent) {
     e.preventDefault();
+
     if (!noticeTitle.trim() || !noticeContent.trim()) {
       alert("공지 제목과 내용을 입력해주세요.");
       return;
     }
 
-    const { error } = await supabase.from("notices").insert([{
-      title: noticeTitle.trim(),
-      content: noticeContent.trim(),
-    }]);
+    const { error } = await supabase.from("notices").insert([
+      {
+        title: noticeTitle.trim(),
+        content: noticeContent.trim(),
+      },
+    ]);
 
     if (error) {
       alert("공지 등록 실패");
@@ -112,12 +118,18 @@ export default function AdminPage() {
 
   async function handleDeleteNotice(id: number) {
     if (!confirm("공지사항을 삭제하시겠습니까?")) return;
-    const { error } = await supabase.from("notices").delete().eq("id", id);
+
+    const { error } = await supabase
+      .from("notices")
+      .delete()
+      .eq("id", id);
+
     if (error) {
       alert("공지 삭제 실패");
       console.error(error);
       return;
     }
+
     alert("공지사항이 삭제되었습니다.");
     loadNotices();
   }
@@ -125,11 +137,15 @@ export default function AdminPage() {
   async function handleAnswer(id: number) {
     const current = questions.find((q) => q.id === id);
     const answer = prompt("답변을 입력하세요.", current?.answer ?? "");
+
     if (answer === null || !answer.trim()) return;
 
     const { error } = await supabase
       .from("qna_questions")
-      .update({ answer: answer.trim(), is_answered: true })
+      .update({
+        answer: answer.trim(),
+        is_answered: true,
+      })
       .eq("id", id);
 
     if (error) {
@@ -144,12 +160,18 @@ export default function AdminPage() {
 
   async function handleDelete(id: number) {
     if (!confirm("정말 삭제하시겠습니까?")) return;
-    const { error } = await supabase.from("qna_questions").delete().eq("id", id);
+
+    const { error } = await supabase
+      .from("qna_questions")
+      .delete()
+      .eq("id", id);
+
     if (error) {
       alert("삭제 실패");
       console.error(error);
       return;
     }
+
     alert("삭제되었습니다.");
     loadQuestions();
   }
@@ -158,8 +180,13 @@ export default function AdminPage() {
     return (
       <main className="min-h-screen bg-slate-50 px-6 py-24">
         <div className="mx-auto max-w-md rounded-3xl bg-white p-8 shadow-lg">
-          <p className="text-center font-bold text-sky-600">백령도의 모든 정보</p>
-          <h1 className="mt-2 mb-6 text-center text-3xl font-extrabold">🔐 관리자 로그인</h1>
+          <p className="text-center font-bold text-sky-600">
+            백령도의 모든 정보
+          </p>
+
+          <h1 className="mt-2 mb-6 text-center text-3xl font-extrabold">
+            🔐 관리자 로그인
+          </h1>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <input
@@ -169,6 +196,7 @@ export default function AdminPage() {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full rounded-xl border px-4 py-3"
             />
+
             <button
               type="submit"
               disabled={loginLoading}
@@ -186,7 +214,11 @@ export default function AdminPage() {
     <main className="mx-auto max-w-5xl space-y-12 px-6 py-20">
       <div className="flex items-center justify-between gap-4">
         <h1 className="text-4xl font-bold">관리자 페이지</h1>
-        <button onClick={() => setIsAdmin(false)} className="rounded-xl bg-gray-100 px-4 py-2 font-bold">
+
+        <button
+          onClick={() => setIsAdmin(false)}
+          className="rounded-xl bg-gray-100 px-4 py-2 font-bold"
+        >
           로그아웃
         </button>
       </div>
@@ -194,14 +226,27 @@ export default function AdminPage() {
       <section>
         <div className="mb-8 rounded-3xl bg-white p-6 shadow-lg">
           <h2 className="mb-4 text-2xl font-bold">공지사항 작성</h2>
+
           <form onSubmit={handleCreateNotice} className="space-y-4">
-            <input type="text" placeholder="공지 제목" value={noticeTitle}
+            <input
+              type="text"
+              placeholder="공지 제목"
+              value={noticeTitle}
               onChange={(e) => setNoticeTitle(e.target.value)}
-              className="w-full rounded-xl border px-4 py-3" />
-            <textarea placeholder="공지 내용" value={noticeContent}
+              className="w-full rounded-xl border px-4 py-3"
+            />
+
+            <textarea
+              placeholder="공지 내용"
+              value={noticeContent}
               onChange={(e) => setNoticeContent(e.target.value)}
-              className="min-h-32 w-full rounded-xl border px-4 py-3" />
-            <button type="submit" className="rounded-xl bg-orange-500 px-5 py-3 font-bold text-white">
+              className="min-h-32 w-full rounded-xl border px-4 py-3"
+            />
+
+            <button
+              type="submit"
+              className="rounded-xl bg-orange-500 px-5 py-3 font-bold text-white"
+            >
               공지 등록
             </button>
           </form>
@@ -209,12 +254,24 @@ export default function AdminPage() {
 
         <div className="space-y-4">
           <h2 className="text-2xl font-bold">공지사항 목록</h2>
+
           {notices.map((notice) => (
-            <div key={notice.id} className="rounded-3xl bg-white p-6 shadow">
-              <h3 className="mb-2 text-xl font-bold">{notice.title}</h3>
-              <p className="mb-4 whitespace-pre-line text-gray-700">{notice.content}</p>
-              <button onClick={() => handleDeleteNotice(notice.id)}
-                className="rounded-xl bg-red-500 px-4 py-2 font-bold text-white">
+            <div
+              key={notice.id}
+              className="rounded-3xl bg-white p-6 shadow"
+            >
+              <h3 className="mb-2 text-xl font-bold">
+                {notice.title}
+              </h3>
+
+              <p className="mb-4 whitespace-pre-line text-gray-700">
+                {notice.content}
+              </p>
+
+              <button
+                onClick={() => handleDeleteNotice(notice.id)}
+                className="rounded-xl bg-red-500 px-4 py-2 font-bold text-white"
+              >
                 공지 삭제
               </button>
             </div>
@@ -223,34 +280,65 @@ export default function AdminPage() {
       </section>
 
       <section>
-        <h2 className="mb-6 text-3xl font-bold">Q&amp;A 관리자</h2>
+        <h2 className="mb-6 text-3xl font-bold">
+          Q&amp;A 관리자
+        </h2>
+
         <div className="space-y-5">
           {questions.map((q) => (
-            <div key={q.id} className="rounded-3xl bg-white p-6 shadow-lg">
+            <div
+              key={q.id}
+              className="rounded-3xl bg-white p-6 shadow-lg"
+            >
               <div className="mb-3 flex items-center justify-between">
-                <span className="rounded-full bg-sky-100 px-3 py-1 text-sm font-bold text-sky-700">{q.category}</span>
-                <span className={`rounded-full px-3 py-1 text-sm font-bold ${
-                  q.is_answered ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"
-                }`}>
+                <span className="rounded-full bg-sky-100 px-3 py-1 text-sm font-bold text-sky-700">
+                  {q.category}
+                </span>
+
+                <span
+                  className={`rounded-full px-3 py-1 text-sm font-bold ${
+                    q.is_answered
+                      ? "bg-green-100 text-green-700"
+                      : "bg-yellow-100 text-yellow-700"
+                  }`}
+                >
                   {q.is_answered ? "답변완료" : "답변대기"}
                 </span>
               </div>
-              <h3 className="mb-2 text-2xl font-bold">{q.title}</h3>
-              <p className="mb-4 text-sm text-gray-500">작성자: {q.nickname || "익명"}</p>
-              <p className="mb-4 whitespace-pre-line text-gray-700">{q.content}</p>
+
+              <h3 className="mb-2 text-2xl font-bold">
+                {q.title}
+              </h3>
+
+              <p className="mb-4 text-sm text-gray-500">
+                작성자: {q.nickname || "익명"}
+              </p>
+
+              <p className="mb-4 whitespace-pre-line text-gray-700">
+                {q.content}
+              </p>
+
               {q.answer && (
                 <div className="mb-4 rounded-2xl bg-gray-50 p-4">
                   <p className="mb-2 font-bold">쩨쩨 답변</p>
-                  <p className="whitespace-pre-line">{q.answer}</p>
+                  <p className="whitespace-pre-line">
+                    {q.answer}
+                  </p>
                 </div>
               )}
+
               <div className="flex gap-3">
-                <button onClick={() => handleAnswer(q.id)}
-                  className="rounded-xl bg-sky-500 px-5 py-3 font-bold text-white">
+                <button
+                  onClick={() => handleAnswer(q.id)}
+                  className="rounded-xl bg-sky-500 px-5 py-3 font-bold text-white"
+                >
                   {q.is_answered ? "답변 수정" : "답변하기"}
                 </button>
-                <button onClick={() => handleDelete(q.id)}
-                  className="rounded-xl bg-red-500 px-5 py-3 font-bold text-white">
+
+                <button
+                  onClick={() => handleDelete(q.id)}
+                  className="rounded-xl bg-red-500 px-5 py-3 font-bold text-white"
+                >
                   삭제
                 </button>
               </div>
