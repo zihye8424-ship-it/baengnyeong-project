@@ -690,6 +690,7 @@ link: "/place/christian-island",
       <a href="#food" className="hover:text-sky-500">맛집</a>
       <a href="#stay" className="hover:text-sky-500">숙소</a>
       <a href="#qna" className="hover:text-sky-500">Q&A</a>
+      <a href="/admin" className="hover:text-red-500">🔐 관리자</a>
       <a href="/about" className="hover:text-sky-500">운영자 소개</a>
     </nav>
   </div>
