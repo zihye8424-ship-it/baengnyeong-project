@@ -193,6 +193,28 @@ link: "/place/christian-island",
     },
   
     {
+      name: "서풍받이",
+      island: "대청도",
+      image: "/images/seopungbaji.png",
+      category: "관광지",
+      description: "대청도 남동쪽 해안의 웅장한 절벽과 바다를 함께 만나는 대표 지질명소",
+      location: "인천 옹진군 대청면",
+      tip: "🌍 지질공원 · 📸 절경명소",
+      link: "/place/seopungbaji",
+    },
+
+    {
+      name: "옥죽동 해안사구",
+      island: "대청도",
+      image: "/images/okjuk-sand-dune.png",
+      category: "관광지",
+      description: "대청도 북쪽 해안에서 바람이 만든 모래언덕을 만나는 대표 해안사구",
+      location: "인천 옹진군 대청면 옥죽동",
+      tip: "🏜️ 해안사구 · 🌍 지질명소",
+      link: "/place/okjuk-sanddune",
+    },
+
+    {
       name: "백령도 감성카페",
       image: "/images/emotioncafe.jpg",
       category: "카페",
@@ -1656,7 +1678,7 @@ link: "/place/christian-island",
       <section className="max-w-7xl mx-auto px-6 pt-12">
         <div className="flex justify-center gap-4 flex-wrap">
 
-          {["백령도",].map((island) => (
+          {["백령도", "대청도", "소청도"].map((island) => (
             <button
               key={island}
               onClick={() => setSelectedIsland(island)}
@@ -1855,7 +1877,7 @@ link: "/place/christian-island",
         <MyCourse />
       </section>
       {/* 인기 관광지 TOP10 */}
-{popularPlaces.length > 0 && (
+{selectedIsland === "백령도" && popularPlaces.length > 0 && (
   <section className="max-w-7xl mx-auto px-6 py-16">
     <h2 className="text-4xl font-bold text-center mb-10">
       🏆 실시간 인기 관광지 TOP 10
@@ -1959,6 +1981,8 @@ link: "/place/christian-island",
                         "두무진",
                         "용틀임바위",
                         "사곶해변",
+                        "서풍받이",
+                        "옥죽동 해안사구",
                       ].includes(place.name) && (
                           <span className="bg-emerald-100 text-emerald-700 text-[11px] px-3 py-1 rounded-full font-medium">
                             🌍 지질공원
@@ -1990,6 +2014,8 @@ link: "/place/christian-island",
   {place.name === "용틀임바위" && "추천 포인트: 백령도의 지질 특징을 가까이에서 볼 수 있는 독특한 바위 명소예요."}
   {place.name === "사자바위" && "추천 포인트: 해안 드라이브 중 들르기 좋은 포토 스팟이에요."}
   {place.name === "천안함 위령탑" && "추천 포인트: 백령도 안보 역사 여행에서 의미 있게 들를 수 있는 장소예요."}
+  {place.name === "서풍받이" && "추천 포인트: 대청도 남동쪽의 높은 해안 절벽과 탁 트인 서해 풍경을 함께 감상하기 좋은 대표 지질명소예요."}
+  {place.name === "옥죽동 해안사구" && "추천 포인트: 바닷바람이 오랜 시간 모래를 옮겨 만든 독특한 사구 지형을 가까이서 볼 수 있어요."}
 </div>
                     {place.location && (
                       <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
@@ -2030,6 +2056,8 @@ link: "/place/christian-island",
   { name: "📸 사진찍기 좋은 녹색명소", href: "/place/photozone" },
   { name: "서해최북단 백령도비", href: "/place/baengnyeong-bi" },
   { name: "한국기독교의 섬 / 한국기독교역사관", href: "/place/christianity" },
+  { name: "서풍받이", href: "/place/seopungbaji" },
+  { name: "옥죽동 해안사구", href: "/place/okjuk-sanddune" },
 ]
   .filter((item) => item.name === place.name)
   .map((item) => (
