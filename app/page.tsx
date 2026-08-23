@@ -2122,67 +2122,62 @@ link: "/place/christian-island",
   </div>
 </section>
  {/* PHOTO GALLERY */}
- <section
-  id="gallery"
-  className="max-w-7xl mx-auto px-6 pb-20"
->
-
-  <div className="text-center mb-10">
-      <button
-      onClick={() => setShowGallery(!showGallery)}
-      className="bg-black text-white px-10 py-5 rounded-full text-2xl font-bold shadow-xl hover:bg-gray-800 hover:scale-105 transition duration-300"
-    >
-      📸 {showGallery ? "사진첩 닫기 ▲" : "백령도 사진첩 보기 ▼"}
-    </button>
-
-  </div>
-
-  {showGallery && (
-
-    <>
-      <div className="text-center mb-10">
-
-        <h2 className="text-4xl font-bold mb-4">
-          📸 백령도 사진첩
+<section id="gallery" className="scroll-mt-24 max-w-7xl mx-auto px-6 pb-20">
+  <div className="rounded-[2rem] bg-gradient-to-br from-violet-50 to-fuchsia-50 p-6 md:p-10 shadow-sm border border-violet-100">
+    <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p className="font-bold text-violet-600">백령도 풍경사진</p>
+        <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
+          📸 백령도 사진첩 한눈에 보기
         </h2>
-
-        <p className="text-gray-600">
-          (사진작가 윤학진님 외 사진협찬) & 백령도의 모습
+        <p className="mt-3 leading-7 text-gray-600">
+          백령도의 바다·해안·관광지 풍경을 사진으로 한눈에 감상해 보세요.
+          사진을 누르면 크게 볼 수 있어요.
         </p>
-
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <button
+        type="button"
+        onClick={() => setShowGallery(!showGallery)}
+        className="shrink-0 rounded-2xl bg-gray-900 px-7 py-4 text-lg font-extrabold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-violet-600"
+      >
+        {showGallery ? "사진첩 닫기 ▲" : "사진첩 전체보기 ▼"}
+      </button>
+    </div>
 
-      {Array.from({ length: 60 }, (_, i) =>
-  `/images/gallery${i + 1}.jpg`
-).map((image, index) => (
+    {showGallery && (
+      <div className="mt-8">
+        <div className="mb-6 rounded-2xl bg-white/80 p-4 text-sm leading-6 text-gray-600">
+          📷 사진작가 윤학진님 외 사진 협찬 · 백령도의 다양한 모습을 담았습니다.
+        </div>
 
-  <a
-    key={index}
-    href={image}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="group overflow-hidden rounded-3xl shadow-lg"
-  >
-
-    <Image
-      src={image}
-      alt={`백령도 사진 ${index + 1}`}
-      width={800}
-      height={600}
-      className="w-full h-72 object-cover group-hover:scale-110 transition duration-700"
-    />
-
-  </a>
-
-))}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Array.from({ length: 60 }, (_, i) => `/images/gallery${i + 1}.jpg`).map(
+            (image, index) => (
+              <a
+                key={index}
+                href={image}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-black/5 transition hover:-translate-y-1 hover:shadow-xl"
+              >
+                <Image
+                  src={image}
+                  alt={`백령도 사진 ${index + 1}`}
+                  width={800}
+                  height={600}
+                  className="h-64 w-full object-cover transition duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent px-5 pb-4 pt-10 text-white">
+                  <p className="text-sm font-bold">백령도 풍경 #{index + 1}</p>
+                </div>
+              </a>
+            )
+          )}
+        </div>
       </div>
-
-    </>
-
-  )}
-
+    )}
+  </div>
 </section>
       {/* STAY LIST SECTION */}
       <section
@@ -2877,22 +2872,31 @@ link: "/place/christian-island",
 
                 <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                   {[
-                    ["🌿", "백령도 약쑥", "백령도에서 자라는 향긋한 약쑥으로 다양한 지역 상품에 활용됩니다."],
-                    ["🐟", "까나리액젓", "백령도를 대표하는 수산 가공품 중 하나로 김치와 각종 요리에 활용됩니다."],
-                    ["🍠", "백고구마", "담백한 맛과 포슬한 식감이 특징인 백령도의 대표 농산물입니다."],
-                    ["🌊", "돌미역", "백령도 바다에서 나는 미역으로 국과 다양한 해조류 요리에 활용됩니다."],
-                    ["🌿", "다시마", "백령도 해역에서 생산되는 해조류로 육수와 요리에 활용하기 좋습니다."],
-                    ["🌾", "백령도쌀", "섬에서 재배되는 백령도 농산물로 지역 먹거리로 만나볼 수 있습니다."],
-                    ["🐚", "건홍합·냉동홍합", "백령도 바다의 홍합을 건조하거나 냉동한 수산물입니다."],
-                    ["🦪", "백령도 굴", "제철에 만날 수 있는 백령도의 신선한 수산물입니다."],
-                  ].map(([icon, name, description]) => (
+                    { name: "백령도 약쑥", image: "/images/specialties/mugwort.png", description: "백령도에서 자라는 향긋한 약쑥으로 다양한 지역 상품에 활용됩니다." },
+                    { name: "까나리액젓", image: "/images/specialties/fish-sauce.png", description: "백령도를 대표하는 수산 가공품 중 하나로 김치와 각종 요리에 활용됩니다." },
+                    { name: "백고구마", image: "/images/specialties/sweet-potato.png", description: "담백한 맛과 포슬한 식감이 특징인 백령도의 대표 농산물입니다." },
+                    { name: "돌미역", image: "/images/specialties/sea-mustard.png", description: "백령도 바다에서 나는 미역으로 국과 다양한 해조류 요리에 활용됩니다." },
+                    { name: "다시마", image: "/images/specialties/kelp.png", description: "백령도 해역에서 생산되는 해조류로 육수와 요리에 활용하기 좋습니다." },
+                    { name: "백령도쌀", image: "/images/specialties/rice.png", description: "섬에서 재배되는 백령도 농산물로 지역 먹거리로 만나볼 수 있습니다." },
+                    { name: "건홍합·냉동홍합", image: "/images/specialties/mussels.png", description: "백령도 바다의 홍합을 건조하거나 냉동한 수산물입니다." },
+                    { name: "백령도 굴", image: "/images/specialties/oysters.png", description: "제철에 만날 수 있는 백령도의 신선한 수산물입니다." },
+                  ].map((item) => (
                     <div
-                      key={name}
-                      className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-gray-100 transition hover:-translate-y-1 hover:shadow-lg"
+                      key={item.name}
+                      className="group overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-gray-100 transition hover:-translate-y-1 hover:shadow-lg"
                     >
-                      <div className="text-4xl">{icon}</div>
-                      <h3 className="mt-4 text-xl font-extrabold text-gray-900">{name}</h3>
-                      <p className="mt-3 text-sm leading-7 text-gray-600">{description}</p>
+                      <div className="relative h-52 w-full overflow-hidden bg-gray-100">
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
+                          className="object-cover transition duration-300 group-hover:scale-105"
+                        />
+                      </div>
+                      <div className="p-6">
+                        <h3 className="text-xl font-extrabold text-gray-900">{item.name}</h3>
+                        <p className="mt-3 text-sm leading-7 text-gray-600">{item.description}</p>
+                      </div>
                     </div>
                   ))}
                 </div>
