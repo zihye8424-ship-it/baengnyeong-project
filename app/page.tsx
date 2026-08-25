@@ -75,6 +75,22 @@ const [showSearchResults, setShowSearchResults] = useState(false);
     { name: "렌트카", icon: "🚗" },
     { name: "특산물", icon: "🎁" },
   ];
+
+  const islandCategories =
+    selectedIsland === "대청도"
+      ? [
+          { name: "관광지", icon: "📸" },
+          { name: "맛집", icon: "🍜" },
+          { name: "숙박", icon: "🏨" },
+          { name: "낚시배", icon: "🎣" },
+        ]
+      : selectedIsland === "소청도"
+      ? [
+          { name: "관광지", icon: "📸" },
+          { name: "맛집", icon: "🍜" },
+          { name: "숙박", icon: "🏨" },
+        ]
+      : categories;
   const places = [
     {
       name: "두무진",
@@ -199,9 +215,130 @@ link: "/place/christian-island",
       category: "관광지",
       description: "대청도 남동쪽 해안의 웅장한 절벽과 바다를 함께 만나는 대표 지질명소",
       location: "인천 옹진군 대청면",
-      tip: "🌍 지질공원 · 📸 절경명소",
-      link: "/place/seopungbaji",
+      tip: "🥾 해안 트레킹 · 🪨 규암 절벽 · 🌊 서해 절경",
+      link: "https://www.google.com/maps/search/?api=1&query=%EB%8C%80%EC%B2%AD%EB%8F%84+%EC%84%9C%ED%92%8D%EB%B0%9B%EC%9D%B4",
     },
+    {
+      name: "농여해변",
+      island: "대청도",
+      image: "/images/nongyeo-beach.png",
+      category: "관광지",
+      description: "넓은 해변과 독특한 바위 지형을 함께 만나는 대청도 해안 명소",
+      location: "인천 옹진군 대청면",
+      tip: "🪨 나이테바위 · 🌊 풀등 · 🌅 저녁노을",
+      link: "https://www.google.com/maps/search/?api=1&query=%EB%8C%80%EC%B2%AD%EB%8F%84+%EB%86%8D%EC%97%AC%ED%95%B4%EB%B3%80",
+    },
+
+    {
+      name: "미아동해변",
+      island: "대청도",
+      image: "/images/miadong-beach.png",
+      category: "관광지",
+      description: "탁 트인 모래사장과 푸른 바다가 시원하게 펼쳐지는 대청도 해변",
+      location: "인천 옹진군 대청면",
+      tip: "🌊 풀등 · 〰️ 물결무늬 연흔 · 📸 해변 풍경",
+      link: "https://www.google.com/maps/search/?api=1&query=%EB%8C%80%EC%B2%AD%EB%8F%84+%EB%AF%B8%EC%95%84%EB%8F%99%ED%95%B4%EB%B3%80",
+    },
+
+    {
+      name: "삼각산",
+      island: "대청도",
+      image: "/images/samgaksan.png",
+      category: "관광지",
+      description: "정상석이 자리한 해발 343m 대청도의 대표 산행 명소",
+      location: "인천 옹진군 대청면",
+      tip: "⛰️ 해발 343m 정상 · 🔭 섬 조망 · 🥾 트레킹",
+      link: "https://www.google.com/maps/search/?api=1&query=%EB%8C%80%EC%B2%AD%EB%8F%84+%EC%82%BC%EA%B0%81%EC%82%B0",
+    },
+
+    {
+      name: "매바위전망대",
+      island: "대청도",
+      image: "/images/maebawi-observatory.png",
+      category: "관광지",
+      description: "매 조형물과 함께 대청도의 산과 바다 풍경을 바라볼 수 있는 전망 포인트",
+      location: "인천 옹진군 대청면",
+      tip: "🦅 매 조형물 · 🔭 해안 전망 · 📸 포토존",
+      link: "https://www.google.com/maps/search/?api=1&query=%EB%8C%80%EC%B2%AD%EB%8F%84+%EB%A7%A4%EB%B0%94%EC%9C%84%EC%A0%84%EB%A7%9D%EB%8C%80",
+    },
+
+    {
+      name: "모래울해변",
+      island: "대청도",
+      image: "/images/moraeul-beach.png",
+      category: "관광지",
+      description: "산자락 사이로 길게 이어지는 모래사장과 잔잔한 바다가 어우러진 해변",
+      location: "인천 옹진군 대청면",
+      tip: "🌲 소나무숲 · 🌊 모래해변 · 😌 조용한 휴식",
+      link: "https://www.google.com/maps/search/?api=1&query=%EB%8C%80%EC%B2%AD%EB%8F%84+%EB%AA%A8%EB%9E%98%EC%9A%B8%ED%95%B4%EB%B3%80",
+    },
+
+    {
+      name: "지두리해변",
+      island: "대청도",
+      image: "/images/jiduri-beach.png",
+      category: "관광지",
+      description: "부드러운 모래사장과 파도 풍경을 가까이에서 즐기기 좋은 대청도 해변",
+      location: "인천 옹진군 대청면",
+      tip: "🌊 넓은 모래해변 · 🚶 해안 산책 · 📸 바다 풍경",
+      link: "https://www.google.com/maps/search/?api=1&query=%EB%8C%80%EC%B2%AD%EB%8F%84+%EC%A7%80%EB%91%90%EB%A6%AC%ED%95%B4%EB%B3%80",
+    },
+
+    {
+      name: "답동해변",
+      island: "대청도",
+      image: "/images/dapdong-beach.png",
+      category: "관광지",
+      description: "바위 해안과 해안 데크길이 어우러져 걷는 재미가 있는 대청도 해안 명소",
+      location: "인천 옹진군 대청면",
+      tip: "🚶 해안 산책로 · 🪨 바위해안 · 🌊 해변 풍경",
+      link: "https://www.google.com/maps/search/?api=1&query=%EB%8C%80%EC%B2%AD%EB%8F%84+%EB%8B%B5%EB%8F%99%ED%95%B4%EB%B3%80",
+    },
+
+    {
+      name: "해넘이전망대",
+      island: "대청도",
+      image: "/images/sunset-observatory.png",
+      category: "관광지",
+      description: "탁 트인 서해를 바라보며 대청도의 해넘이 풍경을 감상하기 좋은 전망대",
+      location: "인천 옹진군 대청면",
+      tip: "🌅 서해 일몰 · 🔭 탁 트인 전망 · 📸 노을 사진",
+      link: "https://www.google.com/maps/search/?api=1&query=%EB%8C%80%EC%B2%AD%EB%8F%84+%ED%95%B4%EB%84%98%EC%9D%B4%EC%A0%84%EB%A7%9D%EB%8C%80",
+    },
+    {
+      name: "소청등대",
+      island: "소청도",
+      image: "/images/socheong-lighthouse.png",
+      category: "관광지",
+      description: "소청도의 푸른 바다와 섬 풍경을 함께 바라볼 수 있는 대표적인 등대 명소",
+      location: "인천 옹진군 대청면 소청리",
+      tip: "🌊 바다전망 · 📸 등대풍경",
+      link: "https://www.google.com/maps/search/?api=1&query=%EC%86%8C%EC%B2%AD%EB%8F%84+%EC%86%8C%EC%B2%AD%EB%93%B1%EB%8C%80",
+    },
+
+    {
+      name: "분바위",
+      island: "소청도",
+      image: "/images/bunbawi.png",
+      category: "관광지",
+      description: "바다와 맞닿은 밝은 암벽이 인상적인 소청도의 대표 해안 절경",
+      location: "인천 옹진군 대청면 소청리",
+      tip: "🪨 해안절경 · 📸 지질풍경",
+      link: "https://www.google.com/maps/search/?api=1&query=%EC%86%8C%EC%B2%AD%EB%8F%84+%EB%B6%84%EB%B0%94%EC%9C%84",
+    },
+
+    {
+      name: "스트로마톨라이트",
+      island: "소청도",
+      image: "/images/stromatolite.png",
+      category: "관광지",
+      description: "소청도의 독특한 지질 경관을 가까이에서 살펴볼 수 있는 자연 학습 명소",
+      location: "인천 옹진군 대청면 소청리",
+      tip: "🌍 지질명소 · 🪨 자연학습",
+      link: "https://www.google.com/maps/search/?api=1&query=%EC%86%8C%EC%B2%AD%EB%8F%84+%EC%8A%A4%ED%8A%B8%EB%A1%9C%EB%A7%88%ED%86%A8%EB%9D%BC%EC%9D%B4%ED%8A%B8",
+    },
+
+
 
     {
       name: "옥죽동 해안사구",
@@ -210,8 +347,8 @@ link: "/place/christian-island",
       category: "관광지",
       description: "대청도 북쪽 해안에서 바람이 만든 모래언덕을 만나는 대표 해안사구",
       location: "인천 옹진군 대청면 옥죽동",
-      tip: "🏜️ 해안사구 · 🌍 지질명소",
-      link: "/place/okjuk-sanddune",
+      tip: "🏜️ 모래사막 풍경 · 🐫 이색 포토존 · 🌍 지질명소",
+      link: "https://www.google.com/maps/search/?api=1&query=%EB%8C%80%EC%B2%AD%EB%8F%84+%EC%98%A5%EC%A3%BD%EB%8F%99+%ED%95%B4%EC%95%88%EC%82%AC%EA%B5%AC",
     },
 
     {
@@ -228,6 +365,67 @@ link: "/place/christian-island",
     },
 
   ];
+
+  const daecheongFood = [
+    ["대청식당","김애란","032-836-2124"],["선진식당","문봉녀","032-836-3664"],
+    ["바다식당","김선옥","032-836-2476"],["소나무가든","김순의","032-565-9999"],
+    ["티바두마리치킨&피자앤 대청도점","김수겸","032-836-3858"],["대청면옥","오영화","032-836-7430"],
+    ["술중화요리","김명순","032-836-9758"],["솔밭나루터펜션식당","허선희","032-836-8999"],
+    ["차우식당","배복봉","032-836-7555"],["고리식당","신봉","032-836-0054"],
+    ["궁차이나","조미경","032-836-1775"],["섬식당","송태국","032-836-2121"],
+    ["돼지가든","정지영","032-836-5983"],["정원가든","정금녀","032-836-2443"],
+    ["학골식당","정희서","032-836-6640"],["마루식당","장정숙","010-2282-2209"],
+    ["농여식당","김미성","032-836-2011"],
+  ];
+
+  const socheongFood = [
+    ["해변식당","이은철","032-836-5353"],
+  ];
+
+  const daecheongStay = [
+    ["이동민박","박영순","010-3217-1118"],["문화쉼터","민윤전","032-836-2015"],
+    ["엘림민박","장덕찬","032-836-5997"],["선진민박","이정일","032-836-2137"],
+    ["희망민박","조숙녀","032-836-2102"],["초록별민박","이경순","032-836-2122"],
+    ["솔향기민박","최용철","032-836-2477"],["수경민박","손경필","032-836-3664"],
+    ["하늘민박","지형욱","032-836-2588"],["늘푸른민박","김금자","010-4189-3545"],
+    ["솔밭나루터민박","조철수","010-9466-2079"],["수성민박","안선안","010-4756-7069"],
+    ["대길민박","최경수","032-836-2321"],["연실민박","김연순","032-836-0054"],
+    ["왕대포민박","손경삼","032-836-7070"],["씨유민박","강길여","010-2087-7776"],
+    ["G펜션","전명화","010-8662-6696"],["도화민박","서연오","032-836-2010"],
+    ["로뎀민박","이경덕","032-836-2463"],["행복민박","홍정자","032-836-8853"],
+    ["마루민박","김진매","032-836-2017"],["대청민박","김필남","010-8927-2503"],
+    ["드림펜션","현호준","032-836-3290"],["엄지여관","이복순","032-836-2035"],
+    ["해당화민박","송국매","010-4741-7787"],["홍실민박","최상숙","010-7118-0400"],
+    ["청실민박","최창백","010-3335-7779"],["솔청민박","이복순","010-2753-9158"],
+  ];
+
+  const socheongStay = [
+    ["등대","최옥화","032-836-3024"],["백경민박","이용희","032-836-3022"],
+    ["노을민박","정예진","032-836-3043"],["중앙민박","박준복","010-3311-2206"],
+    ["은혜민박","한정연","010-9852-6141"],["별빛민박","노한용","010-9338-3176"],
+  ];
+
+  const daecheongFishing = [
+    ["기성호","김호인","010-5334-8552"],["부광호","손규진","010-6331-2055"],
+    ["신해호","오연만","010-4052-2663"],["뉴신해호","김호준","010-3739-5217"],
+    ["수성호","안선안","010-4756-7069"],["진성1호","김두순","010-5322-0473"],
+    ["인성호","문용삼","010-6354-2248"],["덕윤호","김정운","010-6354-2463"],
+    ["황해호","이환우","010-6717-2352"],["양덕호","주연미","010-9093-2027"],
+    ["대길호","배순옥","010-9167-2321"],["유복호","오만영","010-3204-2212"],
+    ["경기2호","박준향","010-7122-2473"],["비호","손경련","010-9314-7036"],
+    ["동명호","정상빈","010-5345-3620"],["한성호","김기철","010-8745-3024"],
+  ];
+
+  const islandDirectory =
+    selectedIsland === "대청도"
+      ? selectedCategory === "맛집" ? daecheongFood
+        : selectedCategory === "숙박" ? daecheongStay
+        : selectedCategory === "낚시배" ? daecheongFishing : []
+      : selectedIsland === "소청도"
+      ? selectedCategory === "맛집" ? socheongFood
+        : selectedCategory === "숙박" ? socheongStay : []
+      : [];
+
   const filteredPlaces = places.filter((place) => {
 
     // 섬 필터
@@ -662,6 +860,7 @@ link: "/place/christian-island",
 
     const { error } = await supabase.from("qna_questions").insert({
       nickname: qnaNickname.trim(),
+      island: selectedIsland,
       category: qnaFormCategory,
       title: qnaTitle.trim(),
       content: qnaContent.trim(),
@@ -687,6 +886,10 @@ link: "/place/christian-island",
   }
 
   const filteredQnaQuestions = qnaQuestions.filter((item) => {
+    const islandOk =
+      selectedIsland === "백령도"
+        ? !item.island || item.island === "백령도"
+        : item.island === selectedIsland;
     const categoryOk = qnaCategory === "전체" || item.category === qnaCategory;
     const keyword = qnaSearch.trim().toLowerCase();
     const searchOk =
@@ -694,7 +897,7 @@ link: "/place/christian-island",
       String(item.title ?? "").toLowerCase().includes(keyword) ||
       String(item.content ?? "").toLowerCase().includes(keyword) ||
       String(item.answer ?? "").toLowerCase().includes(keyword);
-    return categoryOk && searchOk;
+    return islandOk && categoryOk && searchOk;
   });
 
   return (
@@ -703,7 +906,7 @@ link: "/place/christian-island",
 <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
   <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
     <a href="/" className="text-xl font-bold text-gray-900">
-      백령도의 모든 정보
+      백령·대청·소청도의 모든 정보
     </a>
 
     <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-700">
@@ -735,7 +938,7 @@ link: "/place/christian-island",
           </h2>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-4 sm:mb-6 drop-shadow-2xl leading-tight">
-            백령도의 모든 정보
+            백령·대청·소청도의 모든 정보
           </h1>
 
           <p className="text-white text-lg md:text-2xl mb-8">
@@ -1569,8 +1772,61 @@ link: "/place/christian-island",
   </div>
 
 </div>
-{/* 백령도 FAQ */}
-{selectedIsland === "백령도" && (
+{/* 섬별 FAQ */}
+{selectedIsland === "대청도" && (
+<section className="max-w-7xl mx-auto px-6 py-20">
+  <div className="text-center mb-10">
+    <p className="font-bold text-sky-600 mb-2">여행 전 많이 묻는 질문</p>
+    <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">❓ 대청도 여행 FAQ</h2>
+    <p className="mt-4 text-lg text-gray-500">대청도 여행을 준비할 때 자주 궁금해하는 내용을 한눈에 정리했어요.</p>
+  </div>
+  <div className="max-w-4xl mx-auto space-y-4">
+    {[
+      ["대청도는 어떻게 들어가나요?", "인천에서 여객선을 이용해 들어가는 섬입니다. 기상과 해상 상황에 따라 운항이 달라질 수 있으므로 출발 전 선사 운항정보를 꼭 확인하세요."],
+      ["대청도에서 꼭 가볼 만한 곳은 어디인가요?", "옥죽동 해안사구, 서풍받이, 농여해변, 미아동해변, 삼각산, 매바위전망대, 모래울해변, 지두리해변, 답동해변, 해넘이전망대 등을 둘러볼 수 있어요."],
+      ["대청도에 숙박할 곳이 있나요?", "네. 민박과 펜션 등 여러 숙박업소가 있습니다. 플랫폼의 대청도 숙박 메뉴에서 전화번호를 확인한 뒤 방문 전 예약 여부를 확인하는 것을 권해요."],
+      ["대청도에 식당이 있나요?", "네. 대청도에는 여러 음식점이 있습니다. 플랫폼의 대청도 맛집 메뉴에서 업체와 전화번호를 확인할 수 있어요."],
+      ["대청도에서 낚시배를 이용할 수 있나요?", "네. 현지 안내자료에 등록된 낚시배 연락처를 플랫폼의 낚시배 메뉴에 정리해 두었어요. 이용 전 전화로 출항 가능 여부와 비용을 확인하세요."],
+      ["대청도 여행은 날씨 영향을 많이 받나요?", "섬 여행은 바람과 파도 등 해상 상황의 영향을 많이 받습니다. 특히 입도·출도 일정은 여유 있게 계획하고 출발 당일 운항 여부를 다시 확인하는 것이 좋아요."],
+    ].map(([q,a],i)=>(
+      <details key={i} className="group rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100">
+        <summary className="cursor-pointer list-none font-extrabold text-gray-900 flex justify-between gap-4">
+          <span>{q}</span><span className="text-sky-500 group-open:rotate-45 transition">＋</span>
+        </summary>
+        <p className="mt-4 leading-7 text-gray-600">{a}</p>
+      </details>
+    ))}
+  </div>
+</section>
+)}
+
+{selectedIsland === "소청도" && (
+<section className="max-w-7xl mx-auto px-6 py-20">
+  <div className="text-center mb-10">
+    <p className="font-bold text-sky-600 mb-2">여행 전 많이 묻는 질문</p>
+    <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">❓ 소청도 여행 FAQ</h2>
+    <p className="mt-4 text-lg text-gray-500">소청도 여행 전에 알아두면 좋은 내용을 정리했어요.</p>
+  </div>
+  <div className="max-w-4xl mx-auto space-y-4">
+    {[
+      ["소청도는 어떻게 들어가나요?", "여객선을 이용해 들어가는 섬으로, 기상과 해상 상황에 따라 운항 일정이 달라질 수 있습니다. 출발 전 반드시 최신 운항정보를 확인하세요."],
+      ["소청도에서 꼭 가볼 만한 곳은 어디인가요?", "소청등대, 분바위, 스트로마톨라이트가 대표적인 명소예요. 바다 풍경과 독특한 지질경관을 함께 볼 수 있습니다."],
+      ["소청도에 숙박할 곳이 있나요?", "네. 현지 안내자료에 등록된 민박들이 있습니다. 플랫폼의 소청도 숙박 메뉴에서 연락처를 확인하고 방문 전에 예약 여부를 확인하세요."],
+      ["소청도에 식당이 있나요?", "현재 제공받은 현지 안내자료 기준으로 음식점 정보를 플랫폼에 정리해 두었어요. 방문 전 전화로 영업 여부를 확인하는 것이 좋습니다."],
+      ["소청도 여행은 당일치기가 가능한가요?", "배 운항시간과 당일 해상 상황에 따라 달라질 수 있어요. 섬 이동은 변수가 있으므로 배 시간부터 확인한 뒤 여행 일정을 잡는 것이 안전합니다."],
+      ["소청도 여행에서 가장 주의할 점은 무엇인가요?", "선박 운항 여부와 날씨를 가장 먼저 확인하세요. 관광지 이동과 숙박·식사도 육지보다 선택지가 제한될 수 있으므로 미리 연락해 확인하는 것을 권합니다."],
+    ].map(([q,a],i)=>(
+      <details key={i} className="group rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100">
+        <summary className="cursor-pointer list-none font-extrabold text-gray-900 flex justify-between gap-4">
+          <span>{q}</span><span className="text-sky-500 group-open:rotate-45 transition">＋</span>
+        </summary>
+        <p className="mt-4 leading-7 text-gray-600">{a}</p>
+      </details>
+    ))}
+  </div>
+</section>
+)}
+
 <section className="max-w-6xl mx-auto px-6 py-16">
   <div className="mb-8 rounded-[2rem] bg-gradient-to-br from-violet-50 to-fuchsia-50 p-6 md:p-8 border border-violet-100">
     <p className="font-bold text-violet-700">여행 전 많이 묻는 질문</p>
@@ -1628,7 +1884,6 @@ link: "/place/christian-island",
     ))}
   </div>
 </section>
-)}
 {/* 최신 여행정보 */}
 {selectedIsland === "백령도" && (
 <section className="max-w-6xl mx-auto px-6 py-16">
@@ -1681,7 +1936,10 @@ link: "/place/christian-island",
           {["백령도", "대청도", "소청도"].map((island) => (
             <button
               key={island}
-              onClick={() => setSelectedIsland(island)}
+              onClick={() => {
+                setSelectedIsland(island);
+                setSelectedCategory(island === "백령도" ? "전체" : "관광지");
+              }}
               className={`px-6 py-3 rounded-full font-semibold transition ${selectedIsland === island
                 ? "bg-blue-500 text-white"
                 : "bg-gray-200 text-black hover:bg-gray-300"
@@ -1702,13 +1960,23 @@ link: "/place/christian-island",
 
         <div className="flex flex-wrap justify-center gap-4">
 
-          {categories.map((category) => (
+          {islandCategories.map((category) => (
 
             <button
               key={category.name}
               onClick={() => {
 
                 setSelectedCategory(category.name);
+
+                if (
+                  selectedIsland !== "백령도" &&
+                  ["맛집", "숙박", "낚시배"].includes(category.name)
+                ) {
+                  setTimeout(() => {
+                    document.getElementById("island-directory")?.scrollIntoView({ behavior: "smooth" });
+                  }, 100);
+                  return;
+                }
 
                 // 전체
                 if (category.name === "전체") {
@@ -1876,44 +2144,173 @@ link: "/place/christian-island",
         </div>
         <MyCourse />
       </section>
-      {/* 인기 관광지 TOP10 */}
+      {/* 섬별 실시간 인기 관광지 */}
 {selectedIsland === "백령도" && popularPlaces.length > 0 && (
   <section className="max-w-7xl mx-auto px-6 py-16">
     <h2 className="text-4xl font-bold text-center mb-10">
-      🏆 실시간 인기 관광지 TOP 10
+      🏆 백령도 실시간 인기 관광지 TOP 10
     </h2>
-
     <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-5">
       {popularPlaces.map((place, index) => (
-        <div
-          key={place.name}
-          className="bg-white rounded-3xl shadow-lg p-5 text-center border hover:shadow-xl transition"
-        >
+        <div key={place.name} className="bg-white rounded-3xl shadow-lg p-5 text-center border hover:shadow-xl transition">
           <div className="text-3xl font-extrabold mb-3">
             {index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : `${index + 1}위`}
           </div>
-
-          <h3 className="font-bold text-lg mb-2">
-            {place.name}
-          </h3>
-
-          <p className="text-sm text-gray-500">
-            👀 {place.view} · ❤️ {place.like}
-          </p>
+          <h3 className="font-bold text-lg mb-2">{place.name}</h3>
+          <p className="text-sm text-gray-500">👀 {place.view} · ❤️ {place.like}</p>
         </div>
       ))}
     </div>
   </section>
 )}
+
+{selectedIsland === "대청도" && (
+  <section className="max-w-7xl mx-auto px-6 py-16">
+    <h2 className="text-4xl font-bold text-center mb-10">
+      🏆 대청도 실시간 인기 관광지 TOP 10
+    </h2>
+    <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-5">
+      {filteredPlaces
+        .filter((place) => place.category === "관광지")
+        .slice()
+        .sort((a, b) => {
+          const av = placeViews.find((v) => v.place_name === a.name)?.view_count || 0;
+          const bv = placeViews.find((v) => v.place_name === b.name)?.view_count || 0;
+          return bv - av;
+        })
+        .slice(0, 10)
+        .map((place, index) => (
+          <div key={place.name} className="bg-white rounded-3xl shadow-lg p-5 text-center border hover:shadow-xl transition">
+            <div className="text-3xl font-extrabold mb-3">
+              {index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : `${index + 1}위`}
+            </div>
+            <h3 className="font-bold text-lg mb-2">{place.name}</h3>
+            <p className="text-sm text-gray-500">
+              👀 {placeViews.find((v) => v.place_name === place.name)?.view_count || 0}
+            </p>
+          </div>
+        ))}
+    </div>
+  </section>
+)}
+
+{selectedIsland === "소청도" && (
+  <section className="max-w-7xl mx-auto px-6 py-16">
+    <h2 className="text-4xl font-bold text-center mb-10">
+      🏆 소청도 실시간 인기 관광지 TOP 3
+    </h2>
+    <div className="grid md:grid-cols-3 gap-5">
+      {filteredPlaces
+        .filter((place) => place.category === "관광지")
+        .slice()
+        .sort((a, b) => {
+          const av = placeViews.find((v) => v.place_name === a.name)?.view_count || 0;
+          const bv = placeViews.find((v) => v.place_name === b.name)?.view_count || 0;
+          return bv - av;
+        })
+        .slice(0, 3)
+        .map((place, index) => (
+          <div key={place.name} className="bg-white rounded-3xl shadow-lg p-5 text-center border hover:shadow-xl transition">
+            <div className="text-3xl font-extrabold mb-3">
+              {index === 0 ? "🥇" : index === 1 ? "🥈" : "🥉"}
+            </div>
+            <h3 className="font-bold text-lg mb-2">{place.name}</h3>
+            <p className="text-sm text-gray-500">
+              👀 {placeViews.find((v) => v.place_name === place.name)?.view_count || 0}
+            </p>
+          </div>
+        ))}
+    </div>
+  </section>
+)}
+
+
+<section className="max-w-7xl mx-auto px-6 pb-12">
+  {selectedIsland === "백령도" && (
+    <div className="rounded-3xl bg-sky-50 p-7 md:p-9 ring-1 ring-sky-100">
+      <p className="font-bold text-sky-600 mb-2">대한민국 서해 최북단 섬 여행</p>
+      <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">🏝️ 백령도 여행</h2>
+      <p className="mt-4 leading-8 text-gray-700">
+        두무진·사곶해변·콩돌해안·심청각 등 자연과 안보·역사 이야기가 함께 있는 백령도의 관광지를 둘러보세요.
+        아래에는 백령도 관광지와 여행에 필요한 정보를 이어서 확인할 수 있어요.
+      </p>
+    </div>
+  )}
+
+  {selectedIsland === "대청도" && (
+    <div className="rounded-3xl bg-emerald-50 p-7 md:p-9 ring-1 ring-emerald-100">
+      <p className="font-bold text-emerald-600 mb-2">모래사구와 해안절경을 만나는 섬</p>
+      <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">🏝️ 대청도 여행</h2>
+      <p className="mt-4 leading-8 text-gray-700">
+        옥죽동 해안사구·서풍받이·농여해변·삼각산 등 대청도만의 다양한 자연경관을 만나보세요.
+        아래에는 대청도 관광지와 맛집·숙박·낚시배 정보를 이어서 확인할 수 있어요.
+      </p>
+    </div>
+  )}
+
+  {selectedIsland === "소청도" && (
+    <div className="rounded-3xl bg-indigo-50 p-7 md:p-9 ring-1 ring-indigo-100">
+      <p className="font-bold text-indigo-600 mb-2">등대와 지질경관이 인상적인 작은 섬</p>
+      <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">🏝️ 소청도 여행</h2>
+      <p className="mt-4 leading-8 text-gray-700">
+        소청등대·분바위·스트로마톨라이트를 중심으로 소청도의 바다 풍경과 독특한 지질경관을 둘러보세요.
+        아래에는 소청도 관광지와 맛집·숙박 정보를 이어서 확인할 수 있어요.
+      </p>
+    </div>
+  )}
+</section>
+
+      {selectedIsland !== "백령도" &&
+        ["맛집", "숙박", "낚시배"].includes(selectedCategory) && (
+        <section id="island-directory" className="max-w-7xl mx-auto px-6 pb-20">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+              {selectedIsland} {selectedCategory} 안내
+            </h2>
+            <p className="mt-3 text-gray-500">
+              현지 관광 안내자료에 기재된 정보를 정리했습니다. 방문 전 전화로 운영 여부를 확인해 주세요.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {islandDirectory.map(([name, owner, phone]) => (
+              <div key={`${selectedIsland}-${selectedCategory}-${name}`} className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <span className="inline-block rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-600">
+                      {selectedCategory}
+                    </span>
+                    <h3 className="mt-3 text-xl font-extrabold text-gray-900">{name}</h3>
+                    <p className="mt-2 text-sm text-gray-500">대표자 {owner}</p>
+                  </div>
+                  <span className="text-2xl">
+                    {selectedCategory === "맛집" ? "🍜" : selectedCategory === "숙박" ? "🏨" : "🎣"}
+                  </span>
+                </div>
+                <a
+                  href={`tel:${phone.replace(/-/g, "")}`}
+                  className="mt-5 block rounded-xl bg-gray-900 px-4 py-3 text-center font-bold text-white hover:bg-blue-600 transition"
+                >
+                  ☎ {phone}
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* PLACE CARDS */}
       <div className="text-center mb-14">
 
         <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          🔥 가장 많이 찾는 백령도 명소
+          🔥 가장 많이 찾는 {selectedIsland} 명소
         </h2>
 
         <p className="text-gray-500 text-lg">
-          백령도를 처음 방문한다면 꼭 가봐야 할 대표 관광지
+          {selectedIsland === "백령도"
+            ? "백령도를 처음 방문한다면 꼭 가봐야 할 대표 관광지"
+            : selectedIsland === "대청도"
+            ? "대청도를 처음 방문한다면 꼭 가봐야 할 대표 관광지"
+            : "소청도를 처음 방문한다면 꼭 가봐야 할 대표 관광지"}
         </p>
 
       </div>
@@ -2004,18 +2401,8 @@ link: "/place/christian-island",
                     <p className="text-gray-600 leading-relaxed text-[15px] mb-4">
                       {place.description}
                     </p>
-                    <div className="bg-sky-50 rounded-2xl p-4 text-sm text-gray-700 mb-4 leading-6">
-  {place.name === "두무진" && "추천 포인트: 백령도 대표 절경으로 유람선 관광과 사진 촬영에 좋아요."}
-  {place.name === "끝섬전망대" && "추천 포인트: 북한 장산곶과 물범들을 함께 볼 수 있는 전망 명소예요."}
-  {place.name === "사곶해변" && "추천 포인트: 천연비행장으로 유명한 넓은 해변이라 산책과 사진 촬영에 좋아요."}
-  {place.name === "콩돌해안" && "추천 포인트: 동글동글한 콩돌과 파도 소리가 매력적인 해안이에요."}
-  {place.name === "심청각" && "추천 포인트: 심청전 설화와 백령도 이야기를 함께 볼 수 있는 문화 명소예요."}
-  {place.name === "하늬해안" && "추천 포인트: 점박이물범 관찰과 북쪽 바다 풍경을 함께 즐길 수 있어요."}
-  {place.name === "용틀임바위" && "추천 포인트: 백령도의 지질 특징을 가까이에서 볼 수 있는 독특한 바위 명소예요."}
-  {place.name === "사자바위" && "추천 포인트: 해안 드라이브 중 들르기 좋은 포토 스팟이에요."}
-  {place.name === "천안함 위령탑" && "추천 포인트: 백령도 안보 역사 여행에서 의미 있게 들를 수 있는 장소예요."}
-  {place.name === "서풍받이" && "추천 포인트: 대청도 남동쪽의 높은 해안 절벽과 탁 트인 서해 풍경을 함께 감상하기 좋은 대표 지질명소예요."}
-  {place.name === "옥죽동 해안사구" && "추천 포인트: 바닷바람이 오랜 시간 모래를 옮겨 만든 독특한 사구 지형을 가까이서 볼 수 있어요."}
+                    <div className="text-sm text-gray-700 mb-4 leading-6">
+  {place.tip ? `추천 포인트: ${place.tip}` : "추천 포인트: 현지에서 꼭 둘러볼 만한 명소예요."}
 </div>
                     {place.location && (
                       <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
@@ -2058,6 +2445,17 @@ link: "/place/christian-island",
   { name: "한국기독교의 섬 / 한국기독교역사관", href: "/place/christianity" },
   { name: "서풍받이", href: "/place/seopungbaji" },
   { name: "옥죽동 해안사구", href: "/place/okjuk-sanddune" },
+  { name: "농여해변", href: "/place/nongyeo-beach" },
+  { name: "미아동해변", href: "/place/miadong-beach" },
+  { name: "삼각산", href: "/place/samgaksan" },
+  { name: "매바위전망대", href: "/place/maebawi-observatory" },
+  { name: "모래울해변", href: "/place/moraeul-beach" },
+  { name: "지두리해변", href: "/place/jiduri-beach" },
+  { name: "답동해변", href: "/place/dapdong-beach" },
+  { name: "해넘이전망대", href: "/place/sunset-observatory" },
+  { name: "소청등대", href: "/place/socheong-lighthouse" },
+  { name: "분바위", href: "/place/bunbawi" },
+  { name: "스트로마톨라이트", href: "/place/stromatolite" },
 ]
   .filter((item) => item.name === place.name)
   .map((item) => (
@@ -2150,8 +2548,10 @@ link: "/place/christian-island",
 
   </div>
 </section>
- {/* PHOTO GALLERY */}
-<section id="gallery" className="scroll-mt-24 max-w-7xl mx-auto px-6 pb-20">
+ {selectedIsland === "백령도" && (
+  <>
+{/* PHOTO GALLERY */}
+<section id="gallery" className={selectedIsland === "백령도" ? "scroll-mt-24 max-w-7xl mx-auto px-6 pb-20" : "hidden"}>
   <div className="rounded-[2rem] bg-gradient-to-br from-violet-50 to-fuchsia-50 p-6 md:p-10 shadow-sm border border-violet-100">
     <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
       <div>
@@ -2211,7 +2611,7 @@ link: "/place/christian-island",
       {/* STAY LIST SECTION */}
       <section
         id="stay"
-        className="scroll-mt-24 max-w-7xl mx-auto px-6 pb-20"
+        className={selectedIsland === "백령도" ? "scroll-mt-24 max-w-7xl mx-auto px-6 pb-20" : "hidden"}
       >
         {(selectedCategory === "전체" ||
           selectedCategory === "숙박") && (
@@ -2395,7 +2795,7 @@ link: "/place/christian-island",
       {/* FOOD SECTION */}
       <section
         id="food"
-        className="max-w-7xl mx-auto px-6 pb-10"
+        className={selectedIsland === "백령도" ? "max-w-7xl mx-auto px-6 pb-10" : "hidden"}
       >
 
         {(selectedCategory === "전체" ||
@@ -2718,7 +3118,7 @@ link: "/place/christian-island",
       {/* TAXI SECTION */}
       <section
         id="taxi"
-        className="scroll-mt-24 max-w-7xl mx-auto px-6 pb-10"
+        className={selectedIsland === "백령도" ? "scroll-mt-24 max-w-7xl mx-auto px-6 pb-10" : "hidden"}
       >
         {(selectedCategory === "전체" ||
           selectedCategory === "개인택시") && (
@@ -2793,7 +3193,7 @@ link: "/place/christian-island",
       {/* RENTCAR SECTION */}
       <section
         id="rentcar"
-        className="scroll-mt-24 max-w-7xl mx-auto px-6 pb-10"
+        className={selectedIsland === "백령도" ? "scroll-mt-24 max-w-7xl mx-auto px-6 pb-10" : "hidden"}
       >
         <div className="rounded-[2rem] bg-gradient-to-br from-blue-50 to-indigo-50 p-6 md:p-10 border border-blue-100">
           <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
@@ -2867,7 +3267,7 @@ link: "/place/christian-island",
       {/* LOCAL PRODUCT SECTION */}
       <section
         id="local"
-        className="scroll-mt-24 max-w-7xl mx-auto px-6 pb-20"
+        className={selectedIsland === "백령도" ? "scroll-mt-24 max-w-7xl mx-auto px-6 pb-20" : "hidden"}
       >
         {(selectedCategory === "전체" ||
           selectedCategory === "특산물") && (
@@ -3590,8 +3990,8 @@ link: "/place/christian-island",
       <section id="qna" className="scroll-mt-24 max-w-7xl mx-auto px-6 py-20">
         <div className="rounded-[2rem] bg-gradient-to-br from-sky-50 via-white to-violet-50 border border-sky-100 p-6 md:p-10 shadow-lg">
           <div className="text-center">
-            <p className="font-bold text-sky-600">궁금한 점을 직접 물어보세요</p>
-            <h2 className="mt-2 text-3xl md:text-4xl font-extrabold">💬 백령도 여행 Q&amp;A</h2>
+            <p className="font-bold text-sky-600">{selectedIsland} 여행, 궁금한 점을 직접 물어보세요</p>
+            <h2 className="mt-2 text-3xl md:text-4xl font-extrabold">💬 {selectedIsland} 여행 Q&amp;A</h2>
             <p className="mt-3 text-gray-600 leading-7">
               질문을 등록하면 관리자 답변을 이곳에서 확인할 수 있습니다.
             </p>
@@ -3631,7 +4031,7 @@ link: "/place/christian-island",
                 <textarea
                   value={qnaContent}
                   onChange={(e) => setQnaContent(e.target.value)}
-                  placeholder="궁금한 내용을 자세히 적어주세요."
+                  placeholder={`${selectedIsland} 여행에서 궁금한 내용을 자세히 적어주세요.`}
                   rows={5}
                   maxLength={1000}
                   className="w-full resize-none rounded-2xl border border-gray-200 px-4 py-3 outline-none focus:border-sky-500"
@@ -3768,11 +4168,14 @@ link: "/place/christian-island",
         </button>
       </div>
 
+  </>
+)}
+
 {/* FOOTER */}
 <footer className="bg-gray-900 text-gray-300 px-6 py-12 mt-20">
   <div className="max-w-7xl mx-auto text-center space-y-5">
     <h2 className="text-2xl font-bold text-white">
-      백령도의 모든 정보
+      백령·대청·소청도의 모든 정보
     </h2>
 
     <p className="text-gray-400">
@@ -3798,7 +4201,7 @@ link: "/place/christian-island",
     </div>
 
     <p className="text-sm text-gray-500">
-      © 2026 백령도의 모든 정보. All Rights Reserved.
+      © 2026 백령·대청·소청도의 모든 정보. All Rights Reserved.
     </p>
   </div>
 </footer>  
