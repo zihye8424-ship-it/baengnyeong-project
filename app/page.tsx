@@ -914,7 +914,9 @@ link: "/place/christian-island",
       <a href="#place-section" className="hover:text-sky-500">관광지</a>
       <a href="#food" className="hover:text-sky-500">맛집</a>
       <a href="#stay" className="hover:text-sky-500">숙소</a>
-      <a href="#qna" className="hover:text-sky-500">Q&A</a>
+      {selectedIsland === "백령도" && (
+        <a href="#qna" className="hover:text-sky-500">Q&A</a>
+      )}
       <a href="/admin" className="hover:text-red-500">🔐 관리자</a>
       <a href="/about" className="hover:text-sky-500">운영자 소개</a>
     </nav>
@@ -1827,6 +1829,7 @@ link: "/place/christian-island",
 </section>
 )}
 
+{selectedIsland === "백령도" && (
 <section className="max-w-6xl mx-auto px-6 py-16">
   <div className="mb-8 rounded-[2rem] bg-gradient-to-br from-violet-50 to-fuchsia-50 p-6 md:p-8 border border-violet-100">
     <p className="font-bold text-violet-700">여행 전 많이 묻는 질문</p>
@@ -1884,6 +1887,7 @@ link: "/place/christian-island",
     ))}
   </div>
 </section>
+)}
 {/* 최신 여행정보 */}
 {selectedIsland === "백령도" && (
 <section className="max-w-6xl mx-auto px-6 py-16">
@@ -3940,20 +3944,86 @@ link: "/place/christian-island",
 
           </div>
 
-          {/* 군인면회 */}
+          {/* 군인면회 실전가이드 - 기존 추천코스와 중복되지 않도록 준비/교통/숙박 중심 */}
           <div className="bg-white rounded-3xl shadow-lg p-8">
 
-            <h3 className="text-2xl font-bold mb-5">
-              🪖 군인 면회코스
+            <h3 className="text-2xl font-bold mb-2">
+              🪖 군인 면회 실전 가이드
             </h3>
+            <p className="text-sm text-gray-500 mb-6">
+              백령도까지 직접 면회 오는 가족·친구·연인을 위한 준비 정보
+            </p>
 
-            <ul className="space-y-3 text-gray-700 leading-relaxed">
-              <li>🍜 외출 식사</li>
-              <li>☕ 감성카페</li>
-              <li>🌊 사곶해변</li>
-              <li>📸 두무진 드라이브</li>
-              <li>🚲 두선네 자전거 산책</li>
-            </ul>
+            <div className="space-y-5 text-gray-700 leading-relaxed">
+              <div className="rounded-2xl bg-blue-50 p-5">
+                <h4 className="font-extrabold text-gray-900 mb-2">① 출발 전 가장 먼저 확인</h4>
+                <p>
+                  면회·외출·외박 가능 여부와 시간은 부대 일정에 따라 달라질 수 있습니다.
+                  방문 날짜를 정하기 전에 복무 장병을 통해 소속 부대의 최신 일정과 복귀 시간을 먼저 확인하세요.
+                </p>
+              </div>
+
+              <div className="rounded-2xl bg-sky-50 p-5">
+                <h4 className="font-extrabold text-gray-900 mb-2">② 배편은 왕복으로 미리 준비</h4>
+                <p>
+                  인천–백령 항로는 소청도·대청도를 거쳐 백령도로 들어오며 약 3시간 40분이 걸립니다.
+                  섬 특성상 기상·선박 사정으로 운항이 달라질 수 있으니 예매할 때뿐 아니라
+                  출발 전날과 당일에도 운항 여부를 다시 확인하는 것이 좋습니다.
+                </p>
+                <a
+                  href="https://komsa.or.kr/kor/sub03_020302.do"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-block font-bold text-sky-700 hover:underline"
+                >
+                  한국해양교통안전공단 인천–백령 항로 확인 →
+                </a>
+              </div>
+
+              <div className="rounded-2xl bg-amber-50 p-5">
+                <h4 className="font-extrabold text-gray-900 mb-2">③ 당일치기보다 숙박 일정에 여유 두기</h4>
+                <p>
+                  백령도는 육로 대체가 없는 섬이라 기상 악화 시 출도 일정이 달라질 수 있습니다.
+                  면회 날짜와 장병 복귀시간을 기준으로 숙소와 돌아가는 배편을 함께 계획하고,
+                  중요한 일정이 있다면 귀가 다음 날까지 여유를 두는 편이 안전합니다.
+                </p>
+              </div>
+
+              <div className="rounded-2xl bg-emerald-50 p-5">
+                <h4 className="font-extrabold text-gray-900 mb-2">④ 섬 안 이동수단도 미리 정하기</h4>
+                <p>
+                  면회 후 식사나 관광까지 계획한다면 렌터카·택시 등 이동수단을 미리 확인하세요.
+                  장병의 실제 외출 가능 시간에 맞춰 가까운 식당이나 카페부터 이용하면 일정이 한결 편합니다.
+                </p>
+              </div>
+
+              <div className="rounded-2xl bg-violet-50 p-5">
+                <h4 className="font-extrabold text-gray-900 mb-2">⑤ 2025년에는 면회객 전용 여행상품도 운영</h4>
+                <p>
+                  옹진군은 2025년 백령도 복무 장병의 가족·친구·연인을 대상으로
+                  현지 숙박·식사·교통과 체험을 연계한 ‘백령도에 왔으면회’ 면회 여행상품을 시범 운영했습니다.
+                  다만 당시 한시 사업이므로 현재 상시 지원으로 오해하지 않도록,
+                  새로운 면회객 지원사업이 나오는지는 옹진군 최신 공지를 확인해 주세요.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-gray-200 p-5">
+                <h4 className="font-extrabold text-gray-900 mb-3">🎒 면회객 출발 전 체크리스트</h4>
+                <div className="grid gap-2 sm:grid-cols-2 text-sm">
+                  <span>✓ 장병 면회·외출 가능일 확인</span>
+                  <span>✓ 장병 복귀시간 확인</span>
+                  <span>✓ 왕복 여객선 예약</span>
+                  <span>✓ 출항 당일 운항정보 확인</span>
+                  <span>✓ 숙박 예약</span>
+                  <span>✓ 렌터카·택시 등 이동수단 확인</span>
+                </div>
+              </div>
+
+              <p className="text-xs text-gray-500">
+                ※ 군부대별 세부 면회·외출 규정은 공개 정보만으로 일괄 안내하기 어렵고 변경될 수 있습니다.
+                반드시 복무 장병을 통해 소속 부대의 최신 안내를 확인해 주세요.
+              </p>
+            </div>
 
           </div>
 
@@ -3987,6 +4057,8 @@ link: "/place/christian-island",
       {/* FLOATING QUICK MENU */}
 
       {/* Q&A - 실제 질문 등록/답변 표시 */}
+      {selectedIsland === "백령도" && (
+        <>
       <section id="qna" className="scroll-mt-24 max-w-7xl mx-auto px-6 py-20">
         <div className="rounded-[2rem] bg-gradient-to-br from-sky-50 via-white to-violet-50 border border-sky-100 p-6 md:p-10 shadow-lg">
           <div className="text-center">
@@ -4120,9 +4192,12 @@ link: "/place/christian-island",
           </div>
         </div>
       </section>
+        </>
+      )}
 
       <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
 
+        {selectedIsland === "백령도" && (
         <button
           onClick={() =>
             document
@@ -4133,6 +4208,7 @@ link: "/place/christian-island",
         >
           💬
         </button>
+        )}
 
         <button
           onClick={() =>
