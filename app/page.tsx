@@ -1,14 +1,63 @@
 "use client";
 
 import MyCourse from "./components/MyCourse";
-import AddCourseButton from "./components/AddCourseButton";
 import { supabase } from "./lib/supabase";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
+
+
+const quickMenuItems = [
+  { icon: "🚢", label: "배편정보", href: "#ship-info" },
+  { icon: "🚕", label: "교통·택시", href: "#transport-info" },
+  { icon: "🏠", label: "숙박", href: "#stay-info" },
+  { icon: "🍜", label: "맛집", href: "#food-info" },
+  { icon: "🪖", label: "군인면회", href: "#military-visit" },
+  { icon: "🎣", label: "낚시", href: "#fishing-info" },
+  { icon: "🎁", label: "특산물", href: "#specialty-info" },
+  { icon: "📢", label: "축제·소식", href: "#island-news" },
+];
+
+const islandNews = [
+  { date:"2026.08.26", month:"8월", island:"백령도", type:"행사", title:"섬 라이프 아카데미", place:"백령종합사회복지관", image:"/images/news/island-life-academy.jpg" },
+  { date:"2026.08.29", month:"8월", island:"백령도", type: "축제", title:"백령 그린페스타", place:"심청각 일대", image:"/images/news/baengnyeong-green-festa.jpg" },
+  { date:"2026.09.05", month:"9월", island:"백령도", type:"축제", title:"백령도와 함께한 가족 이야기 그리기 대회", place:"백령종합사회복지관 3층 강당", image:"/images/news/family-drawing-contest.jpg" },
+  { date:"2026.09.12", month:"9월", island:"백령도", type:"행사", title:"백령종합사회복지관 9월 영화", place:"복지관 3층 강당", image:"/images/news/welfare-september-movie.jpg" },
+  { date:"2026.09.12", month:"9월", island:"옹진군", type: "축제", title:"제9회 섬마을밴드 음악축제", place:"대이작도 해양생태관 특별야외무대", image:"/images/news/island-band-festival.png" },
+  { date:"2026.09.01 ~ 09.20", month:"9월", island:"옹진군", type:"관내소식", title:"심뇌혈관질환 예방관리 걷기 챌린지", place:"옹진군", image:"/images/news/heart-walk.png" },
+  { date:"2026.08.03 ~ 10.31", month:"8~10월", island:"옹진군", type:"관내소식", title:"90일간의 대장정 걷기 챌린지", place:"옹진군", image:"/images/news/90day-walk.png" },
+  { date:"2026.06.15 ~ 09.06", month:"6~9월", island:"옹진군", type:"관내소식", title:"2026 평화·통일미래 콘텐츠 공모전", place:"공모전", image:"/images/news/peace-content.png" },
+  { date:"2026.09.23 ~ 09.27", month:"9월", island:"백령·대청 등", type:"관내소식", title:"추석 명절 귀성객 여객운임 지원", place:"연평·백령·대청·덕적·자월", image:"/images/news/chuseok-ferry-support.png" },
+  { date:"2026.01.01 ~ 12.11", month:"연중", island:"섬 지역", type:"관내소식", title:"섬 지역 생활물류 운임 지원사업", place:"옹진군 섬 지역", image:"/images/news/island-logistics.png" },
+  { date:"2026.10.15", month:"10월", island:"백령도", type:"행사", title:"제3회 황혼결혼식", place:"백령노인문화센터 강당", image:"/images/news/hwanghon-wedding.png" },
+  { date:"2026.07.01 시행", month:"7월", island:"어선 이용자", type: "관내소식", title:"전 어선 구명조끼 착용 의무화", place:"해양 안전 안내", image:"/images/news/lifejacket-mandatory.jpg" },
+];
 
 export default function Home() {
+  const [newsFilter, setNewsFilter] = useState("전체");
+  const filteredIslandNews =
+    newsFilter === "전체"
+      ? islandNews
+      : islandNews.filter((item) => item.type === newsFilter);
+
+
+  const islandNewsSliderRef = useRef<HTMLDivElement>(null);
+
+  const moveIslandNews = (direction: "left" | "right") => {
+    const slider = islandNewsSliderRef.current;
+    if (!slider) return;
+    const card = slider.querySelector<HTMLElement>("[data-news-card]");
+    if (!card) return;
+
+    const step = card.getBoundingClientRect().width + 20;
+    slider.scrollBy({
+      left: direction === "right" ? step : -step,
+      behavior: "smooth",
+    });
+  };
+
+
   const [selectedCategory, setSelectedCategory] = useState("전체");
   const [selectedIsland, setSelectedIsland] = useState("백령도");
    const [selectedSeason, setSelectedSeason] = useState("봄");
@@ -927,54 +976,209 @@ link: "/place/christian-island",
   </div>
 </header>
       {/* HERO */}
-      <section className="relative h-[64vh] min-h-[520px] w-full">
-
-        <Image
-          src="/images/background.jpg"
-          alt="백령도 메인"
-          fill
-          priority
-          className="object-cover object-center"
+      <section className="relative isolate min-h-[560px] overflow-hidden bg-slate-950 md:min-h-[640px]">
+        <img
+          src="/images/hero-islands.jpg"
+          alt="백령도 두무진 바다와 기암절벽"
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: "center center" }}
         />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-black/10" />
+        <div className="absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-black/70 to-transparent" />
 
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80 flex flex-col justify-center items-center text-center px-6">
+        <div className="relative z-10 mx-auto flex min-h-[560px] max-w-7xl items-center px-6 pb-24 pt-20 md:min-h-[640px] md:px-8">
+          <div className="max-w-3xl">
+            <p className="mb-3 text-sm font-black tracking-[0.16em] text-sky-100 md:text-base">
+              BAENGNYEONG · DAECHEONG · SOCHEONG
+            </p>
+            <h1 className="text-4xl font-black leading-[1.12] tracking-tight text-white drop-shadow-lg md:text-6xl">
+              백령 · 대청 · 소청,
+              <br />
+              섬 여행을 한곳에서
+            </h1>
+            <p className="mt-6 max-w-2xl text-base font-bold leading-7 text-white drop-shadow md:text-lg">
+              배편부터 관광지 · 맛집 · 숙박 · 교통 · 군인면회까지
+              <br className="hidden sm:block" />
+              현지 생활 경험을 담은 서해 섬 여행 가이드
+            </p>
 
-          <h2 className="text-xl md:text-3xl text-gray-200 mb-4">
-            서해 최북단 섬 여행을 한곳에서
-          </h2>
+            <div className="mt-8 flex flex-wrap gap-3">
+              {(["백령도", "대청도", "소청도"] as const).map((island) => (
+                <button
+                  key={island}
+                  type="button"
+                  onClick={() => {
+                    setSelectedIsland(island);
+                    window.setTimeout(() => {
+                      document.getElementById("island-content")?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+                    }, 0);
+                  }}
+                  className={`relative z-20 rounded-full px-6 py-3 text-sm font-black shadow-lg transition hover:-translate-y-0.5 ${
+                    selectedIsland === island
+                      ? "bg-white text-slate-950"
+                      : "border border-white/70 bg-black/40 text-white backdrop-blur-md hover:bg-black/55"
+                  }`}
+                >
+                  {island} 보기
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-4 sm:mb-6 drop-shadow-2xl leading-tight">
-            백령·대청·소청도의 모든 정보
-          </h1>
+      {/* 플랫폼형 빠른 정보 메뉴 */}
+      <section className="relative z-20 -mt-6 md:-mt-10" id="island-content">
+        <div className="mx-auto max-w-7xl px-4 md:px-5">
+          <div className="rounded-[28px] border border-gray-100 bg-white/95 px-5 py-6 shadow-[0_12px_35px_rgba(15,23,42,0.12)] backdrop-blur">
+            <div className="flex gap-5 overflow-x-auto pb-1 md:justify-between">
+            {quickMenuItems.map((item) => (
+              <a key={item.label} href={item.href} className="group min-w-[82px] text-center">
+                <div className="mx-auto flex h-[74px] w-[74px] items-center justify-center rounded-[26px] border border-gray-100 bg-white text-3xl shadow-[0_5px_18px_rgba(15,23,42,0.08)] transition group-hover:-translate-y-1">
+                  {item.icon}
+                </div>
+                <div className="mt-3 whitespace-nowrap text-sm font-bold text-gray-600">{item.label}</div>
+              </a>
+            ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
-          <p className="text-white text-lg md:text-2xl mb-8">
-            백령도 · 대청도 · 소청도 현지 여행정보
-          </p>
 
-          <div className="flex flex-wrap justify-center gap-4">
+      <style jsx>{`
+        @media (max-width: 1023px) {
+          #island-news [data-news-card] {
+            width: calc((100% - 20px) / 2) !important;
+            min-width: calc((100% - 20px) / 2) !important;
+          }
+        }
+        @media (max-width: 639px) {
+          #island-news [data-news-card] {
+            width: 82vw !important;
+            min-width: 82vw !important;
+          }
+        }
+        #island-news [data-news-card] img {
+          max-width: 100%;
+        }
+        #island-news div::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
 
-            <button
-              onClick={() => {
-                setSelectedCategory("관광지");
-
-                setTimeout(() => {
-                  document
-                    .getElementById("place-section")
-                    ?.scrollIntoView({
-                      behavior: "smooth",
-                    });
-                }, 100);
-              }}
-              className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition"
-            >
-              📸 관광지 보기
-            </button>
-
+      {/* 지금 확인할 축제 · 행사 · 관내소식 */}
+      <section id="island-news" className="mt-20 bg-[#f7f8fa] py-14 md:mt-28 md:py-20">
+        <div className="mx-auto max-w-7xl px-5">
+          <div className="mb-7">
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+              <div>
+                <h2 className="text-2xl font-black text-gray-950 md:text-3xl">축제 · 행사 · 관내소식</h2>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                {["전체", "축제", "행사", "관내소식"].map((label) => (
+                  <button
+                    type="button"
+                    key={label}
+                    onClick={() => {
+                      setNewsFilter(label);
+                      islandNewsSliderRef.current?.scrollTo({ left: 0, behavior: "smooth" });
+                    }}
+                    className={`whitespace-nowrap rounded-full px-5 py-2 text-sm font-bold transition ${
+                      newsFilter === label
+                        ? "bg-blue-600 text-white"
+                        : "border border-gray-200 bg-white text-gray-600 hover:bg-gray-50"
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+                <span className="mx-1 hidden h-7 w-px bg-gray-200 sm:block" />
+                <button
+                  type="button"
+                  onClick={() => moveIslandNews("left")}
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gray-200 bg-white text-2xl font-black text-gray-800 shadow-sm transition hover:bg-gray-100 active:scale-95"
+                  aria-label="이전 포스터"
+                >
+                  ‹
+                </button>
+                <button
+                  type="button"
+                  onClick={() => moveIslandNews("right")}
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gray-200 bg-white text-2xl font-black text-gray-800 shadow-sm transition hover:bg-gray-100 active:scale-95"
+                  aria-label="다음 포스터"
+                >
+                  ›
+                </button>
+              </div>
+            </div>
           </div>
 
-        </div>
+          <div className="relative">
+            <div
+              ref={islandNewsSliderRef}
+              className="flex w-full snap-x snap-mandatory items-stretch overflow-x-auto scroll-smooth pb-6"
+              style={{
+                gap: "20px",
+                scrollbarWidth: "none",
+              }}
+            >
+            {filteredIslandNews.map((item) => (
+              <article
+                  data-news-card
+                  key={`${item.title}-${item.date}`}
+                  className="group flex-none snap-start"
+                  style={{
+                    width: "calc((100% - 60px) / 4)",
+                    minWidth: "calc((100% - 60px) / 4)",
+                  }}
+                >
+                  <a
+                    href={item.image}
+                    target="_blank"
+                    rel="noreferrer"
+                    title={`${item.title} 포스터 크게 보기`}
+                    className="block"
+                  >
+                  <div
+                    className="relative overflow-hidden rounded-[22px] bg-white p-2 shadow-lg ring-1 ring-black/5"
+                    style={{ height: "430px" }}
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="rounded-[16px] bg-white"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                        display: "block",
+                      }}
+                    />
+                    <div className="absolute left-3 top-3 flex gap-1.5">
+                      <span className="rounded-full bg-white/95 px-3 py-1 text-xs font-extrabold text-sky-700 shadow-sm">
+                        {item.island}
+                      </span>
+                      <span className="rounded-full bg-gray-950/80 px-3 py-1 text-xs font-bold text-white">
+                        {item.type}
+                      </span>
+                    </div>
+                  </div>
+                  </a>
+                </article>
+            ))}
+            </div>
+          </div>
 
+          <p className="mt-2 text-xs leading-5 text-gray-400">
+            ※ 일정과 지원내용은 주최·주관기관 사정에 따라 변경될 수 있으니 방문 또는 신청 전 최신 공지를 확인해 주세요.
+          </p>
+        </div>
       </section>
+
 
 {/* 홈 2차 개편: 핵심 여행 준비 메뉴 */}
 <section className="max-w-7xl mx-auto px-5 sm:px-6 py-12 sm:py-16">
@@ -1407,73 +1611,56 @@ link: "/place/christian-island",
   </div>
 )}
 
-<div className="mt-auto pt-5 space-y-3">
-  <div className="flex justify-between text-sm text-gray-500">
+<div className="mt-auto pt-5">
+  <div className="flex items-center justify-between border-t border-gray-100 pt-4 text-xs text-gray-400">
     <span>
       👀 {placeViews.find((item) => item.place_name === place.name)?.view_count || 0}
     </span>
-
     <span>
       ❤️ {placeLikes.find((item) => item.place_name === place.name)?.like_count || 0}
     </span>
   </div>
 
-  <AddCourseButton place={place} />
-
-  {[
-  { name: "두무진", href: "/place/dumujin" },
-  { name: "끝섬전망대", href: "/place/kkeutseom" },
-  { name: "사곶해변", href: "/place/sagot" },
-  { name: "콩돌해안", href: "/place/kongdol" },
-  { name: "심청각", href: "/place/simcheonggak" },
-  { name: "하늬해안", href: "/place/hani" },
-  { name: "용틀임바위", href: "/place/dragon" },
-  { name: "사자바위", href: "/place/sajabawi" },
-  { name: "천안함 위령탑", href: "/place/cheonan" },
-  { name: "📸 사진찍기 좋은 녹색명소", href: "/place/photozone" },
-  { name: "서해최북단 백령도비", href: "/place/baengnyeong-bi" },
-  { name: "한국기독교의 섬 / 한국기독교역사관", href: "/place/christianity" },
-  { name: "서풍받이", href: "/place/seopungbaji" },
-  { name: "옥죽동 해안사구", href: "/place/okjuk-sanddune" },
-  { name: "농여해변", href: "/place/nongyeo-beach" },
-  { name: "미아동해변", href: "/place/miadong-beach" },
-  { name: "삼각산", href: "/place/samgaksan" },
-  { name: "매바위전망대", href: "/place/maebawi-observatory" },
-  { name: "모래울해변", href: "/place/moraeul-beach" },
-  { name: "지두리해변", href: "/place/jiduri-beach" },
-  { name: "답동해변", href: "/place/dapdong-beach" },
-  { name: "해넘이전망대", href: "/place/sunset-observatory" },
-  { name: "소청등대", href: "/place/socheong-lighthouse" },
-  { name: "분바위", href: "/place/bunbawi" },
-  { name: "스트로마톨라이트", href: "/place/stromatolite" },
-]
-  .filter((item) => item.name === place.name)
-  .map((item) => (
-    <Link
-      key={item.name}
-      href={item.href}
-      className="inline-flex items-center justify-center w-full bg-sky-600 text-white py-3 rounded-2xl font-semibold hover:bg-sky-700 transition"
-    >
-      📖 상세정보 보기
-    </Link>
-  ))}
-
-  <button
-  onClick={() => handlePlaceLike(place.name)}
-  className="w-full bg-rose-500 text-white py-3 rounded-2xl font-semibold hover:bg-rose-600 transition"
->
-  ❤️ 좋아요
-</button>
-
-<a
-  href={place.link}
-  onClick={() => handlePlaceView(place.name)}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="inline-flex items-center justify-center w-full bg-black text-white py-3 rounded-2xl font-semibold hover:bg-blue-600 transition"
->
-  📍 위치 확인하기
-</a>
+  <div className="mt-4">
+    {[
+      { name: "두무진", href: "/place/dumujin" },
+      { name: "끝섬전망대", href: "/place/kkeutseom" },
+      { name: "사곶해변", href: "/place/sagot" },
+      { name: "콩돌해안", href: "/place/kongdol" },
+      { name: "심청각", href: "/place/simcheonggak" },
+      { name: "하늬해안", href: "/place/hani" },
+      { name: "용틀임바위", href: "/place/dragon" },
+      { name: "사자바위", href: "/place/sajabawi" },
+      { name: "천안함 위령탑", href: "/place/cheonan" },
+      { name: "📸 사진찍기 좋은 녹색명소", href: "/place/photozone" },
+      { name: "서해최북단 백령도비", href: "/place/baengnyeong-bi" },
+      { name: "한국기독교의 섬 / 한국기독교역사관", href: "/place/christianity" },
+      { name: "서풍받이", href: "/place/seopungbaji" },
+      { name: "옥죽동 해안사구", href: "/place/okjuk-sanddune" },
+      { name: "농여해변", href: "/place/nongyeo-beach" },
+      { name: "미아동해변", href: "/place/miadong-beach" },
+      { name: "삼각산", href: "/place/samgaksan" },
+      { name: "매바위전망대", href: "/place/maebawi-observatory" },
+      { name: "모래울해변", href: "/place/moraeul-beach" },
+      { name: "지두리해변", href: "/place/jiduri-beach" },
+      { name: "답동해변", href: "/place/dapdong-beach" },
+      { name: "해넘이전망대", href: "/place/sunset-observatory" },
+      { name: "소청등대", href: "/place/socheong-lighthouse" },
+      { name: "분바위", href: "/place/bunbawi" },
+      { name: "스트로마톨라이트", href: "/place/stromatolite" },
+    ]
+      .filter((item) => item.name === place.name)
+      .map((item) => (
+        <Link
+          key={item.name}
+          href={item.href}
+          onClick={() => handlePlaceView(place.name)}
+          className="inline-flex items-center justify-center w-full rounded-2xl bg-gray-950 px-5 py-3.5 text-sm font-extrabold text-white hover:bg-sky-700 transition"
+        >
+          자세히 보기 →
+        </Link>
+      ))}
+  </div>
 </div>
 
                   </div>
