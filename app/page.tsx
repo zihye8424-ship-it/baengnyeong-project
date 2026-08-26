@@ -902,6 +902,10 @@ link: "/place/christian-island",
 
   return (
     <main className="bg-white min-h-screen text-gray-900">
+
+
+
+
       {/* HEADER */}
 <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
   <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -923,20 +927,20 @@ link: "/place/christian-island",
   </div>
 </header>
       {/* HERO */}
-      <section className="relative h-[80vh] w-full">
+      <section className="relative h-[64vh] min-h-[520px] w-full">
 
         <Image
           src="/images/background.jpg"
           alt="백령도 메인"
           fill
           priority
-          className="object-cover"
+          className="object-cover object-center"
         />
 
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80 flex flex-col justify-center items-center text-center px-6">
 
           <h2 className="text-xl md:text-3xl text-gray-200 mb-4">
-            서해 최북단의 특별한 섬, 백령도
+            서해 최북단 섬 여행을 한곳에서
           </h2>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-4 sm:mb-6 drop-shadow-2xl leading-tight">
@@ -944,7 +948,7 @@ link: "/place/christian-island",
           </h1>
 
           <p className="text-white text-lg md:text-2xl mb-8">
-            관광지 · 맛집 · 숙박 · 군인외출 · 여행정보
+            백령도 · 대청도 · 소청도 현지 여행정보
           </p>
 
           <div className="flex flex-wrap justify-center gap-4">
@@ -972,1167 +976,149 @@ link: "/place/christian-island",
 
       </section>
 
-{/* 통합 검색 */}
-<section id="global-search" className="relative z-10 max-w-6xl mx-auto px-6 -mt-10 pb-10">
-  <div className="rounded-[2rem] bg-white p-6 md:p-9 shadow-2xl border border-gray-100">
-    <div className="text-center mb-6">
-      <p className="font-bold text-sky-600 mb-2">백령도 통합검색</p>
-      <h2 className="text-3xl md:text-4xl font-extrabold">무엇을 찾고 계신가요?</h2>
-      <p className="mt-3 text-gray-500">관광지·맛집·숙소·교통·여행정보를 한 번에 찾아보세요.</p>
-    </div>
+{/* 홈 2차 개편: 핵심 여행 준비 메뉴 */}
+<section className="max-w-7xl mx-auto px-5 sm:px-6 py-12 sm:py-16">
+  <div className="mb-8">
+    <p className="text-sky-600 font-extrabold text-sm mb-2">TRIP ESSENTIALS</p>
+    <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-gray-900">
+      여행 준비, 여기서 빠르게
+    </h2>
+    <p className="mt-3 text-gray-600 leading-relaxed max-w-2xl">
+      처음 방문한다면 배편부터 확인하고, 목적에 맞는 여행정보로 바로 이동해 보세요.
+    </p>
+  </div>
 
-    <form
-      onSubmit={(e) => { e.preventDefault(); runGlobalSearch(); }}
-      className="flex flex-col sm:flex-row gap-3 max-w-4xl mx-auto"
+  <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+    <a
+      href="https://island.haewoon.co.kr/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group rounded-3xl border border-gray-200 bg-white p-5 sm:p-6 hover:-translate-y-1 hover:shadow-xl transition"
     >
-      <div className="relative flex-1">
-        <span className="absolute left-5 top-1/2 -translate-y-1/2 text-2xl">🔍</span>
-        <input
-          value={globalSearch}
-          onChange={(e) => setGlobalSearch(e.target.value)}
-          placeholder="예: 두무진, 군인 면회, 숙소, 맛집"
-          className="w-full rounded-2xl border-2 border-gray-200 bg-gray-50 py-5 pl-14 pr-5 text-lg outline-none transition focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-100"
-        />
-      </div>
-      <button type="submit" className="rounded-2xl bg-black px-8 py-5 text-lg font-bold text-white hover:bg-sky-600 transition">
-        검색하기
-      </button>
-    </form>
+      <span className="text-3xl">🚢</span>
+      <h3 className="font-black text-lg mt-4">배편 확인</h3>
+      <p className="text-sm text-gray-500 mt-2">출항 전 운항 여부와 예매 확인</p>
+      <span className="inline-block mt-4 text-sm font-bold text-sky-600">확인하기 →</span>
+    </a>
 
-    <div className="mt-6 flex flex-wrap justify-center gap-2">
-      <span className="py-2 text-sm font-bold text-gray-500">🔥 인기검색어</span>
-      {["두무진", "사곶해변", "군인 면회", "맛집", "숙소", "배편", "렌터카", "사진첩"].map((keyword) => (
-        <button key={keyword} type="button" onClick={() => runGlobalSearch(keyword)} className="rounded-full bg-sky-50 px-4 py-2 text-sm font-bold text-sky-700 hover:bg-sky-600 hover:text-white transition">
-          #{keyword}
-        </button>
-      ))}
-    </div>
+    <button
+      type="button"
+      onClick={() => setSelectedCategory("관광지")}
+      className="text-left group rounded-3xl border border-gray-200 bg-white p-5 sm:p-6 hover:-translate-y-1 hover:shadow-xl transition"
+    >
+      <span className="text-3xl">📍</span>
+      <h3 className="font-black text-lg mt-4">관광지</h3>
+      <p className="text-sm text-gray-500 mt-2">섬별 대표 명소와 현지 여행정보</p>
+      <span className="inline-block mt-4 text-sm font-bold text-sky-600">둘러보기 →</span>
+    </button>
 
-    {showSearchResults && (
-      <div id="search-results" className="scroll-mt-24 mt-8 border-t pt-8">
-        <div className="flex items-center justify-between gap-4 mb-5">
-          <h3 className="text-2xl font-extrabold">
-            {globalSearch ? `“${globalSearch}” 검색결과` : "검색어를 입력해주세요"}
-          </h3>
-          {searchResults.length > 0 && <span className="text-sm font-bold text-sky-600">{searchResults.length}개 결과</span>}
-        </div>
+    <button
+      type="button"
+      onClick={() => setSelectedCategory("군인면회")}
+      className="text-left group rounded-3xl border border-gray-200 bg-white p-5 sm:p-6 hover:-translate-y-1 hover:shadow-xl transition"
+    >
+      <span className="text-3xl">🪖</span>
+      <h3 className="font-black text-lg mt-4">군인 면회</h3>
+      <p className="text-sm text-gray-500 mt-2">배편·숙박·이동 준비 실전정보</p>
+      <span className="inline-block mt-4 text-sm font-bold text-sky-600">정보 보기 →</span>
+    </button>
 
-        {globalSearch && searchResults.length === 0 ? (
-          <div className="rounded-2xl bg-gray-50 p-8 text-center">
-            <div className="text-5xl mb-3">🔎</div>
-            <p className="font-bold text-lg">일치하는 정보가 아직 없어요.</p>
-            <p className="mt-2 text-gray-500">다른 단어로 검색하거나 제보센터를 이용해주세요.</p>
-          </div>
-        ) : (
-          <div className="grid md:grid-cols-2 gap-4">
-            {searchResults.map((item, index) => (
-              <button
-                key={`${item.name}-${index}`}
-                type="button"
-                onClick={() => openSearchResult(item)}
-                className="group flex items-start gap-4 rounded-2xl border border-gray-200 p-5 text-left hover:border-sky-400 hover:bg-sky-50 transition"
-              >
-                <div className="text-3xl">{item.icon || "📍"}</div>
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h4 className="text-lg font-extrabold group-hover:text-sky-700">{item.name}</h4>
-                    <span className="rounded-full bg-gray-100 px-2.5 py-1 text-xs font-bold text-gray-600">{item.category}</span>
-                  </div>
-                  <p className="mt-2 line-clamp-2 text-sm leading-6 text-gray-600">{item.description}</p>
-                  <p className="mt-3 text-sm font-bold text-sky-600">바로 보기 →</p>
-                </div>
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-    )}
+    <button
+      type="button"
+      onClick={() => document.getElementById("qna")?.scrollIntoView({ behavior: "smooth" })}
+      className="text-left group rounded-3xl border border-gray-200 bg-white p-5 sm:p-6 hover:-translate-y-1 hover:shadow-xl transition"
+    >
+      <span className="text-3xl">💬</span>
+      <h3 className="font-black text-lg mt-4">여행 Q&A</h3>
+      <p className="text-sm text-gray-500 mt-2">여행 전 자주 묻는 질문 확인</p>
+      <span className="inline-block mt-4 text-sm font-bold text-sky-600">질문 보기 →</span>
+    </button>
   </div>
 </section>
 
-{/* AI 여행 플래너 */}
-<section id="ai-planner" className="max-w-7xl mx-auto px-6 py-20">
-  <div className="overflow-hidden rounded-[2rem] bg-gradient-to-br from-slate-950 via-blue-950 to-sky-700 shadow-2xl">
-    <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
-      <div className="p-8 md:p-12 text-white">
-        <span className="inline-flex rounded-full bg-white/10 px-4 py-2 text-sm font-bold ring-1 ring-white/20">
-          ✨ 맞춤 일정 자동 생성
-        </span>
-        <h2 className="mt-6 text-4xl md:text-5xl font-extrabold leading-tight">
-          백령도 AI 여행 플래너
-        </h2>
-        <p className="mt-5 text-lg leading-8 text-sky-100">
-          여행 기간과 동행, 관심사를 선택하면 백령도 이동 동선을 고려한 맞춤 일정을 바로 만들어드려요.
-        </p>
+{/* COMPACT ISLAND NAVIGATION */}
+      <section id="island-guide" className="max-w-7xl mx-auto px-6 py-14">
+        <div className="mb-9 text-center">
+          <p className="text-sm font-extrabold tracking-[0.18em] text-sky-600">EXPLORE THE ISLANDS</p>
+          <h2 className="mt-3 text-3xl md:text-4xl font-extrabold tracking-tight">어느 섬으로 떠나시나요?</h2>
+          <p className="mt-3 text-gray-500">섬을 고르면 그곳의 관광·맛집·숙박 정보를 한 화면에서 정리해 보여드려요.</p>
+        </div>
 
-        <div className="mt-8 grid grid-cols-2 gap-3 text-sm">
-          {["대표 관광지", "현지 맛집", "이동 순서", "계절별 준비팁"].map((item) => (
-            <div key={item} className="rounded-2xl bg-white/10 px-4 py-3 ring-1 ring-white/10">
-              ✓ {item}
-            </div>
+        <div className="grid gap-4 md:grid-cols-3">
+          {[
+            { name: "백령도", desc: "대표 명소부터 맛집·숙소·교통까지", icon: "🏝️" },
+            { name: "대청도", desc: "해안 절경·트레킹·민박·낚시 정보", icon: "🌊" },
+            { name: "소청도", desc: "등대·분바위·지질명소와 섬 여행", icon: "⛵" },
+          ].map((island) => (
+            <button
+              key={island.name}
+              type="button"
+              onClick={() => {
+                setSelectedIsland(island.name);
+                setSelectedCategory(island.name === "백령도" ? "전체" : "관광지");
+              }}
+              className={`group rounded-[1.75rem] border p-6 text-left transition-all ${selectedIsland === island.name
+                ? "border-sky-500 bg-sky-50 shadow-lg ring-4 ring-sky-50"
+                : "border-gray-200 bg-white hover:-translate-y-1 hover:border-sky-200 hover:shadow-lg"
+              }`}
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <span className="text-3xl">{island.icon}</span>
+                  <h3 className="mt-4 text-2xl font-extrabold">{island.name}</h3>
+                  <p className="mt-2 text-sm leading-6 text-gray-500">{island.desc}</p>
+                </div>
+                <span className={`mt-1 flex h-9 w-9 items-center justify-center rounded-full text-lg transition ${selectedIsland === island.name ? "bg-sky-600 text-white" : "bg-gray-100 text-gray-500 group-hover:bg-sky-100 group-hover:text-sky-700"}`}>→</span>
+              </div>
+            </button>
           ))}
         </div>
-      </div>
 
-      <div className="bg-white p-7 md:p-10">
-        <div className="grid sm:grid-cols-2 gap-5">
-          <label className="block">
-            <span className="mb-2 block font-bold text-gray-800">🗓️ 여행 기간</span>
-            <select value={plannerDuration} onChange={(e) => setPlannerDuration(e.target.value)} className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-4 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100">
-              <option>당일</option><option>1박 2일</option><option>2박 3일</option>
-            </select>
-          </label>
-
-          <label className="block">
-            <span className="mb-2 block font-bold text-gray-800">👥 누구와 가나요?</span>
-            <select value={plannerCompanion} onChange={(e) => setPlannerCompanion(e.target.value)} className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-4 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100">
-              <option>혼자</option><option>연인</option><option>가족</option><option>아이 동반</option><option>부모님</option><option>군인 면회</option>
-            </select>
-          </label>
-
-          <label className="block">
-            <span className="mb-2 block font-bold text-gray-800">💙 여행 취향</span>
-            <select value={plannerTheme} onChange={(e) => setPlannerTheme(e.target.value)} className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-4 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100">
-              <option>자연·사진</option><option>아이와 가족</option><option>군인 면회</option><option>역사·안보</option><option>맛집·카페</option><option>힐링·느긋하게</option>
-            </select>
-          </label>
-
-          <label className="block">
-            <span className="mb-2 block font-bold text-gray-800">🚗 이동수단</span>
-            <select value={plannerTransport} onChange={(e) => setPlannerTransport(e.target.value)} className="w-full rounded-2xl border border-gray-200 bg-gray-50 px-4 py-4 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100">
-              <option>렌터카·자가용</option><option>도보·대중교통</option>
-            </select>
-          </label>
-
-          <label className="block sm:col-span-2">
-            <span className="mb-2 block font-bold text-gray-800">🌿 여행 계절</span>
-            <div className="grid grid-cols-4 gap-2">
-              {["봄", "여름", "가을", "겨울"].map((season) => (
-                <button key={season} type="button" onClick={() => setPlannerSeason(season)} className={`rounded-2xl px-3 py-3 font-bold transition ${plannerSeason === season ? "bg-sky-600 text-white shadow-lg" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}>
-                  {season}
+        <div className="mt-8 rounded-[1.75rem] border border-gray-200 bg-gray-50/80 p-4 md:p-5">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div className="min-w-[180px]">
+              <p className="text-xs font-extrabold text-sky-600">{selectedIsland} 여행</p>
+              <h3 className="mt-1 text-xl font-extrabold">무엇을 찾으세요?</h3>
+            </div>
+            <div className="grid flex-1 grid-cols-2 gap-2 sm:grid-cols-3 lg:flex lg:justify-end">
+              {islandCategories.map((category) => (
+                <button
+                  key={category.name}
+                  type="button"
+                  onClick={() => {
+                    setSelectedCategory(category.name);
+                    if (selectedIsland !== "백령도" && ["맛집", "숙박", "낚시배"].includes(category.name)) {
+                      setTimeout(() => document.getElementById("island-directory")?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+                      return;
+                    }
+                    if (category.name === "전체" || category.name === "관광지" || category.name === "안보역사" || category.name === "군인면회" || category.name === "가족여행") {
+                      setShowStay(category.name === "전체"); setShowFood(category.name === "전체"); setShowTaxi(category.name === "전체"); setShowRentcar(category.name === "전체"); setShowLocal(category.name === "전체");
+                      setTimeout(() => document.getElementById("place-section")?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+                    } else if (category.name === "숙박") {
+                      setShowStay(true); setShowFood(false); setShowTaxi(false); setShowRentcar(false); setShowLocal(false);
+                      setTimeout(() => document.getElementById("stay")?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+                    } else if (category.name === "맛집") {
+                      setShowStay(false); setShowFood(true); setShowTaxi(false); setShowRentcar(false); setShowLocal(false);
+                      setTimeout(() => document.getElementById("food")?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+                    } else if (category.name === "개인택시") {
+                      setShowStay(false); setShowFood(false); setShowTaxi(true); setShowRentcar(false); setShowLocal(false);
+                      setTimeout(() => document.getElementById("taxi")?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+                    } else if (category.name === "렌트카") {
+                      setShowStay(false); setShowFood(false); setShowTaxi(false); setShowRentcar(true); setShowLocal(false);
+                      setTimeout(() => document.getElementById("rentcar")?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+                    } else if (category.name === "특산물") {
+                      setShowStay(false); setShowFood(false); setShowTaxi(false); setShowRentcar(false); setShowLocal(true);
+                      setTimeout(() => document.getElementById("local")?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+                    }
+                  }}
+                  className={`rounded-xl px-4 py-3 text-sm font-bold transition ${selectedCategory === category.name ? "bg-gray-950 text-white shadow" : "bg-white text-gray-700 hover:bg-sky-50 hover:text-sky-700"}`}
+                >
+                  <span className="mr-1.5">{category.icon}</span>{category.name}
                 </button>
               ))}
             </div>
-          </label>
-        </div>
-                <button onClick={makeTravelPlan} className="mt-7 w-full rounded-2xl bg-gradient-to-r from-sky-500 to-blue-700 px-6 py-5 text-xl font-extrabold text-white shadow-xl transition hover:-translate-y-1 hover:shadow-2xl">
-          ✨ 나만의 백령도 일정 만들기
-        </button>
-        <p className="mt-3 text-center text-xs text-gray-400">
-          현재는 백령도 현지 정보를 기반으로 일정을 자동 조합하는 무료 버전입니다.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  {plannerResult && (
-    <div id="planner-result" className="scroll-mt-24 mt-10 rounded-[2rem] border border-sky-100 bg-sky-50 p-6 md:p-10 shadow-xl">
-      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
-        <div>
-          <p className="font-bold text-sky-600">AI 추천 일정 완성</p>
-          <h3 className="mt-1 text-3xl md:text-4xl font-extrabold text-gray-900">
-            {plannerDuration} · {plannerCompanion} 맞춤 여행
-          </h3>
-          <p className="mt-3 text-gray-600">{plannerTheme} 중심 · {plannerTransport} · {plannerSeason} 여행</p>
-        </div>
-        <button onClick={makeTravelPlan} className="rounded-full bg-white px-5 py-3 font-bold text-sky-700 shadow hover:shadow-md">
-          🔄 일정 다시 만들기
-        </button>
-      </div>
-
-      <div className="space-y-7">
-        {plannerResult.map((day, dayIndex) => (
-          <article key={dayIndex} className="overflow-hidden rounded-3xl bg-white shadow-lg">
-            <div className="bg-gradient-to-r from-sky-600 to-blue-700 px-6 py-5 text-white">
-              <p className="text-sm font-bold text-sky-100">DAY {dayIndex + 1}</p>
-              <h4 className="mt-1 text-2xl font-extrabold">{day.title}</h4>
-            </div>
-            <div className="divide-y divide-gray-100">
-              {day.schedule.map((item: any, itemIndex: number) => (
-                <div key={itemIndex} className="grid md:grid-cols-[110px_1fr] gap-3 px-6 py-5">
-                  <span className="h-fit w-fit rounded-full bg-sky-100 px-4 py-2 text-sm font-extrabold text-sky-700">{item.time}</span>
-                  <div>
-                    <h5 className="text-lg font-extrabold text-gray-900">📍 {item.place}</h5>
-                    <p className="mt-2 leading-7 text-gray-600">{item.detail}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <div className="mt-8 rounded-3xl bg-amber-50 p-6 ring-1 ring-amber-200">
-        <h4 className="text-xl font-extrabold text-amber-900">💡 이 여행에 꼭 필요한 팁</h4>
-        <ul className="mt-4 space-y-3 text-amber-950">
-          {plannerTips.map((tip, index) => (
-            <li key={index} className="flex gap-3"><span>✓</span><span>{tip}</span></li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  )}
-</section>
-
-{/* 계절별 백령도 */}
-<section className="max-w-7xl mx-auto px-6 py-20">
-  <div className="text-center mb-10">
-    <p className="font-bold text-sky-600 mb-2">사계절 여행 가이드</p>
-
-    <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">
-      🌿 계절마다 다른 백령도
-    </h2>
-
-    <p className="mt-4 text-lg text-gray-500">
-      봄·여름·가을·겨울 버튼을 눌러 계절별 풍경과 여행 팁을 확인하세요.
-    </p>
-  </div>
-
-  <div className="flex flex-wrap justify-center gap-3 mb-10">
-    {["봄", "여름", "가을", "겨울"].map((season) => (
-      <button
-        key={season}
-        type="button"
-        onClick={() => setSelectedSeason(season)}
-        className={`rounded-full px-7 py-3 font-extrabold transition ${
-          selectedSeason === season
-            ? "bg-sky-600 text-white shadow-lg"
-            : "bg-white text-gray-700 border border-gray-200 hover:bg-sky-50"
-        }`}
-      >
-        {season}
-      </button>
-    ))}
-  </div>
-
-  {selectedSeason === "봄" && (
-    <div className="grid lg:grid-cols-2 gap-8 items-center rounded-[2rem] bg-pink-50 p-6 md:p-10 shadow-lg">
-      <div className="relative h-[320px] md:h-[430px] overflow-hidden rounded-3xl">
-        <Image
-          src="/images/season-spring.jpg"
-          alt="봄의 백령도"
-          fill
-          className="object-cover"
-        />
-      </div>
-
-      <div>
-        <span className="inline-flex rounded-full bg-pink-100 px-4 py-2 font-bold text-pink-700">
-          🌸 봄 여행
-        </span>
-
-        <h3 className="mt-5 text-3xl md:text-4xl font-black">
-          따뜻한 바람과 함께 시작하는 백령도 여행
-        </h3>
-
-        <p className="mt-5 leading-8 text-gray-700">
-          봄에는 겨울보다 바람이 부드러워지고 섬 곳곳에서 새싹과 봄꽃을
-          만날 수 있습니다. 두무진과 사곶해변을 천천히 걷기에 좋고,
-          맑은 날에는 사진도 선명하게 나오는 계절입니다.
-        </p>
-
-        <div className="mt-6 grid sm:grid-cols-2 gap-3">
-          <div className="rounded-2xl bg-white p-4 font-bold">📸 추천: 두무진·사곶해변</div>
-          <div className="rounded-2xl bg-white p-4 font-bold">🧥 준비물: 얇은 바람막이</div>
-          <div className="rounded-2xl bg-white p-4 font-bold">🚶 추천활동: 해안 산책</div>
-          <div className="rounded-2xl bg-white p-4 font-bold">🗓️ 추천시기: 4월~5월</div>
-        </div>
-      </div>
-    </div>
-  )}
-
-  {selectedSeason === "여름" && (
-    <div className="grid lg:grid-cols-2 gap-8 items-center rounded-[2rem] bg-sky-50 p-6 md:p-10 shadow-lg">
-      <div className="relative h-[320px] md:h-[430px] overflow-hidden rounded-3xl">
-        <Image
-          src="/images/season-summer.jpg"
-          alt="여름의 백령도"
-          fill
-          className="object-cover"
-        />
-      </div>
-
-      <div>
-        <span className="inline-flex rounded-full bg-sky-100 px-4 py-2 font-bold text-sky-700">
-          🌊 여름 여행
-        </span>
-
-        <h3 className="mt-5 text-3xl md:text-4xl font-black">
-          푸른 바다와 해안 풍경이 가장 빛나는 계절
-        </h3>
-
-        <p className="mt-5 leading-8 text-gray-700">
-          여름에는 백령도의 바다색이 가장 선명하고 해변 여행을 즐기기
-          좋습니다. 사곶해변, 콩돌해안, 하늬해안에서 시원한 풍경을
-          감상할 수 있으며 햇빛과 자외선 대비가 필요합니다.
-        </p>
-
-        <div className="mt-6 grid sm:grid-cols-2 gap-3">
-          <div className="rounded-2xl bg-white p-4 font-bold">🏖️ 추천: 사곶해변·콩돌해안</div>
-          <div className="rounded-2xl bg-white p-4 font-bold">🧴 준비물: 선크림·모자</div>
-          <div className="rounded-2xl bg-white p-4 font-bold">📷 추천활동: 해변 사진</div>
-          <div className="rounded-2xl bg-white p-4 font-bold">🗓️ 추천시기: 6월~8월</div>
-        </div>
-      </div>
-    </div>
-  )}
-
-  {selectedSeason === "가을" && (
-    <div className="grid lg:grid-cols-2 gap-8 items-center rounded-[2rem] bg-amber-50 p-6 md:p-10 shadow-lg">
-      <div className="relative h-[320px] md:h-[430px] overflow-hidden rounded-3xl">
-        <Image
-          src="/images/season-autumn.jpg"
-          alt="가을의 백령도"
-          fill
-          className="object-cover"
-        />
-      </div>
-
-      <div>
-        <span className="inline-flex rounded-full bg-amber-100 px-4 py-2 font-bold text-amber-700">
-          🍂 가을 여행
-        </span>
-
-        <h3 className="mt-5 text-3xl md:text-4xl font-black">
-          선선한 날씨와 노을이 아름다운 백령도
-        </h3>
-
-        <p className="mt-5 leading-8 text-gray-700">
-          가을은 백령도를 여행하기 가장 편안한 계절 중 하나입니다.
-          낮에는 선선하고 해 질 무렵에는 붉은 노을이 아름다워
-          끝섬전망대와 서쪽 해안을 방문하기 좋습니다.
-        </p>
-
-        <div className="mt-6 grid sm:grid-cols-2 gap-3">
-          <div className="rounded-2xl bg-white p-4 font-bold">🌅 추천: 끝섬전망대·두무진</div>
-          <div className="rounded-2xl bg-white p-4 font-bold">🧣 준비물: 가벼운 겉옷</div>
-          <div className="rounded-2xl bg-white p-4 font-bold">🚗 추천활동: 해안 드라이브</div>
-          <div className="rounded-2xl bg-white p-4 font-bold">🗓️ 추천시기: 9월~10월</div>
-        </div>
-      </div>
-    </div>
-  )}
-
-  {selectedSeason === "겨울" && (
-    <div className="grid lg:grid-cols-2 gap-8 items-center rounded-[2rem] bg-slate-100 p-6 md:p-10 shadow-lg">
-      <div className="relative h-[320px] md:h-[430px] overflow-hidden rounded-3xl">
-        <Image
-          src="/images/season-winter.jpg"
-          alt="겨울의 백령도"
-          fill
-          className="object-cover"
-        />
-      </div>
-
-      <div>
-        <span className="inline-flex rounded-full bg-slate-200 px-4 py-2 font-bold text-slate-700">
-          ❄️ 겨울 여행
-        </span>
-
-        <h3 className="mt-5 text-3xl md:text-4xl font-black">
-          고요하고 웅장한 겨울 바다를 만나는 계절
-        </h3>
-
-        <p className="mt-5 leading-8 text-gray-700">
-          겨울의 백령도는 바람이 강하고 날씨 변화가 크지만,
-          사람이 적어 조용한 풍경을 즐길 수 있습니다. 결항 가능성이
-          있으므로 배편과 기상 정보를 자주 확인하는 것이 중요합니다.
-        </p>
-
-        <div className="mt-6 grid sm:grid-cols-2 gap-3">
-          <div className="rounded-2xl bg-white p-4 font-bold">🌊 추천: 두무진·하늬해안</div>
-          <div className="rounded-2xl bg-white p-4 font-bold">🧤 준비물: 방풍·방한용품</div>
-          <div className="rounded-2xl bg-white p-4 font-bold">☕ 추천활동: 드라이브·카페</div>
-          <div className="rounded-2xl bg-white p-4 font-bold">🗓️ 추천시기: 12월~2월</div>
-        </div>
-      </div>
-    </div>
-  )}
-</section>
-
-    {/* 방문자 현황 */}
-<section className="max-w-6xl mx-auto px-6 py-12">
-
-<div className="grid md:grid-cols-3 gap-6">
-
-  <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
-
-    <div className="text-5xl mb-3">
-      👀
-    </div>
-
-    <h3 className="text-2xl font-bold mb-2">
-      오늘 방문자
-    </h3>
-
-    <p className="text-4xl font-extrabold text-sky-500">
-  {todayVisitors.toLocaleString()}명
-</p>
-
-  </div>
-
-  <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
-
-    <div className="text-5xl mb-3">
-      👥
-    </div>
-
-    <h3 className="text-2xl font-bold mb-2">
-      누적 방문자
-    </h3>
-
-    <p className="text-4xl font-extrabold text-green-500">
-  {totalVisitors.toLocaleString()}명
-</p>
-
-  </div>
-
-  <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
-
-    <div className="text-5xl mb-3">
-      📸
-    </div>
-
-    <h3 className="text-2xl font-bold mb-2">
-      등록 사진
-    </h3>
-
-    <p className="text-4xl font-extrabold text-orange-500">
-      60
-    </p>
-
-  </div>
-
-</div>
-
-</section>
-{/* 제보센터 */}
-<section className="max-w-6xl mx-auto px-6 py-16">
-
-  <div className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-3xl shadow-xl p-10 text-white">
-
-    <h2 className="text-4xl font-bold text-center mb-6">
-      📢 정보 수정 · 제보센터
-    </h2>
-
-    <p className="text-center text-lg mb-10 opacity-90">
-      백령도 정보가 변경되었거나 새로운 장소가 있다면 알려주세요 😊
-    </p>
-
-    <div className="grid md:grid-cols-3 gap-6">
-
-      <div className="bg-white/10 backdrop-blur rounded-2xl p-6 text-center">
-
-        <div className="text-5xl mb-4">
-          🍜
-        </div>
-
-        <h3 className="text-xl font-bold mb-2">
-          맛집 제보
-        </h3>
-
-        <p className="text-sm opacity-90">
-          신규 맛집 또는 폐업 정보를 알려주세요.
-        </p>
-
-      </div>
-
-      <div className="bg-white/10 backdrop-blur rounded-2xl p-6 text-center">
-
-        <div className="text-5xl mb-4">
-          🏨
-        </div>
-
-        <h3 className="text-xl font-bold mb-2">
-          숙소 제보
-        </h3>
-
-        <p className="text-sm opacity-90">
-          신규 숙박업소 및 정보 변경 제보
-        </p>
-
-      </div>
-
-      <div className="bg-white/10 backdrop-blur rounded-2xl p-6 text-center">
-
-        <div className="text-5xl mb-4">
-          📸
-        </div>
-
-        <h3 className="text-xl font-bold mb-2">
-          관광지 제보
-        </h3>
-
-        <p className="text-sm opacity-90">
-          숨은 명소와 여행 정보를 알려주세요.
-        </p>
-
-      </div>
-
-    </div>
-
-    <div className="text-center mt-10">
-
-      <a
-        href="https://open.kakao.com/o/pUnS91Ai"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-block bg-white text-green-600 px-8 py-4 rounded-2xl font-bold hover:scale-105 transition"
-      >
-        💬 제보하기
-      </a>
-
-    </div>
-
-  </div>
-
-</section>
-{/* ✍️ 쩨쩨의 백령도 블로그 */}
-<section className="max-w-7xl mx-auto px-6 py-20">
-
-  <div className="bg-gradient-to-r from-sky-500 to-blue-600 rounded-3xl shadow-xl p-10 text-center text-white">
-
-    <h2 className="text-4xl font-bold mb-4">
-      ✍️ 쩨쩨의 백령도 블로그
-    </h2>
-
-    <p className="text-lg opacity-90 mb-8">
-      28년 주민이 직접 알려주는<br />
-      백령도 여행팁, 맛집, 숙소, 군인면회 이야기
-    </p>
-
-    <a
-      href="https://blog.naver.com/zihye7"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-block bg-white text-sky-600 font-bold px-8 py-4 rounded-2xl hover:scale-105 transition"
-    >
-      📖 네이버 블로그 바로가기
-    </a>
-
-  </div>
-
-</section>
-      {/* LIVE INFO */}
-      <section id="live-info" className="max-w-7xl mx-auto px-6 py-10">
-
-        <div className="grid md:grid-cols-3 gap-6">
-
-          <a
-            href="https://www.weather.go.kr/w/weather/forecast/short-term.do"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white rounded-3xl shadow-lg p-8 hover:scale-105 transition"
-          >
-            <div className="text-5xl mb-4">
-              🌤️
-            </div>
-
-            <h3 className="text-2xl font-bold mb-3">
-              백령도 실시간 날씨
-            </h3>
-
-            <p className="text-gray-600">
-              현재 기상 상황과 주간 예보 확인하기
-            </p>
-          </a>
-
-          <a
-            href="https://www.komsa.or.kr/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white rounded-3xl shadow-lg p-8 hover:scale-105 transition"
-          >
-            <div className="text-5xl mb-4">
-              🚢
-            </div>
-
-            <h3 className="text-2xl font-bold mb-3">
-              여객선 운항 정보
-            </h3>
-
-            <p className="text-gray-600">
-              오늘 배 운항 여부와 결항 확인
-            </p>
-          </a>
-
-          <a
-            href="https://www.kefship.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white rounded-3xl shadow-lg p-8 hover:scale-105 transition"
-          >
-            <div className="text-5xl mb-4">
-              🎫
-            </div>
-
-            <h3 className="text-2xl font-bold mb-3">
-              배편 예약 바로가기
-            </h3>
-
-            <p className="text-gray-600">
-              고려고속훼리 예약 및 시간표 확인
-            </p>
-          </a>
-
-        </div>
-        </section>
-{/* 백령도 소개 */}
-{selectedIsland === "백령도" && (
-<section className="max-w-6xl mx-auto px-6 py-16">
-  <div className="bg-white rounded-3xl shadow-lg p-10 leading-9">
-
-    <h2 className="text-4xl font-bold text-sky-700 mb-8">
-      🌊 백령도는 어떤 곳인가요?
-    </h2>
-
-    <p className="text-gray-700 mb-6">
-      백령도는 대한민국 서해 최북단에 위치한 섬으로 인천광역시 옹진군에 속해 있습니다.
-      인천항에서 여객선을 이용해 약 4시간 정도 이동하면 만날 수 있으며,
-      국내에서는 쉽게 볼 수 없는 웅장한 해안절벽과 천혜의 자연환경,
-      그리고 다양한 지질 명소를 품고 있는 특별한 여행지입니다.
-      북한 장산곶과 가장 가까운 섬이라는 지리적 특징도 가지고 있어
-      자연과 역사, 안보를 함께 경험할 수 있는 곳으로 많은 여행객들의 관심을 받고 있습니다.
-    </p>
-
-    <p className="text-gray-700 mb-6">
-      백령도를 대표하는 관광지는 단연 두무진입니다.
-      수천만 년 동안 형성된 기암절벽과 푸른 서해가 어우러진 풍경은
-      대한민국 최고의 해안 절경 가운데 하나로 꼽힙니다.
-      유람선을 타면 해안을 따라 이어지는 기암괴석을 가까이에서 감상할 수 있으며,
-      날씨가 좋은 날에는 더욱 웅장한 자연의 모습을 만날 수 있습니다.
-    </p>
-
-    <p className="text-gray-700 mb-6">
-      사곶해변은 세계적으로도 보기 드문 천연비행장으로 유명합니다.
-      모래가 매우 단단하여 과거 실제 비행기가 이착륙했던 장소로 알려져 있으며,
-      지금은 넓고 아름다운 해변을 걸으며 산책을 즐길 수 있는 명소가 되었습니다.
-      또한 콩돌해안에서는 파도가 밀려올 때마다 들리는 아름다운 자갈 소리를 들을 수 있어
-      많은 관광객과 사진작가들이 찾고 있습니다.
-    </p>
-
-    <p className="text-gray-700 mb-6">
-      백령도는 사계절 모두 다른 매력을 가지고 있습니다.
-      봄에는 따뜻한 날씨와 야생화를,
-      여름에는 시원한 바다와 해변을,
-      가을에는 맑은 하늘과 아름다운 노을을,
-      겨울에는 철새와 고요한 겨울 바다를 만날 수 있습니다.
-      특히 봄과 가을은 여행하기 가장 좋은 시기로 꼽히며,
-      자연을 좋아하는 여행객들에게 많은 사랑을 받고 있습니다.
-    </p>
-
-    <p className="text-gray-700 mb-6">
-      백령도는 가족여행, 부모님과 함께하는 여행, 커플여행,
-      친구들과의 여행은 물론 군인 면회를 위한 방문객도 많은 지역입니다.
-      여행을 계획할 때는 여객선 예약과 숙소 예약을 미리 진행하는 것이 좋으며,
-      섬 내부 이동은 렌터카나 개인택시를 이용하면 더욱 편리하게 관광할 수 있습니다.
-    </p>
-
-    <p className="text-gray-700 mb-6">
-      백령도에는 현지 주민들이 운영하는 맛집과 숙박업소도 다양하게 있습니다.
-      신선한 해산물과 백령도식 냉면, 자연산 회 등 지역의 특색 있는 음식을 즐길 수 있으며,
-      바다가 보이는 숙소와 가족 단위 여행객을 위한 펜션도 많이 운영되고 있습니다.
-      여행 일정에 맞는 숙소를 선택하면 더욱 여유로운 여행을 즐길 수 있습니다.
-    </p>
-
-    <p className="text-gray-700 mb-6">
-      이 사이트는 백령도에서 28년 동안 생활한 운영자가 직접 경험한 내용을 바탕으로
-      여행객들이 꼭 필요한 정보를 쉽고 편리하게 확인할 수 있도록 제작한 여행 플랫폼입니다.
-      관광지, 맛집, 숙소, 배편 정보, 군인 면회 정보,
-      교통, 여행 코스, 여행 준비물, 계절별 여행 팁 등
-      실제 여행에 도움이 되는 정보를 지속적으로 업데이트하고 있습니다.
-    </p>
-
-    <p className="text-gray-700">
-      처음 백령도를 방문하는 분부터 여러 번 여행을 다녀온 분들까지
-      모두가 편리하게 이용할 수 있는 여행 플랫폼을 목표로 운영하고 있습니다.
-      앞으로도 새로운 관광지와 맛집, 숙소, 축제, 특산품 등
-      최신 정보를 꾸준히 추가하여 백령도를 찾는 모든 분들에게 도움이 되는 사이트가 되겠습니다.
-    </p>
-
-  </div>
-</section>
-)}
-<div className="bg-white rounded-3xl shadow-lg overflow-hidden">
-
-  <a
-    href="/images/seal.jpg"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="block"
-  >
-    <Image
-      src="/images/seal.jpg"
-      alt="점박이물범"
-      width={500}
-      height={300}
-      className="block w-full h-56 object-cover hover:opacity-90 transition duration-300 cursor-pointer"
-    />
-  </a>
-
-  <div className="p-6">
-    <h3 className="text-2xl font-bold mb-3">
-      🦭 점박이물범
-    </h3>
-
-    <p className="text-gray-600 leading-7">
-      백령도는 우리나라에서 점박이물범을 가장 가까이에서
-      관찰할 수 있는 대표 지역입니다.
-      매년 많은 관광객과 사진작가들이 찾습니다.
-    </p>
-  </div>
-
-</div>
-<div className="bg-white rounded-3xl shadow-lg overflow-hidden">
-
-  <a
-    href="/images/rose.jpg"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="block"
-  >
-    <Image
-      src="/images/rose.jpg"
-      alt="해당화"
-      width={500}
-      height={300}
-      className="block w-full h-56 object-cover hover:opacity-90 transition duration-300 cursor-pointer"
-    />
-  </a>
-
-  <div className="p-6">
-    <h3 className="text-2xl font-bold mb-3">
-      🌹 해당화
-    </h3>
-
-    <p className="text-gray-600 leading-7">
-      백령도 해안에서 자라는 아름다운 야생화로
-      봄과 초여름이면 붉은 꽃이 피어
-      관광객들의 사랑을 받고 있습니다.
-    </p>
-  </div>
-
-</div>
-<div className="bg-white rounded-3xl shadow-lg overflow-hidden">
-
-  <a
-    href="/images/bird.jpg"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="block"
-  >
-    <Image
-      src="/images/bird.jpg"
-      alt="철새"
-      width={500}
-      height={300}
-      className="block w-full h-56 object-cover hover:opacity-90 transition duration-300 cursor-pointer"
-    />
-  </a>
-
-  <div className="p-6">
-    <h3 className="text-2xl font-bold mb-3">
-      🦅 철새
-    </h3>
-
-    <p className="text-gray-600 leading-7">
-      백령도는 동아시아 철새 이동경로에 위치해
-      봄과 가을이면 다양한 철새를
-      관찰할 수 있는 생태관광지입니다.
-    </p>
-  </div>
-
-</div>
-<div className="bg-white rounded-3xl shadow-lg overflow-hidden">
-
-  <a
-    href="/images/plant.jpg"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="block"
-  >
-    <Image
-      src="/images/plant.jpg"
-      alt="해안절벽과 괭이갈매기"
-      width={500}
-      height={300}
-      className="block w-full h-56 object-cover hover:opacity-90 transition duration-300 cursor-pointer"
-    />
-  </a>
-
-  <div className="p-6">
-    <h3 className="text-2xl font-bold mb-3">
-      🏞️ 해안절벽과 괭이갈매기
-    </h3>
-
-    <p className="text-gray-600 leading-7">
-      백령도는 웅장한 해안절벽과 푸른 서해가 어우러진 아름다운
-      자연경관을 자랑합니다. 절벽 주변에는 괭이갈매기가 무리를
-      지어 서식하며 힘차게 비행하는 모습을 가까이에서 볼 수 있어
-      백령도를 대표하는 자연생태 명소로 손꼽힙니다.
-    </p>
-  </div>
-
-</div>
-{/* 섬별 FAQ */}
-{selectedIsland === "대청도" && (
-<section className="max-w-7xl mx-auto px-6 py-20">
-  <div className="text-center mb-10">
-    <p className="font-bold text-sky-600 mb-2">여행 전 많이 묻는 질문</p>
-    <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">❓ 대청도 여행 FAQ</h2>
-    <p className="mt-4 text-lg text-gray-500">대청도 여행을 준비할 때 자주 궁금해하는 내용을 한눈에 정리했어요.</p>
-  </div>
-  <div className="max-w-4xl mx-auto space-y-4">
-    {[
-      ["대청도는 어떻게 들어가나요?", "인천에서 여객선을 이용해 들어가는 섬입니다. 기상과 해상 상황에 따라 운항이 달라질 수 있으므로 출발 전 선사 운항정보를 꼭 확인하세요."],
-      ["대청도에서 꼭 가볼 만한 곳은 어디인가요?", "옥죽동 해안사구, 서풍받이, 농여해변, 미아동해변, 삼각산, 매바위전망대, 모래울해변, 지두리해변, 답동해변, 해넘이전망대 등을 둘러볼 수 있어요."],
-      ["대청도에 숙박할 곳이 있나요?", "네. 민박과 펜션 등 여러 숙박업소가 있습니다. 플랫폼의 대청도 숙박 메뉴에서 전화번호를 확인한 뒤 방문 전 예약 여부를 확인하는 것을 권해요."],
-      ["대청도에 식당이 있나요?", "네. 대청도에는 여러 음식점이 있습니다. 플랫폼의 대청도 맛집 메뉴에서 업체와 전화번호를 확인할 수 있어요."],
-      ["대청도에서 낚시배를 이용할 수 있나요?", "네. 현지 안내자료에 등록된 낚시배 연락처를 플랫폼의 낚시배 메뉴에 정리해 두었어요. 이용 전 전화로 출항 가능 여부와 비용을 확인하세요."],
-      ["대청도 여행은 날씨 영향을 많이 받나요?", "섬 여행은 바람과 파도 등 해상 상황의 영향을 많이 받습니다. 특히 입도·출도 일정은 여유 있게 계획하고 출발 당일 운항 여부를 다시 확인하는 것이 좋아요."],
-    ].map(([q,a],i)=>(
-      <details key={i} className="group rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100">
-        <summary className="cursor-pointer list-none font-extrabold text-gray-900 flex justify-between gap-4">
-          <span>{q}</span><span className="text-sky-500 group-open:rotate-45 transition">＋</span>
-        </summary>
-        <p className="mt-4 leading-7 text-gray-600">{a}</p>
-      </details>
-    ))}
-  </div>
-</section>
-)}
-
-{selectedIsland === "소청도" && (
-<section className="max-w-7xl mx-auto px-6 py-20">
-  <div className="text-center mb-10">
-    <p className="font-bold text-sky-600 mb-2">여행 전 많이 묻는 질문</p>
-    <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">❓ 소청도 여행 FAQ</h2>
-    <p className="mt-4 text-lg text-gray-500">소청도 여행 전에 알아두면 좋은 내용을 정리했어요.</p>
-  </div>
-  <div className="max-w-4xl mx-auto space-y-4">
-    {[
-      ["소청도는 어떻게 들어가나요?", "여객선을 이용해 들어가는 섬으로, 기상과 해상 상황에 따라 운항 일정이 달라질 수 있습니다. 출발 전 반드시 최신 운항정보를 확인하세요."],
-      ["소청도에서 꼭 가볼 만한 곳은 어디인가요?", "소청등대, 분바위, 스트로마톨라이트가 대표적인 명소예요. 바다 풍경과 독특한 지질경관을 함께 볼 수 있습니다."],
-      ["소청도에 숙박할 곳이 있나요?", "네. 현지 안내자료에 등록된 민박들이 있습니다. 플랫폼의 소청도 숙박 메뉴에서 연락처를 확인하고 방문 전에 예약 여부를 확인하세요."],
-      ["소청도에 식당이 있나요?", "현재 제공받은 현지 안내자료 기준으로 음식점 정보를 플랫폼에 정리해 두었어요. 방문 전 전화로 영업 여부를 확인하는 것이 좋습니다."],
-      ["소청도 여행은 당일치기가 가능한가요?", "배 운항시간과 당일 해상 상황에 따라 달라질 수 있어요. 섬 이동은 변수가 있으므로 배 시간부터 확인한 뒤 여행 일정을 잡는 것이 안전합니다."],
-      ["소청도 여행에서 가장 주의할 점은 무엇인가요?", "선박 운항 여부와 날씨를 가장 먼저 확인하세요. 관광지 이동과 숙박·식사도 육지보다 선택지가 제한될 수 있으므로 미리 연락해 확인하는 것을 권합니다."],
-    ].map(([q,a],i)=>(
-      <details key={i} className="group rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100">
-        <summary className="cursor-pointer list-none font-extrabold text-gray-900 flex justify-between gap-4">
-          <span>{q}</span><span className="text-sky-500 group-open:rotate-45 transition">＋</span>
-        </summary>
-        <p className="mt-4 leading-7 text-gray-600">{a}</p>
-      </details>
-    ))}
-  </div>
-</section>
-)}
-
-{selectedIsland === "백령도" && (
-<section className="max-w-6xl mx-auto px-6 py-16">
-  <div className="mb-8 rounded-[2rem] bg-gradient-to-br from-violet-50 to-fuchsia-50 p-6 md:p-8 border border-violet-100">
-    <p className="font-bold text-violet-700">여행 전 많이 묻는 질문</p>
-    <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
-      ❓ 백령도 여행 FAQ
-    </h2>
-    <p className="mt-3 max-w-3xl leading-7 text-gray-600">
-      질문을 누르면 답변이 펼쳐집니다. 더 궁금한 내용은 아래 Q&amp;A에서 직접 질문할 수 있습니다.
-    </p>
-  </div>
-
-  <div className="space-y-3">
-    {[
-      {
-        q: "백령도는 어떻게 가나요?",
-        a: "인천항에서 출발하는 여객선을 이용하면 됩니다. 계절과 기상상황에 따라 운항시간이 달라질 수 있으므로 출발 전 반드시 여객선 운항 여부를 확인하는 것이 좋습니다.",
-      },
-      {
-        q: "백령도 여행은 몇 박이 좋나요?",
-        a: "주요 관광지만 둘러본다면 1박 2일, 여유롭게 여행하려면 2박 3일을 추천합니다.",
-      },
-      {
-        q: "렌터카가 꼭 필요한가요?",
-        a: "관광지가 넓게 분포되어 있어 렌터카나 개인택시를 이용하면 훨씬 편하게 여행할 수 있습니다.",
-      },
-      {
-        q: "가장 유명한 관광지는 어디인가요?",
-        a: "두무진, 사곶해변, 콩돌해안, 끝섬전망대, 하늬해안이 대표 관광지입니다.",
-      },
-      {
-        q: "백령도는 언제 가는 것이 좋나요?",
-        a: "봄과 가을이 가장 인기가 많으며, 여름에는 해변을 즐기기 좋고 겨울에는 철새와 고요한 자연을 감상할 수 있습니다.",
-      },
-    ].map((faq, index) => (
-      <div key={faq.q} className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-        <button
-          type="button"
-          onClick={() => setOpenFaq(openFaq === index ? null : index)}
-          className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left hover:bg-sky-50 transition"
-        >
-          <span className="text-lg md:text-xl font-extrabold text-sky-700">
-            Q. {faq.q}
-          </span>
-          <span className="shrink-0 text-2xl text-sky-600">
-            {openFaq === index ? "−" : "+"}
-          </span>
-        </button>
-
-        {openFaq === index && (
-          <div className="border-t border-gray-100 bg-gray-50 px-5 py-5">
-            <p className="leading-8 text-gray-700">A. {faq.a}</p>
           </div>
-        )}
-      </div>
-    ))}
-  </div>
-</section>
-)}
-{/* 최신 여행정보 */}
-{selectedIsland === "백령도" && (
-<section className="max-w-6xl mx-auto px-6 py-16">
-  <h2 className="text-4xl font-bold text-center mb-10">
-    📰 최신 백령도 여행정보
-  </h2>
-
-  <div className="grid md:grid-cols-3 gap-6">
-
-    <div className="bg-white rounded-3xl shadow-lg p-6">
-      <h3 className="text-2xl font-bold mb-4">
-        🚢 백령도 배편 예약
-      </h3>
-
-      <p className="text-gray-700 leading-7">
-        백령도 여행 전 가장 먼저 준비해야 하는 것은 여객선 예약입니다.
-        성수기에는 조기 매진되는 경우가 많으므로 미리 예약하는 것을 추천합니다.
-      </p>
-    </div>
-
-    <div className="bg-white rounded-3xl shadow-lg p-6">
-      <h3 className="text-2xl font-bold mb-4">
-        🌤️ 여행하기 좋은 계절
-      </h3>
-
-      <p className="text-gray-700 leading-7">
-        봄과 가을은 백령도를 가장 아름답게 즐길 수 있는 시기입니다.
-        여름은 해변 여행, 겨울은 철새 관찰 여행이 인기가 많습니다.
-      </p>
-    </div>
-
-    <div className="bg-white rounded-3xl shadow-lg p-6">
-      <h3 className="text-2xl font-bold mb-4">
-        📸 꼭 가봐야 할 명소
-      </h3>
-
-      <p className="text-gray-700 leading-7">
-        두무진, 사곶해변, 콩돌해안, 끝섬전망대,
-        하늬해안은 백령도를 대표하는 관광지입니다.
-      </p>
-    </div>
-
-  </div>
-</section>
-)}
-      {/* ISLAND MENU */}
-      <section className="max-w-7xl mx-auto px-6 pt-12">
-        <div className="flex justify-center gap-4 flex-wrap">
-
-          {["백령도", "대청도", "소청도"].map((island) => (
-            <button
-              key={island}
-              onClick={() => {
-                setSelectedIsland(island);
-                setSelectedCategory(island === "백령도" ? "전체" : "관광지");
-              }}
-              className={`px-6 py-3 rounded-full font-semibold transition ${selectedIsland === island
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-black hover:bg-gray-300"
-                }`}
-            >
-              {island}
-            </button>
-          ))}
-
         </div>
-      </section>
-      {/* QUICK MENU */}
-      <section className="max-w-7xl mx-auto px-6 py-12">
-
-        <h2 className="text-3xl font-bold mb-8 text-center">
-          어디를 찾고 계신가요?
-        </h2>
-
-        <div className="flex flex-wrap justify-center gap-4">
-
-          {islandCategories.map((category) => (
-
-            <button
-              key={category.name}
-              onClick={() => {
-
-                setSelectedCategory(category.name);
-
-                if (
-                  selectedIsland !== "백령도" &&
-                  ["맛집", "숙박", "낚시배"].includes(category.name)
-                ) {
-                  setTimeout(() => {
-                    document.getElementById("island-directory")?.scrollIntoView({ behavior: "smooth" });
-                  }, 100);
-                  return;
-                }
-
-                // 전체
-                if (category.name === "전체") {
-
-                  setShowStay(true);
-                  setShowFood(true);
-                  setShowTaxi(true);
-                  setShowRentcar(true);
-                  setShowLocal(true);
-
-                  window.scrollTo({
-                    top: 0,
-                    behavior: "smooth",
-                  });
-
-                }
-
-                // 관광지
-                else if (
-                  category.name === "관광지" ||
-                  category.name === "안보역사" ||
-                  category.name === "군인면회" ||
-                  category.name === "가족여행"
-                ) {
-
-                  setShowStay(false);
-                  setShowFood(false);
-                  setShowTaxi(false);
-                  setShowRentcar(false);
-                  setShowLocal(false);
-
-                  setTimeout(() => {
-                    document
-                      .getElementById("place-section")
-                      ?.scrollIntoView({
-                        behavior: "smooth",
-                      });
-                  }, 100);
-
-                }
-
-                // 숙박
-                else if (category.name === "숙박") {
-
-                  setShowStay(true);
-                  setShowFood(false);
-                  setShowTaxi(false);
-                  setShowRentcar(false);
-                  setShowLocal(false);
-
-                  setTimeout(() => {
-                    document
-                      .getElementById("stay")
-                      ?.scrollIntoView({
-                        behavior: "smooth",
-                      });
-                  }, 100);
-
-                }
-
-                // 맛집
-                else if (category.name === "맛집") {
-
-                  setShowStay(false);
-                  setShowFood(true);
-                  setShowTaxi(false);
-                  setShowRentcar(false);
-                  setShowLocal(false);
-
-                  setTimeout(() => {
-                    document
-                      .getElementById("food")
-                      ?.scrollIntoView({
-                        behavior: "smooth",
-                      });
-                  }, 100);
-
-                }
-
-                // 개인택시
-                else if (category.name === "개인택시") {
-
-                  setShowStay(false);
-                  setShowFood(false);
-                  setShowTaxi(true);
-                  setShowRentcar(false);
-                  setShowLocal(false);
-
-                  setTimeout(() => {
-                    document
-                      .getElementById("taxi")
-                      ?.scrollIntoView({
-                        behavior: "smooth",
-                      });
-                  }, 100);
-
-                }
-
-                // 렌트카
-                else if (category.name === "렌트카") {
-
-                  setShowStay(false);
-                  setShowFood(false);
-                  setShowTaxi(false);
-                  setShowRentcar(true);
-                  setShowLocal(false);
-
-                  setTimeout(() => {
-                    document
-                      .getElementById("rentcar")
-                      ?.scrollIntoView({
-                        behavior: "smooth",
-                      });
-                  }, 100);
-
-                }
-
-                // 특산물
-                else if (category.name === "특산물") {
-
-                  setShowStay(false);
-                  setShowFood(false);
-                  setShowTaxi(false);
-                  setShowRentcar(false);
-                  setShowLocal(true);
-
-                  setTimeout(() => {
-                    document
-                      .getElementById("local")
-                      ?.scrollIntoView({
-                        behavior: "smooth",
-                      });
-                  }, 100);
-
-                }
-
-              }}
-              className={`px-5 py-3 rounded-full border transition font-medium flex items-center gap-2 ${selectedCategory === category.name
-                ? "bg-black text-white"
-                : "bg-white hover:bg-gray-100"
-                }`}
-            >
-
-              <span>{category.icon}</span>
-              <span>{category.name}</span>
-
-            </button>
-
-          ))}
-
-        </div>
-
       </section>
       <section id="my-course" className="scroll-mt-24">
         <div className="mx-auto mb-5 max-w-7xl px-6">
@@ -3348,8 +2334,20 @@ link: "/place/christian-island",
         )}
       </section>
 
-      {/* FISHING SECTION */}
-      <section className="max-w-7xl mx-auto px-6 pb-20">
+      {/* COMPACT LOCAL GUIDE ACCORDION */}
+<section className="max-w-6xl mx-auto px-6 pb-14">
+  <div className="rounded-[2rem] border border-gray-200 bg-white overflow-hidden shadow-sm">
+    <div className="px-6 sm:px-8 py-6 border-b border-gray-100">
+      <p className="text-sm font-extrabold text-sky-600 mb-1">LOCAL GUIDE</p>
+      <h2 className="text-2xl font-black text-gray-900">백령도 현지 여행 가이드</h2>
+      <p className="mt-2 text-sm text-gray-500">필요한 항목만 눌러서 펼쳐보세요.</p>
+    </div>
+    <div className="divide-y divide-gray-100">
+      <details className="group">
+        <summary className="cursor-pointer list-none px-6 sm:px-8 py-5 flex items-center justify-between gap-4 font-extrabold hover:bg-gray-50">
+          <span>🎣 백령도 낚시 포인트</span><span className="text-gray-400 group-open:rotate-180 transition">⌄</span>
+        </summary>
+        <div className="bg-gray-50/50 pt-6"><section className="max-w-7xl mx-auto px-6 pb-20">
 
 
         <h2 className="text-4xl font-bold text-center mb-12">
@@ -3391,8 +2389,13 @@ link: "/place/christian-island",
         </div>
 
       </section>
-      {/* SUNSET SECTION */}
-      <section className="max-w-7xl mx-auto px-6 pb-20">
+      </div>
+      </details>
+      <details className="group">
+        <summary className="cursor-pointer list-none px-6 sm:px-8 py-5 flex items-center justify-between gap-4 font-extrabold hover:bg-gray-50">
+          <span>🌅 백령도 일몰 · 일출 명소</span><span className="text-gray-400 group-open:rotate-180 transition">⌄</span>
+        </summary>
+        <div className="bg-gray-50/50 pt-6"><section className="max-w-7xl mx-auto px-6 pb-20">
 
         <h2 className="text-4xl font-bold text-center mb-12">
           🌅 백령도 일몰 · 일출 명소
@@ -3427,59 +2430,13 @@ link: "/place/christian-island",
 
       </section>
 
-      {/* TRAVEL SEASON SECTION */}
-      <section className="max-w-7xl mx-auto px-6 pb-20">
-
-        <h2 className="text-4xl font-bold text-center mb-12">
-          🗓️ 백령도 추천 여행 시기
-        </h2>
-
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-white rounded-3xl shadow-lg p-8">
-            <h3 className="text-2xl font-bold mb-4">
-              🌸 봄
-            </h3>
-
-            <p className="text-gray-600 leading-relaxed">
-              선선한 바람과 함께 여유로운 백령도를 즐기기 좋은 계절
-            </p>
-          </div>
-
-          <div className="bg-white rounded-3xl shadow-lg p-8">
-            <h3 className="text-2xl font-bold mb-4">
-              ☀️ 여름
-            </h3>
-
-            <p className="text-gray-600 leading-relaxed">
-              사곶해변, 해수욕과 낚시를 즐기기 좋은 시즌
-            </p>
-          </div>
-
-          <div className="bg-white rounded-3xl shadow-lg p-8">
-            <h3 className="text-2xl font-bold mb-4">
-              🍁 가을
-            </h3>
-
-            <p className="text-gray-600 leading-relaxed">
-              노을과 드라이브 코스를 즐기기 좋은 감성 여행 시즌
-            </p>
-          </div>
-
-          <div className="bg-white rounded-3xl shadow-lg p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold mb-4">
-              ❄️ 겨울
-            </h3>
-
-            <p className="text-gray-600 leading-relaxed">
-              조용하고 한적한 백령도의 겨울 감성을 느낄 수 있는 계절
-            </p>
-          </div>
-
-        </div>
-
-      </section>
-
-      <section className="bg-gray-100 py-20 px-6">
+      </div>
+      </details>
+      <details className="group">
+        <summary className="cursor-pointer list-none px-6 sm:px-8 py-5 flex items-center justify-between gap-4 font-extrabold hover:bg-gray-50">
+          <span>🧭 백령도 처음이라면?</span><span className="text-gray-400 group-open:rotate-180 transition">⌄</span>
+        </summary>
+        <div className="bg-gray-50/50 pt-6"><section className="bg-gray-100 py-20 px-6">
 
         <div className="max-w-7xl mx-auto">
 
@@ -3891,7 +2848,64 @@ link: "/place/christian-island",
           </div>
 
         </div>
+      </section></div>
+      </details>
+    </div>
+  </div>
+</section>
+{/* TRAVEL SEASON SECTION */}
+      <section className="max-w-7xl mx-auto px-6 pb-20">
+
+        <h2 className="text-4xl font-bold text-center mb-12">
+          🗓️ 백령도 추천 여행 시기
+        </h2>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="bg-white rounded-3xl shadow-lg p-8">
+            <h3 className="text-2xl font-bold mb-4">
+              🌸 봄
+            </h3>
+
+            <p className="text-gray-600 leading-relaxed">
+              선선한 바람과 함께 여유로운 백령도를 즐기기 좋은 계절
+            </p>
+          </div>
+
+          <div className="bg-white rounded-3xl shadow-lg p-8">
+            <h3 className="text-2xl font-bold mb-4">
+              ☀️ 여름
+            </h3>
+
+            <p className="text-gray-600 leading-relaxed">
+              사곶해변, 해수욕과 낚시를 즐기기 좋은 시즌
+            </p>
+          </div>
+
+          <div className="bg-white rounded-3xl shadow-lg p-8">
+            <h3 className="text-2xl font-bold mb-4">
+              🍁 가을
+            </h3>
+
+            <p className="text-gray-600 leading-relaxed">
+              노을과 드라이브 코스를 즐기기 좋은 감성 여행 시즌
+            </p>
+          </div>
+
+          <div className="bg-white rounded-3xl shadow-lg p-8 max-w-2xl mx-auto">
+            <h3 className="text-2xl font-bold mb-4">
+              ❄️ 겨울
+            </h3>
+
+            <p className="text-gray-600 leading-relaxed">
+              조용하고 한적한 백령도의 겨울 감성을 느낄 수 있는 계절
+            </p>
+          </div>
+
+        </div>
+
       </section>
+
+      
 
       {/* COURSE SECTION */}
       <section className="max-w-7xl mx-auto px-6 pb-20">
@@ -3945,86 +2959,57 @@ link: "/place/christian-island",
           </div>
 
           {/* 군인면회 실전가이드 - 기존 추천코스와 중복되지 않도록 준비/교통/숙박 중심 */}
-          <div className="bg-white rounded-3xl shadow-lg p-8">
-
-            <h3 className="text-2xl font-bold mb-2">
-              🪖 군인 면회 실전 가이드
-            </h3>
-            <p className="text-sm text-gray-500 mb-6">
-              백령도까지 직접 면회 오는 가족·친구·연인을 위한 준비 정보
-            </p>
-
-            <div className="space-y-5 text-gray-700 leading-relaxed">
-              <div className="rounded-2xl bg-blue-50 p-5">
-                <h4 className="font-extrabold text-gray-900 mb-2">① 출발 전 가장 먼저 확인</h4>
-                <p>
-                  면회·외출·외박 가능 여부와 시간은 부대 일정에 따라 달라질 수 있습니다.
-                  방문 날짜를 정하기 전에 복무 장병을 통해 소속 부대의 최신 일정과 복귀 시간을 먼저 확인하세요.
+          <div className="bg-white rounded-3xl shadow-lg p-6 sm:p-8">
+            <div className="flex items-start justify-between gap-4 mb-6">
+              <div>
+                <p className="text-sm font-extrabold text-sky-600 mb-1">MILITARY VISIT</p>
+                <h3 className="text-2xl font-black">🪖 군인 면회 실전 가이드</h3>
+                <p className="text-sm text-gray-500 mt-2">
+                  백령도 면회객이 출발 전에 꼭 챙길 내용만 간단히 정리했어요.
                 </p>
               </div>
+            </div>
 
-              <div className="rounded-2xl bg-sky-50 p-5">
-                <h4 className="font-extrabold text-gray-900 mb-2">② 배편은 왕복으로 미리 준비</h4>
-                <p>
-                  인천–백령 항로는 소청도·대청도를 거쳐 백령도로 들어오며 약 3시간 40분이 걸립니다.
-                  섬 특성상 기상·선박 사정으로 운항이 달라질 수 있으니 예매할 때뿐 아니라
-                  출발 전날과 당일에도 운항 여부를 다시 확인하는 것이 좋습니다.
-                </p>
-                <a
-                  href="https://komsa.or.kr/kor/sub03_020302.do"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-block font-bold text-sky-700 hover:underline"
-                >
-                  한국해양교통안전공단 인천–백령 항로 확인 →
-                </a>
-              </div>
-
-              <div className="rounded-2xl bg-amber-50 p-5">
-                <h4 className="font-extrabold text-gray-900 mb-2">③ 당일치기보다 숙박 일정에 여유 두기</h4>
-                <p>
-                  백령도는 육로 대체가 없는 섬이라 기상 악화 시 출도 일정이 달라질 수 있습니다.
-                  면회 날짜와 장병 복귀시간을 기준으로 숙소와 돌아가는 배편을 함께 계획하고,
-                  중요한 일정이 있다면 귀가 다음 날까지 여유를 두는 편이 안전합니다.
-                </p>
-              </div>
-
-              <div className="rounded-2xl bg-emerald-50 p-5">
-                <h4 className="font-extrabold text-gray-900 mb-2">④ 섬 안 이동수단도 미리 정하기</h4>
-                <p>
-                  면회 후 식사나 관광까지 계획한다면 렌터카·택시 등 이동수단을 미리 확인하세요.
-                  장병의 실제 외출 가능 시간에 맞춰 가까운 식당이나 카페부터 이용하면 일정이 한결 편합니다.
-                </p>
-              </div>
-
-              <div className="rounded-2xl bg-violet-50 p-5">
-                <h4 className="font-extrabold text-gray-900 mb-2">⑤ 2025년에는 면회객 전용 여행상품도 운영</h4>
-                <p>
-                  옹진군은 2025년 백령도 복무 장병의 가족·친구·연인을 대상으로
-                  현지 숙박·식사·교통과 체험을 연계한 ‘백령도에 왔으면회’ 면회 여행상품을 시범 운영했습니다.
-                  다만 당시 한시 사업이므로 현재 상시 지원으로 오해하지 않도록,
-                  새로운 면회객 지원사업이 나오는지는 옹진군 최신 공지를 확인해 주세요.
-                </p>
-              </div>
-
-              <div className="rounded-2xl border border-gray-200 p-5">
-                <h4 className="font-extrabold text-gray-900 mb-3">🎒 면회객 출발 전 체크리스트</h4>
-                <div className="grid gap-2 sm:grid-cols-2 text-sm">
-                  <span>✓ 장병 면회·외출 가능일 확인</span>
-                  <span>✓ 장병 복귀시간 확인</span>
-                  <span>✓ 왕복 여객선 예약</span>
-                  <span>✓ 출항 당일 운항정보 확인</span>
-                  <span>✓ 숙박 예약</span>
-                  <span>✓ 렌터카·택시 등 이동수단 확인</span>
+            <div className="grid sm:grid-cols-2 gap-3">
+              {[
+                ["① 부대 일정", "면회·외출 가능 여부와 복귀시간을 장병에게 먼저 확인하세요.", "📅"],
+                ["② 왕복 배편", "배편을 미리 예약하고 출발 전날과 당일 운항 여부를 다시 확인하세요.", "🚢"],
+                ["③ 숙박 여유", "기상에 따라 배가 달라질 수 있어 중요한 일정 전에는 여유 있게 잡는 편이 좋아요.", "🏠"],
+                ["④ 섬 안 이동", "면회 후 식사·관광을 한다면 렌터카나 택시를 미리 확인하세요.", "🚕"],
+              ].map(([title, desc, icon]) => (
+                <div key={title} className="rounded-2xl border border-gray-200 p-4 sm:p-5">
+                  <div className="flex gap-3">
+                    <span className="text-2xl">{icon}</span>
+                    <div>
+                      <h4 className="font-extrabold text-gray-900">{title}</h4>
+                      <p className="text-sm text-gray-600 leading-relaxed mt-1">{desc}</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
+            </div>
 
-              <p className="text-xs text-gray-500">
-                ※ 군부대별 세부 면회·외출 규정은 공개 정보만으로 일괄 안내하기 어렵고 변경될 수 있습니다.
-                반드시 복무 장병을 통해 소속 부대의 최신 안내를 확인해 주세요.
+            <div className="mt-5 rounded-2xl bg-sky-50 p-4 sm:p-5">
+              <p className="font-extrabold text-gray-900 mb-2">✓ 출발 전 4가지만 체크</p>
+              <p className="text-sm text-gray-700 leading-7">
+                장병 일정 · 왕복 여객선 · 숙소 · 렌터카/택시
               </p>
             </div>
 
+            <div className="mt-5 flex flex-wrap gap-3">
+              <a
+                href="https://komsa.or.kr/kor/sub03_020302.do"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center rounded-full bg-gray-950 text-white px-5 py-2.5 text-sm font-bold hover:bg-gray-800 transition"
+              >
+                🚢 운항정보 확인
+              </a>
+            </div>
+
+            <p className="mt-4 text-xs text-gray-500 leading-relaxed">
+              ※ 부대별 면회·외출 규정은 달라질 수 있으므로 반드시 복무 장병을 통해 최신 안내를 확인하세요.
+            </p>
           </div>
 
         </div>
