@@ -21,14 +21,27 @@ type Notice = {
   created_at: string;
 };
 
+type TravelerFootprint = {
+  id: number;
+  nickname: string;
+  island: string;
+  place_name: string;
+  story: string | null;
+  image_url: string;
+  is_approved: boolean;
+  created_at: string;
+};
+
 export default function AdminPage() {
   const [password, setPassword] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [adminPassword, setAdminPassword] = useState("");
   const [loginLoading, setLoginLoading] = useState(false);
   const [questions, setQuestions] = useState<QnaQuestion[]>([]);
   const [notices, setNotices] = useState<Notice[]>([]);
   const [noticeTitle, setNoticeTitle] = useState("");
   const [noticeContent, setNoticeContent] = useState("");
+  const [footprints, setFootprints] = useState<TravelerFootprint[]>([]);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -54,6 +67,7 @@ export default function AdminPage() {
         return;
       }
 
+      setAdminPassword(password);
       setIsAdmin(true);
       setPassword("");
     } catch (error) {
@@ -68,6 +82,7 @@ export default function AdminPage() {
     if (isAdmin) {
       loadQuestions();
       loadNotices();
+      loadFootprints();
     }
   }, [isAdmin]);
 
@@ -87,6 +102,66 @@ export default function AdminPage() {
       .order("created_at", { ascending: false });
 
     if (!error && data) setNotices(data);
+  }
+
+  async function footprintAdminRequest(
+    action: "list" | "approve" | "delete",
+    item?: TravelerFootprint
+  ) {
+    const response = await fetch("/api/admin/traveler-footprints", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        password: adminPassword,
+        action,
+        id: item?.id,
+        image_url: item?.image_url,
+      }),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || !result.ok) {
+      throw new Error(result.message || "관리자 요청을 처리하지 못했어요.");
+    }
+
+    return result;
+  }
+
+  async function loadFootprints() {
+    try {
+      const result = await footprintAdminRequest("list");
+      setFootprints(result.data || []);
+    } catch (error) {
+      console.error("섬 발자국 불러오기 오류:", error);
+    }
+  }
+
+  async function handleApproveFootprint(id: number) {
+    try {
+      const item = footprints.find((footprint) => footprint.id === id);
+      if (!item) return;
+
+      await footprintAdminRequest("approve", item);
+      alert("섬 발자국을 승인했어요.");
+      loadFootprints();
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "승인 처리에 실패했어요.");
+      console.error(error);
+    }
+  }
+
+  async function handleDeleteFootprint(item: TravelerFootprint) {
+    if (!confirm("이 사진과 글을 삭제하시겠습니까?")) return;
+
+    try {
+      await footprintAdminRequest("delete", item);
+      alert("섬 발자국을 삭제했어요.");
+      loadFootprints();
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "삭제에 실패했어요.");
+      console.error(error);
+    }
   }
 
   async function handleCreateNotice(e: React.FormEvent) {
@@ -216,7 +291,7 @@ export default function AdminPage() {
         <h1 className="text-4xl font-bold">관리자 페이지</h1>
 
         <button
-          onClick={() => setIsAdmin(false)}
+          onClick={() => { setIsAdmin(false); setAdminPassword(""); setFootprints([]); }}
           className="rounded-xl bg-gray-100 px-4 py-2 font-bold"
         >
           로그아웃
@@ -277,6 +352,82 @@ export default function AdminPage() {
             </div>
           ))}
         </div>
+      </section>
+
+      <section>
+        <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="font-bold text-amber-600">TRAVELER PHOTO</p>
+            <h2 className="text-3xl font-bold">📸 여행자들의 섬 발자국 관리</h2>
+          </div>
+          <p className="text-sm text-gray-500">
+            승인대기 {footprints.filter((item) => !item.is_approved).length}개 · 공개중 {footprints.filter((item) => item.is_approved).length}개
+          </p>
+        </div>
+
+        {footprints.length === 0 ? (
+          <div className="rounded-3xl bg-white p-8 text-center text-gray-500 shadow">
+            아직 등록된 섬 발자국이 없어요.
+          </div>
+        ) : (
+          <div className="grid gap-5 md:grid-cols-2">
+            {footprints.map((item) => (
+              <article key={item.id} className="overflow-hidden rounded-3xl bg-white shadow-lg">
+                <a href={item.image_url} target="_blank" rel="noopener noreferrer">
+                  <img
+                    src={item.image_url}
+                    alt={`${item.island} ${item.place_name}`}
+                    className="aspect-[4/3] w-full object-cover"
+                  />
+                </a>
+
+                <div className="p-5">
+                  <div className="mb-3 flex flex-wrap items-center gap-2">
+                    <span className="rounded-full bg-sky-100 px-3 py-1 text-xs font-bold text-sky-700">
+                      {item.island}
+                    </span>
+                    <span
+                      className={`rounded-full px-3 py-1 text-xs font-bold ${
+                        item.is_approved
+                          ? "bg-green-100 text-green-700"
+                          : "bg-yellow-100 text-yellow-700"
+                      }`}
+                    >
+                      {item.is_approved ? "공개중" : "승인대기"}
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl font-bold">{item.place_name}</h3>
+                  <p className="mt-1 text-sm text-gray-500">작성자: {item.nickname}</p>
+
+                  {item.story && (
+                    <p className="mt-3 whitespace-pre-line leading-7 text-gray-700">
+                      {item.story}
+                    </p>
+                  )}
+
+                  <div className="mt-5 flex gap-3">
+                    {!item.is_approved && (
+                      <button
+                        onClick={() => handleApproveFootprint(item.id)}
+                        className="flex-1 rounded-xl bg-green-500 px-4 py-3 font-bold text-white hover:bg-green-600"
+                      >
+                        ✓ 승인해서 공개
+                      </button>
+                    )}
+
+                    <button
+                      onClick={() => handleDeleteFootprint(item)}
+                      className="rounded-xl bg-red-500 px-4 py-3 font-bold text-white hover:bg-red-600"
+                    >
+                      삭제
+                    </button>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
       </section>
 
       <section>
