@@ -950,7 +950,7 @@ link: "/place/christian-island",
           { time: "아침", place: "하늬해안", detail: "조용한 아침 바다와 생태 풍경을 감상해요." },
           { time: "오전", place: plannerTheme === "역사·안보" ? "천안함 위령탑" : "심청각", detail: "백령도의 자연뿐 아니라 이야기까지 함께 만나봐요." },
           { time: "점심", place: "진촌 시내", detail: "마지막 식사와 특산물 구입 시간을 함께 잡아요." },
-          { time: "오후", place: "용기포항 이동", detail: "출항 1시간 전까지 여유 있게 도착하는 일정이에요." },
+          { time: "오후", place: "용기포항 이동", detail: "출항 전에는 선사 안내와 승선 마감 시간을 확인하고 여유 있게 용기포항으로 이동하세요." },
         ],
       },
     ];
@@ -3195,12 +3195,21 @@ link: "/place/christian-island",
 
 <div className="bg-white rounded-3xl shadow-lg p-8 text-center">
   <h3 className="text-2xl font-bold mb-3">
-    🚗 차량선적 꼭 해야 하나요?
+    🚗 백령도 차량선적 안내
   </h3>
 
   <p className="text-gray-600 leading-relaxed">
     백령도에서는 현지 렌터카를 이용하면 일정 조정이 편리합니다.
-    차량을 가져갈 계획이라면 선적 가능 여부와 운항일정이 달라질 수 있으므로 이용 전 해당 운송사에 최신 일정을 꼭 확인하세요.
+    차량을 가져갈 계획이라면 선적 가능 여부와 운항일정, 접수시간, 요금 등을 미리 확인하세요.
+    차량선적 관련 문의는 미래해운에 확인할 수 있습니다.
+  </p>
+
+  <a href="tel:032-881-6666" className="inline-flex items-center justify-center mt-5 px-6 py-3 rounded-2xl bg-blue-600 text-white font-bold shadow-md transition hover:bg-blue-700">
+    ☎ 미래해운 032-881-6666
+  </a>
+
+  <p className="mt-4 text-sm text-gray-500 leading-relaxed">
+    ※ 운항일정과 차량선적 조건은 기상·선박 운항 상황 등에 따라 달라질 수 있으므로 출발 전 반드시 최신 정보를 확인하세요.
   </p>
 </div>
 
