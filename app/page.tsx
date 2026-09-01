@@ -4,7 +4,7 @@ import MyCourse from "./components/MyCourse";
 import { supabase } from "./lib/supabase";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { Fragment, useState, useEffect, useRef } from "react";
 
 
 
@@ -20,6 +20,7 @@ const quickMenuItems = [
 ];
 
 const islandNews = [
+  { date:"2026.09.15", month:"9월", island:"백령도", type:"행사", title:"2026년 백령면민의 날 행사", place:"백령다목적실내체육관 (화동체육관)", image:"/images/news/baengnyeong-residents-day-2026.png" },
   { date:"2026.08.26", month:"8월", island:"백령도", type:"행사", title:"섬 라이프 아카데미", place:"백령종합사회복지관", image:"/images/news/island-life-academy.jpg" },
   { date:"2026.08.29", month:"8월", island:"백령도", type: "축제", title:"백령 그린페스타", place:"심청각 일대", image:"/images/news/baengnyeong-green-festa.jpg" },
   { date:"2026.09.05", month:"9월", island:"백령도", type:"축제", title:"백령도와 함께한 가족 이야기 그리기 대회", place:"백령종합사회복지관 3층 강당", image:"/images/news/family-drawing-contest.jpg" },
@@ -34,7 +35,51 @@ const islandNews = [
   { date:"2026.07.01 시행", month:"7월", island:"어선 이용자", type: "관내소식", title:"전 어선 구명조끼 착용 의무화", place:"해양 안전 안내", image:"/images/news/lifejacket-mandatory.jpg" },
 ];
 
+const heroSlides = [
+  { src: "/images/hero/hero-01.png", alt: "백령도의 소나무 사이로 보이는 일몰", position: "center 58%" },
+  { src: "/images/hero/hero-02.png", alt: "눈과 얼음으로 뒤덮인 백령도 겨울 해안", position: "center 52%" },
+  { src: "/images/hero/hero-03.png", alt: "백령도 해안의 갈매기 풍경", position: "center 48%" },
+  { src: "/images/hero/hero-04.png", alt: "백령도 포구와 어선 풍경", position: "center 55%" },
+  { src: "/images/hero/hero-05.png", alt: "파도와 둥근 콩돌이 어우러진 백령도 해안", position: "center 58%" },
+  { src: "/images/hero/hero-06.png", alt: "백령도의 푸른 바다와 해변 풍경", position: "center 52%" },
+  { src: "/images/hero/hero-07.png", alt: "백령도 기암과 햇살이 어우러진 해안 풍경", position: "center 50%" },
+  { src: "/images/hero/hero-08.png", alt: "백령도 바다의 점박이물범", position: "center 50%" },
+  { src: "/images/hero/hero-09.png", alt: "백령도의 대표 향토음식 냉면", position: "center 58%" },
+  { src: "/images/hero/hero-10.png", alt: "서해 최북단 백령도 기념비", position: "center center" },
+];
+
+const restaurantPhotos: Record<string, string[]> = {
+  "전복죽있는 철판집": ["/images/restaurants/jeonbok-cheolpan-01.jpg"],
+  "가을면옥": ["/images/restaurants/gaeul-myeonok-01.png"],
+  "고모네": ["/images/restaurants/gomone-01.png"],
+  "네네치킨": ["/images/restaurants/nene-chicken-01.png"],
+  "노랑통닭": ["/images/restaurants/norang-tongdak-01.png"],
+  "대박맛집": ["/images/restaurants/daebak-matjip-01.png"],
+  "국수나라 백반세상": ["/images/restaurants/guksunara-baekban-01.png"],
+  "돈키호테": ["/images/restaurants/donquixote-01.png"],
+  "두메칼국수": ["/images/restaurants/dume-kalguksu-01.png"],
+  "해녀와사위횟집": ["/images/restaurants/haenyeo-sawi-01.png"],
+  "두선네한상": ["/images/restaurants/dusun-hansang-01.png"],
+  "뚱이네맛집": ["/images/restaurants/ddungi-matjip-01.png"],
+  "미화정": ["/images/restaurants/mihwajeong-01.png"],
+  "백령면옥": ["/images/restaurants/baengnyeong-myeonok-01.png"],
+  "시골칼국수&냉면": ["/images/restaurants/sigol-kalguksu-naengmyeon-01.png"],
+  "이화원": ["/images/restaurants/ihwawon-01.png"],
+  "자연마을": ["/images/restaurants/jayeon-maeul-01.png"],
+  "장촌칼국수": ["/images/restaurants/jangchon-kalguksu-01.png"],
+  "진촌돼지": ["/images/restaurants/jinchon-dwaeji-01.png"],
+  "푸른바다찜&탕": ["/images/restaurants/pureun-bada-jjim-tang-01.png"],
+  "썸&배터지는생동까스": ["/images/restaurants/ssum-baeteojineun-donkatsu-01.png"],
+  "아랑이네횟집": ["/images/restaurants/arangi-sashimi-01.png"],
+  "신화평양냉면": ["/images/restaurants/shinhwa-pyeongyang-naengmyeon-01.png"],
+  "사랑채": ["/images/restaurants/sarangchae-01.png"],
+  "뽀끄닭": ["/images/restaurants/ppokkeudak-01.jpg"],
+  "복이네": ["/images/restaurants/bokine-01.jpg"],
+  "둘리호프": ["/images/restaurants/dooly-hof-01.jpg"],
+};
+
 export default function Home() {
+  const [heroSlideIndex, setHeroSlideIndex] = useState(0);
   const [newsFilter, setNewsFilter] = useState("전체");
   const [selectedSeason, setSelectedSeason] = useState("봄");
   const filteredIslandNews =
@@ -43,7 +88,16 @@ export default function Home() {
       : islandNews.filter((item) => item.type === newsFilter);
 
 
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setHeroSlideIndex((current) => (current + 1) % heroSlides.length);
+    }, 3000);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
   const islandNewsSliderRef = useRef<HTMLDivElement>(null);
+  const [isNewsSliderPaused, setIsNewsSliderPaused] = useState(false);
 
   const moveIslandNews = (direction: "left" | "right") => {
     const slider = islandNewsSliderRef.current;
@@ -57,6 +111,29 @@ export default function Home() {
       behavior: "smooth",
     });
   };
+
+  useEffect(() => {
+    if (isNewsSliderPaused || filteredIslandNews.length <= 1) return;
+
+    const timer = window.setInterval(() => {
+      const slider = islandNewsSliderRef.current;
+      if (!slider) return;
+
+      const card = slider.querySelector<HTMLElement>("[data-news-card]");
+      if (!card) return;
+
+      const step = card.getBoundingClientRect().width + 20;
+      const isAtEnd = slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - step / 2;
+
+      if (isAtEnd) {
+        slider.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        slider.scrollBy({ left: step, behavior: "smooth" });
+      }
+    }, 3000);
+
+    return () => window.clearInterval(timer);
+  }, [isNewsSliderPaused, newsFilter, filteredIslandNews.length]);
 
 
   const [selectedCategory, setSelectedCategory] = useState("전체");
@@ -1335,17 +1412,26 @@ link: "/place/christian-island",
   </div>
 </header>
       {/* HERO */}
-      <section className="relative isolate min-h-[560px] overflow-hidden bg-slate-950 md:min-h-[640px]">
-        <img
-          src="/images/hero-islands.jpg"
-          alt="백령도 두무진 바다와 기암절벽"
-          className="absolute inset-0 h-full w-full object-cover"
-          style={{ objectPosition: "center center" }}
+      <section className="relative isolate min-h-[500px] overflow-hidden bg-slate-950 md:min-h-[560px]">
+        {/* 현재 사진 한 장만 배경으로 표시하고 3초마다 교체합니다. */}
+        <div
+          key={heroSlides[heroSlideIndex].src}
+          className="absolute inset-0 bg-cover bg-center animate-[heroFade_1s_ease-in-out]"
+          style={{
+            backgroundImage: `url(${heroSlides[heroSlideIndex].src})`,
+            backgroundSize: "cover",
+            backgroundPosition: heroSlides[heroSlideIndex].position,
+            backgroundRepeat: "no-repeat",
+            width: "100%",
+            height: "100%",
+          }}
+          role="img"
+          aria-label={heroSlides[heroSlideIndex].alt}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-black/10" />
-        <div className="absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-black/70 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black/70 to-transparent" />
 
-        <div className="relative z-10 mx-auto flex min-h-[560px] max-w-7xl items-center px-6 pb-24 pt-20 md:min-h-[640px] md:px-8">
+        <div className="relative z-10 mx-auto flex min-h-[500px] max-w-7xl items-center px-6 pb-20 pt-16 md:min-h-[560px] md:px-8">
           <div className="max-w-3xl">
             <p className="mb-3 text-sm font-black tracking-[0.16em] text-sky-100 md:text-base">
               BAENGNYEONG · DAECHEONG · SOCHEONG
@@ -1416,6 +1502,10 @@ link: "/place/christian-island",
 
 
       <style jsx>{`
+        @keyframes heroFade {
+          from { opacity: 0.25; transform: scale(1.015); }
+          to { opacity: 1; transform: scale(1); }
+        }
         @media (max-width: 1023px) {
           #island-news [data-news-card] {
             width: calc((100% - 20px) / 2) !important;
@@ -1483,7 +1573,13 @@ link: "/place/christian-island",
             </div>
           </div>
 
-          <div className="relative">
+          <div
+            className="relative"
+            onMouseEnter={() => setIsNewsSliderPaused(true)}
+            onMouseLeave={() => setIsNewsSliderPaused(false)}
+            onTouchStart={() => setIsNewsSliderPaused(true)}
+            onTouchEnd={() => setIsNewsSliderPaused(false)}
+          >
             <div
               ref={islandNewsSliderRef}
               className="flex w-full snap-x snap-mandatory items-stretch overflow-x-auto scroll-smooth pb-6"
@@ -2784,7 +2880,7 @@ link: "/place/christian-island",
                           ["대성횟집", "횟집 · 해산물", "032-836-0363"],
                           ["덮담", "덮밥", "032-836-0333"],
                           ["돈가순대", "순대국 · 돈까스", "010-9629-0704"],
-                          ["돈키호테", "돈까스", "032-836-8292"],
+                          ["돈키호테", "양식맛집", "032-836-8292"],
                           ["두메칼국수", "칼국수", "032-836-0245"],
                           ["두무나루카페", "카페", "032-836-0765"],
                           ["두무진횟집", "횟집 · 해산물", "032-836-1505"],
@@ -2896,7 +2992,7 @@ link: "/place/christian-island",
                           })
                           .sort((a, b) => a[0].localeCompare(b[0], "ko"))
                           .map((food, index) => (
-
+                            <Fragment key={food[0]}>
                             <tr
                               key={index}
                               className="border-t hover:bg-gray-50"
@@ -2923,6 +3019,18 @@ link: "/place/christian-island",
     <span>{food[0]}</span>
   )
 }
+
+                                  {restaurantPhotos[food[0]]?.length > 0 && (
+                                    <a
+                                      href={restaurantPhotos[food[0]][0]}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="shrink-0 rounded-full bg-sky-50 px-3 py-1 text-xs font-bold text-sky-700 hover:bg-sky-100"
+                                      aria-label={`${food[0]} 사진 새 창에서 보기`}
+                                    >
+                                      📸 사진보기
+                                    </a>
+                                  )}
 
                                   {food[0] === "뚱이네맛집" && (
                                     <span className="bg-orange-500 text-white text-xs px-2 py-1 rounded-full">
@@ -3002,6 +3110,7 @@ link: "/place/christian-island",
 
                               </td>
                             </tr>
+                            </Fragment>
 
                           ))}
 
