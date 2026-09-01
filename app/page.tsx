@@ -913,58 +913,105 @@ link: "/place/christian-island",
   function makeTravelPlan() {
     const themeStops: Record<string, string[]> = {
       "자연·사진": ["두무진", "콩돌해안", "사곶해변", "끝섬전망대"],
-      "아이와 가족": ["심청각", "사곶해변", "콩돌해안", "백령도 사진명소"],
-      "군인 면회": ["진촌 시내", "사곶해변", "콩돌해안", "현지 맛집"],
-      "역사·안보": ["천안함 위령탑", "중화동교회", "심청각", "끝섬전망대"],
-      "맛집·카페": ["백령면옥", "현지인 추천 식당", "두무나루카페", "바다 전망 카페"],
-      "힐링·느긋하게": ["하늬해안", "콩돌해안", "두무진", "노을 감상"],
+      "아이와 가족": ["심청각", "사곶해변", "콩돌해안", "두무진"],
+      "군인 면회": ["진촌 시내", "사곶해변", "콩돌해안", "심청각"],
+      "역사·안보": ["천안함 46용사 위령탑", "중화동교회", "심청각", "끝섬전망대"],
+      "맛집·카페": ["백령도 현지 맛집", "바다 전망 카페", "사곶해변", "콩돌해안"],
+      "힐링·느긋하게": ["하늬해안", "콩돌해안", "두무진", "끝섬전망대"],
     };
 
     const selectedStops = themeStops[plannerTheme] || themeStops["자연·사진"];
-    const dayCount = plannerDuration === "당일" ? 1 : plannerDuration === "1박 2일" ? 2 : 3;
+    const isMilitary = plannerCompanion === "군인 면회" || plannerTheme === "군인 면회";
+    const isFoodTheme = plannerTheme === "맛집·카페";
+    const isDayTrip = plannerDuration === "당일";
+    const isOneNight = plannerDuration === "1박 2일";
+
+    const arrivalPlace = plannerTransport === "렌터카·자가용"
+      ? "용기포항 도착 · 이동 준비"
+      : plannerTransport === "택시"
+      ? "용기포항 도착 · 택시 이동 준비"
+      : "용기포항 도착 · 교통편 확인";
+
+    const day1Schedule = isDayTrip
+      ? isMilitary
+        ? [
+            { time: "오전", place: arrivalPlace, detail: "도착 후 면회 장소와 외출·복귀 시간을 먼저 확인해요." },
+            { time: "점심", place: "진촌 시내 현지 식당", detail: "면회 동선에서 크게 벗어나지 않는 곳에서 식사해요." },
+            { time: "오후", place: "군인 면회 · 외출 일정", detail: "부대 안내에 따른 외출·복귀 시간을 가장 우선해서 움직여요." },
+            { time: "여유 시간", place: "사곶해변 또는 가까운 카페", detail: "복귀와 출항 시간에 여유가 있을 때만 짧게 둘러보세요." },
+            { time: "출항 전", place: "용기포항 이동", detail: "선사 안내와 승선 마감 시간을 확인하고 충분한 여유를 두고 이동하세요." },
+          ]
+        : [
+            { time: "오전", place: arrivalPlace, detail: "배에서 내린 뒤 교통수단을 정리하고 여행을 시작해요." },
+            { time: "오전", place: isFoodTheme ? "사곶해변" : selectedStops[0], detail: `${plannerTheme} 취향을 반영한 첫 코스예요.` },
+            { time: "점심", place: isFoodTheme ? "백령도 현지 맛집" : "진촌 현지 식당", detail: "이동 경로와 가까운 곳에서 식사하며 시간을 아껴요." },
+            { time: "오후", place: isFoodTheme ? "바다 전망 카페" : selectedStops[1], detail: "출항 시간을 고려해 무리하지 않는 범위에서 둘러봐요." },
+            { time: "출항 전", place: "용기포항 이동", detail: "선사 안내와 승선 마감 시간을 확인하고 충분한 여유를 두고 이동하세요." },
+          ]
+      : isMilitary
+      ? [
+          { time: "오전", place: arrivalPlace, detail: "도착 후 면회 장소와 외출·복귀 시간을 먼저 확인해요." },
+          { time: "점심", place: isFoodTheme ? "진촌 시내 현지 맛집" : "진촌 시내 식당", detail: "면회 동선과 가까운 곳에서 여유 있게 식사해요." },
+          { time: "오후", place: "군인 면회 · 외출 일정", detail: "부대 안내에 따른 외출·복귀 시간을 최우선으로 잡아요." },
+          { time: "늦은 오후", place: isFoodTheme ? "바다 전망 카페" : "사곶해변", detail: "면회 일정이 끝난 뒤 이동 부담이 적은 코스를 가볍게 즐겨요." },
+          { time: "저녁", place: "진촌 시내 · 숙소", detail: "저녁식사 후 숙소에 체크인하고 다음 날 일정을 준비해요." },
+        ]
+      : [
+          { time: "오전", place: arrivalPlace, detail: "배에서 내린 뒤 교통수단을 정리하고 여행을 시작해요." },
+          { time: "점심", place: isFoodTheme ? "백령도 현지 맛집" : "진촌 현지 식당", detail: "현지 메뉴로 든든하게 여행을 시작해요." },
+          { time: "오후", place: isFoodTheme ? "사곶해변" : selectedStops[0], detail: `${plannerTheme} 취향을 반영한 첫 번째 핵심 코스예요.` },
+          { time: "늦은 오후", place: isFoodTheme ? "바다 전망 카페" : selectedStops[1], detail: "앞 일정과 겹치지 않는 장소에서 여유롭게 시간을 보내요." },
+          { time: "저녁", place: "진촌 시내 · 숙소", detail: "저녁식사 후 숙소 체크인과 휴식을 추천해요." },
+        ];
+
+    const day2Schedule = isMilitary
+      ? [
+          { time: "아침", place: "숙소 · 출발 준비", detail: "기상과 여객선 운항 공지를 먼저 확인해요." },
+          { time: "오전", place: "사곶해변", detail: "이동 부담이 적은 대표 명소에서 여유롭게 아침을 시작해요." },
+          { time: "점심", place: isFoodTheme ? "첫날과 다른 현지 맛집" : "진촌 현지 식당", detail: "첫날과 겹치지 않는 식당을 골라 식사해요." },
+          { time: "오후", place: isFoodTheme ? "콩돌해안 또는 카페" : "콩돌해안", detail: "출항 일정에 맞춰 가까운 코스를 무리 없이 둘러봐요." },
+          ...(isOneNight
+            ? [{ time: "출항 전", place: "용기포항 이동", detail: "선사 안내와 승선 마감 시간을 확인하고 충분한 여유를 두고 이동하세요." }]
+            : [{ time: "저녁", place: "진촌 시내 · 숙소", detail: "저녁식사 후 숙소에서 휴식하며 마지막 날을 준비해요." }]),
+        ]
+      : [
+          { time: "아침", place: "숙소 · 출발 준비", detail: "기상과 여객선 운항 공지를 먼저 확인해요." },
+          { time: "오전", place: isFoodTheme ? "콩돌해안" : selectedStops[2], detail: "첫날과 겹치지 않는 대표 코스를 둘러봐요." },
+          { time: "점심", place: isFoodTheme ? "첫날과 다른 현지 맛집" : "현지인 추천 식당", detail: "이동 경로와 가까운 식당을 선택하면 시간을 아낄 수 있어요." },
+          { time: "오후", place: isFoodTheme ? "카페 또는 해안 산책" : selectedStops[3], detail: "사진 촬영과 산책 시간을 여유 있게 잡아두세요." },
+          ...(isOneNight
+            ? [{ time: "출항 전", place: "용기포항 이동", detail: "선사 안내와 승선 마감 시간을 확인하고 충분한 여유를 두고 이동하세요." }]
+            : [{ time: "저녁", place: "진촌 시내 · 숙소", detail: "저녁식사 후 숙소에서 휴식하며 마지막 날을 준비해요." }]),
+        ];
+
+    const day3Schedule = [
+      { time: "아침", place: "하늬해안", detail: "조용한 아침 바다와 생태 풍경을 감상해요." },
+      { time: "오전", place: plannerTheme === "역사·안보" ? "천안함 46용사 위령탑" : "심청각", detail: "앞선 일정과 다른 백령도의 이야기를 만나봐요." },
+      { time: "점심", place: isFoodTheme ? "마지막 현지 맛집" : "진촌 시내", detail: "마지막 식사와 특산물 구입 시간을 함께 잡아요." },
+      { time: "출항 전", place: "용기포항 이동", detail: "선사 안내와 승선 마감 시간을 확인하고 충분한 여유를 두고 이동하세요." },
+    ];
 
     const templates = [
       {
-        title: plannerDuration === "당일" ? "백령도 당일 핵심 여행" : "백령도 첫인상과 대표 명소",
-        schedule: plannerDuration === "당일"
-          ? [
-              { time: "오전", place: "용기포항 도착 · 이동 준비", detail: "배에서 내린 뒤 교통수단을 정리하고 여행을 시작해요." },
-              { time: "오전", place: selectedStops[0], detail: `${plannerTheme} 취향을 반영한 핵심 코스예요.` },
-              { time: "점심", place: plannerTheme === "맛집·카페" ? selectedStops[1] : "진촌 현지 식당", detail: "이동 경로와 가까운 곳에서 식사하며 시간을 아껴요." },
-              { time: "오후", place: selectedStops[1], detail: "출항 시간을 고려해 무리하지 않는 범위에서 둘러봐요." },
-              { time: "출항 전", place: "용기포항 이동", detail: "선사 안내와 승선 마감 시간을 확인하고 충분한 여유를 두고 용기포항으로 돌아가세요." },
-            ]
-          : [
-              { time: "오전", place: "용기포항 도착 · 차량 인수", detail: "배에서 내린 뒤 교통수단을 정리하고 여행을 시작해요." },
-              { time: "점심", place: plannerTheme === "맛집·카페" ? selectedStops[0] : "진촌 현지 식당", detail: "냉면, 칼국수, 한식 등 현지 메뉴로 든든하게 시작해요." },
-              { time: "오후", place: selectedStops[0], detail: `${plannerTheme} 취향을 반영한 첫 번째 핵심 코스예요.` },
-              { time: "늦은 오후", place: selectedStops[1], detail: "이동 동선을 줄이면서 백령도의 풍경을 여유롭게 즐겨요." },
-              { time: "저녁", place: "진촌 시내 또는 숙소 근처", detail: "저녁식사 후 숙소 체크인과 휴식을 추천해요." },
-            ],
+        title: isDayTrip ? (isMilitary ? "군인 면회 중심 당일 일정" : "백령도 당일 핵심 여행") : (isMilitary ? "군인 면회 중심 첫날" : "백령도 첫인상과 대표 명소"),
+        schedule: day1Schedule,
       },
       {
-        title: "백령도 핵심 절경 완성",
-        schedule: [
-          { time: "아침", place: "숙소 조식 · 출발 준비", detail: "기상과 배편 공지를 먼저 확인해요." },
-          { time: "오전", place: selectedStops[2], detail: "사람이 붐비기 전 대표 명소를 먼저 둘러봐요." },
-          { time: "점심", place: "현지인 추천 맛집", detail: "이동 경로와 가까운 식당을 선택하면 시간을 아낄 수 있어요." },
-          { time: "오후", place: selectedStops[3], detail: "사진 촬영과 산책 시간을 넉넉히 잡아두세요." },
-          { time: "저녁", place: "노을 명소 · 숙소", detail: "날씨가 좋으면 끝섬전망대나 서쪽 해안에서 노을을 즐겨요." },
-        ],
+        title: isMilitary ? "면회 다음 날 · 백령도 여행" : "백령도 핵심 코스 이어보기",
+        schedule: day2Schedule,
       },
       {
         title: "숨은 이야기와 여유로운 마무리",
-        schedule: [
-          { time: "아침", place: "하늬해안", detail: "조용한 아침 바다와 생태 풍경을 감상해요." },
-          { time: "오전", place: plannerTheme === "역사·안보" ? "천안함 위령탑" : "심청각", detail: "백령도의 자연뿐 아니라 이야기까지 함께 만나봐요." },
-          { time: "점심", place: "진촌 시내", detail: "마지막 식사와 특산물 구입 시간을 함께 잡아요." },
-          { time: "오후", place: "용기포항 이동", detail: "출항 전에는 선사 안내와 승선 마감 시간을 확인하고 여유 있게 용기포항으로 이동하세요." },
-        ],
+        schedule: day3Schedule,
       },
     ];
 
+    const dayCount = isDayTrip ? 1 : isOneNight ? 2 : 3;
+
     const transportTip = plannerTransport === "도보·대중교통"
       ? "백령도는 관광지 사이 거리가 멀어 공영버스 시간표와 개인택시 번호를 미리 저장하세요."
+      : plannerTransport === "택시"
+      ? "택시 이동은 기사님과 다음 이동 시간과 장소를 미리 조율하면 일정이 편해요."
       : "차량 이동 시 주유소 위치와 반납 시간을 미리 확인하면 일정이 훨씬 편해요.";
 
     const companionTip = plannerCompanion === "아이 동반"
@@ -972,7 +1019,7 @@ link: "/place/christian-island",
       : plannerCompanion === "부모님"
       ? "부모님과 함께라면 계단과 경사가 적은 사곶해변·콩돌해안을 중심으로 여유 있게 이동하세요."
       : plannerCompanion === "군인 면회"
-      ? "외출·복귀 시간을 최우선으로 두고 진촌 시내와 가까운 코스를 먼저 배치하세요."
+      ? "군인 면회 일정은 부대의 외출·복귀 안내를 최우선으로 하고 관광 일정은 남는 시간에 맞춰 조정하세요."
       : "동행자의 체력에 맞춰 명소 한 곳당 40~60분 정도 여유를 두세요.";
 
     const seasonTip: Record<string, string> = {
@@ -987,7 +1034,7 @@ link: "/place/christian-island",
       transportTip,
       companionTip,
       seasonTip[plannerSeason],
-      "백령도 여행 전날과 당일 아침에 여객선 운항 여부를 꼭 확인하세요.",
+      "일정은 여행 계획을 돕는 예시이며, 실제 이동 전 여객선 운항과 영업시간·면회 가능 시간을 다시 확인하세요.",
     ]);
 
     setTimeout(() => {
