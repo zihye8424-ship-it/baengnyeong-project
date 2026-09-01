@@ -3799,7 +3799,7 @@ link: "/place/christian-island",
               <li>🌊 사곶해변</li>
               <li>📸 두무진 유람선</li>
               <li>🍜 백령도 맛집 탐방</li>
-              <li>🌅 끝섬전망대 일몰</li>
+              <li>🚢 출항 시간 확인 후 여유 있게 용기포항 이동</li>
             </ul>
 
           </div>
