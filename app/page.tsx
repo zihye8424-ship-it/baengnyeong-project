@@ -78,6 +78,16 @@ const restaurantPhotos: Record<string, string[]> = {
   "둘리호프": ["/images/restaurants/dooly-hof-01.jpg"],
 };
 
+const stayPhotos: Record<string, string[]> = {
+  "백령로그펜션": [
+    "/images/stays/baengnyeong-log-pension-01.jpg",
+    "/images/stays/baengnyeong-log-pension-02.jpg",
+    "/images/stays/baengnyeong-log-pension-03.jpg",
+    "/images/stays/baengnyeong-log-pension-04.jpg",
+    "/images/stays/baengnyeong-log-pension-05.jpg",
+  ],
+};
+
 export default function Home() {
   const [heroSlideIndex, setHeroSlideIndex] = useState(0);
   const [newsFilter, setNewsFilter] = useState("전체");
@@ -363,6 +373,16 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       location: "북한 장산곶 방향이 보이는 백령도 북서쪽 해안",
       tip: "🦭 해안 전망과 함께 점박이물범 서식 환경을 살펴볼 수 있는 백령도의 대표 생태여행 포인트예요.",
       link: "/place/hani",
+    },
+    {
+      name: "백령 점박이물범 생태관광체험센터",
+      island: "백령도",
+      image: "/images/spotted-seal-center.jpg",
+      category: "관광지",
+      description: "백령도의 점박이물범 생태를 배우고 관찰할 수 있는 생태관광 명소",
+      location: "백령도 하늬해안 일대",
+      tip: "🦭 점박이물범의 생태를 배우고 하늬해안의 자연환경과 함께 둘러보기 좋은 생태관광 코스예요.",
+      link: "/place/spotted-seal-center",
     },
     {
   name: "용틀임바위",
@@ -2754,7 +2774,39 @@ link: "/place/christian-island",
                                 className="border-t border-gray-100 transition hover:bg-sky-50"
                               >
                                 <td className="p-4 font-extrabold text-gray-900">
-                                  {stay[0]}
+                                  <div className="flex flex-wrap items-center gap-2">
+                                    <span>{stay[0]}</span>
+                                    {stayPhotos[stay[0]]?.length > 0 && (
+                                      <details className="relative">
+                                        <summary className="cursor-pointer list-none shrink-0 rounded-full bg-sky-50 px-3 py-1 text-xs font-bold text-sky-700 hover:bg-sky-100">
+                                          📸 사진보기 ({stayPhotos[stay[0]].length}장)
+                                        </summary>
+                                        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                                          {stayPhotos[stay[0]].map((photo, photoIndex) => (
+                                            <a
+                                              key={photo}
+                                              href={photo}
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                              className="block overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-md"
+                                              aria-label={`${stay[0]} 사진 ${photoIndex + 1} 새 창에서 보기`}
+                                            >
+                                              <Image
+                                                src={photo}
+                                                alt={`${stay[0]} 사진 ${photoIndex + 1}`}
+                                                width={420}
+                                                height={280}
+                                                className="h-40 w-full object-cover"
+                                              />
+                                              <div className="px-3 py-2 text-center text-xs font-bold text-sky-700">
+                                                사진 {photoIndex + 1} 크게보기
+                                              </div>
+                                            </a>
+                                          ))}
+                                        </div>
+                                      </details>
+                                    )}
+                                  </div>
                                 </td>
 
                                 <td className="p-4 text-gray-600">
