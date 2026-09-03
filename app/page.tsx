@@ -4395,6 +4395,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
     </div>
 
     <p className="text-sm text-gray-500">
+      자료 및 사진 출처 : 옹진군 · 윤학진 외
+    </p>
+
+    <p className="text-sm text-gray-500">
       © 2026 백령·대청·소청도의 모든 정보. All Rights Reserved.
     </p>
   </div>
