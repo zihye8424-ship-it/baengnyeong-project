@@ -1,112 +1,349 @@
 import Link from "next/link";
+import PlaceTemplate from "../../components/PlaceTemplate";
 import PlaceReviews from "../../components/PlaceReviews";
 
 export const metadata = {
-  title: "대청도 해넘이전망대 여행 가이드 | 백령도의 모든 정보",
-  description: "탁 트인 서해를 바라보며 대청도의 해넘이 풍경을 감상하기 좋은 전망대. 볼거리, 여행 팁, 백과사전식 정보와 방문 후기를 확인하세요.",
+  title: "대청도 해넘이전망대 여행 가이드 | 일몰·전망·사진 명소",
+  description:
+    "대청도 해넘이전망대 여행 가이드. 서해 방향의 탁 트인 전망과 일몰 풍경, 사진 포인트, 방문 시간 팁과 함께 둘러보기 좋은 대청도 관광지를 확인하세요.",
 };
-
-const quickFacts = [
-  ["추천 대상", "해넘이 · 전망 · 사진"],
-  ["섬", "대청도"],
-  ["즐길거리", "풍경 감상 · 사진촬영 · 산책"],
-  ["준비", "편한 신발 · 바람막이 · 생수"],
-];
 
 export default function Page() {
   return (
-    <main className="min-h-screen bg-slate-50 text-gray-900">
-      <header className="sticky top-0 z-50 border-b bg-white/90 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-lg font-extrabold">백령도의 모든 정보</Link>
-          <Link href="/#place-section" className="rounded-full bg-gray-900 px-5 py-2 text-sm font-bold text-white">← 관광지로 돌아가기</Link>
-        </div>
-      </header>
+    <PlaceTemplate
+      title="해넘이전망대"
+      subtitle="탁 트인 서해와 하늘이 물드는 순간을 바라보는 대청도의 일몰 전망 명소"
+      image="/images/sunset-observatory.png"
+      badges={["대청도", "해넘이", "전망", "사진명소"]}
+      quickFacts={[
+        ["추천 대상", "일몰 · 전망 · 사진여행"],
+        ["추천 시간", "일몰 전 여유 있게"],
+        ["관람 포인트", "서해 전망 · 노을 · 하늘"],
+        ["준비물", "바람막이 · 카메라 · 편한 신발"],
+      ]}
+    >
+      <div className="space-y-8">
+        {/* 소개 */}
+        <section className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-3xl font-black">
+            🌅 해넘이전망대는 어떤 곳인가요?
+          </h2>
 
-      <section className="relative h-[62vh] min-h-[480px] w-full overflow-hidden">
-        <img src="/images/sunset-observatory.png" alt="대청도 해넘이전망대" className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/10" />
-        <div className="absolute inset-x-0 bottom-0 mx-auto max-w-6xl px-6 pb-12 text-white">
-          <div className="mb-4 flex flex-wrap gap-2 text-sm font-bold">
-            <span className="rounded-full bg-sky-500 px-4 py-2">대청도 관광지</span>
-            <span className="rounded-full bg-white/20 px-4 py-2 backdrop-blur">해넘이 · 전망 · 사진</span>
-          </div>
-          <h1 className="text-5xl font-black tracking-tight md:text-7xl">해넘이전망대</h1>
-          <p className="mt-5 max-w-3xl text-lg leading-8 text-white/90 md:text-xl">탁 트인 서해를 바라보며 대청도의 해넘이 풍경을 감상하기 좋은 전망대</p>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-6 py-14">
-        <div className="grid gap-4 md:grid-cols-4">
-          {quickFacts.map(([title,value]) => (
-            <div key={title} className="rounded-3xl bg-white p-6 shadow-sm">
-              <p className="text-sm font-bold text-sky-600">{title}</p>
-              <p className="mt-2 font-extrabold leading-7">{value}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl space-y-8 px-6 pb-16">
-        <div className="rounded-[2rem] bg-white p-8 shadow-sm md:p-10">
-          <p className="font-bold text-sky-600">대청도에서 만나는 풍경</p>
-          <h2 className="mt-2 text-3xl font-black md:text-4xl">🌊 해넘이전망대은 어떤 곳인가요?</h2>
-          <p className="mt-6 text-[17px] leading-8 text-gray-700">탁 트인 서해를 바라보며 대청도의 해넘이 풍경을 감상하기 좋은 전망대.</p>
-          <p className="mt-4 leading-8 text-gray-700">
-            이 페이지는 사용자가 직접 제공한 현지 사진을 중심으로 여행자가 현장에서 무엇을 볼 수 있는지 쉽게 이해하도록 정리했습니다.
-          </p>
-        </div>
-
-        <div className="rounded-[2rem] border border-emerald-100 bg-emerald-50 p-8 md:p-10">
-          <p className="font-bold text-emerald-700">백과사전식으로 알아보기</p>
-          <h2 className="mt-2 text-3xl font-black">🌍 해넘이전망대의 자연과 지형</h2>
           <div className="mt-6 space-y-5 leading-8 text-gray-700">
             <p>
-              대청도는 서해의 섬으로 산지와 해안, 모래사장, 암석 해안 등 다양한 자연경관을 가까운 거리에서 만날 수 있습니다.
-              해넘이전망대 역시 대청도의 자연환경을 직접 보고 느낄 수 있는 여행지입니다.
+              해넘이전망대는 대청도에서 탁 트인 바다와
+              해 질 무렵의 풍경을 감상하기 좋은 전망 명소입니다.
             </p>
+
             <p>
-              현장에서는 바다의 색과 파도, 바람, 주변 산지와 해안선이 만드는 풍경을 함께 살펴보세요.
-              같은 장소도 날씨와 계절, 시간대에 따라 분위기가 크게 달라질 수 있습니다.
+              낮에는 시원하게 펼쳐진 바다와 주변 자연을
+              바라볼 수 있고, 해가 기울기 시작하면 하늘과
+              바다의 분위기가 조금씩 달라지는 모습을 즐길 수 있습니다.
             </p>
-            <p className="rounded-2xl bg-white p-5 text-sm text-gray-600">
-              ※ 사진은 사용자가 제공한 현지 자료를 사용했습니다. 운영·출입·안전 정보는 방문 당일 현장 안내를 우선 확인해 주세요.
+
+            <p>
+              특히 대청도 여행의 하루를 마무리하면서
+              조용히 풍경을 감상하거나 노을 사진을 남기고 싶은
+              여행자에게 잘 어울리는 장소입니다.
             </p>
           </div>
-        </div>
+        </section>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-[2rem] bg-white p-8 shadow-sm">
-            <h2 className="text-2xl font-black">📸 여기서 꼭 볼 것</h2>
-            <ul className="mt-5 space-y-4 leading-7 text-gray-700">
-              <li>• 서해 방향의 탁 트인 전망</li><li>• 해 질 무렵의 하늘과 바다</li><li>• 전망대 포토존</li>
-            </ul>
+        {/* 시간대 */}
+        <section className="rounded-3xl border border-orange-100 bg-orange-50 p-8 md:p-10">
+          <p className="font-bold text-orange-700">
+            해 질 무렵 만나는 대청도
+          </p>
+
+          <h2 className="mt-2 text-3xl font-black">
+            🌇 시간에 따라 달라지는 풍경
+          </h2>
+
+          <div className="mt-6 grid gap-5 md:grid-cols-3">
+            <div className="rounded-2xl bg-white p-6">
+              <h3 className="text-xl font-extrabold">
+                ☀️ 해가 지기 전
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                밝은 시간에는 바다와 하늘, 주변 자연 풍경을
+                넓게 바라보며 전망대를 천천히 둘러보세요.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-white p-6">
+              <h3 className="text-xl font-extrabold">
+                🌅 해 질 무렵
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                해가 낮아지면서 하늘과 바다의 색이 변하는
+                모습을 감상해 보세요. 날씨에 따라 매번
+                다른 분위기를 만날 수 있습니다.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-white p-6">
+              <h3 className="text-xl font-extrabold">
+                🌙 해가 진 뒤
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                일몰 후에는 주변이 빠르게 어두워질 수 있으므로
+                풍경 감상 후 이동할 때 특히 주의하세요.
+              </p>
+            </div>
           </div>
-          <div className="rounded-[2rem] bg-white p-8 shadow-sm">
-            <h2 className="text-2xl font-black">🥾 방문 팁</h2>
-            <ul className="mt-5 space-y-4 leading-7 text-gray-700">
-              <li>• 일몰 시각보다 여유 있게 도착하세요.</li><li>• 해가 진 뒤에는 어두워질 수 있으니 이동에 주의하세요.</li><li>• 바람이 강할 수 있어 겉옷을 준비하면 좋습니다.</li>
-            </ul>
+        </section>
+
+        {/* 볼거리 */}
+        <section className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-3xl font-black">
+            👀 해넘이전망대에서 놓치지 말 것
+          </h2>
+
+          <div className="mt-6 grid gap-5 md:grid-cols-2">
+            <div className="rounded-2xl bg-sky-50 p-6">
+              <h3 className="text-xl font-extrabold">
+                🌊 탁 트인 바다 전망
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                시야가 좋은 날에는 바다와 하늘이 이어지는
+                시원한 전망을 감상해 보세요.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-orange-50 p-6">
+              <h3 className="text-xl font-extrabold">
+                🌅 해넘이 풍경
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                해가 기울면서 달라지는 하늘의 색과 바다의
+                분위기는 이곳에서 기대해볼 만한 풍경입니다.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-yellow-50 p-6">
+              <h3 className="text-xl font-extrabold">
+                ☁️ 하늘과 구름
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                노을은 구름과 날씨에 따라 전혀 다른 모습으로
+                나타납니다. 하늘 전체의 변화도 함께 살펴보세요.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-rose-50 p-6">
+              <h3 className="text-xl font-extrabold">
+                📷 여행 사진
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                바다와 하늘을 배경으로 여행자를 함께 담으면
+                대청도의 일몰 여행을 기억하기 좋은 사진을
+                남길 수 있습니다.
+              </p>
+            </div>
           </div>
-        </div>
+        </section>
 
-        
+        {/* 방문 팁 */}
+        <section className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-3xl font-black">
+            ⏰ 해넘이전망대 방문 팁
+          </h2>
 
-        <div className="rounded-[2rem] bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-black">❓ 자주 묻는 질문</h2>
-          <div className="mt-8 space-y-6 text-gray-700">
-            <div><h3 className="text-lg font-bold">Q. 해넘이전망대은 사진 찍기 좋은가요?</h3><p className="mt-2 leading-7">네. 대청도의 자연 풍경을 배경으로 여행 사진을 남기기 좋습니다. 날씨와 시간대에 따라 풍경이 달라집니다.</p></div>
-            <div><h3 className="text-lg font-bold">Q. 방문 전에 무엇을 확인해야 하나요?</h3><p className="mt-2 leading-7">섬 지역은 기상 영향을 크게 받으므로 배편, 날씨와 현장 이동 여건을 확인하는 것이 좋습니다.</p></div>
+          <ul className="mt-6 space-y-4 leading-8 text-gray-700">
+            <li>
+              ✅ 방문하는 날의 일몰 시각을 미리 확인하세요.
+            </li>
+
+            <li>
+              ✅ 일몰 직전에 도착하기보다 여유 있게 도착해
+              밝을 때 주변과 이동 동선을 확인하는 것이 좋습니다.
+            </li>
+
+            <li>
+              ✅ 노을은 날씨와 구름 상태에 따라 보이는 모습이
+              크게 달라질 수 있습니다.
+            </li>
+
+            <li>
+              ✅ 전망대 주변은 바람이 강할 수 있으므로
+              계절에 맞는 겉옷이나 바람막이를 준비하세요.
+            </li>
+
+            <li>
+              ✅ 해가 진 뒤에는 주변이 어두워질 수 있으므로
+              이동할 때 발밑과 차량 이동에 주의하세요.
+            </li>
+          </ul>
+        </section>
+
+        {/* 사진 */}
+        <section className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-3xl font-black">
+            📸 해넘이전망대 사진 포인트
+          </h2>
+
+          <div className="mt-6 grid gap-5 md:grid-cols-3">
+            <div className="rounded-2xl border border-gray-200 p-6">
+              <h3 className="text-lg font-extrabold">
+                🌅 하늘을 넓게
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                노을이 아름다운 날에는 하늘이 사진에서
+                넓게 보이도록 구도를 잡아보세요.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 p-6">
+              <h3 className="text-lg font-extrabold">
+                🌊 바다와 수평선
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                바다와 하늘의 경계를 함께 담으면
+                전망대의 탁 트인 분위기를 표현하기 좋습니다.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 p-6">
+              <h3 className="text-lg font-extrabold">
+                🧍 노을과 인물
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                해 질 무렵에는 밝은 하늘을 배경으로 인물을
+                배치해 실루엣 느낌의 여행 사진도 시도해 보세요.
+              </p>
+            </div>
           </div>
-        </div>
+        </section>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Link href="/place/dapdong-beach" className="rounded-3xl bg-white p-6 font-extrabold shadow-sm hover:shadow-md">← 답동해변</Link>
-          <Link href="/place/okjuk-sanddune" className="rounded-3xl bg-gray-900 p-6 text-right font-extrabold text-white shadow-sm hover:shadow-md">옥죽동 해안사구 →</Link>
-        </div>
-      </section>
+        {/* 일정 팁 */}
+        <section className="rounded-3xl border border-sky-100 bg-sky-50 p-8 md:p-10">
+          <p className="font-bold text-sky-700">
+            대청도 여행 일정 팁
+          </p>
 
-      <PlaceReviews placeSlug="sunset-observatory" placeName="해넘이전망대" />
-    </main>
+          <h2 className="mt-2 text-3xl font-black">
+            🗺️ 하루 일정의 마지막 코스로
+          </h2>
+
+          <p className="mt-5 leading-8 text-gray-700">
+            해넘이전망대는 일몰 시간에 맞춰 방문하는 것이
+            좋은 만큼 낮에는 대청도의 해변과 다른 자연 명소를
+            둘러보고 하루 일정의 마지막에 배치하는 방식으로
+            여행 동선을 계획해 볼 수 있습니다.
+          </p>
+        </section>
+
+        {/* 주변 관광지 */}
+        <section className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-3xl font-black">
+            🗺️ 대청도에서 함께 둘러보기
+          </h2>
+
+          <p className="mt-4 leading-7 text-gray-600">
+            낮에는 대청도의 자연 명소를 둘러보고
+            해 질 무렵 해넘이전망대로 이동해 보세요.
+          </p>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <Link
+              href="/place/jiduri-beach"
+              className="rounded-2xl border border-gray-200 p-5 transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-md"
+            >
+              <h3 className="text-lg font-extrabold">
+                지두리해변 →
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                대청도의 해변 풍경과 산책을 즐기는 곳
+              </p>
+            </Link>
+
+            <Link
+              href="/place/okjuk-sanddune"
+              className="rounded-2xl border border-gray-200 p-5 transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-md"
+            >
+              <h3 className="text-lg font-extrabold">
+                옥죽동 모래사막 →
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                대청도의 독특한 모래 풍경을 만나는 자연 명소
+              </p>
+            </Link>
+
+            <Link
+              href="/place/maebawi-observatory"
+              className="rounded-2xl border border-gray-200 p-5 transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-md"
+            >
+              <h3 className="text-lg font-extrabold">
+                매바위전망대 →
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                대청도의 산과 바다를 바라보는 또 다른 전망 명소
+              </p>
+            </Link>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-3xl font-black">
+            ❓ 해넘이전망대 자주 묻는 질문
+          </h2>
+
+          <div className="mt-7 space-y-6 text-gray-700">
+            <div>
+              <h3 className="font-bold">
+                Q. 언제 방문하는 것이 좋은가요?
+              </h3>
+              <p className="mt-2 leading-7">
+                해넘이 풍경을 보고 싶다면 방문하는 날의
+                일몰 시각을 확인하고 그보다 여유 있게
+                도착하는 것이 좋습니다.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-bold">
+                Q. 날씨가 흐리면 노을을 볼 수 있나요?
+              </h3>
+              <p className="mt-2 leading-7">
+                일몰 풍경은 날씨와 구름 상태에 따라 크게
+                달라집니다. 흐린 날에는 선명한 해넘이를
+                보기 어려울 수 있습니다.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-bold">
+                Q. 일몰 후에는 무엇을 주의해야 하나요?
+              </h3>
+              <p className="mt-2 leading-7">
+                해가 진 뒤에는 주변이 빠르게 어두워질 수
+                있으므로 이동할 때 발밑과 주변 상황을
+                확인하며 안전하게 이동하세요.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 안전 */}
+        <section className="rounded-3xl border border-amber-200 bg-amber-50 p-7">
+          <h2 className="text-2xl font-black text-amber-950">
+            ⚠️ 방문 전 확인
+          </h2>
+
+          <p className="mt-4 leading-7 text-amber-950">
+            일몰과 전망은 날씨와 구름, 현지 기상 상황에 따라
+            달라질 수 있습니다. 바람이 강하거나 기상이 좋지
+            않은 날에는 현장 안전 안내를 우선하고, 해가 진
+            뒤에는 어두운 이동 구간을 특히 주의하세요.
+          </p>
+        </section>
+      </div>
+
+      <PlaceReviews
+        placeSlug="sunset-observatory"
+        placeName="해넘이전망대"
+      />
+    </PlaceTemplate>
   );
 }

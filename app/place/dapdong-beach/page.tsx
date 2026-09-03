@@ -1,112 +1,314 @@
 import Link from "next/link";
+import PlaceTemplate from "../../components/PlaceTemplate";
 import PlaceReviews from "../../components/PlaceReviews";
 
 export const metadata = {
-  title: "대청도 답동해변 여행 가이드 | 백령도의 모든 정보",
-  description: "바위 해안과 해안 데크길이 어우러져 걷는 재미가 있는 대청도 해안 명소. 볼거리, 여행 팁, 백과사전식 정보와 방문 후기를 확인하세요.",
+  title: "대청도 답동해변 여행 가이드 | 해안 산책·방문 팁",
+  description:
+    "대청도 답동해변 여행 가이드. 바위 해안과 해안 산책 풍경, 사진 포인트, 방문 팁과 함께 둘러보기 좋은 대청도 관광지를 확인하세요.",
 };
-
-const quickFacts = [
-  ["추천 대상", "해안 · 데크길 · 산책"],
-  ["섬", "대청도"],
-  ["즐길거리", "풍경 감상 · 사진촬영 · 산책"],
-  ["준비", "편한 신발 · 바람막이 · 생수"],
-];
 
 export default function Page() {
   return (
-    <main className="min-h-screen bg-slate-50 text-gray-900">
-      <header className="sticky top-0 z-50 border-b bg-white/90 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-lg font-extrabold">백령도의 모든 정보</Link>
-          <Link href="/#place-section" className="rounded-full bg-gray-900 px-5 py-2 text-sm font-bold text-white">← 관광지로 돌아가기</Link>
-        </div>
-      </header>
+    <PlaceTemplate
+      title="답동해변"
+      subtitle="바위 해안과 바다 풍경을 따라 천천히 걸어보는 대청도 해안 여행"
+      image="/images/dapdong-beach.png"
+      badges={["대청도", "해안풍경", "산책", "사진여행"]}
+      quickFacts={[
+        ["추천 대상", "해안 · 산책 · 사진여행"],
+        ["추천 시간", "날씨가 좋은 낮 시간"],
+        ["즐길거리", "풍경 감상 · 사진촬영 · 산책"],
+        ["준비물", "편한 신발 · 바람막이 · 생수"],
+      ]}
+    >
+      <div className="space-y-8">
+        {/* 소개 */}
+        <section className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-3xl font-black">
+            🌊 답동해변은 어떤 곳인가요?
+          </h2>
 
-      <section className="relative h-[62vh] min-h-[480px] w-full overflow-hidden">
-        <img src="/images/dapdong-beach.png" alt="대청도 답동해변" className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/10" />
-        <div className="absolute inset-x-0 bottom-0 mx-auto max-w-6xl px-6 pb-12 text-white">
-          <div className="mb-4 flex flex-wrap gap-2 text-sm font-bold">
-            <span className="rounded-full bg-sky-500 px-4 py-2">대청도 관광지</span>
-            <span className="rounded-full bg-white/20 px-4 py-2 backdrop-blur">해안 · 데크길 · 산책</span>
-          </div>
-          <h1 className="text-5xl font-black tracking-tight md:text-7xl">답동해변</h1>
-          <p className="mt-5 max-w-3xl text-lg leading-8 text-white/90 md:text-xl">바위 해안과 해안 데크길이 어우러져 걷는 재미가 있는 대청도 해안 명소</p>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-6 py-14">
-        <div className="grid gap-4 md:grid-cols-4">
-          {quickFacts.map(([title,value]) => (
-            <div key={title} className="rounded-3xl bg-white p-6 shadow-sm">
-              <p className="text-sm font-bold text-sky-600">{title}</p>
-              <p className="mt-2 font-extrabold leading-7">{value}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl space-y-8 px-6 pb-16">
-        <div className="rounded-[2rem] bg-white p-8 shadow-sm md:p-10">
-          <p className="font-bold text-sky-600">대청도에서 만나는 풍경</p>
-          <h2 className="mt-2 text-3xl font-black md:text-4xl">🌊 답동해변은 어떤 곳인가요?</h2>
-          <p className="mt-6 text-[17px] leading-8 text-gray-700">바위 해안과 해안 데크길이 어우러져 걷는 재미가 있는 대청도 해안 명소.</p>
-          <p className="mt-4 leading-8 text-gray-700">
-            이 페이지는 사용자가 직접 제공한 현지 사진을 중심으로 여행자가 현장에서 무엇을 볼 수 있는지 쉽게 이해하도록 정리했습니다.
-          </p>
-        </div>
-
-        <div className="rounded-[2rem] border border-emerald-100 bg-emerald-50 p-8 md:p-10">
-          <p className="font-bold text-emerald-700">백과사전식으로 알아보기</p>
-          <h2 className="mt-2 text-3xl font-black">🌍 답동해변의 자연과 지형</h2>
           <div className="mt-6 space-y-5 leading-8 text-gray-700">
             <p>
-              대청도는 서해의 섬으로 산지와 해안, 모래사장, 암석 해안 등 다양한 자연경관을 가까운 거리에서 만날 수 있습니다.
-              답동해변 역시 대청도의 자연환경을 직접 보고 느낄 수 있는 여행지입니다.
+              답동해변은 대청도의 바다와 해안 풍경을 가까이에서
+              바라보며 천천히 둘러보기 좋은 장소입니다.
             </p>
+
             <p>
-              현장에서는 바다의 색과 파도, 바람, 주변 산지와 해안선이 만드는 풍경을 함께 살펴보세요.
-              같은 장소도 날씨와 계절, 시간대에 따라 분위기가 크게 달라질 수 있습니다.
+              바위가 어우러진 해안과 주변 풍경을 감상하며
+              걷는 재미가 있어, 유명 관광지를 빠르게 이동하기보다
+              대청도의 자연을 여유 있게 즐기고 싶은 여행자에게
+              잘 어울립니다.
             </p>
-            <p className="rounded-2xl bg-white p-5 text-sm text-gray-600">
-              ※ 사진은 사용자가 제공한 현지 자료를 사용했습니다. 운영·출입·안전 정보는 방문 당일 현장 안내를 우선 확인해 주세요.
+
+            <p>
+              날씨와 시간대에 따라 바다의 색과 파도,
+              주변 해안의 분위기가 달라질 수 있어
+              사진으로 여행 풍경을 남겨보기에도 좋습니다.
             </p>
           </div>
-        </div>
+        </section>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-[2rem] bg-white p-8 shadow-sm">
-            <h2 className="text-2xl font-black">📸 여기서 꼭 볼 것</h2>
-            <ul className="mt-5 space-y-4 leading-7 text-gray-700">
-              <li>• 해안 데크길</li><li>• 바위와 바다가 만나는 풍경</li><li>• 걸으며 감상하는 해안선</li>
-            </ul>
+        {/* 자연 풍경 */}
+        <section className="rounded-3xl border border-emerald-100 bg-emerald-50 p-8 md:p-10">
+          <p className="font-bold text-emerald-700">
+            대청도의 자연 살펴보기
+          </p>
+
+          <h2 className="mt-2 text-3xl font-black">
+            🌍 답동해변의 자연과 풍경
+          </h2>
+
+          <div className="mt-6 space-y-5 leading-8 text-gray-700">
+            <p>
+              답동해변에서는 바다만 바라보기보다 해안의 바위와
+              주변 지형, 멀리 이어지는 해안선을 함께 살펴보세요.
+            </p>
+
+            <p>
+              같은 장소도 맑은 날과 흐린 날, 바람과 파도의
+              상태에 따라 분위기가 다르게 느껴질 수 있습니다.
+              이런 변화도 섬 여행에서 만날 수 있는 매력입니다.
+            </p>
+
+            <p>
+              해안을 천천히 걸으며 주변 자연을 관찰하면
+              대청도의 다양한 해안 풍경을 더욱 가까이에서
+              느껴볼 수 있습니다.
+            </p>
           </div>
-          <div className="rounded-[2rem] bg-white p-8 shadow-sm">
-            <h2 className="text-2xl font-black">🥾 방문 팁</h2>
-            <ul className="mt-5 space-y-4 leading-7 text-gray-700">
-              <li>• 데크와 탐방 동선을 따라 이동하세요.</li><li>• 바람과 파도가 강한 날은 해안 접근에 주의하세요.</li><li>• 편한 운동화를 추천합니다.</li>
-            </ul>
+        </section>
+
+        {/* 볼거리 */}
+        <section className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-3xl font-black">
+            👀 답동해변에서 살펴볼 포인트
+          </h2>
+
+          <div className="mt-6 grid gap-5 md:grid-cols-2">
+            <div className="rounded-2xl bg-sky-50 p-6">
+              <h3 className="text-xl font-extrabold">
+                🌊 바다 풍경
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                해안에서 바라보는 대청도의 바다와 수평선을
+                천천히 감상해 보세요.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-stone-100 p-6">
+              <h3 className="text-xl font-extrabold">
+                🪨 바위 해안
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                바위와 바다가 맞닿아 만들어내는 자연스러운
+                해안 풍경도 답동해변의 볼거리입니다.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-emerald-50 p-6">
+              <h3 className="text-xl font-extrabold">
+                🚶 해안 산책
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                현장의 안전한 이동 동선을 따라 걸으며
+                대청도의 해안 풍경을 여유롭게 즐겨보세요.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-orange-50 p-6">
+              <h3 className="text-xl font-extrabold">
+                📷 여행 사진
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                바다와 바위, 해안선을 함께 담으면 대청도의
+                자연스러운 풍경을 사진으로 남길 수 있습니다.
+              </p>
+            </div>
           </div>
-        </div>
+        </section>
 
-        
+        {/* 방문 팁 */}
+        <section className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-3xl font-black">
+            🥾 답동해변 방문 팁
+          </h2>
 
-        <div className="rounded-[2rem] bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-black">❓ 자주 묻는 질문</h2>
-          <div className="mt-8 space-y-6 text-gray-700">
-            <div><h3 className="text-lg font-bold">Q. 답동해변은 사진 찍기 좋은가요?</h3><p className="mt-2 leading-7">네. 대청도의 자연 풍경을 배경으로 여행 사진을 남기기 좋습니다. 날씨와 시간대에 따라 풍경이 달라집니다.</p></div>
-            <div><h3 className="text-lg font-bold">Q. 방문 전에 무엇을 확인해야 하나요?</h3><p className="mt-2 leading-7">섬 지역은 기상 영향을 크게 받으므로 배편, 날씨와 현장 이동 여건을 확인하는 것이 좋습니다.</p></div>
+          <ul className="mt-6 space-y-4 leading-8 text-gray-700">
+            <li>
+              ✅ 대청도 방문 전 선박 운항과 날씨를 확인하세요.
+            </li>
+
+            <li>
+              ✅ 현장에 정비된 이동 동선이나 안내가 있다면
+              해당 동선을 따라 이동하세요.
+            </li>
+
+            <li>
+              ✅ 바위와 젖은 지면은 미끄러울 수 있으므로
+              편한 운동화를 추천합니다.
+            </li>
+
+            <li>
+              ✅ 해안은 바람이 강할 수 있어 바람막이나
+              겉옷을 준비하면 좋습니다.
+            </li>
+
+            <li>
+              ✅ 파도가 높거나 날씨가 좋지 않을 때는
+              해안 가까이 무리하게 접근하지 마세요.
+            </li>
+          </ul>
+        </section>
+
+        {/* 사진 포인트 */}
+        <section className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-3xl font-black">
+            📸 답동해변 사진 포인트
+          </h2>
+
+          <div className="mt-6 grid gap-5 md:grid-cols-3">
+            <div className="rounded-2xl border border-gray-200 p-6">
+              <h3 className="text-lg font-extrabold">
+                🌊 바다를 넓게
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                수평선과 해안이 함께 보이도록 넓게 촬영하면
+                대청도의 시원한 바다 풍경을 담기 좋습니다.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 p-6">
+              <h3 className="text-lg font-extrabold">
+                🪨 바위와 함께
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                바위를 앞쪽에 두고 바다를 함께 담으면
+                해안의 입체적인 모습을 기록할 수 있습니다.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 p-6">
+              <h3 className="text-lg font-extrabold">
+                🚶 여행 풍경
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                안전한 산책 동선과 바다를 함께 담아
+                대청도 여행의 분위기를 남겨보세요.
+              </p>
+            </div>
           </div>
-        </div>
+        </section>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Link href="/place/jiduri-beach" className="rounded-3xl bg-white p-6 font-extrabold shadow-sm hover:shadow-md">← 지두리해변</Link>
-          <Link href="/place/sunset-observatory" className="rounded-3xl bg-gray-900 p-6 text-right font-extrabold text-white shadow-sm hover:shadow-md">해넘이전망대 →</Link>
-        </div>
-      </section>
+        {/* 주변 관광지 */}
+        <section className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-3xl font-black">
+            🗺️ 대청도에서 함께 둘러보기
+          </h2>
 
-      <PlaceReviews placeSlug="dapdong-beach" placeName="답동해변" />
-    </main>
+          <p className="mt-4 leading-7 text-gray-600">
+            답동해변과 함께 대청도의 다른 해변과 전망 명소도
+            연결해서 둘러보세요.
+          </p>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <Link
+              href="/place/jiduri-beach"
+              className="rounded-2xl border border-gray-200 p-5 transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-md"
+            >
+              <h3 className="text-lg font-extrabold">
+                지두리해변 →
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                대청도의 또 다른 해변 풍경을 만나는 곳
+              </p>
+            </Link>
+
+            <Link
+              href="/place/nongyeo-beach"
+              className="rounded-2xl border border-gray-200 p-5 transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-md"
+            >
+              <h3 className="text-lg font-extrabold">
+                농여해변 →
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                넓은 해안 풍경과 나이테바위를 함께 둘러보는 곳
+              </p>
+            </Link>
+
+            <Link
+              href="/place/sunset-observatory"
+              className="rounded-2xl border border-gray-200 p-5 transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-md"
+            >
+              <h3 className="text-lg font-extrabold">
+                해넘이전망대 →
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                대청도의 전망과 해넘이 풍경을 만나는 장소
+              </p>
+            </Link>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-3xl font-black">
+            ❓ 답동해변 자주 묻는 질문
+          </h2>
+
+          <div className="mt-7 space-y-6 text-gray-700">
+            <div>
+              <h3 className="font-bold">
+                Q. 답동해변은 어떤 여행자에게 추천하나요?
+              </h3>
+              <p className="mt-2 leading-7">
+                바다와 해안 풍경을 바라보며 천천히 걷는 여행이나
+                자연 사진 촬영을 좋아하는 여행자에게 잘 어울립니다.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-bold">
+                Q. 사진 찍기 좋은 곳인가요?
+              </h3>
+              <p className="mt-2 leading-7">
+                바다와 바위 해안을 함께 담아 대청도의 자연
+                풍경을 기록하기 좋습니다.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-bold">
+                Q. 방문 전에 무엇을 확인해야 하나요?
+              </h3>
+              <p className="mt-2 leading-7">
+                대청도 선박 운항과 날씨, 현지 이동 여건을
+                확인하고 현장의 안전 안내를 우선해 주세요.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 안전 */}
+        <section className="rounded-3xl border border-amber-200 bg-amber-50 p-7">
+          <h2 className="text-2xl font-black text-amber-950">
+            ⚠️ 방문 전 확인
+          </h2>
+
+          <p className="mt-4 leading-7 text-amber-950">
+            해안의 이용 여건은 날씨와 파도, 현지 상황에 따라
+            달라질 수 있습니다. 현장의 출입 및 안전 안내를
+            우선하고 파도가 높거나 바람이 강한 날에는 위험한
+            해안이나 암반에 무리하게 접근하지 마세요.
+          </p>
+        </section>
+      </div>
+
+      <PlaceReviews
+        placeSlug="dapdong-beach"
+        placeName="답동해변"
+      />
+    </PlaceTemplate>
   );
 }

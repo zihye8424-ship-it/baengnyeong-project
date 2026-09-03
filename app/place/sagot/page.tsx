@@ -1,5 +1,6 @@
 import PlaceTemplate from "../../components/PlaceTemplate";
 import PlaceReviews from "../../components/PlaceReviews";
+import Link from "next/link";
 
 export const metadata = {
   title: "백령도 사곶해변 여행 가이드 | 백령도의 모든 정보",
@@ -65,22 +66,45 @@ export default function SagotPage() {
         </section>
 
         <section className="rounded-3xl bg-white p-8 shadow-sm">
-          <h2 className="text-3xl font-black">🗺️ 함께 가기 좋은 코스</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-          <div className="rounded-2xl border border-gray-200 p-5">
-            <h3 className="text-lg font-extrabold">콩돌해안</h3>
-            <p className="mt-2 text-sm leading-6 text-gray-600">둥근 자갈과 파도 소리가 특별한 해안</p>
-          </div>
-          <div className="rounded-2xl border border-gray-200 p-5">
-            <h3 className="text-lg font-extrabold">심청각</h3>
-            <p className="mt-2 text-sm leading-6 text-gray-600">백령도의 설화와 문화 이야기를 접하는 곳</p>
-          </div>
-          <div className="rounded-2xl border border-gray-200 p-5">
-            <h3 className="text-lg font-extrabold">천안함 46용사 위령탑</h3>
-            <p className="mt-2 text-sm leading-6 text-gray-600">백령도의 안보 역사를 돌아보는 추모 공간</p>
-          </div>
-          </div>
-        </section>
+  <h2 className="text-3xl font-black">🗺️ 함께 가기 좋은 코스</h2>
+
+  <p className="mt-3 leading-7 text-gray-600">
+    사곶해변과 함께 백령도의 대표 관광지를 묶어 둘러보세요.
+    각 장소를 눌러 자세한 여행 정보를 확인할 수 있습니다.
+  </p>
+
+  <div className="mt-6 grid gap-4 md:grid-cols-3">
+    <Link
+      href="/place/kongdol"
+      className="rounded-2xl border border-gray-200 p-5 transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-md"
+    >
+      <h3 className="text-lg font-extrabold">콩돌해안 →</h3>
+      <p className="mt-2 text-sm leading-6 text-gray-600">
+        둥근 자갈과 파도 소리가 특별한 백령도 대표 해안
+      </p>
+    </Link>
+
+    <Link
+      href="/place/simcheonggak"
+      className="rounded-2xl border border-gray-200 p-5 transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-md"
+    >
+      <h3 className="text-lg font-extrabold">심청각 →</h3>
+      <p className="mt-2 text-sm leading-6 text-gray-600">
+        백령도의 설화와 서해 풍경을 함께 만나는 관광지
+      </p>
+    </Link>
+
+    <Link
+      href="/place/cheonan"
+      className="rounded-2xl border border-gray-200 p-5 transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-md"
+    >
+      <h3 className="text-lg font-extrabold">천안함 46용사 위령탑 →</h3>
+      <p className="mt-2 text-sm leading-6 text-gray-600">
+        백령도의 안보 역사를 돌아볼 수 있는 추모 공간
+      </p>
+    </Link>
+  </div>
+</section>
 
         <section className="rounded-3xl bg-white p-8 shadow-sm">
           <h2 className="text-3xl font-black">❓ 자주 묻는 질문</h2>

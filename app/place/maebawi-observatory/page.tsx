@@ -1,112 +1,314 @@
 import Link from "next/link";
+import PlaceTemplate from "../../components/PlaceTemplate";
 import PlaceReviews from "../../components/PlaceReviews";
 
 export const metadata = {
-  title: "대청도 매바위전망대 여행 가이드 | 백령도의 모든 정보",
-  description: "매 조형물과 함께 대청도의 산과 바다 풍경을 바라볼 수 있는 전망 포인트. 볼거리, 여행 팁, 백과사전식 정보와 방문 후기를 확인하세요.",
+  title: "대청도 매바위전망대 여행 가이드 | 전망·포토존·방문 팁",
+  description:
+    "대청도 매바위전망대 여행 가이드. 매 조형물과 함께 바라보는 산과 바다 전망, 사진 포인트, 방문 팁과 주변 대청도 관광지를 확인하세요.",
 };
-
-const quickFacts = [
-  ["추천 대상", "전망 · 포토존 · 자연"],
-  ["섬", "대청도"],
-  ["즐길거리", "풍경 감상 · 사진촬영 · 산책"],
-  ["준비", "편한 신발 · 바람막이 · 생수"],
-];
 
 export default function Page() {
   return (
-    <main className="min-h-screen bg-slate-50 text-gray-900">
-      <header className="sticky top-0 z-50 border-b bg-white/90 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-lg font-extrabold">백령도의 모든 정보</Link>
-          <Link href="/#place-section" className="rounded-full bg-gray-900 px-5 py-2 text-sm font-bold text-white">← 관광지로 돌아가기</Link>
-        </div>
-      </header>
+    <PlaceTemplate
+      title="매바위전망대"
+      subtitle="매 조형물과 함께 대청도의 산과 바다 풍경을 바라보는 전망 포인트"
+      image="/images/maebawi-observatory.png"
+      badges={["대청도", "전망대", "포토존", "사진여행"]}
+      quickFacts={[
+        ["추천 대상", "전망 · 사진 · 자연여행"],
+        ["추천 시간", "시야가 좋은 낮 시간"],
+        ["관람 포인트", "매 조형물 · 산과 바다 전망"],
+        ["준비물", "편한 신발 · 바람막이 · 카메라"],
+      ]}
+    >
+      <div className="space-y-8">
+        {/* 소개 */}
+        <section className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-3xl font-black">
+            🦅 매바위전망대는 어떤 곳인가요?
+          </h2>
 
-      <section className="relative h-[62vh] min-h-[480px] w-full overflow-hidden">
-        <img src="/images/maebawi-observatory.png" alt="대청도 매바위전망대" className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/10" />
-        <div className="absolute inset-x-0 bottom-0 mx-auto max-w-6xl px-6 pb-12 text-white">
-          <div className="mb-4 flex flex-wrap gap-2 text-sm font-bold">
-            <span className="rounded-full bg-sky-500 px-4 py-2">대청도 관광지</span>
-            <span className="rounded-full bg-white/20 px-4 py-2 backdrop-blur">전망 · 포토존 · 자연</span>
-          </div>
-          <h1 className="text-5xl font-black tracking-tight md:text-7xl">매바위전망대</h1>
-          <p className="mt-5 max-w-3xl text-lg leading-8 text-white/90 md:text-xl">매 조형물과 함께 대청도의 산과 바다 풍경을 바라볼 수 있는 전망 포인트</p>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-6 py-14">
-        <div className="grid gap-4 md:grid-cols-4">
-          {quickFacts.map(([title,value]) => (
-            <div key={title} className="rounded-3xl bg-white p-6 shadow-sm">
-              <p className="text-sm font-bold text-sky-600">{title}</p>
-              <p className="mt-2 font-extrabold leading-7">{value}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl space-y-8 px-6 pb-16">
-        <div className="rounded-[2rem] bg-white p-8 shadow-sm md:p-10">
-          <p className="font-bold text-sky-600">대청도에서 만나는 풍경</p>
-          <h2 className="mt-2 text-3xl font-black md:text-4xl">🌊 매바위전망대은 어떤 곳인가요?</h2>
-          <p className="mt-6 text-[17px] leading-8 text-gray-700">매 조형물과 함께 대청도의 산과 바다 풍경을 바라볼 수 있는 전망 포인트.</p>
-          <p className="mt-4 leading-8 text-gray-700">
-            이 페이지는 사용자가 직접 제공한 현지 사진을 중심으로 여행자가 현장에서 무엇을 볼 수 있는지 쉽게 이해하도록 정리했습니다.
-          </p>
-        </div>
-
-        <div className="rounded-[2rem] border border-emerald-100 bg-emerald-50 p-8 md:p-10">
-          <p className="font-bold text-emerald-700">백과사전식으로 알아보기</p>
-          <h2 className="mt-2 text-3xl font-black">🌍 매바위전망대의 자연과 지형</h2>
           <div className="mt-6 space-y-5 leading-8 text-gray-700">
             <p>
-              대청도는 서해의 섬으로 산지와 해안, 모래사장, 암석 해안 등 다양한 자연경관을 가까운 거리에서 만날 수 있습니다.
-              매바위전망대 역시 대청도의 자연환경을 직접 보고 느낄 수 있는 여행지입니다.
+              매바위전망대는 대청도의 산과 바다 풍경을
+              한자리에서 바라보며 쉬어가기 좋은 전망 포인트입니다.
             </p>
+
             <p>
-              현장에서는 바다의 색과 파도, 바람, 주변 산지와 해안선이 만드는 풍경을 함께 살펴보세요.
-              같은 장소도 날씨와 계절, 시간대에 따라 분위기가 크게 달라질 수 있습니다.
+              매를 형상화한 조형물이 있어 대청도 여행 중
+              기념사진을 남기기 좋고, 주변으로 펼쳐지는 자연
+              풍경까지 함께 감상할 수 있습니다.
             </p>
-            <p className="rounded-2xl bg-white p-5 text-sm text-gray-600">
-              ※ 사진은 사용자가 제공한 현지 자료를 사용했습니다. 운영·출입·안전 정보는 방문 당일 현장 안내를 우선 확인해 주세요.
+
+            <p>
+              해변과 해안 중심의 대청도 여행 중 잠시 높은
+              시선에서 섬의 풍경을 바라보고 싶을 때
+              함께 둘러보기 좋은 장소입니다.
             </p>
           </div>
-        </div>
+        </section>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-[2rem] bg-white p-8 shadow-sm">
-            <h2 className="text-2xl font-black">📸 여기서 꼭 볼 것</h2>
-            <ul className="mt-5 space-y-4 leading-7 text-gray-700">
-              <li>• 매 조형물이 있는 포토존</li><li>• 산과 바다를 함께 보는 전망</li><li>• 대청도 풍경 사진</li>
-            </ul>
+        {/* 전망 */}
+        <section className="rounded-3xl border border-emerald-100 bg-emerald-50 p-8 md:p-10">
+          <p className="font-bold text-emerald-700">
+            대청도를 바라보는 여행
+          </p>
+
+          <h2 className="mt-2 text-3xl font-black">
+            🌍 매바위전망대에서 바라보는 풍경
+          </h2>
+
+          <div className="mt-6 space-y-5 leading-8 text-gray-700">
+            <p>
+              전망대에서는 한 곳만 바라보기보다 주변의 산과
+              바다, 멀리 이어지는 섬 풍경을 천천히 둘러보세요.
+            </p>
+
+            <p>
+              날씨가 맑고 시야가 좋은 날에는 대청도의 자연을
+              보다 시원하게 감상할 수 있습니다. 구름과 바람,
+              시간대에 따라서도 풍경의 분위기가 달라집니다.
+            </p>
+
+            <p>
+              전망을 충분히 감상한 뒤 주변 관광지로 이동하면
+              해변과 산지, 전망 명소가 어우러진 대청도의
+              다양한 모습을 경험할 수 있습니다.
+            </p>
           </div>
-          <div className="rounded-[2rem] bg-white p-8 shadow-sm">
-            <h2 className="text-2xl font-black">🥾 방문 팁</h2>
-            <ul className="mt-5 space-y-4 leading-7 text-gray-700">
-              <li>• 전망대에서는 안전 난간 안쪽을 이용하세요.</li><li>• 바람이 강한 날은 모자 등 소지품에 주의하세요.</li><li>• 시야가 좋은 날 방문하면 풍경 감상에 좋습니다.</li>
-            </ul>
+        </section>
+
+        {/* 볼거리 */}
+        <section className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-3xl font-black">
+            👀 매바위전망대에서 놓치지 말 것
+          </h2>
+
+          <div className="mt-6 grid gap-5 md:grid-cols-2">
+            <div className="rounded-2xl bg-orange-50 p-6">
+              <h3 className="text-xl font-extrabold">
+                🦅 매 조형물
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                전망대의 매 조형물과 함께 대청도 여행
+                기념사진을 남겨보세요.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-sky-50 p-6">
+              <h3 className="text-xl font-extrabold">
+                🌊 바다 전망
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                시야가 좋은 날에는 전망대에서 주변 바다와
+                섬의 풍경을 넓게 바라보세요.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-emerald-50 p-6">
+              <h3 className="text-xl font-extrabold">
+                ⛰️ 산과 섬 풍경
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                바다뿐 아니라 주변 산지와 자연이 함께
+                만들어내는 대청도의 풍경도 살펴보세요.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-violet-50 p-6">
+              <h3 className="text-xl font-extrabold">
+                📷 포토존
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                조형물과 자연 풍경을 함께 활용하면
+                전망대의 특징이 잘 드러나는 사진을 남길 수 있습니다.
+              </p>
+            </div>
           </div>
-        </div>
+        </section>
 
-        
+        {/* 방문 팁 */}
+        <section className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-3xl font-black">
+            🥾 매바위전망대 방문 팁
+          </h2>
 
-        <div className="rounded-[2rem] bg-white p-8 shadow-sm md:p-10">
-          <h2 className="text-3xl font-black">❓ 자주 묻는 질문</h2>
-          <div className="mt-8 space-y-6 text-gray-700">
-            <div><h3 className="text-lg font-bold">Q. 매바위전망대은 사진 찍기 좋은가요?</h3><p className="mt-2 leading-7">네. 대청도의 자연 풍경을 배경으로 여행 사진을 남기기 좋습니다. 날씨와 시간대에 따라 풍경이 달라집니다.</p></div>
-            <div><h3 className="text-lg font-bold">Q. 방문 전에 무엇을 확인해야 하나요?</h3><p className="mt-2 leading-7">섬 지역은 기상 영향을 크게 받으므로 배편, 날씨와 현장 이동 여건을 확인하는 것이 좋습니다.</p></div>
+          <ul className="mt-6 space-y-4 leading-8 text-gray-700">
+            <li>
+              ✅ 시야가 좋은 날 방문하면 주변 풍경을
+              감상하기 좋습니다.
+            </li>
+
+            <li>
+              ✅ 대청도는 바람이 강한 날이 있을 수 있으므로
+              바람막이나 겉옷을 준비하세요.
+            </li>
+
+            <li>
+              ✅ 전망대에서는 안전 난간 안쪽에서 관람하고
+              현장의 안전 안내를 따라주세요.
+            </li>
+
+            <li>
+              ✅ 바람이 강할 때는 모자와 휴대전화 등
+              가벼운 소지품이 날리지 않도록 주의하세요.
+            </li>
+
+            <li>
+              ✅ 다른 대청도 관광지와 함께 이동한다면
+              날씨와 이동 시간을 고려해 여유 있게 일정을 잡으세요.
+            </li>
+          </ul>
+        </section>
+
+        {/* 사진 포인트 */}
+        <section className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-3xl font-black">
+            📸 매바위전망대 사진 포인트
+          </h2>
+
+          <div className="mt-6 grid gap-5 md:grid-cols-3">
+            <div className="rounded-2xl border border-gray-200 p-6">
+              <h3 className="text-lg font-extrabold">
+                🦅 조형물과 함께
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                매 조형물과 인물을 함께 담아 대청도 여행의
+                기념사진을 남겨보세요.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 p-6">
+              <h3 className="text-lg font-extrabold">
+                🌊 풍경을 넓게
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                바다와 주변 산지가 함께 들어오도록 넓게
+                촬영하면 전망대의 시원한 느낌을 살릴 수 있습니다.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 p-6">
+              <h3 className="text-lg font-extrabold">
+                ☀️ 빛의 방향 확인
+              </h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                촬영할 때 햇빛의 방향을 확인하면서 위치를
+                조금씩 바꿔보면 다른 분위기의 사진을 남길 수 있습니다.
+              </p>
+            </div>
           </div>
-        </div>
+        </section>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Link href="/place/samgaksan" className="rounded-3xl bg-white p-6 font-extrabold shadow-sm hover:shadow-md">← 삼각산</Link>
-          <Link href="/place/moraeul-beach" className="rounded-3xl bg-gray-900 p-6 text-right font-extrabold text-white shadow-sm hover:shadow-md">모래울해변 →</Link>
-        </div>
-      </section>
+        {/* 함께 둘러보기 */}
+        <section className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-3xl font-black">
+            🗺️ 대청도에서 함께 둘러보기
+          </h2>
 
-      <PlaceReviews placeSlug="maebawi-observatory" placeName="매바위전망대" />
-    </main>
+          <p className="mt-4 leading-7 text-gray-600">
+            매바위전망대와 함께 대청도의 산과 독특한 자연,
+            전망 명소를 이어서 둘러보세요.
+          </p>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <Link
+              href="/place/samgaksan"
+              className="rounded-2xl border border-gray-200 p-5 transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-md"
+            >
+              <h3 className="text-lg font-extrabold">
+                삼각산 →
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                대청도의 산과 자연 풍경을 만나는 여행지
+              </p>
+            </Link>
+
+            <Link
+              href="/place/okjuk-sanddune"
+              className="rounded-2xl border border-gray-200 p-5 transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-md"
+            >
+              <h3 className="text-lg font-extrabold">
+                옥죽동 모래사막 →
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                대청도에서 만나는 독특한 모래 풍경
+              </p>
+            </Link>
+
+            <Link
+              href="/place/sunset-observatory"
+              className="rounded-2xl border border-gray-200 p-5 transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-md"
+            >
+              <h3 className="text-lg font-extrabold">
+                해넘이전망대 →
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                대청도의 전망과 해넘이 풍경을 만나는 장소
+              </p>
+            </Link>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-3xl font-black">
+            ❓ 매바위전망대 자주 묻는 질문
+          </h2>
+
+          <div className="mt-7 space-y-6 text-gray-700">
+            <div>
+              <h3 className="font-bold">
+                Q. 매바위전망대에서는 무엇을 볼 수 있나요?
+              </h3>
+              <p className="mt-2 leading-7">
+                매 조형물과 함께 주변 산과 바다 등
+                대청도의 자연 풍경을 감상할 수 있습니다.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-bold">
+                Q. 사진 찍기 좋은 곳인가요?
+              </h3>
+              <p className="mt-2 leading-7">
+                매 조형물과 자연 풍경을 함께 활용해
+                대청도 여행 기념사진을 남기기 좋습니다.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-bold">
+                Q. 방문 전에 무엇을 확인해야 하나요?
+              </h3>
+              <p className="mt-2 leading-7">
+                선박 운항과 날씨, 현지 이동 여건을 확인하고
+                전망대의 출입 및 안전 안내를 따라주세요.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 안전 */}
+        <section className="rounded-3xl border border-amber-200 bg-amber-50 p-7">
+          <h2 className="text-2xl font-black text-amber-950">
+            ⚠️ 방문 전 확인
+          </h2>
+
+          <p className="mt-4 leading-7 text-amber-950">
+            전망대 이용 여건은 날씨와 현지 상황에 따라
+            달라질 수 있습니다. 바람이 강하거나 기상이 좋지
+            않은 날에는 안전에 특히 주의하고 현장의 출입 및
+            안전 안내를 우선해 주세요.
+          </p>
+        </section>
+      </div>
+
+      <PlaceReviews
+        placeSlug="maebawi-observatory"
+        placeName="매바위전망대"
+      />
+    </PlaceTemplate>
   );
 }
