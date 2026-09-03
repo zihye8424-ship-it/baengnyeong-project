@@ -42,7 +42,7 @@ export default function PlaceTemplate({
       <section className="relative h-[62vh] min-h-[480px] overflow-hidden">
         <Image
           src={image}
-          alt={`${title} - 백령도 관광지`}
+          alt={`${title} - 섬 관광지`}
           fill
           priority
           className="object-cover"
@@ -104,7 +104,7 @@ export default function PlaceTemplate({
             </h2>
 
             <p className="mt-5 leading-8 text-gray-700">
-              백령도는 섬 지역 특성상 기상과 현지 상황에 따라
+              섬 지역은 기상과 현지 상황에 따라
               관광지 이용 여건이 달라질 수 있습니다. 방문 전 날씨와
               현장 안내를 확인하면 더욱 안전하고 편안하게 여행할 수 있습니다.
             </p>
@@ -113,14 +113,14 @@ export default function PlaceTemplate({
           {/* 여행 한눈에 보기 */}
           <div className="rounded-3xl bg-white p-8 shadow-sm">
             <h2 className="text-3xl font-black">
-              💡 백령도 여행 한눈에 보기
+              💡 섬 여행 한눈에 보기
             </h2>
 
             <div className="mt-6 grid gap-4 md:grid-cols-3">
               <div className="rounded-2xl bg-sky-50 p-5">
                 <h3 className="font-bold">📸 사진 여행</h3>
                 <p className="mt-2 leading-7 text-gray-700">
-                  백령도의 바다와 자연 풍경을 사진으로 남겨보세요.
+                  서해 섬의 바다와 자연 풍경을 사진으로 남겨보세요.
                 </p>
               </div>
 
@@ -149,11 +149,11 @@ export default function PlaceTemplate({
           <div className="flex flex-col items-center justify-between gap-5 rounded-3xl bg-slate-100 p-7 md:flex-row">
             <div>
               <h2 className="text-2xl font-black">
-                🗺️ 백령도 다른 관광지도 둘러보세요
+                🗺️ 다른 관광지도 둘러보세요
               </h2>
 
               <p className="mt-2 leading-7 text-gray-600">
-                백령도의 다양한 관광지와 여행 정보를 한눈에 확인해 보세요.
+                백령·대청·소청의 다양한 관광지와 여행 정보를 한눈에 확인해 보세요.
               </p>
             </div>
 

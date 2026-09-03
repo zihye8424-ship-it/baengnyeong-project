@@ -495,7 +495,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       category: "관광지",
       description: "매 조형물과 함께 대청도의 산과 바다 풍경을 바라볼 수 있는 전망 포인트",
       location: "인천 옹진군 대청면",
-      tip: "🦅 매 조형물 · 🔭 해안 전망 · 📸 서해 최북단 백령도를 상징하는 기념비 앞에서 여행 인증사진을 남겨보세요.",
+      tip: "🦅 매 조형물 · 🔭 대청도 해안 전망 · 📸 산과 바다가 어우러진 풍경을 배경으로 사진을 남겨보세요.",
       link: "/place/maebawi-observatory",
     },
 

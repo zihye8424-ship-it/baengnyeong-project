@@ -18,7 +18,7 @@ export default function SagotPage() {
     >
       <div className="space-y-8">
         <section className="rounded-3xl bg-white p-8 shadow-sm">
-          <h2 className="text-3xl font-black">🏖️ 사곶해변은(는) 어떤 곳인가요?</h2>
+          <h2 className="text-3xl font-black">🏖️ 사곶해변은 어떤 곳인가요?</h2>
         <p className="mt-5 leading-8 text-gray-700">사곶해변은 단단한 모래층과 넓게 펼쳐진 해변으로 잘 알려진 백령도의 대표 자연 명소입니다. 과거 항공기 이착륙과 관련된 '천연비행장' 이야기로도 널리 소개되어 왔습니다.</p>
         <p className="mt-5 leading-8 text-gray-700">넓은 해변과 서해 풍경이 어우러져 산책과 사진 촬영을 즐기기 좋으며, 백령도를 처음 방문한 여행객들이 많이 찾는 대표 코스 중 하나입니다.</p>
         </section>
