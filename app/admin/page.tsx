@@ -21,6 +21,16 @@ type Notice = {
   created_at: string;
 };
 
+type PlaceReview = {
+  id: number;
+  place_slug: string;
+  nickname: string;
+  rating: number;
+  content: string;
+  status: string;
+  created_at?: string;
+};
+
 type TravelerFootprint = {
   id: number;
   nickname: string;
@@ -42,6 +52,7 @@ export default function AdminPage() {
   const [noticeTitle, setNoticeTitle] = useState("");
   const [noticeContent, setNoticeContent] = useState("");
   const [footprints, setFootprints] = useState<TravelerFootprint[]>([]);
+  const [reviews, setReviews] = useState<PlaceReview[]>([]);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -83,6 +94,7 @@ export default function AdminPage() {
       loadQuestions();
       loadNotices();
       loadFootprints();
+      loadReviews();
     }
   }, [isAdmin]);
 
@@ -161,6 +173,54 @@ export default function AdminPage() {
     } catch (error) {
       alert(error instanceof Error ? error.message : "삭제에 실패했어요.");
       console.error(error);
+    }
+  }
+
+  async function reviewAdminRequest(
+    action: "list" | "approve" | "delete",
+    item?: PlaceReview
+  ) {
+    const response = await fetch("/api/admin/place-reviews", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password: adminPassword, action, id: item?.id }),
+    });
+    const result = await response.json();
+    if (!response.ok || !result.ok) {
+      throw new Error(result.message || "리뷰 관리자 요청을 처리하지 못했어요.");
+    }
+    return result;
+  }
+
+  async function loadReviews() {
+    try {
+      const result = await reviewAdminRequest("list");
+      setReviews(result.data || []);
+    } catch (error) {
+      console.error("리뷰 불러오기 오류:", error);
+    }
+  }
+
+  async function handleApproveReview(id: number) {
+    try {
+      const item = reviews.find((review) => review.id === id);
+      if (!item) return;
+      await reviewAdminRequest("approve", item);
+      alert("리뷰를 승인했어요.");
+      loadReviews();
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "리뷰 승인에 실패했어요.");
+    }
+  }
+
+  async function handleDeleteReview(item: PlaceReview) {
+    if (!confirm("이 리뷰를 삭제하시겠습니까?")) return;
+    try {
+      await reviewAdminRequest("delete", item);
+      alert("리뷰를 삭제했어요.");
+      loadReviews();
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "리뷰 삭제에 실패했어요.");
     }
   }
 
@@ -291,7 +351,7 @@ export default function AdminPage() {
         <h1 className="text-4xl font-bold">관리자 페이지</h1>
 
         <button
-          onClick={() => { setIsAdmin(false); setAdminPassword(""); setFootprints([]); }}
+          onClick={() => { setIsAdmin(false); setAdminPassword(""); setFootprints([]); setReviews([]); }}
           className="rounded-xl bg-gray-100 px-4 py-2 font-bold"
         >
           로그아웃
@@ -406,23 +466,75 @@ export default function AdminPage() {
                     </p>
                   )}
 
-                  <div className="mt-5 flex gap-3">
-                    {!item.is_approved && (
-                      <button
-                        onClick={() => handleApproveFootprint(item.id)}
-                        className="flex-1 rounded-xl bg-green-500 px-4 py-3 font-bold text-white hover:bg-green-600"
-                      >
-                        ✓ 승인해서 공개
-                      </button>
-                    )}
+                <div className="mt-5 flex gap-3">
+  <button
+    type="button"
+    onClick={() => handleApproveFootprint(item.id)}
+    disabled={item.is_approved}
+    className={`flex-1 rounded-xl px-4 py-3 font-bold text-white ${
+      item.is_approved
+        ? "cursor-not-allowed bg-gray-400"
+        : "bg-green-500 hover:bg-green-600"
+    }`}
+  >
+    {item.is_approved ? "✓ 현재 공개중" : "✓ 승인해서 공개"}
+  </button>
 
-                    <button
-                      onClick={() => handleDeleteFootprint(item)}
-                      className="rounded-xl bg-red-500 px-4 py-3 font-bold text-white hover:bg-red-600"
-                    >
-                      삭제
-                    </button>
+  <button
+    type="button"
+    onClick={() => handleDeleteFootprint(item)}
+    className="rounded-xl bg-red-500 px-4 py-3 font-bold text-white hover:bg-red-600"
+  >
+    삭제
+  </button>
+</div>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <section>
+        <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="font-bold text-emerald-600">PLACE REVIEW</p>
+            <h2 className="text-3xl font-bold">⭐ 관광지 방문 리뷰 관리</h2>
+          </div>
+          <p className="text-sm text-gray-500">
+            승인대기 {reviews.filter((item) => item.status !== "approved").length}개 · 공개중 {reviews.filter((item) => item.status === "approved").length}개
+          </p>
+        </div>
+        {reviews.length === 0 ? (
+          <div className="rounded-3xl bg-white p-8 text-center text-gray-500 shadow">
+            아직 등록된 방문 리뷰가 없어요.
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {reviews.map((item) => (
+              <article key={item.id} className="rounded-3xl bg-white p-6 shadow-lg">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <p className="text-sm font-bold text-sky-600">{item.place_slug}</p>
+                    <h3 className="mt-1 text-xl font-bold">{item.nickname}</h3>
+                    <p className="mt-1 text-lg text-amber-500">
+                      {"★".repeat(item.rating)}{"☆".repeat(5 - item.rating)}
+                    </p>
                   </div>
+                  <span className={`rounded-full px-3 py-1 text-xs font-bold ${item.status === "approved" ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>
+                    {item.status === "approved" ? "공개중" : "승인대기"}
+                  </span>
+                </div>
+                <p className="mt-4 whitespace-pre-wrap leading-7 text-gray-700">{item.content}</p>
+                <div className="mt-5 flex gap-3">
+                  {item.status !== "approved" && (
+                    <button onClick={() => handleApproveReview(item.id)} className="flex-1 rounded-xl bg-green-500 px-4 py-3 font-bold text-white hover:bg-green-600">
+                      ✓ 승인해서 공개
+                    </button>
+                  )}
+                  <button onClick={() => handleDeleteReview(item)} className="rounded-xl bg-red-500 px-4 py-3 font-bold text-white hover:bg-red-600">
+                    삭제
+                  </button>
                 </div>
               </article>
             ))}

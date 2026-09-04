@@ -1,66 +1,61 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
-export const runtime = "nodejs";
-
-function getAdminClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-  if (!supabaseUrl || !serviceRoleKey) {
-    throw new Error(
-      "Supabase 관리자 환경변수가 설정되지 않았어요. NEXT_PUBLIC_SUPABASE_URL과 SUPABASE_SERVICE_ROLE_KEY를 확인해주세요."
-    );
-  }
-
-  return createClient(supabaseUrl, serviceRoleKey, {
-    auth: {
-      persistSession: false,
-      autoRefreshToken: false,
-    },
-  });
-}
-
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const password = typeof body?.password === "string" ? body.password : "";
-    const action = typeof body?.action === "string" ? body.action : "";
+    const { password, action, id, image_url } = await request.json();
 
-    const adminPassword = process.env.ADMIN_PASSWORD;
-
-    if (!adminPassword) {
+    if (
+      !process.env.ADMIN_PASSWORD ||
+      password !== process.env.ADMIN_PASSWORD
+    ) {
       return NextResponse.json(
-        { ok: false, message: "ADMIN_PASSWORD 환경변수를 확인해주세요." },
-        { status: 500 }
-      );
-    }
-
-    if (!password || password !== adminPassword) {
-      return NextResponse.json(
-        { ok: false, message: "관리자 인증이 필요해요." },
+        {
+          ok: false,
+          message: "관리자 인증에 실패했습니다.",
+        },
         { status: 401 }
       );
     }
 
-    const supabase = getAdminClient();
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+    if (!url || !serviceRoleKey) {
+      throw new Error(
+        "Supabase 관리자 환경변수가 설정되지 않았습니다."
+      );
+    }
+
+    const supabase = createClient(url, serviceRoleKey, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+      },
+    });
 
     if (action === "list") {
       const { data, error } = await supabase
         .from("traveler_footprints")
-        .select("*")
+        .select(
+          "id, nickname, island, place_name, story, image_url, is_approved, created_at"
+        )
         .order("created_at", { ascending: false });
 
       if (error) throw error;
 
-      return NextResponse.json({ ok: true, data: data ?? [] });
+      return NextResponse.json({
+        ok: true,
+        data: data || [],
+      });
     }
 
-    const id = Number(body?.id);
-
-    if (!Number.isFinite(id)) {
+    if (!id) {
       return NextResponse.json(
-        { ok: false, message: "사진 번호가 올바르지 않아요." },
+        {
+          ok: false,
+          message: "게시물 ID가 없습니다.",
+        },
         { status: 400 }
       );
     }
@@ -77,31 +72,29 @@ export async function POST(request: Request) {
     }
 
     if (action === "delete") {
-      const imageUrl =
-        typeof body?.image_url === "string" ? body.image_url : "";
-
-      const { error: deleteRowError } = await supabase
+      const { error } = await supabase
         .from("traveler_footprints")
         .delete()
         .eq("id", id);
 
-      if (deleteRowError) throw deleteRowError;
+      if (error) throw error;
 
-      if (imageUrl) {
-        const marker = "/traveler-footprints/";
-        const markerIndex = imageUrl.indexOf(marker);
+      if (image_url && typeof image_url === "string") {
+        try {
+          const marker =
+            "/storage/v1/object/public/traveler-footprints/";
 
-        if (markerIndex >= 0) {
-          const encodedPath = imageUrl.slice(markerIndex + marker.length);
-          const storagePath = decodeURIComponent(encodedPath);
+          if (image_url.includes(marker)) {
+            const imagePath = decodeURIComponent(
+              image_url.split(marker)[1]
+            );
 
-          const { error: storageError } = await supabase.storage
-            .from("traveler-footprints")
-            .remove([storagePath]);
-
-          if (storageError) {
-            console.error("섬 발자국 Storage 삭제 오류:", storageError);
+            await supabase.storage
+              .from("traveler-footprints")
+              .remove([imagePath]);
           }
+        } catch (storageError) {
+          console.error("사진 파일 삭제 오류:", storageError);
         }
       }
 
@@ -109,11 +102,14 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json(
-      { ok: false, message: "지원하지 않는 관리자 작업이에요." },
+      {
+        ok: false,
+        message: "지원하지 않는 요청입니다.",
+      },
       { status: 400 }
     );
   } catch (error) {
-    console.error("traveler-footprints admin API error:", error);
+    console.error("섬 발자국 관리자 API 오류:", error);
 
     return NextResponse.json(
       {
@@ -121,7 +117,7 @@ export async function POST(request: Request) {
         message:
           error instanceof Error
             ? error.message
-            : "섬 발자국 관리자 요청을 처리하지 못했어요.",
+            : "섬 발자국 관리자 요청 처리 중 오류가 발생했습니다.",
       },
       { status: 500 }
     );

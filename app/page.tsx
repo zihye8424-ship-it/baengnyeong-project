@@ -88,6 +88,21 @@ const stayPhotos: Record<string, string[]> = {
   ],
 };
 
+const daecheongGallery = [
+  { src: "/images/seopungbaji.png", name: "서풍받이" },
+  { src: "/images/nongyeo-beach.png", name: "농여해변" },
+  { src: "/images/miadong-beach.png", name: "미아동해변" },
+  { src: "/images/samgaksan.png", name: "삼각산" },
+  { src: "/images/maebawi-observatory.png", name: "매바위전망대" },
+  { src: "/images/moraeul-beach.png", name: "모래울해변" },
+  { src: "/images/jiduri-beach.png", name: "지두리해변" },
+  { src: "/images/dapdong-beach.png", name: "답동해변" },
+  { src: "/images/sunset-observatory.png", name: "해넘이전망대" },
+  { src: "/images/okjuk-sand-dune.png", name: "옥죽동 해안사구" },
+  { src: "/images/geomeunnang-coast.png", name: "검은낭 해안" },
+  { src: "/images/dokbawi.png", name: "독바위" },
+];
+
 export default function Home() {
   const [heroSlideIndex, setHeroSlideIndex] = useState(0);
   const [newsFilter, setNewsFilter] = useState("전체");
@@ -191,6 +206,9 @@ export default function Home() {
       if (selectedIsland === "백령도") {
         setShowStay(true);
         targetId = "stay";
+      } else if (selectedIsland === "대청도") {
+        setShowStay(true);
+        targetId = "daecheong-stay";
       } else {
         targetId = "island-directory";
       }
@@ -199,6 +217,9 @@ export default function Home() {
       if (selectedIsland === "백령도") {
         setShowFood(true);
         targetId = "food";
+      } else if (selectedIsland === "대청도") {
+        setShowFood(true);
+        targetId = "daecheong-food";
       } else {
         targetId = "island-directory";
       }
@@ -2091,8 +2112,8 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   )}
 </section>
 
-      {selectedIsland !== "백령도" &&
-        ["맛집", "숙박", "낚시배"].includes(selectedCategory) && (
+      {((selectedIsland === "대청도" && selectedCategory === "낚시배") ||
+        (selectedIsland === "소청도" && ["맛집", "숙박"].includes(selectedCategory))) && (
         <section id="island-directory" className="max-w-7xl mx-auto px-4 sm:px-6 pb-12 md:pb-20">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
@@ -4337,6 +4358,111 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         </button>
       </div>
 
+  </>
+)}
+
+{selectedIsland === "대청도" && (
+  <>
+    {/* 대청도 사진첩 */}
+    <section id="daecheong-gallery" className="scroll-mt-24 mx-auto max-w-7xl px-6 pb-20">
+      <div className="rounded-[2rem] border border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-cyan-50 p-6 shadow-sm md:p-10">
+        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="font-bold text-emerald-600">대청도 풍경사진</p>
+            <h2 className="mt-2 text-3xl font-extrabold text-gray-900 md:text-4xl">📸 대청도 사진첩 한눈에 보기</h2>
+            <p className="mt-3 leading-7 text-gray-600">
+              해안사구부터 해변·전망대·기암절벽까지 대청도의 풍경을 사진으로 만나보세요.
+              사진을 누르면 크게 볼 수 있어요.
+            </p>
+          </div>
+          <button type="button" onClick={() => setShowGallery(!showGallery)} className="shrink-0 rounded-2xl bg-gray-900 px-7 py-4 text-lg font-extrabold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-emerald-600">
+            {showGallery ? "사진첩 닫기 ▲" : "사진첩 전체보기 ▼"}
+          </button>
+        </div>
+        {showGallery && (
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {daecheongGallery.map((photo) => (
+              <a key={photo.name} href={photo.src} target="_blank" rel="noopener noreferrer" className="group relative overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-black/5 transition hover:-translate-y-1 hover:shadow-xl">
+                <Image src={photo.src} alt={`대청도 ${photo.name}`} width={800} height={600} className="h-64 w-full object-cover transition duration-500 group-hover:scale-105" />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-5 pb-4 pt-12 text-white"><p className="font-extrabold">{photo.name}</p></div>
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+
+    {/* 대청도 숙소 */}
+    <section id="daecheong-stay" className="scroll-mt-24 mx-auto max-w-7xl px-6 pb-20">
+      <div className="rounded-[2rem] border border-sky-100 bg-gradient-to-br from-sky-50 to-blue-50 p-6 shadow-sm md:p-10">
+        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="font-bold text-sky-600">대청도 숙박정보</p>
+            <h2 className="mt-2 text-3xl font-extrabold text-gray-900 md:text-4xl">🏨 대청도 숙소 한눈에 보기</h2>
+            <p className="mt-3 leading-7 text-gray-600">대청도 민박·펜션·여관의 연락처를 확인하고 바로 전화할 수 있어요. 요금과 객실, 픽업 여부는 예약 전에 확인해 주세요.</p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {["🚢 선진포항 픽업 문의", "🚗 차량·주차 확인", "🍳 식사 제공 여부", "👨‍👩‍👧 단체 객실 문의", "🌊 결항 시 변경 기준"].map((tip) => (
+                <span key={tip} className="rounded-full border border-sky-100 bg-white px-3 py-2 text-xs font-bold text-sky-700 shadow-sm">{tip}</span>
+              ))}
+            </div>
+          </div>
+          <button type="button" onClick={() => setShowStay(!showStay)} className="shrink-0 rounded-2xl bg-gray-900 px-7 py-4 text-lg font-extrabold text-white shadow-lg transition hover:bg-sky-600">
+            {showStay ? "숙소 목록 닫기 ▲" : `숙소 ${daecheongStay.length}곳 전체보기 ▼`}
+          </button>
+        </div>
+        {showStay && (
+          <div className="mt-8">
+            <input value={staySearch} onChange={(e) => setStaySearch(e.target.value)} placeholder="🔎 숙소명 · 대표자 · 전화번호 검색" className="w-full rounded-2xl border-2 border-sky-100 bg-white px-5 py-4 outline-none focus:border-sky-500" />
+            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {daecheongStay.filter(([name, owner, phone]) => `${name} ${owner} ${phone}`.toLowerCase().includes(staySearch.trim().toLowerCase())).map(([name, owner, phone]) => (
+                <article key={name} className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-sky-100">
+                  <span className="rounded-full bg-sky-50 px-3 py-1 text-xs font-bold text-sky-700">대청도 숙소</span>
+                  <h3 className="mt-4 text-xl font-extrabold text-gray-900">{name}</h3>
+                  <p className="mt-2 text-sm text-gray-500">대표자 {owner}</p>
+                  <a href={`tel:${phone.replace(/-/g, "")}`} className="mt-5 block rounded-xl bg-sky-600 px-4 py-3 text-center font-bold text-white hover:bg-sky-700">☎ {phone}</a>
+                </article>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+
+    {/* 대청도 음식점 */}
+    <section id="daecheong-food" className="scroll-mt-24 mx-auto max-w-7xl px-6 pb-20">
+      <div className="rounded-[2rem] border border-orange-100 bg-gradient-to-br from-orange-50 to-amber-50 p-6 shadow-sm md:p-10">
+        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="font-bold text-orange-600">대청도 음식점 정보</p>
+            <h2 className="mt-2 text-3xl font-extrabold text-gray-900 md:text-4xl">🍜 대청도 음식점 한눈에 보기</h2>
+            <p className="mt-3 leading-7 text-gray-600">대청도 음식점 연락처를 확인하고 영업 여부와 식사 가능 시간을 바로 문의해 보세요.</p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {["🍚 아침식사 문의", "🥡 포장 가능 여부", "👨‍👩‍👧 단체 식사", "🐟 해산물·회", "🍜 간단한 한 끼"].map((tip) => (
+                <span key={tip} className="rounded-full border border-orange-100 bg-white px-3 py-2 text-xs font-bold text-orange-700 shadow-sm">{tip}</span>
+              ))}
+            </div>
+          </div>
+          <button type="button" onClick={() => setShowFood(!showFood)} className="shrink-0 rounded-2xl bg-gray-900 px-7 py-4 text-lg font-extrabold text-white shadow-lg transition hover:bg-orange-600">
+            {showFood ? "음식점 목록 닫기 ▲" : `음식점 ${daecheongFood.length}곳 전체보기 ▼`}
+          </button>
+        </div>
+        {showFood && (
+          <div className="mt-8">
+            <input value={foodSearch} onChange={(e) => setFoodSearch(e.target.value)} placeholder="🔎 음식점명 · 대표자 · 전화번호 검색" className="w-full rounded-2xl border-2 border-orange-100 bg-white px-5 py-4 outline-none focus:border-orange-500" />
+            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {daecheongFood.filter(([name, owner, phone]) => `${name} ${owner} ${phone}`.toLowerCase().includes(foodSearch.trim().toLowerCase())).map(([name, owner, phone]) => (
+                <article key={name} className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-orange-100">
+                  <span className="rounded-full bg-orange-50 px-3 py-1 text-xs font-bold text-orange-700">대청도 음식점</span>
+                  <h3 className="mt-4 text-xl font-extrabold text-gray-900">{name}</h3>
+                  <p className="mt-2 text-sm text-gray-500">대표자 {owner}</p>
+                  <a href={`tel:${phone.replace(/-/g, "")}`} className="mt-5 block rounded-xl bg-orange-500 px-4 py-3 text-center font-bold text-white hover:bg-orange-600">☎ {phone}</a>
+                </article>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
   </>
 )}
 
