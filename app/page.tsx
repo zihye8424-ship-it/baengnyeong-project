@@ -19,6 +19,35 @@ const quickMenuItems = [
   { icon: "📢", label: "축제·소식", key: "news" },
 ];
 
+const platformServiceItems = [
+  { icon: "🏝️", title: "섬별 관광지", description: "선택한 섬의 명소 보기", key: "places" },
+  { icon: "🚢", title: "배편·운항정보", description: "배편과 예약정보 확인", key: "ship" },
+  { icon: "🏠", title: "숙소 한눈에", description: "섬별 숙박정보 보기", key: "stay" },
+  { icon: "🍜", title: "음식점 한눈에", description: "섬별 맛집정보 보기", key: "food" },
+  { icon: "🎣", title: "낚시배 정보", description: "낚시배와 출조정보 확인", key: "fishing" },
+  { icon: "📸", title: "여행사진 올리기", description: "나의 섬 여행 공유하기", key: "footprints" },
+  { icon: "💬", title: "문의·정보제보", description: "새 정보와 수정사항 알리기", key: "contact" },
+];
+
+const islandWeatherLocations = [
+  { name: "백령도", latitude: 37.96, longitude: 124.67, image: "/images/hero/hero-06.png" },
+  { name: "대청도", latitude: 37.83, longitude: 124.69, image: "/images/daecheong.jpg" },
+  { name: "소청도", latitude: 37.76, longitude: 124.75, image: "/images/socheong.jpg" },
+];
+
+function weatherCodeInfo(code: number | null) {
+  if (code === null) return { label: "불러오는 중", icon: "🌤️" };
+  if (code === 0) return { label: "맑음", icon: "☀️" };
+  if ([1, 2].includes(code)) return { label: "대체로 맑음", icon: "🌤️" };
+  if (code === 3) return { label: "흐림", icon: "☁️" };
+  if ([45, 48].includes(code)) return { label: "안개", icon: "🌫️" };
+  if ([51, 53, 55, 56, 57].includes(code)) return { label: "이슬비", icon: "🌦️" };
+  if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return { label: "비", icon: "🌧️" };
+  if ([71, 73, 75, 77, 85, 86].includes(code)) return { label: "눈", icon: "🌨️" };
+  if ([95, 96, 99].includes(code)) return { label: "뇌우", icon: "⛈️" };
+  return { label: "구름 많음", icon: "⛅" };
+}
+
 const islandNews = [
   { date:"2026.09.15", month:"9월", island:"백령도", type:"행사", title:"2026년 백령면민의 날 행사", place:"백령다목적실내체육관 (화동체육관)", image:"/images/news/baengnyeong-residents-day-2026.png" },
   { date:"2026.08.26", month:"8월", island:"백령도", type:"행사", title:"섬 라이프 아카데미", place:"백령종합사회복지관", image:"/images/news/island-life-academy.jpg" },
@@ -103,8 +132,27 @@ const daecheongGallery = [
   { src: "/images/dokbawi.png", name: "독바위" },
 ];
 
+const daecheongSpecialties = [
+  { name: "우럭", image: "/images/specialties/daecheong-rockfish.png", description: "대청도 청정 해역에서 만나는 대표 어종으로, 담백하고 탄탄한 식감이 매력적이에요." },
+  { name: "홍어", image: "/images/specialties/daecheong-skate.png", description: "대청도 연근해에서 잡히는 수산물로, 신선한 상태부터 숙성 요리까지 다양하게 즐겨요." },
+  { name: "흑염소", image: "/images/specialties/daecheong-black-goat.png", description: "대청도의 자연환경에서 자란 흑염소로, 현지 식재료와 특산품으로 알려져 있어요." },
+  { name: "전복", image: "/images/specialties/daecheong-abalone.png", description: "깨끗한 바다에서 자란 전복은 쫄깃한 식감과 진한 바다 풍미가 특징이에요." },
+  { name: "해삼", image: "/images/specialties/daecheong-sea-cucumber.png", description: "대청도 바다에서 채취하는 해삼은 오독오독한 식감으로 사랑받는 해산물이에요." },
+  { name: "꽃게", image: "/images/specialties/daecheong-blue-crab.png", description: "제철에 살과 알이 차오른 꽃게는 찜·탕·게장 등 다양한 요리에 잘 어울려요." },
+  { name: "돌미역", image: "/images/specialties/daecheong-rock-seaweed.png", description: "바위에 붙어 자란 돌미역은 깊은 바다 향과 부드러우면서도 탄탄한 식감이 특징이에요." },
+  { name: "성게", image: "/images/specialties/daecheong-sea-urchin.png", description: "대청도 바다의 성게는 제철에 진하고 고소한 풍미를 맛볼 수 있는 별미예요." },
+  { name: "다시마", image: "/images/specialties/daecheong-kelp.png", description: "깨끗한 바다에서 자란 다시마는 국물과 반찬에 깊은 감칠맛을 더해줘요." },
+];
+
 export default function Home() {
   const [heroSlideIndex, setHeroSlideIndex] = useState(0);
+  const [showLanguageMenu, setShowLanguageMenu] = useState(false);
+  const [weatherSlideIndex, setWeatherSlideIndex] = useState(0);
+  const [weatherLoading, setWeatherLoading] = useState(true);
+  const [weatherError, setWeatherError] = useState(false);
+  const [weatherItems, setWeatherItems] = useState(
+    islandWeatherLocations.map((item) => ({ ...item, temperature: null as number | null, weatherCode: null as number | null, windSpeed: null as number | null }))
+  );
   const [newsFilter, setNewsFilter] = useState("전체");
   const [selectedSeason, setSelectedSeason] = useState("봄");
   const filteredIslandNews =
@@ -120,6 +168,70 @@ export default function Home() {
 
     return () => window.clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadWeather() {
+      try {
+        const results = await Promise.all(
+          islandWeatherLocations.map(async (island) => {
+            const query = new URLSearchParams({
+              latitude: String(island.latitude),
+              longitude: String(island.longitude),
+              current: "temperature_2m,weather_code,wind_speed_10m",
+              timezone: "Asia/Seoul",
+            });
+            const response = await fetch(`https://api.open-meteo.com/v1/forecast?${query.toString()}`);
+            if (!response.ok) throw new Error("날씨 정보를 불러오지 못했습니다.");
+            const result = await response.json();
+            return {
+              ...island,
+              temperature: Number(result.current?.temperature_2m),
+              weatherCode: Number(result.current?.weather_code),
+              windSpeed: Number(result.current?.wind_speed_10m),
+            };
+          })
+        );
+        if (!cancelled) {
+          setWeatherItems(results);
+          setWeatherError(false);
+        }
+      } catch (error) {
+        console.error("섬 날씨 불러오기 오류:", error);
+        if (!cancelled) setWeatherError(true);
+      } finally {
+        if (!cancelled) setWeatherLoading(false);
+      }
+    }
+
+    loadWeather();
+    const refreshTimer = window.setInterval(loadWeather, 30 * 60 * 1000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(refreshTimer);
+    };
+  }, []);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setWeatherSlideIndex((current) => (current + 1) % islandWeatherLocations.length);
+    }, 5000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  function openTranslatedPage(language: "en" | "zh-CN" | "ja") {
+    setShowLanguageMenu(false);
+    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      alert("번역 기능은 인터넷에 배포된 사이트에서 사용할 수 있어요.");
+      return;
+    }
+    const translateUrl = `https://translate.google.com/translate?sl=ko&tl=${language}&u=${encodeURIComponent(window.location.href)}`;
+    window.open(translateUrl, "_blank", "noopener,noreferrer");
+  }
+
+  const currentWeather = weatherItems[weatherSlideIndex];
+  const currentWeatherInfo = weatherCodeInfo(currentWeather?.weatherCode ?? null);
 
   const islandNewsSliderRef = useRef<HTMLDivElement>(null);
   const [isNewsSliderPaused, setIsNewsSliderPaused] = useState(false);
@@ -171,6 +283,8 @@ export default function Home() {
   // 펼치기/접기
   const [showStay, setShowStay] = useState(false);
   const [showFood, setShowFood] = useState(false);
+  const [showFishing, setShowFishing] = useState(false);
+  const [showDaecheongSpecialty, setShowDaecheongSpecialty] = useState(false);
   const [showTaxi, setShowTaxi] = useState(false);
   const [showRentcar, setShowRentcar] = useState(false);
   const [showLocal, setShowLocal] = useState(false);
@@ -182,6 +296,7 @@ export default function Home() {
   const [footprints, setFootprints] = useState<any[]>([]);
   const [footprintLoading, setFootprintLoading] = useState(false);
   const [footprintSubmitting, setFootprintSubmitting] = useState(false);
+  const [isFootprintMarqueePaused, setIsFootprintMarqueePaused] = useState(false);
   const [footprintIsland, setFootprintIsland] = useState("백령도");
   const [footprintPlace, setFootprintPlace] = useState("");
   const [footprintNickname, setFootprintNickname] = useState("");
@@ -231,19 +346,25 @@ export default function Home() {
     } else if (key === "fishing") {
       if (selectedIsland === "대청도") {
         setSelectedCategory("낚시배");
-        targetId = "island-directory";
+        setShowFishing(true);
+        targetId = "daecheong-fishing";
       } else if (selectedIsland === "소청도") {
         targetId = "island-guide";
       } else {
         targetId = "fishing-info";
       }
     } else if (key === "specialty") {
-      if (selectedIsland !== "백령도") {
+      if (selectedIsland === "대청도") {
+        setShowDaecheongSpecialty(true);
+        targetId = "daecheong-specialty";
+      } else {
+        if (selectedIsland !== "백령도") {
         setSelectedIsland("백령도");
+        }
+        setSelectedCategory("특산물");
+        setShowLocal(true);
+        targetId = "local";
       }
-      setSelectedCategory("특산물");
-      setShowLocal(true);
-      targetId = "local";
     } else if (key === "news") {
       targetId = "island-news";
     }
@@ -254,6 +375,24 @@ export default function Home() {
         block: "start",
       });
     }, 150);
+  }
+
+  function handlePlatformServiceClick(key: string) {
+    if (["ship", "stay", "food", "fishing"].includes(key)) {
+      handleQuickMenuClick(key);
+      return;
+    }
+
+    if (key === "contact") {
+      window.location.href = "/contact";
+      return;
+    }
+
+    const targetId = key === "places" ? "place-section" : "traveler-footprints";
+    document.getElementById(targetId)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   }
 
   // 버스
@@ -301,6 +440,12 @@ const [plannerTransport, setPlannerTransport] = useState("렌터카·자가용")
 const [plannerSeason, setPlannerSeason] = useState("봄");
 const [plannerResult, setPlannerResult] = useState<any[] | null>(null);
 const [plannerTips, setPlannerTips] = useState<string[]>([]);
+const [optimizedCourse, setOptimizedCourse] = useState<any | null>(null);
+
+useEffect(() => {
+  setPlannerResult(null);
+  setOptimizedCourse(null);
+}, [selectedIsland]);
 
 // 통합 검색
 const [globalSearch, setGlobalSearch] = useState("");
@@ -765,6 +910,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         : selectedCategory === "숙박" ? socheongStay : []
       : [];
 
+  const marqueeFootprints = footprints.length > 0
+    ? Array.from({ length: Math.max(1, Math.ceil(8 / footprints.length)) }, () => footprints).flat()
+    : [];
+
   const filteredPlaces = places.filter((place) => {
 
     // 섬 필터
@@ -805,6 +954,90 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       setMyCourse(JSON.parse(savedCourse));
     }
   }, []);
+
+  function handleAddCourse(place: any) {
+    const exists = myCourse.some((item) => item.name === place.name);
+
+    if (exists) {
+      alert("이미 여행코스에 담겨 있어요 😊");
+      return;
+    }
+
+    const updatedCourse = [...myCourse, place];
+    setMyCourse(updatedCourse);
+    setOptimizedCourse(null);
+    localStorage.setItem("myCourse", JSON.stringify(updatedCourse));
+    alert(`${place.name}이 여행코스에 담겼어요!`);
+  }
+
+  function makeOptimizedCourse() {
+    const islandCourseOrder: Record<string, string[]> = {
+      백령도: [
+        "사곶해변", "용틀임바위", "콩돌해안", "📸 사진찍기 좋은 녹색명소", "심청각",
+        "서해최북단 백령도비", "한국기독교의 섬 / 한국기독교역사관", "하늬해안",
+        "백령 점박이물범 생태관광체험센터", "천안함 위령탑", "두무진", "사자바위",
+      ],
+      대청도: [
+        "옥죽동 해안사구", "농여해변", "나이테바위", "미아동해변", "지두리해변",
+        "매바위전망대", "삼각산", "모래울해변", "답동해변", "해넘이전망대",
+        "서풍받이", "검은낭 해안", "독바위",
+      ],
+      소청도: [
+        "예동포구", "소청도 천주교회·김대건 신부상", "소청등대", "분바위",
+        "스트로마톨라이트", "소청도 주상절리", "노화동포구", "탑동포구·인사하는 바위",
+      ],
+    };
+
+    const selectedPlaces = myCourse.filter((item) => item.island === selectedIsland);
+    if (selectedPlaces.length < 2) {
+      alert(`${selectedIsland} 관광지를 2곳 이상 담아주세요.`);
+      return;
+    }
+
+    const order = islandCourseOrder[selectedIsland] || [];
+    const indexOf = (name: string) => {
+      const index = order.indexOf(name);
+      return index >= 0 ? index : order.length;
+    };
+    const remaining = [...selectedPlaces];
+    const startIndex: Record<string, number> = { 백령도: 0, 대청도: 5, 소청도: 0 };
+    let currentIndex = startIndex[selectedIsland] ?? 0;
+    const sorted: any[] = [];
+
+    while (remaining.length) {
+      remaining.sort((a, b) => Math.abs(indexOf(a.name) - currentIndex) - Math.abs(indexOf(b.name) - currentIndex));
+      const next = remaining.shift();
+      sorted.push(next);
+      currentIndex = indexOf(next.name);
+    }
+
+    const transportFactor = plannerTransport === "도보·대중교통" ? 2.2 : plannerTransport === "택시" ? 0.9 : 1;
+    const islandBase: Record<string, number> = { 백령도: 6, 대청도: 5, 소청도: 7 };
+    let previousIndex = startIndex[selectedIsland] ?? 0;
+    let totalTravelMinutes = 0;
+
+    const stops = sorted.map((place, index) => {
+      const placeIndex = indexOf(place.name);
+      const gap = Math.max(1, Math.abs(placeIndex - previousIndex));
+      const moveMinutes = Math.max(5, Math.round(((islandBase[selectedIsland] || 6) + gap * 4) * transportFactor / 5) * 5);
+      const visitMinutes = place.name.includes("삼각산") ? 150 : place.name.includes("해변") || place.name.includes("해안") ? 60 : 45;
+      totalTravelMinutes += moveMinutes;
+      previousIndex = placeIndex;
+      return { ...place, order: index + 1, moveMinutes, visitMinutes };
+    });
+
+    setOptimizedCourse({
+      island: selectedIsland,
+      stops,
+      totalTravelMinutes,
+      totalVisitMinutes: stops.reduce((sum, stop) => sum + stop.visitMinutes, 0),
+      transport: plannerTransport,
+    });
+
+    window.setTimeout(() => {
+      document.getElementById("optimized-course")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  }
  
   async function loadNotices() {
     const { data, error } = await supabase
@@ -829,33 +1062,6 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   }
 
   async function handlePlaceLike(placeName: string) {
-    function handleAddCourse(place: any) {
-      const exists = myCourse.find((item) => item.name === place.name);
-    
-      if (exists) {
-        alert("이미 여행코스에 담겨 있어요 😊");
-        return;
-      }
-    
-      const updatedCourse = [...myCourse, place];
-      setMyCourse(updatedCourse);
-      localStorage.setItem("myCourse", JSON.stringify(updatedCourse));
-    
-      alert(`${place.name}이 여행코스에 담겼어요!`);
-    }
-    
-    function handleRemoveCourse(placeName: string) {
-      const updatedCourse = myCourse.filter((item) => item.name !== placeName);
-      setMyCourse(updatedCourse);
-      localStorage.setItem("myCourse", JSON.stringify(updatedCourse));
-    }
-    
-    function handleClearCourse() {
-      if (!confirm("여행코스를 모두 삭제할까요?")) return;
-    
-      setMyCourse([]);
-      localStorage.removeItem("myCourse");
-    }
     const likeKey = `place-like-${placeName}`;
 
     if (localStorage.getItem(likeKey)) {
@@ -900,33 +1106,6 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   }
 
   async function handlePlaceView(placeName: string) {
-    function handleAddCourse(place: any) {
-      const exists = myCourse.find((item) => item.name === place.name);
-    
-      if (exists) {
-        alert("이미 여행코스에 담겨 있어요 😊");
-        return;
-      }
-    
-      const updatedCourse = [...myCourse, place];
-      setMyCourse(updatedCourse);
-      localStorage.setItem("myCourse", JSON.stringify(updatedCourse));
-    
-      alert(`${place.name}이 여행코스에 담겼어요!`);
-    }
-    
-    function handleRemoveCourse(placeName: string) {
-      const updatedCourse = myCourse.filter((item) => item.name !== placeName);
-      setMyCourse(updatedCourse);
-      localStorage.setItem("myCourse", JSON.stringify(updatedCourse));
-    }
-    
-    function handleClearCourse() {
-      if (!confirm("여행코스를 모두 삭제할까요?")) return;
-    
-      setMyCourse([]);
-      localStorage.removeItem("myCourse");
-    }
     const today = new Date().toISOString().slice(0, 10);
     const viewKey = `place-view-${placeName}-${today}`;
   
@@ -1028,6 +1207,71 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 };
   
   function makeTravelPlan() {
+    if (selectedIsland !== "백령도") {
+      const islandStops: Record<string, Record<string, string[]>> = {
+        대청도: {
+          "자연·사진": ["옥죽동 해안사구", "농여해변·나이테바위", "서풍받이", "해넘이전망대"],
+          "아이와 가족": ["옥죽동 해안사구", "농여해변", "매바위전망대", "모래울해변"],
+          "군인 면회": ["선진포항 주변", "농여해변", "옥죽동 해안사구", "매바위전망대"],
+          "역사·안보": ["대청도 마을", "매바위전망대", "옥죽동 해안사구", "서풍받이"],
+          "맛집·카페": ["대청도 현지 음식점", "농여해변", "마을 카페·쉼터", "해넘이전망대"],
+          "힐링·느긋하게": ["모래울해변", "지두리해변", "농여해변", "해넘이전망대"],
+        },
+        소청도: {
+          "자연·사진": ["분바위", "스트로마톨라이트", "소청등대", "탑동포구·인사하는 바위"],
+          "아이와 가족": ["예동포구", "소청도 천주교회·김대건 신부상", "분바위", "소청등대"],
+          "군인 면회": ["예동포구", "소청도 천주교회·김대건 신부상", "노화동포구", "분바위"],
+          "역사·안보": ["소청도 천주교회·김대건 신부상", "예동포구", "소청등대", "분바위"],
+          "맛집·카페": ["예동포구 마을", "소청도 천주교회·김대건 신부상", "분바위", "소청등대"],
+          "힐링·느긋하게": ["예동포구", "노화동포구", "분바위", "소청등대"],
+        },
+      };
+      const stops = islandStops[selectedIsland]?.[plannerTheme] || islandStops[selectedIsland]["자연·사진"];
+      const port = selectedIsland === "대청도" ? "선진포항" : "예동포구 선착장";
+      const dayCount = plannerDuration === "당일" ? 1 : plannerDuration === "1박 2일" ? 2 : 3;
+      const schedules = [
+        {
+          title: `${selectedIsland} 첫인상과 대표 풍경`,
+          schedule: [
+            { time: "도착 후", place: `${port} 도착 · 이동 준비`, detail: "선박 도착 후 예약한 교통편과 귀항 시간을 먼저 확인하세요." },
+            { time: "오전", place: stops[0], detail: `${plannerTheme} 취향을 반영한 첫 번째 핵심 장소예요.` },
+            { time: "점심", place: `${selectedIsland} 현지 음식점`, detail: "영업 여부를 전화로 확인하고 이동 경로와 가까운 곳에서 식사하세요." },
+            { time: "오후", place: stops[1], detail: "바람과 물때, 현지 접근 여건을 확인하며 여유 있게 둘러보세요." },
+            { time: plannerDuration === "당일" ? "출항 전" : "저녁", place: plannerDuration === "당일" ? `${port} 이동` : `${selectedIsland} 숙소`, detail: plannerDuration === "당일" ? "승선 마감보다 넉넉하게 항구로 돌아가세요." : "저녁식사와 다음 날 운항 공지를 확인하세요." },
+          ],
+        },
+        {
+          title: `${selectedIsland} 해안·전망 핵심 코스`,
+          schedule: [
+            { time: "아침", place: "숙소 · 기상 확인", detail: "바람, 파고, 선박 운항 여부를 먼저 확인하세요." },
+            { time: "오전", place: stops[2], detail: "첫날과 다른 권역의 대표 풍경을 천천히 둘러보세요." },
+            { time: "점심", place: "현지인 추천 음식점", detail: "사전 예약 또는 영업 여부 확인을 권장해요." },
+            { time: "오후", place: stops[3], detail: "사진 촬영과 산책 시간을 40~60분 정도 잡아두세요." },
+            { time: plannerDuration === "1박 2일" ? "출항 전" : "저녁", place: plannerDuration === "1박 2일" ? `${port} 이동` : `${selectedIsland} 숙소`, detail: plannerDuration === "1박 2일" ? "귀항편 승선 시간을 확인하고 여유 있게 이동하세요." : "마지막 날 일정에 맞춰 휴식하세요." },
+          ],
+        },
+        {
+          title: `${selectedIsland} 마을과 숨은 풍경`,
+          schedule: [
+            { time: "오전", place: selectedIsland === "대청도" ? "답동해변" : "노화동포구", detail: "조용한 섬의 생활 풍경을 천천히 둘러보세요." },
+            { time: "늦은 오전", place: selectedIsland === "대청도" ? "검은낭 해안" : "소청도 주상절리", detail: "안전한 관찰 위치와 현지 접근 가능 여부를 먼저 확인하세요." },
+            { time: "점심", place: `${selectedIsland} 마을`, detail: "식사와 특산품 구입 시간을 함께 잡아두세요." },
+            { time: "출항 전", place: `${port} 이동`, detail: "기상과 승선 마감시간을 다시 확인하고 항구로 이동하세요." },
+          ],
+        },
+      ];
+
+      setPlannerResult(schedules.slice(0, dayCount));
+      setPlannerTips([
+        selectedIsland === "대청도" ? "대청도는 관광지 사이 이동을 위해 차량이나 예약 교통편을 준비하면 편리해요." : "소청도는 도보 구간과 경사가 있으므로 짐을 가볍게 하고 미끄럼 방지 신발을 준비하세요.",
+        "섬의 음식점·숙소·교통편은 운영 여부와 이용 시간을 미리 전화로 확인하세요.",
+        "해안 관광지는 바람과 물때에 따라 접근 여건이 달라질 수 있으므로 현지 안내를 우선하세요.",
+        "일정은 여행 계획을 위한 예시이며 실제 이동 전 선박 운항과 기상 상황을 다시 확인하세요.",
+      ]);
+      window.setTimeout(() => document.getElementById("planner-result")?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+      return;
+    }
+
     const themeStops: Record<string, string[]> = {
       "자연·사진": ["두무진", "콩돌해안", "사곶해변", "끝섬전망대"],
       "아이와 가족": ["심청각", "사곶해변", "콩돌해안", "두무진"],
@@ -1173,7 +1417,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
     { name: "렌터카", category: "교통", icon: "🚗", description: "백령도 렌터카 업체 정보를 확인하세요.", target: "rentcar" },
     { name: "배편 예약", category: "여행정보", icon: "🚢", description: "백령도 여객선 예약과 운항 정보를 확인하세요.", target: "live-info" },
     { name: "군인 면회 여행", category: "군인면회", icon: "🪖", description: "군인 면회에 맞춘 여행 일정을 만들어보세요.", target: "ai-planner" },
-    { name: "백령도 AI 여행 플래너", category: "여행코스", icon: "✨", description: "기간과 동행에 맞는 백령도 일정을 자동으로 만들어드려요.", target: "ai-planner" },
+    { name: "섬별 맞춤 여행 플래너", category: "여행코스", icon: "✨", description: "기간과 동행에 맞는 백령·대청·소청 일정을 자동으로 만들어드려요.", target: "ai-planner" },
     { name: "백령도 사진첩", category: "사진", icon: "📸", description: "백령도의 아름다운 풍경 사진을 감상하세요.", target: "gallery" },
   ];
 
@@ -1434,10 +1678,12 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       {/* HEADER */}
 <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
   <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-    <a href="/" className="text-xl font-bold text-gray-900">
-      백령·대청·소청도의 모든 정보
+    <a href="/" className="font-bold text-gray-900 sm:text-xl">
+      <span className="hidden sm:inline">백령·대청·소청도의 모든 정보</span>
+      <span className="sm:hidden">섬 여행정보</span>
     </a>
 
+    <div className="flex items-center gap-3">
     <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-700">
       <a href="/" className="hover:text-sky-500">홈</a>
       <a href="#place-section" className="hover:text-sky-500">관광지</a>
@@ -1449,6 +1695,20 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       <a href="/admin" className="hover:text-red-500">🔐 관리자</a>
       <a href="/about" className="hover:text-sky-500">운영자 소개</a>
     </nav>
+    <div className="relative">
+      <button type="button" onClick={() => setShowLanguageMenu(!showLanguageMenu)} className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-bold text-gray-700 shadow-sm hover:border-sky-300" aria-expanded={showLanguageMenu}>
+        <span>🌐</span><span>한국어</span><span className="text-xs">⌄</span>
+      </button>
+      {showLanguageMenu && (
+        <div className="absolute right-0 top-12 z-50 w-40 overflow-hidden rounded-2xl border border-gray-100 bg-white py-2 shadow-xl">
+          <button type="button" onClick={() => setShowLanguageMenu(false)} className="block w-full px-4 py-2.5 text-left text-sm font-bold text-sky-600 hover:bg-sky-50">한국어</button>
+          <button type="button" onClick={() => openTranslatedPage("en")} className="block w-full px-4 py-2.5 text-left text-sm font-bold text-gray-700 hover:bg-gray-50">English</button>
+          <button type="button" onClick={() => openTranslatedPage("zh-CN")} className="block w-full px-4 py-2.5 text-left text-sm font-bold text-gray-700 hover:bg-gray-50">中文</button>
+          <button type="button" onClick={() => openTranslatedPage("ja")} className="block w-full px-4 py-2.5 text-left text-sm font-bold text-gray-700 hover:bg-gray-50">日本語</button>
+        </div>
+      )}
+    </div>
+    </div>
   </div>
 </header>
       {/* HERO */}
@@ -1471,8 +1731,18 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-black/10" />
         <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black/70 to-transparent" />
 
-        <div className="relative z-10 mx-auto flex min-h-[500px] max-w-7xl items-center px-6 pb-20 pt-16 md:min-h-[560px] md:px-8">
+        <div className="relative z-10 mx-auto flex min-h-[500px] max-w-7xl items-center justify-between gap-10 px-6 pb-20 pt-16 md:min-h-[560px] md:px-8">
           <div className="max-w-3xl">
+            <button
+              type="button"
+              onClick={() => setWeatherSlideIndex((weatherSlideIndex + 1) % weatherItems.length)}
+              className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/15 px-4 py-2 text-sm font-bold text-white backdrop-blur-md lg:hidden"
+              title="누르면 다음 섬 날씨가 표시됩니다"
+            >
+              <span className="text-xl">{weatherError ? "🌤️" : currentWeatherInfo.icon}</span>
+              <span>{currentWeather?.name}</span>
+              <strong>{weatherLoading || typeof currentWeather?.temperature !== "number" ? "--°" : `${currentWeather.temperature.toFixed(0)}°C`}</strong>
+            </button>
             <p className="mb-3 text-sm font-black tracking-[0.16em] text-sky-100 md:text-base">
               BAENGNYEONG · DAECHEONG · SOCHEONG
             </p>
@@ -1514,6 +1784,25 @@ const [showSearchResults, setShowSearchResults] = useState(false);
               ))}
             </div>
           </div>
+
+          <button
+            type="button"
+            onClick={() => setWeatherSlideIndex((weatherSlideIndex + 1) % weatherItems.length)}
+            className="hidden w-64 shrink-0 rounded-3xl border border-white/30 bg-black/15 p-6 text-left text-white shadow-xl backdrop-blur-md transition hover:bg-black/25 lg:block lg:translate-x-16 xl:translate-x-24"
+            title="누르면 다음 섬 날씨가 표시됩니다"
+            aria-label={`${currentWeather?.name} 날씨, 다음 섬 날씨 보기`}
+          >
+            <p className="text-xs font-black tracking-[0.16em] text-sky-100">LIVE WEATHER</p>
+            <p className="mt-3 text-base font-bold">오늘 {currentWeather?.name}</p>
+            <div className="mt-2 flex items-center gap-3">
+              <span className="text-5xl">{weatherError ? "🌤️" : currentWeatherInfo.icon}</span>
+              <div>
+                <p className="text-3xl font-black">{weatherLoading || typeof currentWeather?.temperature !== "number" ? "--°" : `${currentWeather.temperature.toFixed(0)}°C`}</p>
+                <p className="mt-1 text-sm text-white/75">{weatherError ? "날씨 확인 중" : currentWeatherInfo.label}</p>
+              </div>
+            </div>
+            {typeof currentWeather?.windSpeed === "number" && <p className="mt-4 border-t border-white/20 pt-3 text-xs text-white/70">바람 {currentWeather.windSpeed.toFixed(1)}km/h · 30분마다 갱신</p>}
+          </button>
         </div>
       </section>
 
@@ -1540,11 +1829,20 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         </div>
       </section>
 
-
       <style jsx>{`
         @keyframes heroFade {
           from { opacity: 0.25; transform: scale(1.015); }
           to { opacity: 1; transform: scale(1); }
+        }
+        .footprint-marquee-track {
+          animation: footprint-marquee 42s linear infinite;
+        }
+        @keyframes footprint-marquee {
+          from { transform: translateX(0); }
+          to { transform: translateX(calc(-50% - 0.375rem)); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .footprint-marquee-track { animation: none; }
         }
         @media (max-width: 1023px) {
           #island-news [data-news-card] {
@@ -1822,19 +2120,31 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         </div>
       </section>
 
-      {/* 백령도 맞춤 여행 플래너 */}
-      {selectedIsland === "백령도" && (
+      {/* 섬별 맞춤 여행 플래너 */}
+      {(
         <section id="ai-planner" className="scroll-mt-24 mx-auto max-w-7xl px-6 pb-16">
           <div className="overflow-hidden rounded-[2rem] border border-violet-100 bg-gradient-to-br from-violet-50 via-white to-sky-50 shadow-sm">
             <div className="p-6 md:p-9">
               <p className="text-sm font-black tracking-[0.18em] text-violet-600">TRAVEL PLANNER</p>
               <h2 className="mt-2 text-3xl md:text-4xl font-black text-gray-900">
-                ✨ 백령도 맞춤 여행 플래너
+                ✨ {selectedIsland} 맞춤 여행 플래너
               </h2>
               <p className="mt-3 max-w-3xl leading-7 text-gray-600">
-                여행 기간과 동행, 취향을 고르면 백령도 일정 예시를 자동으로 만들어드려요.
+                여행 기간과 동행, 취향을 고르면 {selectedIsland} 일정 예시를 자동으로 만들어드려요.
                 실제 이동 전에는 여객선 운항 여부와 현지 교통 상황을 꼭 확인해 주세요.
               </p>
+
+              <div className="mt-5 flex flex-wrap items-center gap-3 rounded-2xl border border-pink-100 bg-pink-50 px-4 py-3">
+                <span className="font-black text-pink-700">❤️ 내가 담은 {selectedIsland} 관광지 {myCourse.filter((item) => item.island === selectedIsland).length}곳</span>
+                <span className="text-sm text-gray-600">관광지 카드에서 장소를 담은 뒤, 아래 맞춤 일정과 함께 비교해 보세요.</span>
+                <button
+                  type="button"
+                  onClick={() => document.getElementById("my-course")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                  className="ml-auto rounded-full bg-white px-4 py-2 text-sm font-black text-pink-700 shadow-sm hover:bg-pink-100"
+                >
+                  담은 장소 보기 ↓
+                </button>
+              </div>
 
               <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
                 <label className="block">
@@ -1977,25 +2287,82 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                   </div>
                 </div>
               )}
+
+              <div id="my-course" className="scroll-mt-24 mt-10 border-t border-violet-100 pt-8">
+                <p className="font-bold text-pink-700">관광지 담기와 맞춤 일정 짜기를 한곳에서</p>
+                <h3 className="mt-2 text-2xl font-black text-gray-900 md:text-3xl">❤️ 나만의 여행코스</h3>
+                <p className="mt-3 leading-7 text-gray-600">
+                  관광지 카드에서 담은 장소를 순서대로 확인하고, 위에서 만든 맞춤 일정과 함께 나만의 코스를 완성해 보세요.
+                </p>
+                <div className="mt-5 flex flex-wrap items-center gap-3 rounded-2xl bg-violet-50 p-4">
+                  <button
+                    type="button"
+                    onClick={makeOptimizedCourse}
+                    className="rounded-2xl bg-gray-950 px-5 py-3 font-black text-white shadow-sm transition hover:bg-violet-700"
+                  >
+                    🧭 담은 장소 최단 동선 만들기
+                  </button>
+                  <span className="text-sm leading-6 text-gray-600">현재 선택한 이동수단({plannerTransport}) 기준 예상시간을 계산해요.</span>
+                </div>
+
+                {optimizedCourse?.island === selectedIsland && (
+                  <div id="optimized-course" className="scroll-mt-24 mt-6 rounded-3xl border border-emerald-100 bg-emerald-50 p-5 md:p-6">
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-black text-emerald-700">추천 최단 동선 · 예상시간</p>
+                        <h4 className="mt-1 text-xl font-black text-gray-900">{selectedIsland} {optimizedCourse.stops.length}곳 이동코스</h4>
+                      </div>
+                      <div className="rounded-2xl bg-white px-4 py-3 text-right shadow-sm">
+                        <p className="text-xs font-bold text-gray-500">예상 총 소요시간</p>
+                        <strong className="text-lg text-emerald-700">
+                          약 {Math.floor((optimizedCourse.totalTravelMinutes + optimizedCourse.totalVisitMinutes) / 60)}시간 {(optimizedCourse.totalTravelMinutes + optimizedCourse.totalVisitMinutes) % 60}분
+                        </strong>
+                        <p className="mt-1 text-xs text-gray-500">이동 {optimizedCourse.totalTravelMinutes}분 + 관람 {optimizedCourse.totalVisitMinutes}분</p>
+                      </div>
+                    </div>
+
+                    <div className="mt-5 space-y-3">
+                      {optimizedCourse.stops.map((stop: any) => (
+                        <div key={`${stop.order}-${stop.name}`} className="flex gap-4 rounded-2xl bg-white p-4 shadow-sm">
+                          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-600 font-black text-white">{stop.order}</span>
+                          <div className="min-w-0 flex-1">
+                            <strong className="text-gray-900">{stop.name}</strong>
+                            <div className="mt-2 flex flex-wrap gap-2 text-xs font-bold">
+                              <span className="rounded-full bg-sky-50 px-3 py-1 text-sky-700">🚗 {stop.order === 1 ? "항구·출발지에서" : "이전 장소에서"} 약 {stop.moveMinutes}분</span>
+                              <span className="rounded-full bg-amber-50 px-3 py-1 text-amber-700">📸 권장 관람 {stop.visitMinutes}분</span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <a
+                      href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(selectedIsland === "백령도" ? "용기포항 백령도" : selectedIsland === "대청도" ? "선진포항 대청도" : "예동포구 소청도")}&destination=${encodeURIComponent(`${optimizedCourse.stops[optimizedCourse.stops.length - 1]?.name} ${selectedIsland}`)}&waypoints=${encodeURIComponent(optimizedCourse.stops.slice(0, -1).map((stop: any) => `${stop.name} ${selectedIsland}`).join("|"))}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-emerald-700 px-5 py-3 font-black text-white transition hover:bg-emerald-800 sm:w-auto"
+                    >
+                      📍 지도에서 전체 동선 확인
+                    </a>
+                    <p className="mt-4 text-xs leading-5 text-emerald-900">※ 섬 내 일반적인 이동거리와 선택한 이동수단을 기준으로 계산한 예상시간입니다. 실제 시간은 도로·날씨·물때·현지 교통 상황에 따라 달라질 수 있습니다.</p>
+                  </div>
+                )}
+                <div
+                  className="mt-6 overflow-hidden rounded-3xl border border-pink-100 bg-white p-4 md:p-6"
+                  onClick={() => {
+                    window.setTimeout(() => {
+                      const savedCourse = localStorage.getItem("myCourse");
+                      setMyCourse(savedCourse ? JSON.parse(savedCourse) : []);
+                      setOptimizedCourse(null);
+                    }, 0);
+                  }}
+                >
+                  <MyCourse key={myCourse.map((item) => item.name).join("|")} />
+                </div>
+              </div>
             </div>
           </div>
         </section>
       )}
-
-      <section id="my-course" className="scroll-mt-24">
-        <div className="mx-auto mb-5 max-w-7xl px-6">
-          <div className="rounded-[2rem] bg-gradient-to-br from-pink-50 to-rose-50 p-6 md:p-8 border border-pink-100">
-            <p className="font-bold text-pink-700">내가 고른 장소 모아보기</p>
-            <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
-              ❤️ 나만의 여행코스
-            </h2>
-            <p className="mt-3 leading-7 text-gray-600">
-              관광지와 추천코스에서 추가한 장소를 이곳에서 한 번에 확인할 수 있어요.
-            </p>
-          </div>
-        </div>
-        <MyCourse />
-      </section>
       {/* 섬별 실시간 인기 관광지 */}
 {selectedIsland === "백령도" && popularPlaces.length > 0 && (
   <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10 md:py-16">
@@ -2112,8 +2479,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   )}
 </section>
 
-      {((selectedIsland === "대청도" && selectedCategory === "낚시배") ||
-        (selectedIsland === "소청도" && ["맛집", "숙박"].includes(selectedCategory))) && (
+      {(selectedIsland === "소청도" && ["맛집", "숙박"].includes(selectedCategory)) && (
         <section id="island-directory" className="max-w-7xl mx-auto px-4 sm:px-6 pb-12 md:pb-20">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
@@ -2303,6 +2669,19 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       📖 백과사전 보기
     </Link>
   )}
+
+  <button
+    type="button"
+    onClick={() => handleAddCourse(place)}
+    disabled={myCourse.some((item) => item.name === place.name)}
+    className={`w-full rounded-xl py-2.5 text-sm font-semibold transition sm:rounded-2xl sm:py-3 sm:text-base ${
+      myCourse.some((item) => item.name === place.name)
+        ? "cursor-default bg-emerald-100 text-emerald-700"
+        : "bg-violet-600 text-white hover:bg-violet-700"
+    }`}
+  >
+    {myCourse.some((item) => item.name === place.name) ? "✅ 일정에 담김" : "🗓️ 일정에 담기"}
+  </button>
 
   <button
     onClick={() => handlePlaceLike(place.name)}
@@ -2599,7 +2978,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
     {showGallery && (
       <div className="mt-8">
         <div className="mb-6 rounded-2xl bg-white/80 p-4 text-sm leading-6 text-gray-600">
-          📷 사진작가 윤학진님 외 사진 협찬 · 백령도의 다양한 모습을 담았습니다.
+          📷 사진작가 윤학진님, 옹진군 외 사진 협찬
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -4463,8 +4842,155 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         )}
       </div>
     </section>
+
+    {/* 대청도 낚시배 */}
+    <section id="daecheong-fishing" className="scroll-mt-24 mx-auto max-w-7xl px-6 pb-20">
+      <div className="rounded-[2rem] border border-cyan-100 bg-gradient-to-br from-cyan-50 via-white to-blue-50 p-6 shadow-sm md:p-10">
+        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="font-bold text-cyan-700">대청도 바다낚시 정보</p>
+            <h2 className="mt-2 text-3xl font-extrabold text-gray-900 md:text-4xl">🎣 대청도 낚시배 정보 한눈에 보기</h2>
+            <p className="mt-3 leading-7 text-gray-600">대청도 낚시배 이름과 선주 연락처를 확인하고 출항 여부·예약 가능 인원·요금을 직접 문의할 수 있어요.</p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {["🌊 출항 여부 확인", "👥 승선 인원 문의", "💳 요금·예약금 확인", "🎣 장비 대여 문의", "🦺 구명조끼·안전수칙"].map((tip) => (
+                <span key={tip} className="rounded-full border border-cyan-100 bg-white px-3 py-2 text-xs font-bold text-cyan-700 shadow-sm">{tip}</span>
+              ))}
+            </div>
+            <p className="mt-3 text-xs leading-5 text-gray-500">💡 기상과 물때에 따라 출항이 변경될 수 있으니 출발 전 선주에게 반드시 확인해 주세요.</p>
+          </div>
+          <button type="button" onClick={() => setShowFishing(!showFishing)} className="shrink-0 rounded-2xl bg-gray-900 px-7 py-4 text-lg font-extrabold text-white shadow-lg transition hover:bg-cyan-700">
+            {showFishing ? "낚시배 목록 닫기 ▲" : `낚시배 ${daecheongFishing.length}척 전체보기 ▼`}
+          </button>
+        </div>
+        {showFishing && (
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {daecheongFishing.map(([name, owner, phone]) => (
+              <article key={name} className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-cyan-100">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <span className="rounded-full bg-cyan-50 px-3 py-1 text-xs font-bold text-cyan-700">대청도 낚시배</span>
+                    <h3 className="mt-4 text-xl font-extrabold text-gray-900">{name}</h3>
+                    <p className="mt-2 text-sm text-gray-500">선주 {owner}</p>
+                  </div>
+                  <span className="text-3xl">🎣</span>
+                </div>
+                <a href={`tel:${phone.replace(/-/g, "")}`} className="mt-5 block rounded-xl bg-cyan-700 px-4 py-3 text-center font-bold text-white hover:bg-cyan-800">☎ {phone}</a>
+              </article>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+
+    {/* 대청도 특산품 */}
+    <section id="daecheong-specialty" className="scroll-mt-24 mx-auto max-w-7xl px-6 pb-20">
+      <div className="rounded-[2rem] border border-teal-100 bg-gradient-to-br from-teal-50 via-white to-emerald-50 p-6 shadow-sm md:p-10">
+        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="font-bold text-teal-700">대청도의 바다와 자연이 키운 먹거리</p>
+            <h2 className="mt-2 text-3xl font-extrabold text-gray-900 md:text-4xl">🎁 대청도 특산품 한눈에 보기</h2>
+            <p className="mt-3 leading-7 text-gray-600">대청도에서 만날 수 있는 대표 수산물과 농축산물을 소개합니다. 어획 시기와 판매 여부는 계절·기상에 따라 달라질 수 있어요.</p>
+          </div>
+          <button type="button" onClick={() => setShowDaecheongSpecialty(!showDaecheongSpecialty)} className="shrink-0 rounded-2xl bg-gray-900 px-7 py-4 text-lg font-extrabold text-white shadow-lg transition hover:bg-teal-700">
+            {showDaecheongSpecialty ? "특산품 닫기 ▲" : `특산품 ${daecheongSpecialties.length}종 전체보기 ▼`}
+          </button>
+        </div>
+        {showDaecheongSpecialty && (
+          <div className="mt-8">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {daecheongSpecialties.map((item) => (
+                <article key={item.name} className="group overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-teal-100 transition hover:-translate-y-1 hover:shadow-xl">
+                  <div className="overflow-hidden bg-stone-50">
+                    <Image src={item.image} alt={`대청도 특산품 ${item.name}`} width={900} height={600} className="h-56 w-full object-cover transition duration-500 group-hover:scale-105" />
+                  </div>
+                  <div className="p-6">
+                    <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-bold text-teal-700">대청도 특산품</span>
+                    <h3 className="mt-4 text-2xl font-extrabold text-gray-900">{item.name}</h3>
+                    <p className="mt-3 text-sm leading-7 text-gray-600">{item.description}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <p className="mt-6 rounded-2xl bg-white/80 p-4 text-sm leading-6 text-gray-600">💡 구입처·택배 가능 여부·가격은 현지 판매처와 대청면 관광 안내를 통해 방문 전에 확인해 주세요.</p>
+          </div>
+        )}
+      </div>
+    </section>
   </>
 )}
+
+{/* 여행자 사진 자동 슬라이드 */}
+{footprints.length > 0 && (
+  <section className="overflow-hidden bg-[#292929] py-12 text-white md:py-16">
+    <div className="mx-auto max-w-7xl px-5 text-center sm:px-6">
+      <p className="text-sm font-black tracking-[0.2em] text-amber-500">TRAVELER MOMENTS</p>
+      <h2 className="mt-3 text-2xl font-black sm:text-3xl md:text-4xl">
+        <span className="text-amber-500">{footprints.length}장</span>의 여행자 사진이 모였습니다.
+      </h2>
+      <p className="mt-3 text-sm leading-6 text-gray-300">백령·대청·소청에서 여행자들이 직접 남긴 소중한 순간이에요.</p>
+      <button
+        type="button"
+        onClick={() => setIsFootprintMarqueePaused(!isFootprintMarqueePaused)}
+        aria-label={isFootprintMarqueePaused ? "사진 슬라이드 재생" : "사진 슬라이드 일시정지"}
+        className="mt-5 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 text-sm font-black transition hover:bg-white hover:text-gray-900"
+      >
+        {isFootprintMarqueePaused ? "▶" : "Ⅱ"}
+      </button>
+    </div>
+
+    <div className="mt-9 overflow-hidden">
+      <div
+        className="footprint-marquee-track flex w-max gap-3"
+        style={{ animationPlayState: isFootprintMarqueePaused ? "paused" : "running" }}
+      >
+        {[...marqueeFootprints, ...marqueeFootprints].map((item, index) => {
+          const widthClass = ["w-56", "w-80", "w-64", "w-96"][index % 4];
+          return (
+            <a
+              key={`${item.id}-${index}`}
+              href={item.image_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`group relative h-56 shrink-0 overflow-hidden rounded-sm bg-gray-700 ${widthClass}`}
+            >
+              <img src={item.image_url} alt={`${item.island} ${item.place_name} 여행자 사진`} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-4 pb-3 pt-10 text-left opacity-0 transition group-hover:opacity-100">
+                <p className="text-sm font-black">{item.place_name}</p>
+                <p className="mt-1 text-xs text-white/70">{item.island} · {item.nickname}</p>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+
+  </section>
+)}
+
+{/* 섬여행 바로가기 메뉴 */}
+<section className="mx-auto max-w-7xl px-5 py-12 sm:px-6 md:py-16">
+  <div className="rounded-[2rem] border border-gray-100 bg-gray-50 px-5 py-8 shadow-sm sm:px-8 md:py-10">
+    <div className="mb-8 text-center">
+      <p className="text-sm font-black tracking-[0.18em] text-sky-600">ISLAND TRAVEL</p>
+      <h2 className="mt-2 text-2xl font-black text-gray-900 sm:text-3xl">섬여행 바로가기</h2>
+      <p className="mt-3 text-sm leading-6 text-gray-500">백령·대청·소청 여행에 필요한 정보를 빠르게 찾아보세요.</p>
+    </div>
+    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
+      {platformServiceItems.map((item) => (
+        <button
+          type="button"
+          key={item.title}
+          onClick={() => handlePlatformServiceClick(item.key)}
+          className="group flex min-h-44 flex-col items-center justify-center rounded-3xl border border-gray-200 bg-white px-3 py-5 text-center shadow-sm transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-lg"
+        >
+          <span className="flex h-16 w-16 items-center justify-center rounded-full border border-gray-300 bg-gray-50 text-3xl transition group-hover:border-sky-400 group-hover:bg-sky-50">{item.icon}</span>
+          <strong className="mt-4 break-keep text-sm font-black leading-6 text-gray-900">{item.title}</strong>
+          <span className="mt-1 break-keep text-xs leading-5 text-gray-500">{item.description}</span>
+        </button>
+      ))}
+    </div>
+  </div>
+</section>
 
 {/* 쩨쩨 소개 */}
 <section className="max-w-5xl mx-auto px-6 py-16">
