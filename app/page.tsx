@@ -75,6 +75,11 @@ const heroSlides = [
   { src: "/images/hero/hero-08.png", alt: "백령도 바다의 점박이물범", position: "center 50%" },
   { src: "/images/hero/hero-09.png", alt: "백령도의 대표 향토음식 냉면", position: "center 58%" },
   { src: "/images/hero/hero-10.png", alt: "서해 최북단 백령도 기념비", position: "center center" },
+  { src: "/images/hero/hero-11.jpg", alt: "절벽 위에 세워진 백령도 글자 조형물", position: "center 52%" },
+  { src: "/images/hero/hero-12.jpg", alt: "푸른 하늘과 바다가 어우러진 백령도 해안 기암", position: "center 48%" },
+  { src: "/images/hero/hero-13.jpg", alt: "붉게 물든 백령도 포구의 노을", position: "center 52%" },
+  { src: "/images/hero/hero-14.jpg", alt: "갈매기와 눈 덮인 두무진 기암절벽", position: "center 54%" },
+  { src: "/images/hero/hero-15.jpg", alt: "높은 곳에서 바라본 사곶해변 전경", position: "center 58%" },
 ];
 
 const restaurantPhotos: Record<string, string[]> = {
