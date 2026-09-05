@@ -458,7 +458,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
     { name: "맛집", icon: "🍜" },
     { name: "숙박", icon: "🏨" },
     { name: "개인택시", icon: "🚕" },
-    { name: "렌트카", icon: "🚗" },
+    { name: "렌터카", icon: "🚗" },
     { name: "특산물", icon: "🎁" },
   ];
 
@@ -484,7 +484,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       image: "/images/dumujin.jpg",
       category: "관광지",
       description:
-        "수천만 년 동안 형성된 기암절벽과 푸른서해가 어우러진 백령도 대표 절경",
+        "수천만 년 동안 형성된 기암절벽과 푸른 서해가 어우러진 백령도 대표 절경",
       location: "백령도 북서쪽",
       link: "/place/dumujin",
       tip: "🚢 유람선과 해안 산책로에서 웅장한 기암절벽을 서로 다른 각도로 즐겨보세요.",
@@ -517,6 +517,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       image: "/images/kongdol.jpg",
       category: "관광지",
       description: "파도 소리가 아름다운 백령도 명소",
+      location: "인천 옹진군 백령면 남포리",
       link: "/place/kongdol",
       tip: "🌊 파도에 둥근 콩돌이 구르며 내는 독특한 소리를 들으며 해안을 천천히 걸어보세요.",
     },
@@ -527,6 +528,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       image: "/images/simcheonggak.jpg",
       category: "관광지",
       description: "심청전 설화가 전해지는 문화 명소",
+      location: "인천 옹진군 백령면 진촌리",
       link: "/place/simcheonggak",
       tip: "📖 심청전 설화를 살펴보고 전망까지 함께 즐길 수 있어 가족 여행 코스로 잘 어울려요.",
     },
@@ -556,6 +558,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   image: "/images/dragon.jpg",
   category: "관광지",
   description: "용이 몸을 비틀며 승천하는 모습을 닮은 백령도의 대표 지질명소",
+  location: "인천 옹진군 백령면 남포리",
   link: "/place/dragon",
       tip: "🪨 용이 몸을 비트는 듯한 독특한 바위 형태와 주변 해안 지형을 함께 관찰해 보세요.",
 },
@@ -565,6 +568,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       image: "/images/sajabawi2.jpg",
       category: "관광지",
       description: "사자의 형상을 닮은 백령도의 대표 해안 바위",
+      location: "인천 옹진군 백령면 진촌리",
       link: "/place/sajabawi",
       tip: "🦁 보는 방향에 따라 사자를 닮아 보이는 바위와 해안 풍경을 함께 사진에 담기 좋아요.",
     },
@@ -579,7 +583,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       tip: "🕊️ 천안함 46용사를 기억하며 백령도의 안보 역사를 차분하게 돌아보는 공간이에요.",
     },
     {
-      name: "📸 사진찍기 좋은 녹색명소",
+      name: "사진 찍기 좋은 녹색명소",
       island: "백령도",
       image: "/images/photozone.jpg",
       category: "관광지",
@@ -600,15 +604,24 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       link: "/place/baengnyeong-bi",
     },
     {
-      name: "한국기독교의 섬 / 한국기독교역사관",
+      name: "한국기독교의 섬",
       island: "백령도",
       image: "/images/christian-island.jpg",
       category: "안보역사",
-      description: "백령도의 기독교 역사와 관련 자료를 살펴볼 수 있는 역사문화 공간입니다.",
+      description: "백령도에 이어져 온 기독교 역사와 신앙의 발자취를 살펴보는 역사문화 명소입니다.",
       location: "인천 옹진군 백령면",
-      tip: "⛪ 백령도 기독교 역사 · 🏛️ 실내 관람 · 📖 문화여행",
+      tip: "⛪ 백령도 기독교 역사 · 📖 문화여행",
+      link: "/place/christianity",
+    },
+    {
+      name: "한국기독교역사관",
+      island: "백령도",
+      image: "/images/christian-island.jpg",
+      category: "안보역사",
+      description: "백령도의 기독교 역사와 관련 자료를 관람할 수 있는 역사문화 공간입니다.",
+      location: "인천 옹진군 백령면",
+      tip: "🏛️ 실내 관람 · ⛪ 기독교 역사 · 📖 문화여행",
       link: "/place/christian-island",
-      encyclopedia: "/place/christianity",
     },
   
     {
@@ -973,8 +986,8 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   function makeOptimizedCourse() {
     const islandCourseOrder: Record<string, string[]> = {
       백령도: [
-        "사곶해변", "용틀임바위", "콩돌해안", "📸 사진찍기 좋은 녹색명소", "심청각",
-        "서해최북단 백령도비", "한국기독교의 섬 / 한국기독교역사관", "하늬해안",
+        "사곶해변", "용틀임바위", "콩돌해안", "사진 찍기 좋은 녹색명소", "심청각",
+        "서해최북단 백령도비", "한국기독교의 섬", "한국기독교역사관", "하늬해안",
         "백령 점박이물범 생태관광체험센터", "천안함 위령탑", "두무진", "사자바위",
       ],
       대청도: [
@@ -3881,7 +3894,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
           <div className="bg-white rounded-3xl shadow-lg p-8">
             <h3 className="text-2xl font-bold mb-3">
-              🌊 용기포신신항
+              🌊 용기포신항
             </h3>
 
             <p className="text-gray-600">
@@ -3975,8 +3988,8 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
   <p className="text-gray-600 leading-relaxed">
     백령도에서는 현지 렌터카를 이용하면 일정 조정이 편리합니다.
-    차량을 가져갈 계획이라면 선적 가능 여부와 운항일정, 접수시간, 요금 등을 미리 확인하세요.
-    차량선적 관련 문의는 미래해운에 확인할 수 있습니다.
+    차량을 가져갈 계획이라면 선적 가능 여부와 운항 일정, 접수 시간, 요금 등을 미리 확인하세요.
+    차량 선적 관련 사항은 미래해운에 문의해 확인할 수 있습니다.
   </p>
 
   <a href="tel:032-881-6666" className="inline-flex items-center justify-center mt-5 px-6 py-3 rounded-2xl bg-blue-600 text-white font-bold shadow-md transition hover:bg-blue-700">
@@ -3984,7 +3997,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   </a>
 
   <p className="mt-4 text-sm text-gray-500 leading-relaxed">
-    ※ 운항일정과 차량선적 조건은 기상·선박 운항 상황 등에 따라 달라질 수 있으므로 출발 전 반드시 최신 정보를 확인하세요.
+    ※ 운항 일정과 차량 선적 조건은 기상·선박 운항 상황 등에 따라 달라질 수 있으므로 출발 전 반드시 최신 정보를 확인하세요.
   </p>
 </div>
 
@@ -3994,8 +4007,8 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   </h3>
 
   <p className="text-gray-600 leading-relaxed">
-    부대 일정과 외출 · 외박 여부에 따라 달라질 수 있으므로 사전 확인을 추천합니다.
-    특수한 경우가 많은 섬지역은 부대일정 조율이 꼭 필요함을 알려드립니다!!
+    부대 일정과 외출·외박 가능 여부에 따라 달라질 수 있으므로 복무 장병에게 미리 확인해 주세요.
+    배편과 복귀 시간을 고려해 면회 일정을 충분히 여유 있게 조율하는 것이 좋습니다.
   </p>
 </div>
 
@@ -4005,7 +4018,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   </h3>
 
   <p className="text-gray-600 leading-relaxed">
-    플랫폼 하단을 눌러 편의점 및 마트정보를 확인하세요~
+    아래 생활정보에서 편의점과 마트 정보를 확인해 주세요.
   </p>
 </div>
 
@@ -4032,7 +4045,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   📊 백령도 한눈에 보기
 </h3>
 <p className="text-center text-gray-600 mb-4">
-  백령도 주요 관광지와 위치를 한눈에 확인해보세요.
+  백령도 주요 관광지와 위치를 한눈에 확인해 보세요.
 </p>
 </div>
             <div className="grid grid-cols-2 gap-2">
@@ -4047,7 +4060,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
               <div className="bg-gray-100 rounded-2xl p-2 text-center">
                 <p className="text-2xl font-bold">3개</p>
                 <p className="text-gray-600 text-xs mt-1">
-                  주요 관광섬
+                  주요 관광 섬
                 </p>
               </div>
 
@@ -4118,7 +4131,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                 </h3>
 
                 <p className="text-gray-600 leading-relaxed">
-                  상비약,아이용품은 꼭 챙겨오시기를 추천합니다.
+                  상비약과 아이용품은 섬에 들어오기 전에 미리 준비하는 것을 추천합니다.
                 </p>
               </div>
             </div>
@@ -4296,10 +4309,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             {[
               {icon:"👨‍👩‍👧", title:"부모님과 함께", desc:"이동 부담은 줄이고 대표 명소와 전망을 여유롭게", tags:["두무진","심청각","사곶해변"], action:"place"},
               {icon:"🧒", title:"아이와 함께", desc:"바다와 자연을 직접 보고 배우는 가족여행", tags:["콩돌해안","사곶해변","하늬해변"], action:"place"},
-              {icon:"🪖", title:"군인면회", desc:"배편부터 이동·식사·복귀시간까지 실전 준비 중심", tags:["면회 준비","추천코스","곰신 후기"], action:"military"},
+              {icon:"🪖", title:"군인면회", desc:"배편부터 이동·식사·복귀 시간까지 실전 준비 중심", tags:["면회 준비","추천코스","곰신 후기"], action:"military"},
               {icon:"📸", title:"사진여행", desc:"백령도다운 절경과 노을을 사진으로 남기는 여행", tags:["두무진","끝섬전망대","콩돌해안"], action:"place"},
               {icon:"🚌", title:"뚜벅이 여행", desc:"공영버스와 택시를 함께 활용해 이동 부담 줄이기", tags:["버스시간표","택시","동선 계획"], action:"transport"},
-              {icon:"🌅", title:"여유로운 2박3일", desc:"대표 관광지와 숨은 명소까지 천천히 둘러보기", tags:["추천코스","숨은 명소","계절여행"], action:"course"},
+              {icon:"🌅", title:"여유로운 2박 3일", desc:"대표 관광지와 숨은 명소까지 천천히 둘러보기", tags:["추천코스","숨은 명소","계절여행"], action:"course"},
             ].map((item) => (
               <button
                 type="button"
@@ -4368,7 +4381,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           <div className="bg-white rounded-3xl shadow-lg p-8">
 
             <h3 className="text-2xl font-bold mb-5">
-              🏕️ 1박2일 추천코스
+              🏕️ 1박 2일 추천코스
             </h3>
 
             <ul className="space-y-3 text-gray-700 leading-relaxed">
@@ -4377,7 +4390,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
               <li>🪨 콩돌해안</li>
               <li>🦭 점박이물범 관찰</li>
               <li>🎣 용기포항 야경</li>
-              <li>🚗 백령도 렌트카 드라이브</li>
+              <li>🚗 백령도 렌터카 드라이브</li>
             </ul>
 
           </div>
@@ -4386,7 +4399,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           <div className="bg-white rounded-3xl shadow-lg p-8">
 
             <h3 className="text-2xl font-bold mb-5">
-              🌅 2박3일 추천코스
+              🌅 2박 3일 추천코스
             </h3>
 
             <ul className="space-y-3 text-gray-700 leading-relaxed">
@@ -4422,10 +4435,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             <div className="mt-6 overflow-x-auto pb-2">
               <div className="flex min-w-max gap-3">
                 {[
-                  ["① 일정 확인", "장병에게 면회·외출 가능 날짜와 복귀시간 확인", "📅"],
+                  ["① 일정 확인", "장병에게 면회·외출 가능 날짜와 복귀 시간 확인", "📅"],
                   ["② 왕복 배편", "가는 배와 돌아오는 배를 함께 예약·확인", "🚢"],
                   ["③ 숙소", "숙박이 필요하면 배편 확정 후 미리 준비", "🏠"],
-                  ["④ 섬내 이동", "면회시간에 맞춰 택시·렌터카 등 이동수단 확인", "🚕"],
+                  ["④ 섬 내 이동", "면회 시간에 맞춰 택시·렌터카 등 이동수단 확인", "🚕"],
                   ["⑤ 결항 대비", "출항 전 운항 여부 확인, 결항 시 다음 배와 숙소 확인", "🌊"],
                 ].map(([title, desc, icon]) => (
                   <div
@@ -4446,7 +4459,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                   <p className="text-xs font-black tracking-[0.16em] text-indigo-600">VISIT COURSE</p>
                   <h4 className="mt-1 text-xl font-black text-gray-900">👨‍✈️ 군인 면회 추천코스</h4>
                 </div>
-                <p className="text-xs text-gray-500">장병의 실제 외출·복귀시간을 먼저 확인하세요.</p>
+                <p className="text-xs text-gray-500">장병의 실제 외출·복귀 시간을 먼저 확인하세요.</p>
               </div>
               <div className="mt-4 flex flex-wrap items-center gap-2 text-sm font-bold text-gray-700">
                 <span className="rounded-full bg-white px-4 py-2 shadow-sm">🍜 함께 식사</span>
@@ -4464,7 +4477,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             <div className="mt-5 rounded-2xl bg-sky-50 p-4 sm:p-5">
               <p className="font-black text-gray-900">💡 면회객 핵심 팁</p>
               <p className="mt-2 text-sm leading-6 text-gray-700">
-                백령도는 배 운항이 일정에 큰 영향을 줍니다. 면회시간만 확인하지 말고
+                백령도는 배 운항이 일정에 큰 영향을 줍니다. 면회 시간만 확인하지 말고
                 돌아오는 배 시간까지 먼저 맞춘 뒤 식사·관광 일정을 잡는 것이 좋아요.
               </p>
             </div>
@@ -4514,7 +4527,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                 <input value={militaryReviewNickname} onChange={(e)=>setMilitaryReviewNickname(e.target.value)} maxLength={20} placeholder="닉네임" className="rounded-2xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-pink-400"/>
                 <input value={militaryReviewPeriod} onChange={(e)=>setMilitaryReviewPeriod(e.target.value)} maxLength={20} placeholder="방문시기 예: 2026년 8월" className="rounded-2xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-pink-400"/>
                 <select value={militaryReviewRelation} onChange={(e)=>setMilitaryReviewRelation(e.target.value)} className="rounded-2xl border border-gray-200 px-4 py-3 text-sm"><option>연인</option><option>가족</option><option>친구</option><option>기타</option></select>
-                <select value={militaryReviewStay} onChange={(e)=>setMilitaryReviewStay(e.target.value)} className="rounded-2xl border border-gray-200 px-4 py-3 text-sm"><option>당일</option><option>1박2일</option><option>2박3일 이상</option></select>
+                <select value={militaryReviewStay} onChange={(e)=>setMilitaryReviewStay(e.target.value)} className="rounded-2xl border border-gray-200 px-4 py-3 text-sm"><option>당일</option><option>1박 2일</option><option>2박 3일 이상</option></select>
                 <select value={militaryReviewTransport} onChange={(e)=>setMilitaryReviewTransport(e.target.value)} className="rounded-2xl border border-gray-200 px-4 py-3 text-sm sm:col-span-2"><option>택시</option><option>렌터카</option><option>자가용 선적</option><option>공영버스</option><option>기타</option></select>
               </div>
               <div className="mt-4">
