@@ -3,306 +3,117 @@ import PlaceTemplate from "../../components/PlaceTemplate";
 import PlaceReviews from "../../components/PlaceReviews";
 
 export const metadata = {
-  title: "백령도 콩돌해안 여행 가이드 | 백령도의 모든 정보",
+  title: "한국기독교역사관 여행 가이드 | 백령도의 모든 정보",
   description:
-    "파도가 다듬은 둥근 자갈로 유명한 백령도 콩돌해안의 산책, 사진 포인트, 방문 주의사항과 주변 코스를 확인하세요.",
+    "백령도의 기독교 역사와 신앙문화를 살펴볼 수 있는 한국기독교역사관의 관람 정보와 주변 여행 코스를 확인하세요.",
 };
 
-export default function KongdolPage() {
+export default function ChristianHistoryMuseumPage() {
   return (
     <PlaceTemplate
-      title="콩돌해안"
-      subtitle="파도가 오랜 시간 다듬어 만든 콩돌과 푸른 바다가 어우러진 백령도의 특별한 해안"
-      image="/images/kongdol.jpg"
-      badges={["천연 해안", "사진 명소", "산책 코스"]}
+      title="한국기독교역사관"
+      subtitle="한국 기독교의 역사와 백령도의 신앙문화를 살펴볼 수 있는 역사문화 공간"
+      image="/images/christian-history-museum.png"
+      badges={["역사문화", "실내 관람", "교육여행"]}
       quickFacts={[
-        ["추천 대상", "가족 · 연인 · 사진 여행"],
-        ["추천 시간", "오전 ~ 일몰 전"],
-        ["관람 방법", "도보 산책"],
-        ["준비물", "운동화 · 카메라"],
+        ["추천 대상", "가족 · 학생 · 역사여행"],
+        ["추천 시간", "40~60분"],
+        ["관람 방법", "실내 전시 관람"],
+        ["방문 전 확인", "운영시간 · 휴관 여부"],
       ]}
     >
       <div className="space-y-8">
-
-        {/* 소개 */}
         <section className="rounded-3xl bg-white p-8 shadow-sm">
-          <h2 className="text-3xl font-black">
-            🪨 콩돌해안은 어떤 곳인가요?
-          </h2>
-
+          <h2 className="text-3xl font-black">✝️ 한국기독교역사관은 어떤 곳인가요?</h2>
           <p className="mt-5 leading-8 text-gray-700">
-            콩돌해안은 모래 대신 둥글게 다듬어진 자갈이 해안을
-            가득 메우고 있는 백령도의 대표 자연 명소입니다.
-            파도가 밀려왔다 빠질 때마다 콩돌이 부딪히며
-            만들어내는 소리가 이곳만의 특별한 매력입니다.
+            한국기독교역사관은 백령도가 한국 기독교 역사에서 차지하는 의미와
+            섬에 이어져 온 신앙문화를 살펴볼 수 있는 전시 공간입니다. 관련
+            자료와 설명을 통해 지역 교회의 역사와 백령도 주민들의 생활 속에
+            자리 잡은 신앙문화를 이해할 수 있습니다.
           </p>
-
           <p className="mt-5 leading-8 text-gray-700">
-            해안을 따라 천천히 걸으며 서해의 풍경을 감상하기 좋고,
-            둥근 콩돌과 바다가 어우러진 백령도만의 특별한
-            해안 풍경을 만날 수 있습니다.
+            자연 명소 중심의 여행에 역사문화 일정을 더하고 싶은 분이나
+            학생·가족 단위 방문객이 천천히 둘러보기 좋은 장소입니다.
           </p>
         </section>
 
-        {/* 볼거리 */}
         <section className="rounded-3xl bg-white p-8 shadow-sm">
-          <h2 className="text-3xl font-black">
-            📸 꼭 보고 느껴볼 포인트
-          </h2>
-
+          <h2 className="text-3xl font-black">📖 꼭 살펴볼 포인트</h2>
           <div className="mt-6 grid gap-5 md:grid-cols-2">
-
-            <div className="rounded-2xl bg-sky-50 p-6">
-              <h3 className="text-xl font-extrabold text-sky-900">
-                🪨 둥근 콩돌
-              </h3>
-              <p className="mt-3 leading-7 text-gray-700">
-                크기와 색이 조금씩 다른 둥근 자갈이
-                해안을 이루는 독특한 모습을 살펴보세요.
-              </p>
-            </div>
-
-            <div className="rounded-2xl bg-sky-50 p-6">
-              <h3 className="text-xl font-extrabold text-sky-900">
-                🌊 파도 소리
-              </h3>
-              <p className="mt-3 leading-7 text-gray-700">
-                파도가 들어오고 빠져나갈 때 콩돌이 움직이며
-                만들어내는 소리도 콩돌해안의 매력입니다.
-              </p>
-            </div>
-
-            <div className="rounded-2xl bg-sky-50 p-6">
-              <h3 className="text-xl font-extrabold text-sky-900">
-                🚶 해안 풍경
-              </h3>
-              <p className="mt-3 leading-7 text-gray-700">
-                콩돌만 바라보기보다 바다와 하늘까지 함께
-                바라보며 백령도의 해안 풍경을 즐겨보세요.
-              </p>
-            </div>
-
-            <div className="rounded-2xl bg-sky-50 p-6">
-              <h3 className="text-xl font-extrabold text-sky-900">
-                🌿 자연 그대로 보기
-              </h3>
-              <p className="mt-3 leading-7 text-gray-700">
-                콩돌과 해안의 자연물은 가져가지 않고
-                현장에서 그대로 감상해 주세요.
-              </p>
-            </div>
-
+            {[
+              ["백령도의 기독교 역사", "백령도에 기독교 신앙문화가 자리 잡고 이어져 온 과정을 살펴보세요."],
+              ["역사 자료와 설명", "전시 자료와 설명문을 천천히 읽으면 백령도의 역사문화에 대한 이해가 깊어집니다."],
+              ["지역 교회의 발자취", "교회가 섬 주민들의 생활과 마을 공동체에 어떤 의미를 가졌는지 알아볼 수 있습니다."],
+              ["가족 교육여행", "아이와 함께 지역의 역사와 문화를 이야기하며 둘러보기 좋은 실내 관람지입니다."],
+            ].map(([title, description]) => (
+              <div key={title} className="rounded-2xl bg-sky-50 p-6">
+                <h3 className="text-xl font-extrabold text-sky-900">{title}</h3>
+                <p className="mt-3 leading-7 text-gray-700">{description}</p>
+              </div>
+            ))}
           </div>
         </section>
 
-        {/* 사진 */}
-        <section className="rounded-3xl bg-white p-8 shadow-sm">
-          <h2 className="text-3xl font-black">
-            📷 콩돌해안 사진 포인트
-          </h2>
-
-          <div className="mt-6 grid gap-5 md:grid-cols-3">
-
-            <div className="rounded-2xl border border-gray-200 p-6">
-              <h3 className="text-lg font-extrabold">
-                ① 콩돌 가까이 담기
-              </h3>
-              <p className="mt-3 leading-7 text-gray-700">
-                둥근 모양과 서로 다른 질감이 보이도록
-                콩돌을 가까이 촬영해 보세요.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-gray-200 p-6">
-              <h3 className="text-lg font-extrabold">
-                ② 바다와 함께 담기
-              </h3>
-              <p className="mt-3 leading-7 text-gray-700">
-                앞쪽에는 콩돌을 두고 뒤쪽에는 바다를 넣으면
-                콩돌해안의 특징을 한 장에 담기 좋습니다.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-gray-200 p-6">
-              <h3 className="text-lg font-extrabold">
-                ③ 파도와 콩돌
-              </h3>
-              <p className="mt-3 leading-7 text-gray-700">
-                안전한 거리에서 파도가 콩돌 사이로 들어오는
-                모습을 함께 담아보세요.
-              </p>
-            </div>
-
-          </div>
-        </section>
-
-        {/* 자연보호 */}
-        <section className="rounded-3xl border border-emerald-200 bg-emerald-50 p-8">
-          <h2 className="text-3xl font-black">
-            🌿 콩돌은 그대로 두고 오세요
-          </h2>
-
-          <p className="mt-5 leading-8 text-gray-700">
-            콩돌은 콩돌해안의 특별한 풍경을 이루는 자연자원입니다.
-            예쁜 돌을 발견하더라도 가져가기보다는 눈으로 감상하고
-            사진으로 남겨주세요.
-          </p>
-
-          <p className="mt-4 leading-8 text-gray-700">
-            여행자가 자연을 그대로 두고 돌아가는 작은 실천이
-            콩돌해안의 풍경을 오래 지키는 데 도움이 됩니다.
-          </p>
-        </section>
-
-        {/* 여행 팁 */}
-        <section className="rounded-3xl bg-white p-8 shadow-sm">
-          <h2 className="text-3xl font-black">
-            🧭 콩돌해안 여행 팁
-          </h2>
-
+        <section className="rounded-3xl border border-amber-200 bg-amber-50 p-8">
+          <h2 className="text-3xl font-black">🧭 방문 전 확인하세요</h2>
           <ul className="mt-6 space-y-4 leading-8 text-gray-700">
-            <li>
-              ✅ 콩돌 위는 모래사장보다 걷기 불편할 수 있으므로
-              발을 잘 잡아주는 운동화를 추천합니다.
-            </li>
-
-            <li>
-              ✅ 자갈 위에서는 뛰지 말고 천천히 이동하세요.
-            </li>
-
-            <li>
-              ✅ 파도가 강한 날에는 물가 가까이 가지 말고
-              충분한 안전거리를 유지하세요.
-            </li>
-
-            <li>
-              ✅ 콩돌은 가져가지 말고 눈과 사진으로만 담아주세요.
-            </li>
-
-            <li>
-              ✅ 아이와 함께 방문한다면 자갈 위에서 넘어지지 않도록
-              보호자가 가까이에서 살펴주세요.
-            </li>
+            <li>✅ 운영시간과 휴관 여부는 방문 당일 최신 안내를 확인해 주세요.</li>
+            <li>✅ 실내 전시물의 사진 촬영 가능 여부는 현장 안내를 따라주세요.</li>
+            <li>✅ 전시 설명문을 읽으며 천천히 관람할 수 있도록 시간을 넉넉히 잡아주세요.</li>
+            <li>✅ 단체 방문을 계획한다면 사전에 관람 가능 여부를 확인하는 것이 좋습니다.</li>
           </ul>
         </section>
 
-        {/* 내부 링크 */}
         <section className="rounded-3xl bg-white p-8 shadow-sm">
-          <h2 className="text-3xl font-black">
-            🗺️ 함께 가기 좋은 코스
-          </h2>
-
+          <h2 className="text-3xl font-black">🗺️ 함께 둘러보기 좋은 코스</h2>
           <p className="mt-4 leading-7 text-gray-600">
-            아래 관광지를 누르면 해당 관광지 상세 페이지로 이동합니다.
+            역사관과 함께 백령도의 기독교 역사와 지역문화를 살펴보세요.
           </p>
-
           <div className="mt-6 grid gap-4 md:grid-cols-3">
-
-            <Link
-              href="/place/dragon"
-              className="block rounded-2xl border-2 border-gray-200 bg-white p-5 transition-all duration-200 hover:-translate-y-1 hover:border-sky-500 hover:bg-sky-50 hover:shadow-lg"
-            >
-              <h3 className="text-lg font-extrabold">
-                용틀임바위 →
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-gray-600">
-                독특한 기암과 해안 풍경을 함께 만나는 자연 명소
-              </p>
+            <Link href="/place/christianity" className="block rounded-2xl border-2 border-gray-200 bg-white p-5 transition hover:-translate-y-1 hover:border-sky-500 hover:bg-sky-50 hover:shadow-lg">
+              <h3 className="text-lg font-extrabold">한국기독교의 섬 →</h3>
+              <p className="mt-2 text-sm leading-6 text-gray-600">백령도의 교회와 신앙문화 전체를 살펴보는 역사문화 여행</p>
             </Link>
-
-            <Link
-              href="/place/hani"
-              className="block rounded-2xl border-2 border-gray-200 bg-white p-5 transition-all duration-200 hover:-translate-y-1 hover:border-sky-500 hover:bg-sky-50 hover:shadow-lg"
-            >
-              <h3 className="text-lg font-extrabold">
-                하늬해변 →
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-gray-600">
-                점박이물범과 백령도의 해안 생태를 만나는 여행지
-              </p>
+            <Link href="/place/christianity#junghwadong" className="block rounded-2xl border-2 border-gray-200 bg-white p-5 transition hover:-translate-y-1 hover:border-sky-500 hover:bg-sky-50 hover:shadow-lg">
+              <h3 className="text-lg font-extrabold">중화동교회 →</h3>
+              <p className="mt-2 text-sm leading-6 text-gray-600">백령도의 교회 역사와 마을 신앙문화를 함께 살펴보기 좋은 장소</p>
             </Link>
-
-            <Link
-              href="/place/sagot"
-              className="block rounded-2xl border-2 border-gray-200 bg-white p-5 transition-all duration-200 hover:-translate-y-1 hover:border-sky-500 hover:bg-sky-50 hover:shadow-lg"
-            >
-              <h3 className="text-lg font-extrabold">
-                사곶해변 →
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-gray-600">
-                넓은 해변 풍경을 만날 수 있는 백령도의 대표 관광지
-              </p>
+            <Link href="/place/simcheonggak" className="block rounded-2xl border-2 border-gray-200 bg-white p-5 transition hover:-translate-y-1 hover:border-sky-500 hover:bg-sky-50 hover:shadow-lg">
+              <h3 className="text-lg font-extrabold">심청각 →</h3>
+              <p className="mt-2 text-sm leading-6 text-gray-600">심청 설화와 백령도의 지역문화를 함께 접할 수 있는 관광지</p>
             </Link>
-
           </div>
         </section>
 
-        {/* FAQ */}
         <section className="rounded-3xl bg-white p-8 shadow-sm">
-          <h2 className="text-3xl font-black">
-            ❓ 콩돌해안 자주 묻는 질문
-          </h2>
-
+          <h2 className="text-3xl font-black">❓ 자주 묻는 질문</h2>
           <div className="mt-8 space-y-6">
-
             <div>
-              <h3 className="text-lg font-bold">
-                Q. 콩돌을 가져가도 되나요?
-              </h3>
+              <h3 className="text-lg font-bold">Q. 한국기독교의 섬과 같은 곳인가요?</h3>
               <p className="mt-2 leading-7 text-gray-700">
-                콩돌은 해안의 자연경관을 이루는 자연자원이므로
-                가져가지 말고 현장에서 그대로 감상해 주세요.
+                아니요. 한국기독교의 섬은 백령도의 교회와 신앙문화 전반을
+                소개하는 여행 주제이고, 한국기독교역사관은 관련 자료를 관람할
+                수 있는 개별 역사문화 공간입니다.
               </p>
             </div>
-
             <div>
-              <h3 className="text-lg font-bold">
-                Q. 아이와 함께 가기 좋은가요?
-              </h3>
+              <h3 className="text-lg font-bold">Q. 비 오는 날에도 방문하기 좋은가요?</h3>
               <p className="mt-2 leading-7 text-gray-700">
-                함께 자연을 관찰하기 좋지만 자갈 위에서는
-                넘어지지 않도록 천천히 이동하는 것이 좋습니다.
+                실내 관람 중심이어서 야외 관광이 어려운 날 일정에 넣기 좋지만,
+                당일 운영 여부를 먼저 확인해 주세요.
               </p>
             </div>
-
             <div>
-              <h3 className="text-lg font-bold">
-                Q. 콩돌해안에서는 무엇을 꼭 봐야 하나요?
-              </h3>
+              <h3 className="text-lg font-bold">Q. 아이와 함께 관람할 수 있나요?</h3>
               <p className="mt-2 leading-7 text-gray-700">
-                둥근 콩돌의 모습뿐 아니라 파도가 움직일 때
-                들리는 자갈 소리도 함께 느껴보세요.
+                네. 역사와 지역문화를 함께 접할 수 있어 가족·학생 여행에 잘 어울립니다.
               </p>
             </div>
-
-            <div>
-              <h3 className="text-lg font-bold">
-                Q. 비 오는 날에도 갈 수 있나요?
-              </h3>
-              <p className="mt-2 leading-7 text-gray-700">
-                젖은 자갈은 미끄러울 수 있고 파도가 강해질 수 있으므로
-                날씨가 좋지 않을 때는 안전을 우선해 주세요.
-              </p>
-            </div>
-
           </div>
         </section>
 
-        {/* 안전 */}
-        <section className="rounded-3xl border border-amber-200 bg-amber-50 p-6">
-          <p className="leading-7 text-amber-950">
-            <strong>방문 전 확인:</strong> 섬 지역은 기상과 현장 상황에
-            따라 이용 여건이 달라질 수 있습니다. 강풍이나 높은 파도가
-            있는 날에는 현장 안전 안내를 우선해 주세요.
-          </p>
-        </section>
-
+        <PlaceReviews placeSlug="christian-island" placeName="한국기독교역사관" />
       </div>
-
-      <PlaceReviews
-        placeSlug="kongdol"
-        placeName="콩돌해안"
-      />
     </PlaceTemplate>
   );
 }
