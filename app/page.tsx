@@ -616,7 +616,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
     {
       name: "한국기독교역사관",
       island: "백령도",
-      image: "/images/christian-island.jpg",
+      image: "/images/christian-history-museum.png",
       category: "안보역사",
       description: "백령도의 기독교 역사와 관련 자료를 관람할 수 있는 역사문화 공간입니다.",
       location: "인천 옹진군 백령면",
