@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import MyCourse from "./components/MyCourse";
 import { supabase } from "./lib/supabase";
