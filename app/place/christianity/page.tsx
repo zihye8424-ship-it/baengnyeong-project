@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import PlaceTemplate from "../../components/PlaceTemplate";
 import PlaceReviews from "../../components/PlaceReviews";
 
@@ -37,7 +37,7 @@ export default function ChristianityPage() {
 
           <p>
             이 페이지는 특정 건물 하나를 소개하는
-            <strong> 한국기독교역사관 안내 페이지와는 다릅니다.</strong>
+            <strong> 백령기독교역사관 안내 페이지와는 다릅니다.</strong>
             중화동교회를 비롯해 백령도에 이어져 온 교회와 기독교 문화
             전체를 하나의 역사문화 여행 주제로 소개합니다.
           </p>
@@ -175,7 +175,7 @@ export default function ChristianityPage() {
             className="block cursor-pointer rounded-2xl border-2 border-gray-200 bg-white p-5 transition-all duration-200 hover:-translate-y-1 hover:border-violet-500 hover:bg-violet-50 hover:shadow-lg"
           >
             <h3 className="text-lg font-extrabold">
-              한국기독교역사관 →
+              백령기독교역사관 →
             </h3>
 
             <p className="mt-2 text-sm leading-6 text-gray-600">
@@ -246,11 +246,11 @@ export default function ChristianityPage() {
         <div className="mt-6 space-y-6 text-gray-700">
           <div>
             <h3 className="text-lg font-bold">
-              Q. 한국기독교의 섬과 한국기독교역사관은 같은 곳인가요?
+              Q. 한국기독교의 섬과 백령기독교역사관은 같은 곳인가요?
             </h3>
             <p className="mt-2 leading-7">
               아니요. 이 페이지는 백령도의 교회와 기독교 신앙문화
-              전반을 소개하는 테마 페이지이고, 한국기독교역사관은
+              전반을 소개하는 테마 페이지이고, 백령기독교역사관은
               관련 역사를 살펴볼 수 있는 개별 공간입니다.
             </p>
           </div>

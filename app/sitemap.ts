@@ -23,6 +23,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/guide`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/food/naengmyeon`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/privacy`,
       lastModified: new Date(),
       changeFrequency: "yearly",
@@ -66,6 +78,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "socheong-catholic",
     "socheong-columnar-joint",
     "socheong-lighthouse",
+    "spotted-seal-center",
     "stromatolite",
     "sunset-observatory",
     "tapdong-port",

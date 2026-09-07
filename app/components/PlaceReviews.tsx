@@ -41,6 +41,7 @@ export default function PlaceReviews({
       .from("place_reviews")
       .select("*")
       .eq("place_slug", placeSlug)
+      .eq("status", "approved")
       .order("id", { ascending: false });
 
     if (error) {
@@ -96,7 +97,7 @@ export default function PlaceReviews({
     setNickname("");
     setRating(5);
     setContent("");
-    setMessage(`${placeName} 리뷰가 정상적으로 등록되었습니다. 😊`);
+    setMessage(`${placeName} 리뷰가 등록되었습니다. 관리자 승인 후 공개됩니다. 😊`);
 
     await loadReviews();
     setIsLoading(false);

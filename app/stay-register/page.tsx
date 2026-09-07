@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import MyCourse from "../components/MyCourse";
 import AddCourseButton from "../components/AddCourseButton";
@@ -170,7 +170,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       link: "/place/baengnyeong-bi",
     },
     {
-name: "한국기독교의 섬 / 한국기독교역사관",
+name: "한국기독교의 섬 / 백령기독교역사관",
 island: "백령도",
 image: "/images/christian-island.jpg",
 category: "안보역사",

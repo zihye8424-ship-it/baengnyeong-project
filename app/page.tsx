@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import MyCourse from "./components/MyCourse";
 import { supabase } from "./lib/supabase";
@@ -619,7 +619,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       link: "/place/christianity",
     },
     {
-      name: "한국기독교역사관",
+      name: "백령기독교역사관",
       island: "백령도",
       image: "/images/christian-history-museum.png",
       category: "안보역사",
@@ -992,7 +992,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
     const islandCourseOrder: Record<string, string[]> = {
       백령도: [
         "사곶해변", "용틀임바위", "콩돌해안", "사진 찍기 좋은 녹색명소", "심청각",
-        "서해최북단 백령도비", "한국기독교의 섬", "한국기독교역사관", "하늬해안",
+        "서해최북단 백령도비", "한국기독교의 섬", "백령기독교역사관", "하늬해안",
         "백령 점박이물범 생태관광체험센터", "천안함 위령탑", "두무진", "사자바위",
       ],
       대청도: [
@@ -2754,7 +2754,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                 ["🌲", "400년 노송", "백령도를 오랫동안 지켜온 상징적인 노송", "/images/nosong.jpg"],
                 ["🪨", "남포리 습곡구조", "독특한 지층 구조를 볼 수 있는 지질명소", "/images/seupgok.jpg"],
                 ["🌋", "감람암 포획 현무암 분포지", "백령도의 지질 이야기를 만날 수 있는 장소", "/images/basalt.jpg"],
-                ["🦭", "물범바위", "점박이물범 생태와 연결되는 해안 명소", "/images/seal.jpg"],
+                ["🦭", "물범바위", "점박이물범 생태와 연결되는 해안 명소", "/images/seal.png"],
               ].map(([icon, name, desc, image]) => (
                 <a key={name} href={image} target="_blank" rel="noopener noreferrer" className="group rounded-3xl border border-gray-100 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
                   <div className="text-3xl">{icon}</div>
@@ -5076,3 +5076,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 </main>
 );
 }
+
+
+
+

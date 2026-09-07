@@ -1,17 +1,17 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import PlaceTemplate from "../../components/PlaceTemplate";
 import PlaceReviews from "../../components/PlaceReviews";
 
 export const metadata = {
-  title: "한국기독교역사관 여행 가이드 | 백령도의 모든 정보",
+  title: "백령기독교역사관 여행 가이드 | 백령도의 모든 정보",
   description:
-    "백령도의 기독교 역사와 신앙문화를 살펴볼 수 있는 한국기독교역사관의 관람 정보와 주변 여행 코스를 확인하세요.",
+    "백령도의 기독교 역사와 신앙문화를 살펴볼 수 있는 백령기독교역사관의 관람 정보와 주변 여행 코스를 확인하세요.",
 };
 
 export default function ChristianHistoryMuseumPage() {
   return (
     <PlaceTemplate
-      title="한국기독교역사관"
+      title="백령기독교역사관"
       subtitle="한국 기독교의 역사와 백령도의 신앙문화를 살펴볼 수 있는 역사문화 공간"
       image="/images/christian-history-museum.png"
       badges={["역사문화", "실내 관람", "교육여행"]}
@@ -24,9 +24,9 @@ export default function ChristianHistoryMuseumPage() {
     >
       <div className="space-y-8">
         <section className="rounded-3xl bg-white p-8 shadow-sm">
-          <h2 className="text-3xl font-black">✝️ 한국기독교역사관은 어떤 곳인가요?</h2>
+          <h2 className="text-3xl font-black">✝️ 백령기독교역사관은 어떤 곳인가요?</h2>
           <p className="mt-5 leading-8 text-gray-700">
-            한국기독교역사관은 백령도가 한국 기독교 역사에서 차지하는 의미와
+            백령기독교역사관은 백령도가 한국 기독교 역사에서 차지하는 의미와
             섬에 이어져 온 신앙문화를 살펴볼 수 있는 전시 공간입니다. 관련
             자료와 설명을 통해 지역 교회의 역사와 백령도 주민들의 생활 속에
             자리 잡은 신앙문화를 이해할 수 있습니다.
@@ -92,7 +92,7 @@ export default function ChristianHistoryMuseumPage() {
               <h3 className="text-lg font-bold">Q. 한국기독교의 섬과 같은 곳인가요?</h3>
               <p className="mt-2 leading-7 text-gray-700">
                 아니요. 한국기독교의 섬은 백령도의 교회와 신앙문화 전반을
-                소개하는 여행 주제이고, 한국기독교역사관은 관련 자료를 관람할
+                소개하는 여행 주제이고, 백령기독교역사관은 관련 자료를 관람할
                 수 있는 개별 역사문화 공간입니다.
               </p>
             </div>
@@ -112,8 +112,9 @@ export default function ChristianHistoryMuseumPage() {
           </div>
         </section>
 
-        <PlaceReviews placeSlug="christian-island" placeName="한국기독교역사관" />
+        <PlaceReviews placeSlug="christian-island" placeName="백령기독교역사관" />
       </div>
     </PlaceTemplate>
   );
 }
+
