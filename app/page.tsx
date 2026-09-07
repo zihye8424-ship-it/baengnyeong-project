@@ -2179,249 +2179,6 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         </div>
       </section>
 
-      {/* 섬별 맞춤 여행 플래너 */}
-      {(
-        <section id="ai-planner" className="scroll-mt-24 mx-auto max-w-7xl px-6 pb-16">
-          <div className="overflow-hidden rounded-[2rem] border border-violet-100 bg-gradient-to-br from-violet-50 via-white to-sky-50 shadow-sm">
-            <div className="p-6 md:p-9">
-              <p className="text-sm font-black tracking-[0.18em] text-violet-600">TRAVEL PLANNER</p>
-              <h2 className="mt-2 text-3xl md:text-4xl font-black text-gray-900">
-                ✨ {selectedIsland} 맞춤 여행 플래너
-              </h2>
-              <p className="mt-3 max-w-3xl leading-7 text-gray-600">
-                여행 기간과 동행, 취향을 고르면 {selectedIsland} 일정 예시를 자동으로 만들어드려요.
-                실제 이동 전에는 여객선 운항 여부와 현지 교통 상황을 꼭 확인해 주세요.
-              </p>
-
-              <div className="mt-5 flex flex-wrap items-center gap-3 rounded-2xl border border-pink-100 bg-pink-50 px-4 py-3">
-                <span className="font-black text-pink-700">❤️ 내가 담은 {selectedIsland} 관광지 {myCourse.filter((item) => item.island === selectedIsland).length}곳</span>
-                <span className="text-sm text-gray-600">관광지 카드에서 장소를 담은 뒤, 아래 맞춤 일정과 함께 비교해 보세요.</span>
-                <button
-                  type="button"
-                  onClick={() => document.getElementById("my-course")?.scrollIntoView({ behavior: "smooth", block: "start" })}
-                  className="ml-auto rounded-full bg-white px-4 py-2 text-sm font-black text-pink-700 shadow-sm hover:bg-pink-100"
-                >
-                  담은 장소 보기 ↓
-                </button>
-              </div>
-
-              <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-                <label className="block">
-                  <span className="mb-2 block text-sm font-black text-gray-700">여행 기간</span>
-                  <select
-                    value={plannerDuration}
-                    onChange={(e) => {
-                      setPlannerDuration(e.target.value);
-                      setPlannerResult(null);
-                    }}
-                    className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 font-bold text-gray-800 outline-none focus:border-violet-400"
-                  >
-                    {["당일", "1박 2일", "2박 3일"].map((item) => (
-                      <option key={item}>{item}</option>
-                    ))}
-                  </select>
-                </label>
-
-                <label className="block">
-                  <span className="mb-2 block text-sm font-black text-gray-700">동행</span>
-                  <select
-                    value={plannerCompanion}
-                    onChange={(e) => {
-                      setPlannerCompanion(e.target.value);
-                      setPlannerResult(null);
-                    }}
-                    className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 font-bold text-gray-800 outline-none focus:border-violet-400"
-                  >
-                    {["가족", "아이 동반", "부모님", "연인·친구", "혼자", "군인 면회"].map((item) => (
-                      <option key={item}>{item}</option>
-                    ))}
-                  </select>
-                </label>
-
-                <label className="block">
-                  <span className="mb-2 block text-sm font-black text-gray-700">여행 테마</span>
-                  <select
-                    value={plannerTheme}
-                    onChange={(e) => {
-                      setPlannerTheme(e.target.value);
-                      setPlannerResult(null);
-                    }}
-                    className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 font-bold text-gray-800 outline-none focus:border-violet-400"
-                  >
-                    {["자연·사진", "아이와 가족", "군인 면회", "역사·안보", "맛집·카페", "힐링·느긋하게"].map((item) => (
-                      <option key={item}>{item}</option>
-                    ))}
-                  </select>
-                </label>
-
-                <label className="block">
-                  <span className="mb-2 block text-sm font-black text-gray-700">이동수단</span>
-                  <select
-                    value={plannerTransport}
-                    onChange={(e) => {
-                      setPlannerTransport(e.target.value);
-                      setPlannerResult(null);
-                    }}
-                    className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 font-bold text-gray-800 outline-none focus:border-violet-400"
-                  >
-                    {["렌터카·자가용", "택시", "도보·대중교통"].map((item) => (
-                      <option key={item}>{item}</option>
-                    ))}
-                  </select>
-                </label>
-
-                <label className="block">
-                  <span className="mb-2 block text-sm font-black text-gray-700">계절</span>
-                  <select
-                    value={plannerSeason}
-                    onChange={(e) => {
-                      setPlannerSeason(e.target.value);
-                      setPlannerResult(null);
-                    }}
-                    className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 font-bold text-gray-800 outline-none focus:border-violet-400"
-                  >
-                    {["봄", "여름", "가을", "겨울"].map((item) => (
-                      <option key={item}>{item}</option>
-                    ))}
-                  </select>
-                </label>
-              </div>
-
-              <button
-                type="button"
-                onClick={makeTravelPlan}
-                className="mt-6 w-full rounded-2xl bg-violet-600 px-6 py-4 text-lg font-black text-white shadow-md transition hover:bg-violet-700 md:w-auto"
-              >
-                ✨ 내 여행 일정 만들기
-              </button>
-
-              {plannerResult && (
-                <div id="planner-result" className="scroll-mt-24 mt-9">
-                  <div className="flex flex-wrap items-end justify-between gap-3">
-                    <div>
-                      <p className="text-sm font-black text-violet-600">맞춤 일정 결과</p>
-                      <h3 className="mt-1 text-2xl font-black text-gray-900">
-                        {plannerDuration} · {plannerCompanion} · {plannerTheme}
-                      </h3>
-                    </div>
-                    <span className="rounded-full bg-white px-4 py-2 text-sm font-bold text-gray-600 shadow-sm">
-                      {plannerTransport} · {plannerSeason}
-                    </span>
-                  </div>
-
-                  <div className="mt-6 grid gap-5">
-                    {plannerResult.map((day, dayIndex) => (
-                      <article key={`${day.title}-${dayIndex}`} className="rounded-3xl border border-violet-100 bg-white p-5 md:p-6 shadow-sm">
-                        <div className="flex items-center gap-3">
-                          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-600 font-black text-white">
-                            {dayIndex + 1}
-                          </span>
-                          <h4 className="text-xl font-black text-gray-900">
-                            {dayIndex + 1}일차 · {day.title}
-                          </h4>
-                        </div>
-
-                        <div className="mt-5 space-y-3">
-                          {day.schedule.map((item: any, itemIndex: number) => (
-                            <div key={`${item.time}-${item.place}-${itemIndex}`} className="rounded-2xl bg-gray-50 p-4">
-                              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-3">
-                                <span className="shrink-0 font-black text-violet-600">{item.time}</span>
-                                <strong className="text-gray-900">{item.place}</strong>
-                              </div>
-                              <p className="mt-2 text-sm leading-6 text-gray-600">{item.detail}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </article>
-                    ))}
-                  </div>
-
-                  <div className="mt-5 rounded-3xl border border-amber-100 bg-amber-50 p-5">
-                    <h4 className="font-black text-amber-900">💡 여행 전 확인하세요</h4>
-                    <ul className="mt-3 space-y-2 text-sm leading-6 text-amber-900">
-                      {plannerTips.map((tip, index) => (
-                        <li key={`${tip}-${index}`}>• {tip}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              )}
-
-              <div id="my-course" className="scroll-mt-24 mt-10 border-t border-violet-100 pt-8">
-                <p className="font-bold text-pink-700">관광지 담기와 맞춤 일정 짜기를 한곳에서</p>
-                <h3 className="mt-2 text-2xl font-black text-gray-900 md:text-3xl">❤️ 나만의 여행코스</h3>
-                <p className="mt-3 leading-7 text-gray-600">
-                  관광지 카드에서 담은 장소를 순서대로 확인하고, 위에서 만든 맞춤 일정과 함께 나만의 코스를 완성해 보세요.
-                </p>
-                <div className="mt-5 flex flex-wrap items-center gap-3 rounded-2xl bg-violet-50 p-4">
-                  <button
-                    type="button"
-                    onClick={makeOptimizedCourse}
-                    className="rounded-2xl bg-gray-950 px-5 py-3 font-black text-white shadow-sm transition hover:bg-violet-700"
-                  >
-                    🧭 담은 장소 최단 동선 만들기
-                  </button>
-                  <span className="text-sm leading-6 text-gray-600">현재 선택한 이동수단({plannerTransport}) 기준 예상시간을 계산해요.</span>
-                </div>
-
-                {optimizedCourse?.island === selectedIsland && (
-                  <div id="optimized-course" className="scroll-mt-24 mt-6 rounded-3xl border border-emerald-100 bg-emerald-50 p-5 md:p-6">
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <div>
-                        <p className="text-sm font-black text-emerald-700">추천 최단 동선 · 예상시간</p>
-                        <h4 className="mt-1 text-xl font-black text-gray-900">{selectedIsland} {optimizedCourse.stops.length}곳 이동코스</h4>
-                      </div>
-                      <div className="rounded-2xl bg-white px-4 py-3 text-right shadow-sm">
-                        <p className="text-xs font-bold text-gray-500">예상 총 소요시간</p>
-                        <strong className="text-lg text-emerald-700">
-                          약 {Math.floor((optimizedCourse.totalTravelMinutes + optimizedCourse.totalVisitMinutes) / 60)}시간 {(optimizedCourse.totalTravelMinutes + optimizedCourse.totalVisitMinutes) % 60}분
-                        </strong>
-                        <p className="mt-1 text-xs text-gray-500">이동 {optimizedCourse.totalTravelMinutes}분 + 관람 {optimizedCourse.totalVisitMinutes}분</p>
-                      </div>
-                    </div>
-
-                    <div className="mt-5 space-y-3">
-                      {optimizedCourse.stops.map((stop: any) => (
-                        <div key={`${stop.order}-${stop.name}`} className="flex gap-4 rounded-2xl bg-white p-4 shadow-sm">
-                          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-600 font-black text-white">{stop.order}</span>
-                          <div className="min-w-0 flex-1">
-                            <strong className="text-gray-900">{stop.name}</strong>
-                            <div className="mt-2 flex flex-wrap gap-2 text-xs font-bold">
-                              <span className="rounded-full bg-sky-50 px-3 py-1 text-sky-700">🚗 {stop.order === 1 ? "항구·출발지에서" : "이전 장소에서"} 약 {stop.moveMinutes}분</span>
-                              <span className="rounded-full bg-amber-50 px-3 py-1 text-amber-700">📸 권장 관람 {stop.visitMinutes}분</span>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <a
-                      href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(selectedIsland === "백령도" ? "용기포항 백령도" : selectedIsland === "대청도" ? "선진포항 대청도" : "예동포구 소청도")}&destination=${encodeURIComponent(`${optimizedCourse.stops[optimizedCourse.stops.length - 1]?.name} ${selectedIsland}`)}&waypoints=${encodeURIComponent(optimizedCourse.stops.slice(0, -1).map((stop: any) => `${stop.name} ${selectedIsland}`).join("|"))}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-emerald-700 px-5 py-3 font-black text-white transition hover:bg-emerald-800 sm:w-auto"
-                    >
-                      📍 지도에서 전체 동선 확인
-                    </a>
-                    <p className="mt-4 text-xs leading-5 text-emerald-900">※ 섬 내 일반적인 이동거리와 선택한 이동수단을 기준으로 계산한 예상시간입니다. 실제 시간은 도로·날씨·물때·현지 교통 상황에 따라 달라질 수 있습니다.</p>
-                  </div>
-                )}
-                <div
-                  className="mt-6 overflow-hidden rounded-3xl border border-pink-100 bg-white p-4 md:p-6"
-                  onClick={() => {
-                    window.setTimeout(() => {
-                      const savedCourse = localStorage.getItem("myCourse");
-                      setMyCourse(savedCourse ? JSON.parse(savedCourse) : []);
-                      setOptimizedCourse(null);
-                    }, 0);
-                  }}
-                >
-                  <MyCourse key={myCourse.map((item) => item.name).join("|")} />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
       {/* 섬별 실시간 인기 관광지 */}
 {selectedIsland === "백령도" && popularPlaces.length > 0 && (
   <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10 md:py-16">
@@ -2808,6 +2565,250 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           </section>
         )}
 
+      {/* 섬별 맞춤 여행 플래너 */}
+      {(
+        <section id="ai-planner" className="scroll-mt-24 mx-auto max-w-7xl px-6 pb-16">
+          <div className="overflow-hidden rounded-[2rem] border border-violet-100 bg-gradient-to-br from-violet-50 via-white to-sky-50 shadow-sm">
+            <div className="p-6 md:p-9">
+              <p className="text-sm font-black tracking-[0.18em] text-violet-600">TRAVEL PLANNER</p>
+              <h2 className="mt-2 text-3xl md:text-4xl font-black text-gray-900">
+                ✨ {selectedIsland} 맞춤 여행 플래너
+              </h2>
+              <p className="mt-3 max-w-3xl leading-7 text-gray-600">
+                여행 기간과 동행, 취향을 고르면 {selectedIsland} 일정 예시를 자동으로 만들어드려요.
+                실제 이동 전에는 여객선 운항 여부와 현지 교통 상황을 꼭 확인해 주세요.
+              </p>
+
+              <div className="mt-5 flex flex-wrap items-center gap-3 rounded-2xl border border-pink-100 bg-pink-50 px-4 py-3">
+                <span className="font-black text-pink-700">❤️ 내가 담은 {selectedIsland} 관광지 {myCourse.filter((item) => item.island === selectedIsland).length}곳</span>
+                <span className="text-sm text-gray-600">관광지 카드에서 장소를 담은 뒤, 아래 맞춤 일정과 함께 비교해 보세요.</span>
+                <button
+                  type="button"
+                  onClick={() => document.getElementById("my-course")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                  className="ml-auto rounded-full bg-white px-4 py-2 text-sm font-black text-pink-700 shadow-sm hover:bg-pink-100"
+                >
+                  담은 장소 보기 ↓
+                </button>
+              </div>
+
+              <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+                <label className="block">
+                  <span className="mb-2 block text-sm font-black text-gray-700">여행 기간</span>
+                  <select
+                    value={plannerDuration}
+                    onChange={(e) => {
+                      setPlannerDuration(e.target.value);
+                      setPlannerResult(null);
+                    }}
+                    className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 font-bold text-gray-800 outline-none focus:border-violet-400"
+                  >
+                    {["당일", "1박 2일", "2박 3일"].map((item) => (
+                      <option key={item}>{item}</option>
+                    ))}
+                  </select>
+                </label>
+
+                <label className="block">
+                  <span className="mb-2 block text-sm font-black text-gray-700">동행</span>
+                  <select
+                    value={plannerCompanion}
+                    onChange={(e) => {
+                      setPlannerCompanion(e.target.value);
+                      setPlannerResult(null);
+                    }}
+                    className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 font-bold text-gray-800 outline-none focus:border-violet-400"
+                  >
+                    {["가족", "아이 동반", "부모님", "연인·친구", "혼자", "군인 면회"].map((item) => (
+                      <option key={item}>{item}</option>
+                    ))}
+                  </select>
+                </label>
+
+                <label className="block">
+                  <span className="mb-2 block text-sm font-black text-gray-700">여행 테마</span>
+                  <select
+                    value={plannerTheme}
+                    onChange={(e) => {
+                      setPlannerTheme(e.target.value);
+                      setPlannerResult(null);
+                    }}
+                    className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 font-bold text-gray-800 outline-none focus:border-violet-400"
+                  >
+                    {["자연·사진", "아이와 가족", "군인 면회", "역사·안보", "맛집·카페", "힐링·느긋하게"].map((item) => (
+                      <option key={item}>{item}</option>
+                    ))}
+                  </select>
+                </label>
+
+                <label className="block">
+                  <span className="mb-2 block text-sm font-black text-gray-700">이동수단</span>
+                  <select
+                    value={plannerTransport}
+                    onChange={(e) => {
+                      setPlannerTransport(e.target.value);
+                      setPlannerResult(null);
+                    }}
+                    className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 font-bold text-gray-800 outline-none focus:border-violet-400"
+                  >
+                    {["렌터카·자가용", "택시", "도보·대중교통"].map((item) => (
+                      <option key={item}>{item}</option>
+                    ))}
+                  </select>
+                </label>
+
+                <label className="block">
+                  <span className="mb-2 block text-sm font-black text-gray-700">계절</span>
+                  <select
+                    value={plannerSeason}
+                    onChange={(e) => {
+                      setPlannerSeason(e.target.value);
+                      setPlannerResult(null);
+                    }}
+                    className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 font-bold text-gray-800 outline-none focus:border-violet-400"
+                  >
+                    {["봄", "여름", "가을", "겨울"].map((item) => (
+                      <option key={item}>{item}</option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+
+              <button
+                type="button"
+                onClick={makeTravelPlan}
+                className="mt-6 w-full rounded-2xl bg-violet-600 px-6 py-4 text-lg font-black text-white shadow-md transition hover:bg-violet-700 md:w-auto"
+              >
+                ✨ 내 여행 일정 만들기
+              </button>
+
+              {plannerResult && (
+                <div id="planner-result" className="scroll-mt-24 mt-9">
+                  <div className="flex flex-wrap items-end justify-between gap-3">
+                    <div>
+                      <p className="text-sm font-black text-violet-600">맞춤 일정 결과</p>
+                      <h3 className="mt-1 text-2xl font-black text-gray-900">
+                        {plannerDuration} · {plannerCompanion} · {plannerTheme}
+                      </h3>
+                    </div>
+                    <span className="rounded-full bg-white px-4 py-2 text-sm font-bold text-gray-600 shadow-sm">
+                      {plannerTransport} · {plannerSeason}
+                    </span>
+                  </div>
+
+                  <div className="mt-6 grid gap-5">
+                    {plannerResult.map((day, dayIndex) => (
+                      <article key={`${day.title}-${dayIndex}`} className="rounded-3xl border border-violet-100 bg-white p-5 md:p-6 shadow-sm">
+                        <div className="flex items-center gap-3">
+                          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-600 font-black text-white">
+                            {dayIndex + 1}
+                          </span>
+                          <h4 className="text-xl font-black text-gray-900">
+                            {dayIndex + 1}일차 · {day.title}
+                          </h4>
+                        </div>
+
+                        <div className="mt-5 space-y-3">
+                          {day.schedule.map((item: any, itemIndex: number) => (
+                            <div key={`${item.time}-${item.place}-${itemIndex}`} className="rounded-2xl bg-gray-50 p-4">
+                              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-3">
+                                <span className="shrink-0 font-black text-violet-600">{item.time}</span>
+                                <strong className="text-gray-900">{item.place}</strong>
+                              </div>
+                              <p className="mt-2 text-sm leading-6 text-gray-600">{item.detail}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+
+                  <div className="mt-5 rounded-3xl border border-amber-100 bg-amber-50 p-5">
+                    <h4 className="font-black text-amber-900">💡 여행 전 확인하세요</h4>
+                    <ul className="mt-3 space-y-2 text-sm leading-6 text-amber-900">
+                      {plannerTips.map((tip, index) => (
+                        <li key={`${tip}-${index}`}>• {tip}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+              <div id="my-course" className="scroll-mt-24 mt-10 border-t border-violet-100 pt-8">
+                <p className="font-bold text-pink-700">관광지 담기와 맞춤 일정 짜기를 한곳에서</p>
+                <h3 className="mt-2 text-2xl font-black text-gray-900 md:text-3xl">❤️ 나만의 여행코스</h3>
+                <p className="mt-3 leading-7 text-gray-600">
+                  관광지 카드에서 담은 장소를 순서대로 확인하고, 위에서 만든 맞춤 일정과 함께 나만의 코스를 완성해 보세요.
+                </p>
+                <div className="mt-5 flex flex-wrap items-center gap-3 rounded-2xl bg-violet-50 p-4">
+                  <button
+                    type="button"
+                    onClick={makeOptimizedCourse}
+                    className="rounded-2xl bg-gray-950 px-5 py-3 font-black text-white shadow-sm transition hover:bg-violet-700"
+                  >
+                    🧭 담은 장소 최단 동선 만들기
+                  </button>
+                  <span className="text-sm leading-6 text-gray-600">현재 선택한 이동수단({plannerTransport}) 기준 예상시간을 계산해요.</span>
+                </div>
+
+                {optimizedCourse?.island === selectedIsland && (
+                  <div id="optimized-course" className="scroll-mt-24 mt-6 rounded-3xl border border-emerald-100 bg-emerald-50 p-5 md:p-6">
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-black text-emerald-700">추천 최단 동선 · 예상시간</p>
+                        <h4 className="mt-1 text-xl font-black text-gray-900">{selectedIsland} {optimizedCourse.stops.length}곳 이동코스</h4>
+                      </div>
+                      <div className="rounded-2xl bg-white px-4 py-3 text-right shadow-sm">
+                        <p className="text-xs font-bold text-gray-500">예상 총 소요시간</p>
+                        <strong className="text-lg text-emerald-700">
+                          약 {Math.floor((optimizedCourse.totalTravelMinutes + optimizedCourse.totalVisitMinutes) / 60)}시간 {(optimizedCourse.totalTravelMinutes + optimizedCourse.totalVisitMinutes) % 60}분
+                        </strong>
+                        <p className="mt-1 text-xs text-gray-500">이동 {optimizedCourse.totalTravelMinutes}분 + 관람 {optimizedCourse.totalVisitMinutes}분</p>
+                      </div>
+                    </div>
+
+                    <div className="mt-5 space-y-3">
+                      {optimizedCourse.stops.map((stop: any) => (
+                        <div key={`${stop.order}-${stop.name}`} className="flex gap-4 rounded-2xl bg-white p-4 shadow-sm">
+                          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-600 font-black text-white">{stop.order}</span>
+                          <div className="min-w-0 flex-1">
+                            <strong className="text-gray-900">{stop.name}</strong>
+                            <div className="mt-2 flex flex-wrap gap-2 text-xs font-bold">
+                              <span className="rounded-full bg-sky-50 px-3 py-1 text-sky-700">🚗 {stop.order === 1 ? "항구·출발지에서" : "이전 장소에서"} 약 {stop.moveMinutes}분</span>
+                              <span className="rounded-full bg-amber-50 px-3 py-1 text-amber-700">📸 권장 관람 {stop.visitMinutes}분</span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <a
+                      href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(selectedIsland === "백령도" ? "용기포항 백령도" : selectedIsland === "대청도" ? "선진포항 대청도" : "예동포구 소청도")}&destination=${encodeURIComponent(`${optimizedCourse.stops[optimizedCourse.stops.length - 1]?.name} ${selectedIsland}`)}&waypoints=${encodeURIComponent(optimizedCourse.stops.slice(0, -1).map((stop: any) => `${stop.name} ${selectedIsland}`).join("|"))}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-emerald-700 px-5 py-3 font-black text-white transition hover:bg-emerald-800 sm:w-auto"
+                    >
+                      📍 지도에서 전체 동선 확인
+                    </a>
+                    <p className="mt-4 text-xs leading-5 text-emerald-900">※ 섬 내 일반적인 이동거리와 선택한 이동수단을 기준으로 계산한 예상시간입니다. 실제 시간은 도로·날씨·물때·현지 교통 상황에 따라 달라질 수 있습니다.</p>
+                  </div>
+                )}
+                <div
+                  className="mt-6 overflow-hidden rounded-3xl border border-pink-100 bg-white p-4 md:p-6"
+                  onClick={() => {
+                    window.setTimeout(() => {
+                      const savedCourse = localStorage.getItem("myCourse");
+                      setMyCourse(savedCourse ? JSON.parse(savedCourse) : []);
+                      setOptimizedCourse(null);
+                    }, 0);
+                  }}
+                >
+                  <MyCourse key={myCourse.map((item) => item.name).join("|")} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
 {/* TRAVELER FOOTPRINTS */}
 <section id="traveler-footprints" className="scroll-mt-24 max-w-7xl mx-auto px-4 sm:px-6 pb-12 md:pb-20">
   <div className="overflow-hidden rounded-[2rem] border border-amber-100 bg-gradient-to-br from-amber-50 via-white to-sky-50 shadow-sm">
@@ -2954,60 +2955,6 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
 
 
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10 md:py-16">
-  <div className="grid md:grid-cols-2 gap-8">
-
-    {/* 옹진군청 */}
-    <a
-      href="https://www.ongjin.go.kr"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="rounded-3xl bg-white p-8 shadow hover:shadow-xl transition"
-    >
-      <div className="text-5xl">🏛</div>
-
-      <h2 className="mt-5 text-3xl font-black">
-        옹진군청
-      </h2>
-
-      <p className="mt-4 text-gray-600 leading-8">
-        관광정보, 축제, 행정서비스,
-        공지사항 등
-        백령도의 공식 정보를
-        확인할 수 있습니다.
-      </p>
-
-      <div className="mt-6 inline-block rounded-full bg-blue-600 px-6 py-3 text-white font-bold">
-        바로가기 →
-      </div>
-    </a>
-
-    {/* 옹진자연몰 */}
-    <a
-      href="https://www.ongjinmall.co.kr"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="rounded-3xl bg-white p-8 shadow hover:shadow-xl transition"
-    >
-      <div className="text-5xl">🛍</div>
-
-      <h2 className="mt-5 text-3xl font-black">
-        옹진자연몰
-      </h2>
-
-      <p className="mt-4 text-gray-600 leading-8">
-        백령도를 비롯한
-        옹진군 주민들이 직접 판매하는
-        특산품 쇼핑몰입니다.
-      </p>
-
-      <div className="mt-6 inline-block rounded-full bg-green-600 px-6 py-3 text-white font-bold">
-        특산품 보러가기 →
-      </div>
-    </a>
-
-  </div>
-</section>
  {selectedIsland === "백령도" && (
   <>
 {/* PHOTO GALLERY */}
@@ -3865,6 +3812,43 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         )}
       </section>
 
+      {/* 백령도 특산품 바로 아래 공식·쇼핑 링크 */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
+        <div className="grid md:grid-cols-2 gap-8">
+          <a
+            href="https://www.ongjin.go.kr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-3xl bg-white p-8 shadow hover:shadow-xl transition"
+          >
+            <div className="text-5xl">🏛</div>
+            <h2 className="mt-5 text-3xl font-black">옹진군청</h2>
+            <p className="mt-4 text-gray-600 leading-8">
+              관광정보, 축제, 행정서비스, 공지사항 등 백령도의 공식 정보를 확인할 수 있습니다.
+            </p>
+            <div className="mt-6 inline-block rounded-full bg-blue-600 px-6 py-3 text-white font-bold">
+              바로가기 →
+            </div>
+          </a>
+
+          <a
+            href="https://www.ongjinmall.co.kr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-3xl bg-white p-8 shadow hover:shadow-xl transition"
+          >
+            <div className="text-5xl">🛍</div>
+            <h2 className="mt-5 text-3xl font-black">옹진자연몰</h2>
+            <p className="mt-4 text-gray-600 leading-8">
+              백령도을 비롯한 옹진군 주민들이 직접 판매하는 특산품 쇼핑몰입니다.
+            </p>
+            <div className="mt-6 inline-block rounded-full bg-green-600 px-6 py-3 text-white font-bold">
+              특산품 보러가기 →
+            </div>
+          </a>
+        </div>
+      </section>
+
       {/* PUBLIC BUS SECTION */}
       <section id="bus" className={selectedIsland === "백령도" ? "scroll-mt-24 max-w-7xl mx-auto px-6 pb-10" : "hidden"}>
         <div className="rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-sky-50 p-6 md:p-8">
@@ -4304,8 +4288,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                       type="button"
                       key={item.season}
                       onClick={() => { setSelectedSeason(item.season); window.open(item.image, "_blank", "noopener,noreferrer"); }}
-                      className={`group relative min-h-[290px] overflow-hidden rounded-3xl bg-gradient-to-br ${item.bg} p-6 text-left transition duration-300 hover:-translate-y-1 hover:shadow-xl ${
-                        selectedSeason === item.season ? "ring-4 ring-white shadow-xl outline outline-2 outline-sky-400" : ""
+                      className={`group relative min-h-[290px] overflow-hidden rounded-3xl border-2 bg-gradient-to-br ${item.bg} p-6 text-left transition duration-300 hover:-translate-y-1 hover:shadow-xl ${
+                        selectedSeason === item.season
+                          ? "border-sky-500 shadow-xl"
+                          : "border-gray-400 shadow-sm hover:border-gray-500"
                       }`}
                     >
                       <div className="absolute -right-2 top-3 text-5xl font-black tracking-tighter text-white/70 sm:text-6xl">{item.english}</div>
@@ -4975,6 +4961,43 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         )}
       </div>
     </section>
+
+      {/* 대청도 특산품 바로 아래 공식·쇼핑 링크 */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
+        <div className="grid md:grid-cols-2 gap-8">
+          <a
+            href="https://www.ongjin.go.kr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-3xl bg-white p-8 shadow hover:shadow-xl transition"
+          >
+            <div className="text-5xl">🏛</div>
+            <h2 className="mt-5 text-3xl font-black">옹진군청</h2>
+            <p className="mt-4 text-gray-600 leading-8">
+              관광정보, 축제, 행정서비스, 공지사항 등 대청도의 공식 정보를 확인할 수 있습니다.
+            </p>
+            <div className="mt-6 inline-block rounded-full bg-blue-600 px-6 py-3 text-white font-bold">
+              바로가기 →
+            </div>
+          </a>
+
+          <a
+            href="https://www.ongjinmall.co.kr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-3xl bg-white p-8 shadow hover:shadow-xl transition"
+          >
+            <div className="text-5xl">🛍</div>
+            <h2 className="mt-5 text-3xl font-black">옹진자연몰</h2>
+            <p className="mt-4 text-gray-600 leading-8">
+              대청도을 비롯한 옹진군 주민들이 직접 판매하는 특산품 쇼핑몰입니다.
+            </p>
+            <div className="mt-6 inline-block rounded-full bg-green-600 px-6 py-3 text-white font-bold">
+              특산품 보러가기 →
+            </div>
+          </a>
+        </div>
+      </section>
   </>
 )}
 
