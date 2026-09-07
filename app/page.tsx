@@ -225,14 +225,48 @@ export default function Home() {
     return () => window.clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    const initGoogleTranslate = () => {
+      const google = (window as any).google;
+      if (google?.translate?.TranslateElement) {
+        new google.translate.TranslateElement(
+          {
+            pageLanguage: "ko",
+            includedLanguages: "en,zh-CN,ja",
+            autoDisplay: false,
+          },
+          "google_translate_element"
+        );
+      }
+    };
+
+    (window as any).googleTranslateElementInit = initGoogleTranslate;
+
+    if ((window as any).google?.translate?.TranslateElement) {
+      initGoogleTranslate();
+    } else if (!document.getElementById("google-translate-script")) {
+      const script = document.createElement("script");
+      script.id = "google-translate-script";
+      script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      script.async = true;
+      document.body.appendChild(script);
+    }
+
+    return () => {
+      delete (window as any).googleTranslateElementInit;
+    };
+  }, []);
+
   function openTranslatedPage(language: "en" | "zh-CN" | "ja") {
     setShowLanguageMenu(false);
-    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-      alert("번역 기능은 배포된 사이트에서 확인해 주세요.");
-      return;
-    }
-    const translateUrl = `https://translate.google.com/translate?sl=ko&tl=${language}&u=${encodeURIComponent(window.location.href)}`;
-    window.location.href = translateUrl;
+    document.cookie = `googtrans=/ko/${language};path=/;max-age=31536000`;
+    window.location.reload();
+  }
+
+  function resetTranslation() {
+    setShowLanguageMenu(false);
+    document.cookie = "googtrans=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    window.location.reload();
   }
 
   const currentWeather = weatherItems[weatherSlideIndex];
@@ -1724,7 +1758,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       </button>
       {showLanguageMenu && (
         <div className="absolute right-0 top-12 z-50 w-40 overflow-hidden rounded-2xl border border-gray-100 bg-white py-2 shadow-xl">
-          <button type="button" onClick={() => setShowLanguageMenu(false)} className="block w-full px-4 py-2.5 text-left text-sm font-bold text-sky-600 hover:bg-sky-50">한국어</button>
+          <button type="button" onClick={resetTranslation} className="block w-full px-4 py-2.5 text-left text-sm font-bold text-sky-600 hover:bg-sky-50">한국어</button>
           <button type="button" onClick={() => openTranslatedPage("en")} className="block w-full px-4 py-2.5 text-left text-sm font-bold text-gray-700 hover:bg-gray-50">English</button>
           <button type="button" onClick={() => openTranslatedPage("zh-CN")} className="block w-full px-4 py-2.5 text-left text-sm font-bold text-gray-700 hover:bg-gray-50">中文</button>
           <button type="button" onClick={() => openTranslatedPage("ja")} className="block w-full px-4 py-2.5 text-left text-sm font-bold text-gray-700 hover:bg-gray-50">日本語</button>
@@ -1734,6 +1768,8 @@ const [showSearchResults, setShowSearchResults] = useState(false);
     </div>
   </div>
 </header>
+      <div id="google_translate_element" className="hidden" aria-hidden="true" />
+
       {/* HERO */}
       <section className="relative isolate min-h-[500px] overflow-hidden bg-slate-950 md:min-h-[560px]">
         {/* 현재 사진 한 장만 배경으로 표시하고 3초마다 교체합니다. */}
