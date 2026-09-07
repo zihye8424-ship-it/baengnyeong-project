@@ -312,7 +312,12 @@ export default function Home() {
     let targetId = "";
 
     if (key === "ship") {
-      targetId = "ship-info";
+      window.open(
+        "https://island.theksa.co.kr/iframe/page/booking?sourcesiteid=WF912VL7Y6WANCUI4TCB",
+        "_blank",
+        "noopener,noreferrer"
+      );
+      return;
     } else if (key === "transport") {
       if (selectedIsland === "백령도") {
         setSelectedCategory("개인택시");
