@@ -1352,13 +1352,13 @@ link: "/place/christian-island",
 <div className="bg-white rounded-3xl shadow-lg overflow-hidden">
 
   <a
-    href="/images/seal.jpg"
+    href="/images/seal.png"
     target="_blank"
     rel="noopener noreferrer"
     className="block"
   >
     <Image
-      src="/images/seal.jpg"
+      src="/images/seal.png"
       alt="점박이물범"
       width={500}
       height={300}
@@ -3193,7 +3193,7 @@ link: "/place/christian-island",
 
                 <div>
                 <a
-  href="/images/seal.jpg"
+  href="/images/seal.png"
   target="_blank"
 >
   <h4 className="font-bold text-lg mb-1 hover:text-blue-500">
@@ -3545,3 +3545,4 @@ link: "/place/christian-island",
 </main>
 );
 }
+
