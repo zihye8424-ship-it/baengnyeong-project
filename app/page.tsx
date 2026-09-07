@@ -312,11 +312,7 @@ export default function Home() {
     let targetId = "";
 
     if (key === "ship") {
-      window.open(
-        "https://island.theksa.co.kr/iframe/page/booking?sourcesiteid=WF912VL7Y6WANCUI4TCB",
-        "_blank",
-        "noopener,noreferrer"
-      );
+      window.location.href = "https://island.theksa.co.kr/iframe/page/booking?sourcesiteid=WF912VL7Y6WANCUI4TCB";
       return;
     } else if (key === "transport") {
       if (selectedIsland === "백령도") {
@@ -1438,7 +1434,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
     { name: "숙소 전체보기", category: "숙박", icon: "🏨", description: "백령도 숙박업소와 연락처를 한눈에 확인하세요.", target: "stay" },
     { name: "개인택시", category: "교통", icon: "🚕", description: "백령도 개인택시 업체와 전화번호를 확인하세요.", target: "taxi" },
     { name: "렌터카", category: "교통", icon: "🚗", description: "백령도 렌터카 업체 정보를 확인하세요.", target: "rentcar" },
-    { name: "배편 예약", category: "여행정보", icon: "🚢", description: "백령도 여객선 예약과 운항 정보를 확인하세요.", target: "live-info" },
+    { name: "배편 예약", category: "여행정보", icon: "🚢", description: "백령도 여객선 예약과 운항 정보를 확인하세요.", target: "ship" },
     { name: "군인 면회 여행", category: "군인면회", icon: "🪖", description: "군인 면회에 맞춘 여행 일정을 만들어보세요.", target: "ai-planner" },
     { name: "섬별 맞춤 여행 플래너", category: "여행코스", icon: "✨", description: "기간과 동행에 맞는 백령·대청·소청 일정을 자동으로 만들어드려요.", target: "ai-planner" },
     { name: "백령도 사진첩", category: "사진", icon: "📸", description: "백령도의 아름다운 풍경 사진을 감상하세요.", target: "gallery" },
@@ -1483,6 +1479,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   }
 
   function openSearchResult(item: any) {
+    if (item.target === "ship") {
+      window.location.href = "https://island.theksa.co.kr/iframe/page/booking?sourcesiteid=WF912VL7Y6WANCUI4TCB";
+      return;
+    }
     if (item.target === "food") { setSelectedCategory("맛집"); setShowFood(true); }
     if (item.target === "stay") { setSelectedCategory("숙박"); setShowStay(true); }
     if (item.target === "taxi") { setSelectedCategory("개인택시"); setShowTaxi(true); }
@@ -2017,7 +2017,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
   <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
     <a
-      href="https://island.haewoon.co.kr/"
+      href="https://island.theksa.co.kr/iframe/page/booking?sourcesiteid=WF912VL7Y6WANCUI4TCB"
       target="_blank"
       rel="noopener noreferrer"
       className="group rounded-3xl border border-gray-200 bg-white p-5 sm:p-6 hover:-translate-y-1 hover:shadow-xl transition"
