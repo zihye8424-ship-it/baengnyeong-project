@@ -228,11 +228,11 @@ export default function Home() {
   function openTranslatedPage(language: "en" | "zh-CN" | "ja") {
     setShowLanguageMenu(false);
     if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-      alert("번역 기능은 인터넷에 배포된 사이트에서 사용할 수 있어요.");
+      alert("번역 기능은 배포된 사이트에서 확인해 주세요.");
       return;
     }
     const translateUrl = `https://translate.google.com/translate?sl=ko&tl=${language}&u=${encodeURIComponent(window.location.href)}`;
-    window.open(translateUrl, "_blank", "noopener,noreferrer");
+    window.location.href = translateUrl;
   }
 
   const currentWeather = weatherItems[weatherSlideIndex];
