@@ -1,4 +1,4 @@
-import type { MetadataRoute } from "next";
+﻿import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://baengnyeong-project.vercel.app";
@@ -61,6 +61,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "geomeunnang-coast",
     "hani",
     "jiduri-beach",
+    "junghwadong",
     "kkeutseom",
     "kongdol",
     "maebawi-observatory",
@@ -95,3 +96,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [...staticPages, ...placePages];
 }
+
