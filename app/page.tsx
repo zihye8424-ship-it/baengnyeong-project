@@ -31,7 +31,7 @@ const platformServiceItems = [
 
 const islandWeatherLocations = [
   { name: "백령도", latitude: 37.96, longitude: 124.67, image: "/images/hero/hero-06.png" },
-  { name: "대청도", latitude: 37.83, longitude: 124.69, image: "/images/daecheong.jpg" },
+  { name: "대청도", latitude: 37.83, longitude: 124.69, image: "/images/nongyeo-beach.png" },
   { name: "소청도", latitude: 37.76, longitude: 124.75, image: "/images/socheong.jpg" },
 ];
 
@@ -886,19 +886,6 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       location: "인천 옹진군 대청면 옥죽동",
       tip: "🏜️ 모래사막 풍경 · 🐫 이색 포토존 · 🌍 지질명소",
       link: "/place/okjuk-sanddune",
-    },
-
-    {
-      name: "백령도 감성카페",
-      image: "/images/emotioncafe.jpg",
-      category: "카페",
-      description: "바다뷰와 노을이 아름다운 카페",
-    },
-    {
-      name: "군인 추천 외출코스",
-      image: "/images/soldier.jpg",
-      category: "군인외출",
-      description: "짧은 시간에 즐기는 백령도 코스",
     },
 
   ];
@@ -2916,11 +2903,11 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           {footprintLoading ? (
             <div className="rounded-3xl bg-white p-10 text-center text-sm text-gray-500 shadow-sm">사진을 불러오는 중...</div>
           ) : footprints.length === 0 ? (
-            <div className="flex min-h-[300px] flex-col items-center justify-center rounded-3xl border border-dashed border-gray-200 bg-white/80 p-8 text-center">
-              <div className="text-5xl">🏝️</div>
-              <p className="mt-4 text-lg font-black text-gray-800">첫 번째 섬 발자국을 기다리고 있어요</p>
-              <p className="mt-2 text-sm leading-6 text-gray-500">
-                백령·대청·소청에서 찍은 당신의 특별한 순간을 가장 먼저 남겨주세요.
+            <div className="rounded-3xl bg-white p-6 shadow-sm">
+              <h3 className="text-lg font-black text-gray-900">섬 여행 사진 안내</h3>
+              <p className="mt-2 text-sm leading-6 text-gray-600">
+                여행자 사진은 관리자 확인 후 공개됩니다. 아직 공개된 사진이 없을 때는
+                빈 갤러리를 노출하지 않고, 직접 촬영한 사진을 등록할 수 있는 기능만 운영합니다.
               </p>
             </div>
           ) : (
@@ -4691,7 +4678,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                   </div>
                 ) : filteredQnaQuestions.length === 0 ? (
                   <div className="rounded-2xl bg-gray-50 p-6 text-center text-gray-500">
-                    등록된 질문이 없습니다.
+                    궁금한 내용을 직접 질문해 주세요. 등록된 질문은 답변 후 이곳에서 확인할 수 있습니다.
                   </div>
                 ) : (
                   filteredQnaQuestions.map((item) => (
@@ -5140,6 +5127,9 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 </main>
 );
 }
+
+
+
 
 
 

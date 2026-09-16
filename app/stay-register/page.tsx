@@ -179,19 +179,6 @@ location: "인천 옹진군 백령면",
 tip: "⛪ 역사여행",
 link: "/place/christian-island",
     },
-  
-    {
-      name: "백령도 감성카페",
-      image: "/images/emotioncafe.jpg",
-      category: "카페",
-      description: "바다뷰와 노을이 아름다운 카페",
-    },
-    {
-      name: "군인 추천 외출코스",
-      image: "/images/soldier.jpg",
-      category: "군인외출",
-      description: "짧은 시간에 즐기는 백령도 코스",
-    },
 
   ];
   const filteredPlaces = places.filter((place) => {
@@ -3545,4 +3532,5 @@ link: "/place/christian-island",
 </main>
 );
 }
+
 

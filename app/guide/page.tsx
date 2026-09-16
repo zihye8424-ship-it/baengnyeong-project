@@ -1,108 +1,126 @@
+﻿import Link from "next/link";
+
+export const metadata = {
+  title: "백령도 여행 가이드 | 백령도 여행 플랫폼",
+  description:
+    "백령도 여행 전 확인하면 좋은 배편, 교통, 숙소, 관광지와 여행 준비 정보를 안내합니다.",
+};
+
 export default function GuidePage() {
-    return (
-      <main className="min-h-screen bg-gray-50">
-  
-        <section className="bg-blue-900 text-white py-20 px-6">
-          <div className="max-w-5xl mx-auto text-center">
-  
-            <h1 className="text-5xl font-extrabold mb-6">
-              📘 백령도 여행 가이드
-            </h1>
-  
-            <p className="text-xl mb-8">
-              28년 거주민이 직접 만든 2026 최신판
-            </p>
-  
-            <div className="bg-white text-gray-900 rounded-3xl p-8 shadow-xl">
-  
-              <h2 className="text-3xl font-bold mb-4">
-                백령도 여행 전 필수 준비물
-              </h2>
-  
-              <p className="text-lg">
-                관광지, 맛집, 숙소, 군인면회, 할인정보,
-                배편정보까지 한눈에 확인할 수 있습니다.
-              </p>
-  
-            </div>
-  
-          </div>
-        </section>
-  
-        <section className="max-w-6xl mx-auto py-20 px-6">
-  
-          <h2 className="text-4xl font-bold text-center mb-12">
-            전자책 구성
+  return (
+    <main className="min-h-screen bg-gray-50">
+      <section className="bg-blue-900 px-6 py-20 text-white">
+        <div className="mx-auto max-w-5xl text-center">
+          <p className="mb-4 text-sm font-bold tracking-widest text-blue-200">
+            BAENGNYEONG TRAVEL GUIDE
+          </p>
+
+          <h1 className="mb-6 text-4xl font-extrabold md:text-5xl">
+            백령도 여행 가이드
+          </h1>
+
+          <p className="mx-auto max-w-3xl text-lg leading-8 text-blue-100 md:text-xl">
+            백령도에서 생활해 온 경험을 바탕으로 처음 방문하는 여행자가
+            여행 전에 확인하면 좋은 정보를 한곳에 정리했습니다.
+          </p>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 py-16">
+        <div className="mb-10">
+          <h2 className="text-3xl font-extrabold text-gray-900">
+            여행 전에 확인하세요
           </h2>
-  
-          <div className="grid md:grid-cols-2 gap-8">
-  
-            <div className="bg-white rounded-3xl shadow-lg p-8">
-              <h3 className="text-2xl font-bold mb-4">
-                📍 수록 내용
-              </h3>
-  
-              <ul className="space-y-3 text-gray-700">
-                <li>✔ 백령도 여행 준비</li>
-                <li>✔ 여객선 정보</li>
-                <li>✔ 숙소 추천</li>
-                <li>✔ 현지인 맛집</li>
-                <li>✔ 숨은 관광지</li>
-                <li>✔ 군인 면회 코스</li>
-                <li>✔ 가족 여행 코스</li>
-                <li>✔ 할인 정보</li>
-              </ul>
-            </div>
-  
-            <div className="bg-white rounded-3xl shadow-lg p-8">
-              <h3 className="text-2xl font-bold mb-4">
-                🎁 이런 분께 추천
-              </h3>
-  
-              <ul className="space-y-3 text-gray-700">
-                <li>✔ 백령도 첫 여행</li>
-                <li>✔ 군인 면회 예정</li>
-                <li>✔ 가족 여행 계획</li>
-                <li>✔ 여행 일정 짜기 어려운 분</li>
-                <li>✔ 현지인 정보가 필요한 분</li>
-              </ul>
-            </div>
-  
-          </div>
-  
-        </section>
-  
-        <section className="max-w-5xl mx-auto px-6 pb-20">
-  
-          <div className="bg-yellow-50 border-2 border-yellow-300 rounded-3xl p-10 text-center">
-  
-            <h2 className="text-4xl font-bold mb-6">
-              💰 구매하기
-            </h2>
-  
-            <p className="text-lg mb-8">
-              2026 백령도 여행 가이드 PDF
-            </p>
-            <img
-  src="/images/ebook-cover.jpg"
-  alt="백령도 여행가이드"
-  className="w-full max-w-md mx-auto rounded-3xl shadow-xl"
-/>
-            <p className="text-5xl font-extrabold text-red-500 mb-8">
-              ₩9,900
-            </p>
-  
-            <a
-              href="#"
-              className="inline-block bg-red-500 hover:bg-red-600 text-white px-10 py-4 rounded-full text-xl font-bold"
+          <p className="mt-3 leading-7 text-gray-600">
+            섬 여행은 배편과 날씨의 영향을 받을 수 있으므로 출발 전 최신
+            운항정보와 현지 상황을 다시 확인하는 것이 좋습니다.
+          </p>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {[
+            {
+              icon: "🚢",
+              title: "배편",
+              text: "출발 전 여객선 운항 여부와 출항 시간을 다시 확인하세요.",
+              href: "/#ship",
+            },
+            {
+              icon: "🚕",
+              title: "섬 안의 교통",
+              text: "버스와 택시 등 이동수단을 미리 확인하면 여행 동선을 계획하기 편합니다.",
+              href: "/#transport",
+            },
+            {
+              icon: "🏠",
+              title: "숙소",
+              text: "숙소 위치와 연락처를 확인하고 여행 일정에 맞춰 준비하세요.",
+              href: "/#stay",
+            },
+            {
+              icon: "📍",
+              title: "관광지",
+              text: "백령도·대청도·소청도의 주요 장소와 여행 정보를 살펴보세요.",
+              href: "/#places",
+            },
+            {
+              icon: "🍜",
+              title: "먹거리",
+              text: "섬에서 이용할 수 있는 음식점과 지역 먹거리 정보를 확인하세요.",
+              href: "/#food",
+            },
+            {
+              icon: "🪖",
+              title: "군인 면회",
+              text: "면회 일정이 있다면 배편과 이동시간을 고려해 여유 있게 계획하세요.",
+              href: "/#military",
+            },
+          ].map((item) => (
+            <Link
+              key={item.title}
+              href={item.href}
+              className="rounded-3xl border border-gray-100 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
             >
-              구매하러 가기
-            </a>
-  
+              <div className="mb-4 text-4xl">{item.icon}</div>
+              <h3 className="mb-3 text-xl font-extrabold text-gray-900">
+                {item.title}
+              </h3>
+              <p className="leading-7 text-gray-600">{item.text}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 pb-20">
+        <div className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+          <h2 className="text-2xl font-extrabold text-gray-900">
+            처음 백령도를 방문한다면
+          </h2>
+
+          <div className="mt-6 space-y-4 leading-7 text-gray-700">
+            <p>
+              여행 날짜를 정한 뒤에는 먼저 배편을 확인하고, 숙소와 섬 안의
+              이동수단을 함께 준비하는 것이 좋습니다.
+            </p>
+            <p>
+              바람과 기상 상황에 따라 체감 환경이 달라질 수 있으므로 계절에
+              맞는 옷과 편한 신발을 준비하고, 출발 당일에도 운항정보를 다시
+              확인해 주세요.
+            </p>
+            <p>
+              관광지별 상세페이지에서는 장소 특징과 여행 팁, 함께 살펴볼
+              장소를 확인할 수 있습니다.
+            </p>
           </div>
-  
-        </section>
-  
-      </main>
-    );
-  }
+
+          <Link
+            href="/"
+            className="mt-8 inline-flex rounded-full bg-blue-900 px-7 py-3 font-bold text-white transition hover:bg-blue-800"
+          >
+            백령도 여행정보 보러가기 →
+          </Link>
+        </div>
+      </section>
+    </main>
+  );
+}
