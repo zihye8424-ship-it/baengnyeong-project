@@ -14,7 +14,7 @@ export default function Page() {
     <PlaceTemplate
       title="농여해변"
       subtitle="넓게 펼쳐진 해변과 독특한 바위 풍경을 함께 만날 수 있는 대청도의 해안 명소"
-      image="/images/nongyeo-beach.png"
+     image="/images/nongyeo-beach-view.png"
       badges={["대청도", "해변", "바위풍경", "사진여행"]}
       quickFacts={[
         ["추천 대상", "해변 · 자연 · 사진여행"],

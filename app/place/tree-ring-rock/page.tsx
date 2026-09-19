@@ -13,7 +13,7 @@ export default function Page() {
     <PlaceTemplate
       title="나이테바위"
       subtitle="농여해변과 함께 만나는 독특한 무늬의 대청도 해안 바위"
-      image="/images/nongyeo-beach.png"
+     image="/images/tree-ring-rock.png"
       badges={["대청도", "지질여행", "해안풍경", "사진명소"]}
       quickFacts={[
         ["추천 대상", "자연여행 · 사진 · 가족"],
