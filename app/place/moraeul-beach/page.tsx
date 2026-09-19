@@ -141,6 +141,41 @@ export default function Page() {
           </div>
         </section>
 
+        <section className="rounded-[2rem] border border-sky-100 bg-sky-50 p-8 md:p-10">
+          <p className="font-bold text-sky-700">일정에 넣기 전에 판단하기</p>
+          <h2 className="mt-2 text-3xl font-black">🧭 모래울해변을 여행 일정에 넣는 방법</h2>
+          <div className="mt-6 grid gap-5 md:grid-cols-2">
+            <div className="rounded-2xl bg-white p-6">
+              <h3 className="text-xl font-extrabold">짧게 들르는 일정</h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                여러 장소를 이동하는 날이라면 해변 전체를 오래 걷기보다 안전한 구간에서
+                바다와 모래사장을 살펴보고 사진을 남기는 정도로 일정을 잡아보세요.
+              </p>
+            </div>
+            <div className="rounded-2xl bg-white p-6">
+              <h3 className="text-xl font-extrabold">여유 있게 보는 일정</h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                해변 풍경을 좋아한다면 다음 목적지로 서둘러 이동하기보다 걷는 위치를 바꿔가며
+                해안선과 바다의 모습을 비교해 보는 방식이 잘 어울립니다.
+              </p>
+            </div>
+            <div className="rounded-2xl bg-white p-6">
+              <h3 className="text-xl font-extrabold">날씨가 좋지 않은 날</h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                섬에서는 계획보다 현장 안전이 우선입니다. 바람이나 파도가 강하면 물가 접근과
+                긴 산책을 줄이고, 현장 안내에 따라 다른 일정으로 조정하세요.
+              </p>
+            </div>
+            <div className="rounded-2xl bg-white p-6">
+              <h3 className="text-xl font-extrabold">다른 해변과 함께 보는 날</h3>
+              <p className="mt-3 leading-7 text-gray-700">
+                지두리해변·답동해변·농여해변 상세 페이지를 함께 확인한 뒤 이동 동선과
+                당일 체력에 맞는 장소를 골라 구성하면 비슷한 해변 일정의 반복을 줄일 수 있습니다.
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section className="rounded-[2rem] bg-white p-8 shadow-sm md:p-10">
           <h2 className="text-3xl font-black">🍀 계절별 방문 체크</h2>
           <div className="mt-6 grid gap-5 md:grid-cols-2">
