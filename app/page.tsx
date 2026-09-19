@@ -441,6 +441,7 @@ export default function Home() {
   // 검색
   const [staySearch, setStaySearch] = useState("");
   const [foodSearch, setFoodSearch] = useState("");
+  const [approvedBusinesses, setApprovedBusinesses] = useState<any[]>([]);
 
 
   // Q&A
@@ -988,12 +989,45 @@ const [showSearchResults, setShowSearchResults] = useState(false);
     loadQnaQuestions();
     loadMilitaryReviews();
     loadFootprints();
+    loadApprovedBusinesses();
   
     const savedCourse = localStorage.getItem("myCourse");
     if (savedCourse) {
       setMyCourse(JSON.parse(savedCourse));
     }
   }, []);
+
+  async function loadApprovedBusinesses() {
+    try {
+      const response = await fetch(`/api/public/businesses?t=${Date.now()}`, {
+        method: "GET",
+        cache: "no-store",
+        headers: { Accept: "application/json" },
+      });
+
+      if (!response.ok) {
+        setApprovedBusinesses([]);
+        return;
+      }
+
+      const contentType = response.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) {
+        setApprovedBusinesses([]);
+        return;
+      }
+
+      const result = await response.json();
+
+      if (!result?.ok) {
+        setApprovedBusinesses([]);
+        return;
+      }
+
+      setApprovedBusinesses(Array.isArray(result.data) ? result.data : []);
+    } catch {
+      setApprovedBusinesses([]);
+    }
+  }
 
   function handleAddCourse(place: any) {
     const exists = myCourse.some((item) => item.name === place.name);
@@ -1740,12 +1774,12 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       <a href="/about" className="hover:text-sky-500">운영자 소개</a>
     </nav>
     <div className="relative">
-      <button type="button" onClick={() => setShowLanguageMenu(!showLanguageMenu)} className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-bold text-gray-700 shadow-sm hover:border-sky-300" aria-expanded={showLanguageMenu}>
+      <button type="button" onClick={() => setShowLanguageMenu(!showLanguageMenu)} className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-base font-bold text-gray-700 shadow-sm hover:border-sky-300" aria-expanded={showLanguageMenu}>
         <span>🌐</span><span>한국어</span><span className="text-xs">⌄</span>
       </button>
       {showLanguageMenu && (
         <div className="absolute right-0 top-12 z-50 w-40 overflow-hidden rounded-2xl border border-gray-100 bg-white py-2 shadow-xl">
-          <button type="button" onClick={resetTranslation} className="block w-full px-4 py-2.5 text-left text-sm font-bold text-sky-600 hover:bg-sky-50">한국어</button>
+          <button type="button" onClick={resetTranslation} className="block w-full px-4 py-2.5 text-left text-base font-bold text-sky-600 hover:bg-sky-50">한국어</button>
           <button type="button" onClick={() => openTranslatedPage("en")} className="block w-full px-4 py-2.5 text-left text-sm font-bold text-gray-700 hover:bg-gray-50">English</button>
           <button type="button" onClick={() => openTranslatedPage("zh-CN")} className="block w-full px-4 py-2.5 text-left text-sm font-bold text-gray-700 hover:bg-gray-50">中文</button>
           <button type="button" onClick={() => openTranslatedPage("ja")} className="block w-full px-4 py-2.5 text-left text-sm font-bold text-gray-700 hover:bg-gray-50">日本語</button>
@@ -2467,7 +2501,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
     <Link
       href={place.link}
       onClick={() => handlePlaceView(place.name)}
-      className="inline-flex items-center justify-center w-full bg-sky-600 text-white py-2.5 sm:py-3 rounded-xl sm:rounded-2xl text-sm sm:text-base font-semibold hover:bg-sky-700 transition"
+      className="inline-flex items-center justify-center w-full bg-sky-600 text-white py-2.5 sm:py-3 rounded-xl sm:rounded-2xl text-sm sm:text-xl font-semibold hover:bg-sky-700 transition"
     >
       📖 백과사전 보기
     </Link>
@@ -2477,7 +2511,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
     type="button"
     onClick={() => handleAddCourse(place)}
     disabled={myCourse.some((item) => item.name === place.name)}
-    className={`w-full rounded-xl py-2.5 text-sm font-semibold transition sm:rounded-2xl sm:py-3 sm:text-base ${
+    className={`w-full rounded-xl py-2.5 text-sm font-semibold transition sm:rounded-2xl sm:py-3 sm:text-xl ${
       myCourse.some((item) => item.name === place.name)
         ? "cursor-default bg-emerald-100 text-emerald-700"
         : "bg-violet-600 text-white hover:bg-violet-700"
@@ -3031,13 +3065,25 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                   </p>
                 </div>
 
-                <button
+                <div className="shrink-0 flex flex-col gap-3">
+                  <Link
+                    href="/stay-register?type=stay"
+                    className="flex min-h-[96px] items-center justify-center rounded-2xl border border-sky-200 bg-white px-7 text-center text-base font-extrabold text-sky-800 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md sm:text-lg"
+                  >
+                    🏠 내 숙박업소 직접 등록하기
+                  </Link>
+                  <button
                   type="button"
-                  onClick={() => setShowStay(!showStay)}
+                  onClick={() => {
+                            const next = !showStay;
+                            setShowStay(next);
+                            if (next) loadApprovedBusinesses();
+                          }}
                   className="shrink-0 rounded-2xl bg-gray-900 px-7 py-4 text-lg font-extrabold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-sky-600"
                 >
                   {showStay ? "숙박업소 닫기 ▲" : "숙박업소 전체보기 ▼"}
-                </button>
+                  </button>
+                </div>
               </div>
 
               {showStay && (
@@ -3084,6 +3130,65 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                         </thead>
 
                         <tbody>
+                          {approvedBusinesses
+                            .filter((item) => item.business_type === "숙소")
+                            .filter(
+                              (item) =>
+                                ![
+                                  "감사한민박","경일민박","고향펜션","노블펜션민박"
+                                ].includes(item.business_name?.trim() || "")
+                            )
+                            .filter((item) => {
+                              const keyword = staySearch.trim().toLowerCase().replace(/\s/g, "");
+                              if (!keyword) return true;
+                              return [item.business_name, item.address, item.description, item.opening_hours, item.price_info]
+                                .filter(Boolean)
+                                .join(" ")
+                                .toLowerCase()
+                                .replace(/\s/g, "")
+                                .includes(keyword);
+                            })
+                            .map((item) => (
+                              <tr key={`approved-${item.id}`} className="border-t border-gray-100 bg-green-50/30 transition hover:bg-sky-50">
+                                <td className="p-4 font-extrabold text-gray-900">
+                                  <div className="flex flex-wrap items-center gap-2">
+                                    <span>{item.business_name}</span>
+                                    <span className="rounded-full bg-green-100 px-2 py-1 text-[11px] font-bold text-green-700">등록업체</span>
+                                    {item.image_urls?.length > 0 && (
+                                      <details className="relative">
+                                        <summary className="cursor-pointer list-none shrink-0 rounded-full bg-sky-50 px-3 py-1 text-xs font-bold text-sky-700 hover:bg-sky-100">
+                                          📸 사진보기 ({item.image_urls.length}장)
+                                        </summary>
+                                        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                                          {item.image_urls.map((photo: string, photoIndex: number) => (
+                                            <a
+                                              key={photo}
+                                              href={photo}
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                              className="block overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-md"
+                                              aria-label={`${item.business_name} 사진 ${photoIndex + 1} 새 창에서 보기`}
+                                            >
+                                              <img
+                                                src={photo}
+                                                alt={`${item.business_name} 사진 ${photoIndex + 1}`}
+                                                className="h-40 w-full object-cover"
+                                              />
+                                              <div className="px-3 py-2 text-center text-xs font-bold text-sky-700">
+                                                사진 {photoIndex + 1} 크게보기
+                                              </div>
+                                            </a>
+                                          ))}
+                                        </div>
+                                      </details>
+                                    )}
+                                  </div>
+                                </td>
+                                <td className="p-4 text-gray-600">{item.address || "-"}</td>
+                                <td className="p-4 text-sm font-bold text-green-700">✓ 관리자 승인</td>
+                              </tr>
+                            ))}
+
                           {[
                             ["루시아펜션", "백령로307", "032-836-0410"],
                             ["파라다이스모텔", "백령로461-14", "032-836-8118"],
@@ -3198,6 +3303,47 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                                         </div>
                                       </details>
                                     )}
+
+                                    {(() => {
+                                      const approvedStay = approvedBusinesses.find(
+                                        (business) =>
+                                          business.business_type === "숙소" &&
+                                          business.business_name?.trim() === String(stay[0]).trim() &&
+                                          Array.isArray(business.image_urls) &&
+                                          business.image_urls.length > 0
+                                      );
+
+                                      if (!approvedStay) return null;
+
+                                      return (
+                                        <details className="relative">
+                                          <summary className="cursor-pointer list-none shrink-0 rounded-full bg-orange-50 px-3 py-1 text-xs font-bold text-orange-700 hover:bg-orange-100">
+                                            📸 사진보기 ({approvedStay.image_urls.length}장)
+                                          </summary>
+                                          <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                                            {approvedStay.image_urls.map((photo: string, photoIndex: number) => (
+                                              <a
+                                                key={photo}
+                                                href={photo}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="block overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-md"
+                                                aria-label={`${stay[0]} 등록 사진 ${photoIndex + 1} 새 창에서 보기`}
+                                              >
+                                                <img
+                                                  src={photo}
+                                                  alt={`${stay[0]} 등록 사진 ${photoIndex + 1}`}
+                                                  className="h-40 w-full object-cover"
+                                                />
+                                                <div className="px-3 py-2 text-center text-xs font-bold text-orange-700">
+                                                  사진 {photoIndex + 1} 크게보기
+                                                </div>
+                                              </a>
+                                            ))}
+                                          </div>
+                                        </details>
+                                      );
+                                    })()}
                                   </div>
                                 </td>
 
@@ -3255,13 +3401,25 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                       💡 영업시간·휴무·메뉴는 계절과 업소 사정에 따라 달라질 수 있으니 방문 전 전화 확인을 권장해요.
                     </p>
                   </div>
-                  <button
+                  <div className="shrink-0 flex flex-col gap-3">
+                    <Link
+                      href="/stay-register?type=food"
+                      className="flex min-h-[96px] items-center justify-center rounded-2xl border border-orange-200 bg-white px-7 text-center text-base font-extrabold text-orange-800 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md sm:text-lg"
+                    >
+                      🍽️ 내 음식점 직접 등록하기
+                    </Link>
+                    <button
                     type="button"
-                    onClick={() => setShowFood(!showFood)}
+                    onClick={() => {
+                            const next = !showFood;
+                            setShowFood(next);
+                            if (next) loadApprovedBusinesses();
+                          }}
                     className="shrink-0 rounded-2xl bg-gray-900 px-7 py-4 text-lg font-extrabold text-white shadow-lg transition hover:bg-orange-600"
                   >
                     {showFood ? "음식점 닫기 ▲" : "음식점 전체보기 ▼"}
-                  </button>
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -3420,6 +3578,36 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                           ["형준네 만두", "만두", "032-836-0427"],
                           ["호남횟집", "횟집 · 해산물", "010-9290-2212"],
                         ]
+                          .map((food) => {
+                            const approvedMatch = approvedBusinesses.find(
+                              (business) =>
+                                business.business_type === "음식점" &&
+                                business.business_name?.trim() === food[0]
+                            );
+
+                            return [
+                              food[0],
+                              food[1],
+                              food[2],
+                              approvedMatch?.image_urls || [],
+                            ];
+                          })
+                          .concat(
+                            approvedBusinesses
+                              .filter(
+                                (business) =>
+                                  business.business_type === "음식점" &&
+                                  ![
+                                    "bhc 치킨","가을면옥","강산횟집","강원횟집","계림가든","고기먹는날 블랙","고모네","고향식당","구주고기천국","국수나라 백반세상","꼬꼬발","네네치킨","노랑통닭","늘봄해장국","대박맛집","대성가든","대성수산횟집","대성횟집","덮담","돈가순대","돈키호테","두메칼국수","두무나루카페","두무진횟집","두선네한상","두찜","둘리호프","또!오기식당","또래오래치킨피자","또봉이통닭","뚱이네맛집","마라&곤조","마왕족발","맛있는집밥","미화정","바다횟집","배꼽시계","배장집","백령당(베이커리)","백령도서서갈비","백령동해수산","백령면옥","백령분식","백령행운순대","백령횟집","백숙정","버거운버거","복이네","본가감자탕","본스치킨","북포국수","브라더한정식도시락","비비큐","빨간석쇠구이","빽박이네","뽀끄닭","사곶냉면","사곶일번지칼국수","사랑채","사자바위캠프","삼거리치킨&고기집","삼삼구이","섬마을식당","스카이호프","시골칼국수&냉면","신경기횟집","신화평양냉면","썸&배터지는생동까스","아구와콩나물","아랑이네횟집","아일랜드식당","알통떡강정&떡볶이","옹진가든","우수미나사진관&카페&바","월가","이화원","인천횟집","일품양평해장국","자담치킨","자연마을","작은행복","잔디식당","장미식당","장산곶횟집","장촌식당","장촌칼국수","전복죽있는 철판집","중앙가든","중화루","진촌돼지","진촌역","참맛있는국밥","처갓집양념치킨","청년피자","청목숯불갈비","청정횟집","청춘꼬마김밥","청춘싸가지","청풍감자탕","충북횟집","치킨매니아","카페블루","카페오아","콩깍지","키스","통달배족발보쌈삼겹","펀비어킹","푸른바다찜&탕","할매감자탕","해녀와사위횟집","해당화횟집","해물나라","해송가든","형준네 만두","호남횟집"
+                                  ].includes(business.business_name?.trim() || "")
+                              )
+                              .map((business) => [
+                                business.business_name || "",
+                                business.price_info || business.description || "등록 업체",
+                                "",
+                                business.image_urls || [],
+                              ])
+                          )
                           .filter((food) => {
                             const keyword = foodSearch
                               .trim()
@@ -3429,6 +3617,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                             if (!keyword) return true;
 
                             return food
+                              .slice(0, 3)
                               .join(" ")
                               .toLowerCase()
                               .replace(/\s/g, "")
@@ -3475,6 +3664,30 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                                       📸 사진보기
                                     </a>
                                   )}
+
+                                  {(() => {
+                                    const approvedFood = approvedBusinesses.find(
+                                      (business) =>
+                                        business.business_type === "음식점" &&
+                                        business.business_name?.trim() === String(food[0]).trim() &&
+                                        Array.isArray(business.image_urls) &&
+                                        business.image_urls.length > 0
+                                    );
+
+                                    if (!approvedFood) return null;
+
+                                    return (
+                                      <a
+                                        href={approvedFood.image_urls[0]}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="shrink-0 rounded-full bg-orange-50 px-3 py-1 text-xs font-bold text-orange-700 hover:bg-orange-100"
+                                        aria-label={`${food[0]} 등록 사진 새 창에서 보기`}
+                                      >
+                                        📸 사진보기 ({approvedFood.image_urls.length}장)
+                                      </a>
+                                    );
+                                  })()}
 
                                   {food[0] === "뚱이네맛집" && (
                                     <span className="bg-orange-500 text-white text-xs px-2 py-1 rounded-full">

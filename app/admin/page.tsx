@@ -31,6 +31,23 @@ type PlaceReview = {
   created_at?: string;
 };
 
+type BusinessRegistration = {
+  id: string;
+  business_type: string;
+  business_name: string;
+  owner_name: string;
+  phone: string;
+  business_number: string | null;
+  address: string | null;
+  description: string | null;
+  opening_hours: string | null;
+  price_info: string | null;
+  image_urls: string[] | null;
+  is_approved: boolean;
+  created_at: string;
+  approved_at: string | null;
+};
+
 type TravelerFootprint = {
   id: number;
   nickname: string;
@@ -53,6 +70,7 @@ export default function AdminPage() {
   const [noticeContent, setNoticeContent] = useState("");
   const [footprints, setFootprints] = useState<TravelerFootprint[]>([]);
   const [reviews, setReviews] = useState<PlaceReview[]>([]);
+  const [businesses, setBusinesses] = useState<BusinessRegistration[]>([]);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -95,6 +113,7 @@ export default function AdminPage() {
       loadNotices();
       loadFootprints();
       loadReviews();
+      loadBusinesses();
     }
   }, [isAdmin]);
 
@@ -221,6 +240,63 @@ export default function AdminPage() {
       loadReviews();
     } catch (error) {
       alert(error instanceof Error ? error.message : "리뷰 삭제에 실패했어요.");
+    }
+  }
+
+  async function businessAdminRequest(
+    action: "list" | "approve" | "delete",
+    item?: BusinessRegistration
+  ) {
+    const response = await fetch("/api/admin/business-registrations", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        password: adminPassword,
+        action,
+        id: item?.id,
+        image_urls: item?.image_urls ?? [],
+      }),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || !result.ok) {
+      throw new Error(result.message || "업체 등록 관리자 요청을 처리하지 못했어요.");
+    }
+
+    return result;
+  }
+
+  async function loadBusinesses() {
+    try {
+      const result = await businessAdminRequest("list");
+      setBusinesses(result.data || []);
+    } catch (error) {
+      console.error("업체 등록 불러오기 오류:", error);
+    }
+  }
+
+  async function handleApproveBusiness(item: BusinessRegistration) {
+    if (!confirm(`${item.business_name} 업체를 승인해서 공개하시겠습니까?`)) return;
+
+    try {
+      await businessAdminRequest("approve", item);
+      alert("업체 등록을 승인했어요.");
+      loadBusinesses();
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "업체 승인에 실패했어요.");
+    }
+  }
+
+  async function handleDeleteBusiness(item: BusinessRegistration) {
+    if (!confirm(`${item.business_name} 신청을 삭제하시겠습니까? 등록 사진도 함께 삭제됩니다.`)) return;
+
+    try {
+      await businessAdminRequest("delete", item);
+      alert("업체 등록 신청을 삭제했어요.");
+      loadBusinesses();
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "업체 삭제에 실패했어요.");
     }
   }
 
@@ -351,7 +427,7 @@ export default function AdminPage() {
         <h1 className="text-4xl font-bold">관리자 페이지</h1>
 
         <button
-          onClick={() => { setIsAdmin(false); setAdminPassword(""); setFootprints([]); setReviews([]); }}
+          onClick={() => { setIsAdmin(false); setAdminPassword(""); setFootprints([]); setReviews([]); setBusinesses([]); }}
           className="rounded-xl bg-gray-100 px-4 py-2 font-bold"
         >
           로그아웃
@@ -412,6 +488,100 @@ export default function AdminPage() {
             </div>
           ))}
         </div>
+      </section>
+
+      <section>
+        <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="font-bold text-violet-600">BUSINESS REGISTRATION</p>
+            <h2 className="text-3xl font-bold">🏪 업체 등록 승인 관리</h2>
+          </div>
+          <p className="text-sm text-gray-500">
+            승인대기 {businesses.filter((item) => !item.is_approved).length}개 · 공개승인 {businesses.filter((item) => item.is_approved).length}개
+          </p>
+        </div>
+
+        {businesses.length === 0 ? (
+          <div className="rounded-3xl bg-white p-8 text-center text-gray-500 shadow">
+            아직 접수된 업체 등록 신청이 없어요.
+          </div>
+        ) : (
+          <div className="space-y-5">
+            {businesses.map((item) => (
+              <article key={item.id} className="overflow-hidden rounded-3xl bg-white shadow-lg">
+                {item.image_urls && item.image_urls.length > 0 && (
+                  <div className="grid grid-cols-2 gap-1 md:grid-cols-4">
+                    {item.image_urls.map((url, index) => (
+                      <a key={url} href={url} target="_blank" rel="noopener noreferrer">
+                        <img
+                          src={url}
+                          alt={`${item.business_name} 업체사진 ${index + 1}`}
+                          className="aspect-[4/3] w-full object-cover"
+                        />
+                      </a>
+                    ))}
+                  </div>
+                )}
+
+                <div className="p-6">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <span className="rounded-full bg-violet-100 px-3 py-1 text-xs font-bold text-violet-700">
+                        {item.business_type}
+                      </span>
+                      <h3 className="mt-3 text-2xl font-bold">{item.business_name}</h3>
+                    </div>
+                    <span className={`rounded-full px-3 py-1 text-xs font-bold ${
+                      item.is_approved
+                        ? "bg-green-100 text-green-700"
+                        : "bg-yellow-100 text-yellow-700"
+                    }`}>
+                      {item.is_approved ? "승인완료" : "승인대기"}
+                    </span>
+                  </div>
+
+                  <div className="mt-5 grid gap-3 rounded-2xl bg-gray-50 p-5 text-sm md:grid-cols-2">
+                    <p><strong>신청자:</strong> {item.owner_name}</p>
+                    <p><strong>연락처:</strong> {item.phone}</p>
+                    <p><strong>사업자등록번호:</strong> {item.business_number || "미입력"}</p>
+                    <p><strong>주소:</strong> {item.address || "미입력"}</p>
+                    <p><strong>영업/이용시간:</strong> {item.opening_hours || "미입력"}</p>
+                    <p><strong>가격/메뉴:</strong> {item.price_info || "미입력"}</p>
+                  </div>
+
+                  {item.description && (
+                    <p className="mt-4 whitespace-pre-wrap leading-7 text-gray-700">
+                      {item.description}
+                    </p>
+                  )}
+
+                  <div className="mt-5 flex gap-3">
+                    <button
+                      type="button"
+                      onClick={() => handleApproveBusiness(item)}
+                      disabled={item.is_approved}
+                      className={`flex-1 rounded-xl px-4 py-3 font-bold text-white ${
+                        item.is_approved
+                          ? "cursor-not-allowed bg-gray-400"
+                          : "bg-green-500 hover:bg-green-600"
+                      }`}
+                    >
+                      {item.is_approved ? "✓ 승인완료" : "✓ 승인해서 공개"}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteBusiness(item)}
+                      className="rounded-xl bg-red-500 px-4 py-3 font-bold text-white hover:bg-red-600"
+                    >
+                      삭제
+                    </button>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
       </section>
 
       <section>
