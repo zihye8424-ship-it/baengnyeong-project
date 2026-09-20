@@ -31,7 +31,7 @@ const platformServiceItems = [
 
 const islandWeatherLocations = [
   { name: "백령도", latitude: 37.96, longitude: 124.67, image: "/images/hero/hero-06.png" },
-  { name: "대청도", latitude: 37.83, longitude: 124.69, image: "/images/nongyeo-beach.png" },
+  { name: "대청도", latitude: 37.83, longitude: 124.69, image: "/images/nongyeo-beach-view.png" },
   { name: "소청도", latitude: 37.76, longitude: 124.75, image: "/images/socheong.jpg" },
 ];
 
@@ -124,7 +124,7 @@ const stayPhotos: Record<string, string[]> = {
 
 const daecheongGallery = [
   { src: "/images/seopungbaji.png", name: "서풍받이" },
-  { src: "/images/nongyeo-beach.png", name: "농여해변" },
+  { src: "/images/nongyeo-beach-view.png", name: "농여해변" },
   { src: "/images/miadong-beach.png", name: "미아동해변" },
   { src: "/images/samgaksan.png", name: "삼각산" },
   { src: "/images/maebawi-observatory.png", name: "매바위전망대" },
@@ -678,7 +678,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
     {
       name: "농여해변",
       island: "대청도",
-      image: "/images/nongyeo-beach.png",
+      image: "/images/nongyeo-beach-view.png",
       category: "관광지",
       description: "넓은 해변과 독특한 바위 지형을 함께 만나는 대청도 해안 명소",
       location: "인천 옹진군 대청면",
@@ -800,7 +800,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
     {
       name: "나이테바위",
       island: "대청도",
-      image: "/images/nongyeo-beach.png",
+      image: "/images/tree-ring-rock.png",
       category: "관광지",
       description: "농여해변 일대에서 만나는 독특한 층리 무늬의 바위로, 대청도의 해안 지질경관을 가까이에서 살펴보기 좋은 포인트입니다.",
       location: "인천 옹진군 대청면 농여해변 일대",
