@@ -97,49 +97,6 @@ export default function PlaceTemplate({
         <div className="space-y-8">
           {children}
 
-          {/* 위치 안내 */}
-          <div className="rounded-3xl bg-white p-8 shadow-sm">
-            <h2 className="text-3xl font-black">
-              📍 방문 전 확인
-            </h2>
-
-            <p className="mt-5 leading-8 text-gray-700">
-              섬 지역은 기상과 현지 상황에 따라
-              관광지 이용 여건이 달라질 수 있습니다. 방문 전 날씨와
-              현장 안내를 확인하면 더욱 안전하고 편안하게 여행할 수 있습니다.
-            </p>
-          </div>
-
-          {/* 여행 한눈에 보기 */}
-          <div className="rounded-3xl bg-white p-8 shadow-sm">
-            <h2 className="text-3xl font-black">
-              💡 섬 여행 한눈에 보기
-            </h2>
-
-            <div className="mt-6 grid gap-4 md:grid-cols-3">
-              <div className="rounded-2xl bg-sky-50 p-5">
-                <h3 className="font-bold">📸 사진 여행</h3>
-                <p className="mt-2 leading-7 text-gray-700">
-                  서해 섬의 바다와 자연 풍경을 사진으로 남겨보세요.
-                </p>
-              </div>
-
-              <div className="rounded-2xl bg-green-50 p-5">
-                <h3 className="font-bold">🚶 여유로운 여행</h3>
-                <p className="mt-2 leading-7 text-gray-700">
-                  이동 시간을 넉넉하게 잡고 관광지를 천천히 둘러보세요.
-                </p>
-              </div>
-
-              <div className="rounded-2xl bg-orange-50 p-5">
-                <h3 className="font-bold">⭐ 함께 둘러보기</h3>
-                <p className="mt-2 leading-7 text-gray-700">
-                  가까운 관광지를 함께 둘러보면 여행 동선을 효율적으로
-                  구성할 수 있습니다.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 

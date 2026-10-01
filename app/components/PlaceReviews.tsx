@@ -188,29 +188,15 @@ export default function PlaceReviews({
           )}
         </div>
 
-        <div className="mt-10">
-          <div className="mb-5 flex items-center justify-between">
-            <h3 className="text-2xl font-black">{placeName} 방문 후기</h3>
-            <span className="rounded-full bg-sky-100 px-4 py-2 text-sm font-bold text-sky-700">
-              {reviews.length}개
-            </span>
-          </div>
+        {!isFetching && reviews.length > 0 && (
+          <div className="mt-10">
+            <div className="mb-5 flex items-center justify-between">
+              <h3 className="text-2xl font-black">{placeName} 방문 후기</h3>
+              <span className="rounded-full bg-sky-100 px-4 py-2 text-sm font-bold text-sky-700">
+                {reviews.length}개
+              </span>
+            </div>
 
-          {isFetching ? (
-            <div className="rounded-2xl bg-gray-50 p-8 text-center text-gray-500">
-              리뷰를 불러오는 중입니다...
-            </div>
-          ) : reviews.length === 0 ? (
-            <div className="rounded-2xl bg-gray-50 p-8 text-center">
-              <div className="mb-3 text-4xl">✍️</div>
-              <p className="font-bold text-gray-700">
-                아직 등록된 리뷰가 없습니다.
-              </p>
-              <p className="mt-2 text-sm text-gray-500">
-                첫 번째 {placeName} 방문 후기를 남겨주세요.
-              </p>
-            </div>
-          ) : (
             <div className="space-y-4">
               {reviews.map((review) => (
                 <article
@@ -237,8 +223,8 @@ export default function PlaceReviews({
                 </article>
               ))}
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </section>
   );
