@@ -473,6 +473,23 @@ export default function DumujinPage() {
 
       </div>
 
+
+      <div className="rounded-3xl bg-white p-8 shadow-sm md:p-10">
+        <h2 className="text-3xl font-black">🧭 두무진 방문 포인트</h2>
+        <div className="mt-6 space-y-5 leading-8 text-gray-700">
+          <p>
+            두무진을(를) 방문할 때는 한 장의 사진만 남기고 이동하기보다
+            이 페이지에 안내된 관람 포인트와 주변 풍경을 함께 천천히
+            살펴보세요. 기암절벽과 서해가 어우러진 백령도의 대표적인 해안 절경
+          </p>
+          <p>
+            섬 여행은 날씨와 현장 여건에 따라 이동 시간이 달라질 수
+            있으므로 다음 일정까지 여유를 두는 것이 좋습니다. 현장에
+            별도의 출입·안전 안내가 있다면 그 안내를 우선해 주세요.
+          </p>
+        </div>
+      </div>
+
       <PlaceReviews
         placeSlug="dumujin"
         placeName="두무진"

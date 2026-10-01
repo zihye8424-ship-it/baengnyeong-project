@@ -106,7 +106,8 @@ export default function Page() {
 
           <ul className="mt-6 space-y-4 leading-8 text-gray-700">
             <li>
-              ✅ 소청도 방문 전 선박 운항과 기상 상황을 확인하세요.
+              ✅ 소청도 방문 전 선박 운항과 기상 상황을 확인하고,
+              섬 안에서 이동할 시간까지 고려해 일정을 잡으세요.
             </li>
 
             <li>
