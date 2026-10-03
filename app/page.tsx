@@ -4751,7 +4751,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             </div>
           </div>
 
-          <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className={`grid gap-6 p-6 sm:p-8 ${!militaryReviewLoading && militaryReviews.length > 0 ? "lg:grid-cols-[0.9fr_1.1fr]" : ""}`}>
             <div className="rounded-3xl bg-white p-5 shadow-sm sm:p-6">
               <h4 className="text-xl font-black">✍️ 면회 후기 남기기</h4>
               <p className="mt-2 text-xs leading-5 text-gray-500">부대명·부대 위치·훈련/작전 일정·연락처 등 군사정보와 개인정보는 작성하지 마세요.</p>
@@ -4770,13 +4770,9 @@ const [showSearchResults, setShowSearchResults] = useState(false);
               <button type="button" onClick={handleMilitaryReviewSubmit} disabled={militaryReviewSubmitting} className="mt-4 w-full rounded-2xl bg-gray-950 px-5 py-3.5 font-black text-white disabled:opacity-50">{militaryReviewSubmitting ? "등록 중..." : "💌 면회 후기 등록하기"}</button>
             </div>
 
-            <div>
-              <div className="mb-4 flex items-center justify-between"><h4 className="text-xl font-black">백령도를 다녀온 이야기</h4><span className="text-xs text-gray-500">최신순</span></div>
-              {militaryReviewLoading ? (
-                <div className="rounded-3xl bg-white p-8 text-center text-sm text-gray-500">후기를 불러오는 중이에요...</div>
-              ) : militaryReviews.length === 0 ? (
-                <div className="rounded-3xl bg-white p-8 text-center shadow-sm"><div className="text-4xl">💌</div><p className="mt-4 font-black">아직 첫 후기를 기다리고 있어요.</p><p className="mt-2 text-sm leading-6 text-gray-500">백령도 면회를 다녀오셨다면 다음 방문자에게 도움이 될 경험을 남겨주세요.</p></div>
-              ) : (
+            {!militaryReviewLoading && militaryReviews.length > 0 && (
+              <div>
+                <div className="mb-4 flex items-center justify-between"><h4 className="text-xl font-black">백령도를 다녀온 이야기</h4><span className="text-xs text-gray-500">최신순</span></div>
                 <div className="max-h-[570px] space-y-4 overflow-y-auto pr-1">
                   {militaryReviews.map((review)=>(
                     <article key={review.id} className="rounded-3xl bg-white p-5 shadow-sm">
@@ -4786,8 +4782,8 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                     </article>
                   ))}
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
 
