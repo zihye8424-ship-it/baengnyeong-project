@@ -1762,7 +1762,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
     </a>
 
     <div className="flex items-center gap-3">
-    <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-700">
+    <nav className="hidden md:flex items-center gap-4 md:gap-6 text-sm font-semibold text-gray-700">
       <a href="/" className="hover:text-sky-500">홈</a>
       <a href="#place-section" className="hover:text-sky-500">관광지</a>
       <a href="#food" className="hover:text-sky-500">맛집</a>
@@ -1819,14 +1819,14 @@ const [showSearchResults, setShowSearchResults] = useState(false);
               className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/15 px-4 py-2 text-sm font-bold text-white backdrop-blur-md lg:hidden"
               title="누르면 다음 섬 날씨가 표시됩니다"
             >
-              <span className="text-xl">{weatherError ? "🌤️" : currentWeatherInfo.icon}</span>
+              <span className="text-lg md:text-xl">{weatherError ? "🌤️" : currentWeatherInfo.icon}</span>
               <span>{currentWeather?.name}</span>
               <strong>{weatherLoading || typeof currentWeather?.temperature !== "number" ? "--°" : `${currentWeather.temperature.toFixed(0)}°C`}</strong>
             </button>
             <p className="mb-3 text-sm font-black tracking-[0.16em] text-sky-100 md:text-base">
               BAENGNYEONG · DAECHEONG · SOCHEONG
             </p>
-            <h1 className="text-4xl font-black leading-[1.12] tracking-tight text-white drop-shadow-lg md:text-6xl">
+            <h1 className="text-2xl md:text-4xl font-black leading-[1.12] tracking-tight text-white drop-shadow-lg md:text-6xl">
               백령 · 대청 · 소청,
               <br />
               섬 여행을 한곳에서
@@ -1837,7 +1837,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
               현지 생활 경험을 담은 서해 섬 여행 가이드
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-5 md:mt-8 flex flex-wrap gap-3">
               {(["백령도", "대청도", "소청도"] as const).map((island) => (
                 <button
                   key={island}
@@ -1868,7 +1868,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           <button
             type="button"
             onClick={() => setWeatherSlideIndex((weatherSlideIndex + 1) % weatherItems.length)}
-            className="hidden w-64 shrink-0 rounded-3xl border border-white/30 bg-black/15 p-6 text-left text-white shadow-xl backdrop-blur-md transition hover:bg-black/25 lg:block lg:translate-x-16 xl:translate-x-24"
+            className="hidden w-64 shrink-0 rounded-3xl border border-white/30 bg-black/15 p-4 md:p-6 text-left text-white shadow-xl backdrop-blur-md transition hover:bg-black/25 lg:block lg:translate-x-16 xl:translate-x-24"
             title="누르면 다음 섬 날씨가 표시됩니다"
             aria-label={`${currentWeather?.name} 날씨, 다음 섬 날씨 보기`}
           >
@@ -1877,7 +1877,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             <div className="mt-2 flex items-center gap-3">
               <span className="text-5xl">{weatherError ? "🌤️" : currentWeatherInfo.icon}</span>
               <div>
-                <p className="text-3xl font-black">{weatherLoading || typeof currentWeather?.temperature !== "number" ? "--°" : `${currentWeather.temperature.toFixed(0)}°C`}</p>
+                <p className="text-2xl md:text-3xl font-black">{weatherLoading || typeof currentWeather?.temperature !== "number" ? "--°" : `${currentWeather.temperature.toFixed(0)}°C`}</p>
                 <p className="mt-1 text-sm text-white/75">{weatherError ? "날씨 확인 중" : currentWeatherInfo.label}</p>
               </div>
             </div>
@@ -1890,7 +1890,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       <section className="relative z-20 -mt-6 md:-mt-10" id="island-content">
         <div className="mx-auto max-w-7xl px-4 md:px-5">
           <div className="rounded-[28px] border border-gray-100 bg-white/95 px-5 py-6 shadow-[0_12px_35px_rgba(15,23,42,0.12)] backdrop-blur">
-            <div className="flex gap-5 overflow-x-auto pb-1 md:justify-between">
+            <div className="flex gap-4 md:gap-5 overflow-x-auto pb-1 md:justify-between">
             {quickMenuItems.map((item) => (
               <button
                 key={item.label}
@@ -1898,7 +1898,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                 onClick={() => handleQuickMenuClick(item.key)}
                 className="group min-w-[82px] text-center"
               >
-                <div className="mx-auto flex h-[74px] w-[74px] items-center justify-center rounded-[26px] border border-gray-100 bg-white text-3xl shadow-[0_5px_18px_rgba(15,23,42,0.08)] transition group-hover:-translate-y-1">
+                <div className="mx-auto flex h-[74px] w-[74px] items-center justify-center rounded-[26px] border border-gray-100 bg-white text-2xl md:text-3xl shadow-[0_5px_18px_rgba(15,23,42,0.08)] transition group-hover:-translate-y-1">
                   {item.icon}
                 </div>
                 <div className="mt-3 whitespace-nowrap text-sm font-bold text-gray-600">{item.label}</div>
@@ -1948,9 +1948,9 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       <section id="island-news" className="mt-20 bg-[#f7f8fa] py-14 md:mt-28 md:py-20">
         <div className="mx-auto max-w-7xl px-5">
           <div className="mb-7">
-            <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div className="flex flex-col gap-4 md:gap-5 lg:flex-row lg:items-end lg:justify-between">
               <div>
-                <h2 className="text-2xl font-black text-gray-950 md:text-3xl">축제 · 행사 · 관내소식</h2>
+                <h2 className="text-xl md:text-2xl font-black text-gray-950 md:text-3xl">축제 · 행사 · 관내소식</h2>
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 {["전체", "축제", "행사", "관내소식"].map((label) => (
@@ -1974,7 +1974,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                 <button
                   type="button"
                   onClick={() => moveIslandNews("left")}
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gray-200 bg-white text-2xl font-black text-gray-800 shadow-sm transition hover:bg-gray-100 active:scale-95"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gray-200 bg-white text-xl md:text-2xl font-black text-gray-800 shadow-sm transition hover:bg-gray-100 active:scale-95"
                   aria-label="이전 포스터"
                 >
                   ‹
@@ -1982,7 +1982,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                 <button
                   type="button"
                   onClick={() => moveIslandNews("right")}
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gray-200 bg-white text-2xl font-black text-gray-800 shadow-sm transition hover:bg-gray-100 active:scale-95"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gray-200 bg-white text-xl md:text-2xl font-black text-gray-800 shadow-sm transition hover:bg-gray-100 active:scale-95"
                   aria-label="다음 포스터"
                 >
                   ›
@@ -2061,10 +2061,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
 
 {/* 홈 2차 개편: 핵심 여행 준비 메뉴 */}
-<section id="ship-info" className="scroll-mt-24 max-w-7xl mx-auto px-5 sm:px-6 py-12 sm:py-16">
-  <div className="mb-8">
+<section id="ship-info" className="scroll-mt-24 max-w-7xl mx-auto px-5 sm:px-6 py-8 md:py-12 sm:py-16">
+  <div className="mb-5 md:mb-8">
     <p className="text-sky-600 font-extrabold text-sm mb-2">TRIP ESSENTIALS</p>
-    <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-gray-900">
+    <h2 className="text-2xl md:text-3xl sm:text-4xl font-black tracking-tight text-gray-900">
       여행 준비, 여기서 빠르게
     </h2>
     <p className="mt-3 text-gray-600 leading-relaxed max-w-2xl">
@@ -2079,7 +2079,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       rel="noopener noreferrer"
       className="group rounded-3xl border border-gray-200 bg-white p-5 sm:p-6 hover:-translate-y-1 hover:shadow-xl transition"
     >
-      <span className="text-3xl">🚢</span>
+      <span className="text-2xl md:text-3xl">🚢</span>
       <h3 className="font-black text-lg mt-4">배편 확인</h3>
       <p className="text-sm text-gray-500 mt-2">출항 전 운항 여부와 예매 확인</p>
       <span className="inline-block mt-4 text-sm font-bold text-sky-600">확인하기 →</span>
@@ -2098,7 +2098,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       }}
       className="text-left group rounded-3xl border border-gray-200 bg-white p-5 sm:p-6 hover:-translate-y-1 hover:shadow-xl transition"
     >
-      <span className="text-3xl">📍</span>
+      <span className="text-2xl md:text-3xl">📍</span>
       <h3 className="font-black text-lg mt-4">관광지</h3>
       <p className="text-sm text-gray-500 mt-2">섬별 대표 명소와 현지 여행정보</p>
       <span className="inline-block mt-4 text-sm font-bold text-sky-600">둘러보기 →</span>
@@ -2118,7 +2118,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       }}
       className="text-left group rounded-3xl border border-gray-200 bg-white p-5 sm:p-6 hover:-translate-y-1 hover:shadow-xl transition"
     >
-      <span className="text-3xl">🪖</span>
+      <span className="text-2xl md:text-3xl">🪖</span>
       <h3 className="font-black text-lg mt-4">군인 면회</h3>
       <p className="text-sm text-gray-500 mt-2">배편·숙박·이동 준비 실전정보</p>
       <span className="inline-block mt-4 text-sm font-bold text-sky-600">정보 보기 →</span>
@@ -2129,7 +2129,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       onClick={() => document.getElementById("qna")?.scrollIntoView({ behavior: "smooth" })}
       className="text-left group rounded-3xl border border-gray-200 bg-white p-5 sm:p-6 hover:-translate-y-1 hover:shadow-xl transition"
     >
-      <span className="text-3xl">💬</span>
+      <span className="text-2xl md:text-3xl">💬</span>
       <h3 className="font-black text-lg mt-4">여행 Q&A</h3>
       <p className="text-sm text-gray-500 mt-2">여행 전 자주 묻는 질문 확인</p>
       <span className="inline-block mt-4 text-sm font-bold text-sky-600">질문 보기 →</span>
@@ -2139,14 +2139,14 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
       {/* DAECHUNG & SOCHEONG QUICK GUIDE */}
       <section className="mx-auto max-w-7xl px-6 pb-16">
-        <div className="rounded-[2rem] border border-indigo-100 bg-gradient-to-br from-indigo-50 via-white to-cyan-50 p-6 md:p-8">
+        <div className="rounded-[2rem] border border-indigo-100 bg-gradient-to-br from-indigo-50 via-white to-cyan-50 p-4 md:p-6 md:p-8">
           <p className="text-sm font-black tracking-[0.18em] text-indigo-600">ISLAND QUICK GUIDE</p>
-          <h2 className="mt-2 text-3xl font-black text-gray-900">🏝️ 대청도·소청도도 함께 둘러보세요</h2>
+          <h2 className="mt-2 text-2xl md:text-3xl font-black text-gray-900">🏝️ 대청도·소청도도 함께 둘러보세요</h2>
           <p className="mt-3 max-w-3xl leading-7 text-gray-600">
             백령도와는 또 다른 풍경을 가진 섬들이에요. 배편과 현지 이동 여건을 먼저 확인하고 여유 있게 일정을 잡아보세요.
           </p>
 
-          <div className="mt-7 grid gap-5 md:grid-cols-2">
+          <div className="mt-7 grid gap-4 md:gap-5 md:grid-cols-2">
             <button
               type="button"
               onClick={() => {
@@ -2154,10 +2154,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                 setSelectedCategory("관광지");
                 setTimeout(() => document.getElementById("place-section")?.scrollIntoView({behavior:"smooth", block:"start"}), 100);
               }}
-              className="rounded-3xl border border-indigo-100 bg-white p-6 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+              className="rounded-3xl border border-indigo-100 bg-white p-4 md:p-6 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
             >
               <div className="flex items-center justify-between gap-4">
-                <h3 className="text-2xl font-black text-gray-900">🌬️ 대청도</h3>
+                <h3 className="text-xl md:text-2xl font-black text-gray-900">🌬️ 대청도</h3>
                 <span className="font-black text-indigo-600">관광지 보기 →</span>
               </div>
               <p className="mt-3 text-sm leading-6 text-gray-600">
@@ -2177,10 +2177,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                 setSelectedCategory("관광지");
                 setTimeout(() => document.getElementById("place-section")?.scrollIntoView({behavior:"smooth", block:"start"}), 100);
               }}
-              className="rounded-3xl border border-cyan-100 bg-white p-6 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+              className="rounded-3xl border border-cyan-100 bg-white p-4 md:p-6 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
             >
               <div className="flex items-center justify-between gap-4">
-                <h3 className="text-2xl font-black text-gray-900">🌊 소청도</h3>
+                <h3 className="text-xl md:text-2xl font-black text-gray-900">🌊 소청도</h3>
                 <span className="font-black text-cyan-600">관광지 보기 →</span>
               </div>
               <p className="mt-3 text-sm leading-6 text-gray-600">
@@ -2203,13 +2203,13 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       {/* 섬별 실시간 인기 관광지 */}
 {selectedIsland === "백령도" && popularPlaces.length > 0 && (
   <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10 md:py-16">
-    <h2 className="text-4xl font-bold text-center mb-10">
+    <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-10">
       🏆 백령도 실시간 인기 관광지 TOP 10
     </h2>
-    <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-5">
+    <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-5">
       {popularPlaces.map((place, index) => (
         <div key={place.name} className="bg-white rounded-3xl shadow-lg p-5 text-center border hover:shadow-xl transition">
-          <div className="text-3xl font-extrabold mb-3">
+          <div className="text-2xl md:text-3xl font-extrabold mb-3">
             {index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : `${index + 1}위`}
           </div>
           <h3 className="font-bold text-lg mb-2">{place.name}</h3>
@@ -2222,10 +2222,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
 {selectedIsland === "대청도" && (
   <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10 md:py-16">
-    <h2 className="text-4xl font-bold text-center mb-10">
+    <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-10">
       🏆 대청도 실시간 인기 관광지 TOP 10
     </h2>
-    <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-5">
+    <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-5">
       {filteredPlaces
         .filter((place) => place.category === "관광지")
         .slice()
@@ -2237,7 +2237,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         .slice(0, 10)
         .map((place, index) => (
           <div key={place.name} className="bg-white rounded-3xl shadow-lg p-5 text-center border hover:shadow-xl transition">
-            <div className="text-3xl font-extrabold mb-3">
+            <div className="text-2xl md:text-3xl font-extrabold mb-3">
               {index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : `${index + 1}위`}
             </div>
             <h3 className="font-bold text-lg mb-2">{place.name}</h3>
@@ -2252,10 +2252,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
 {selectedIsland === "소청도" && (
   <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10 md:py-16">
-    <h2 className="text-4xl font-bold text-center mb-10">
+    <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-10">
       🏆 소청도 실시간 인기 관광지 TOP 3
     </h2>
-    <div className="grid md:grid-cols-3 gap-5">
+    <div className="grid md:grid-cols-3 gap-4 md:gap-5">
       {filteredPlaces
         .filter((place) => place.category === "관광지")
         .slice()
@@ -2267,7 +2267,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         .slice(0, 3)
         .map((place, index) => (
           <div key={place.name} className="bg-white rounded-3xl shadow-lg p-5 text-center border hover:shadow-xl transition">
-            <div className="text-3xl font-extrabold mb-3">
+            <div className="text-2xl md:text-3xl font-extrabold mb-3">
               {index === 0 ? "🥇" : index === 1 ? "🥈" : "🥉"}
             </div>
             <h3 className="font-bold text-lg mb-2">{place.name}</h3>
@@ -2283,9 +2283,9 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
 <section className="max-w-7xl mx-auto px-6 pb-12">
   {selectedIsland === "백령도" && (
-    <div className="rounded-3xl bg-sky-50 p-7 md:p-9 ring-1 ring-sky-100">
+    <div className="rounded-3xl bg-sky-50 p-5 md:p-7 md:p-9 ring-1 ring-sky-100">
       <p className="font-bold text-sky-600 mb-2">대한민국 서해 최북단 섬 여행</p>
-      <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">🏝️ 백령도 여행</h2>
+      <h2 className="text-2xl md:text-3xl md:text-4xl font-extrabold text-gray-900">🏝️ 백령도 여행</h2>
       <p className="mt-4 leading-8 text-gray-700">
         두무진·사곶해변·콩돌해안·심청각 등 자연과 안보·역사 이야기가 함께 있는 백령도의 관광지를 둘러보세요.
         아래에는 백령도 관광지와 여행에 필요한 정보를 이어서 확인할 수 있어요.
@@ -2294,9 +2294,9 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   )}
 
   {selectedIsland === "대청도" && (
-    <div className="rounded-3xl bg-emerald-50 p-7 md:p-9 ring-1 ring-emerald-100">
+    <div className="rounded-3xl bg-emerald-50 p-5 md:p-7 md:p-9 ring-1 ring-emerald-100">
       <p className="font-bold text-emerald-600 mb-2">모래사구와 해안절경을 만나는 섬</p>
-      <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">🏝️ 대청도 여행</h2>
+      <h2 className="text-2xl md:text-3xl md:text-4xl font-extrabold text-gray-900">🏝️ 대청도 여행</h2>
       <p className="mt-4 leading-8 text-gray-700">
         옥죽동 해안사구·서풍받이·농여해변·삼각산 등 대청도만의 다양한 자연경관을 만나보세요.
         아래에는 대청도 관광지와 맛집·숙박·낚시배 정보를 이어서 확인할 수 있어요.
@@ -2305,9 +2305,9 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   )}
 
   {selectedIsland === "소청도" && (
-    <div className="rounded-3xl bg-indigo-50 p-7 md:p-9 ring-1 ring-indigo-100">
+    <div className="rounded-3xl bg-indigo-50 p-5 md:p-7 md:p-9 ring-1 ring-indigo-100">
       <p className="font-bold text-indigo-600 mb-2">등대와 지질경관이 인상적인 작은 섬</p>
-      <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">🏝️ 소청도 여행</h2>
+      <h2 className="text-2xl md:text-3xl md:text-4xl font-extrabold text-gray-900">🏝️ 소청도 여행</h2>
       <p className="mt-4 leading-8 text-gray-700">
         소청등대·분바위·스트로마톨라이트를 중심으로 소청도의 바다 풍경과 독특한 지질경관을 둘러보세요.
         아래에는 소청도 관광지와 맛집·숙박 정보를 이어서 확인할 수 있어요.
@@ -2318,26 +2318,26 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
       {(selectedIsland === "소청도" && ["맛집", "숙박"].includes(selectedCategory)) && (
         <section id="island-directory" className="max-w-7xl mx-auto px-4 sm:px-6 pb-12 md:pb-20">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+          <div className="text-center mb-6 md:mb-10">
+            <h2 className="text-2xl md:text-3xl md:text-4xl font-bold text-gray-900">
               {selectedIsland} {selectedCategory} 안내
             </h2>
             <p className="mt-3 text-gray-500">
               현지 관광 안내자료에 기재된 정보를 정리했습니다. 방문 전 전화로 운영 여부를 확인해 주세요.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
             {islandDirectory.map(([name, owner, phone]) => (
-              <div key={`${selectedIsland}-${selectedCategory}-${name}`} className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+              <div key={`${selectedIsland}-${selectedCategory}-${name}`} className="rounded-2xl border border-gray-100 bg-white p-4 md:p-6 shadow-sm">
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <span className="inline-block rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-600">
                       {selectedCategory}
                     </span>
-                    <h3 className="mt-3 text-xl font-extrabold text-gray-900">{name}</h3>
+                    <h3 className="mt-3 text-lg md:text-xl font-extrabold text-gray-900">{name}</h3>
                     <p className="mt-2 text-sm text-gray-500">대표자 {owner}</p>
                   </div>
-                  <span className="text-2xl">
+                  <span className="text-xl md:text-2xl">
                     {selectedCategory === "맛집" ? "🍜" : selectedCategory === "숙박" ? "🏨" : "🎣"}
                   </span>
                 </div>
@@ -2356,7 +2356,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       {/* PLACE CARDS */}
       <div className="text-center mb-14">
 
-        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        <h2 className="text-2xl md:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
           🔥 가장 많이 찾는 {selectedIsland} 명소
         </h2>
 
@@ -2473,7 +2473,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
                     </div>
 
-                    <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
+                    <h3 className="text-xl md:text-2xl sm:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
                       {place.name}
                     </h3>
 
@@ -2563,10 +2563,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           <section id="hidden-places" className="scroll-mt-24 max-w-7xl mx-auto px-4 sm:px-6 pb-12 md:pb-20">
             <div className="mb-6">
               <p className="text-sm font-black tracking-[0.18em] text-emerald-600">HIDDEN PLACES</p>
-              <h2 className="mt-2 text-3xl font-black text-gray-900">🗺️ 백령도 숨은 관광명소</h2>
+              <h2 className="mt-2 text-2xl md:text-3xl font-black text-gray-900">🗺️ 백령도 숨은 관광명소</h2>
               <p className="mt-2 text-gray-600">대표 관광지 다음으로 천천히 둘러보기 좋은 백령도의 또 다른 장소들이에요.</p>
             </div>
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 md:gap-5 md:grid-cols-2 lg:grid-cols-3">
               {[
                 ["⛪", "중화동교회", "백령도의 오래된 역사 교회", "/images/junghwadong.jpg"],
                 ["🎭", "백령심청효 테마파크(연꽃마을)", "심청전 설화를 테마로 한 관광공간", "/images/simcheong.jpg"],
@@ -2575,9 +2575,9 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                 ["🌋", "감람암 포획 현무암 분포지", "백령도의 지질 이야기를 만날 수 있는 장소", "/images/basalt.jpg"],
                 ["🦭", "물범바위", "점박이물범 생태와 연결되는 해안 명소", "/images/seal.png"],
               ].map(([icon, name, desc, image]) => (
-                <a key={name} href={image} target="_blank" rel="noopener noreferrer" className="group rounded-3xl border border-gray-100 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-                  <div className="text-3xl">{icon}</div>
-                  <h3 className="mt-4 text-xl font-black text-gray-900 group-hover:text-emerald-600">{name}</h3>
+                <a key={name} href={image} target="_blank" rel="noopener noreferrer" className="group rounded-3xl border border-gray-100 bg-white p-4 md:p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                  <div className="text-2xl md:text-3xl">{icon}</div>
+                  <h3 className="mt-4 text-lg md:text-xl font-black text-gray-900 group-hover:text-emerald-600">{name}</h3>
                   <p className="mt-2 text-sm leading-6 text-gray-600">{desc}</p>
                   <p className="mt-4 text-xs font-bold text-emerald-600">사진 크게 보기 →</p>
                 </a>
@@ -2590,9 +2590,9 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       {(
         <section id="ai-planner" className="scroll-mt-24 mx-auto max-w-7xl px-6 pb-16">
           <div className="overflow-hidden rounded-[2rem] border border-violet-100 bg-gradient-to-br from-violet-50 via-white to-sky-50 shadow-sm">
-            <div className="p-6 md:p-9">
+            <div className="p-4 md:p-6 md:p-9">
               <p className="text-sm font-black tracking-[0.18em] text-violet-600">TRAVEL PLANNER</p>
-              <h2 className="mt-2 text-3xl md:text-4xl font-black text-gray-900">
+              <h2 className="mt-2 text-2xl md:text-3xl md:text-4xl font-black text-gray-900">
                 ✨ {selectedIsland} 맞춤 여행 플래너
               </h2>
               <p className="mt-3 max-w-3xl leading-7 text-gray-600">
@@ -2612,7 +2612,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                 </button>
               </div>
 
-              <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+              <div className="mt-5 md:mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
                 <label className="block">
                   <span className="mb-2 block text-sm font-black text-gray-700">여행 기간</span>
                   <select
@@ -2707,7 +2707,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                   <div className="flex flex-wrap items-end justify-between gap-3">
                     <div>
                       <p className="text-sm font-black text-violet-600">맞춤 일정 결과</p>
-                      <h3 className="mt-1 text-2xl font-black text-gray-900">
+                      <h3 className="mt-1 text-xl md:text-2xl font-black text-gray-900">
                         {plannerDuration} · {plannerCompanion} · {plannerTheme}
                       </h3>
                     </div>
@@ -2716,14 +2716,14 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                     </span>
                   </div>
 
-                  <div className="mt-6 grid gap-5">
+                  <div className="mt-6 grid gap-4 md:gap-5">
                     {plannerResult.map((day, dayIndex) => (
                       <article key={`${day.title}-${dayIndex}`} className="rounded-3xl border border-violet-100 bg-white p-5 md:p-6 shadow-sm">
                         <div className="flex items-center gap-3">
                           <span className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-600 font-black text-white">
                             {dayIndex + 1}
                           </span>
-                          <h4 className="text-xl font-black text-gray-900">
+                          <h4 className="text-lg md:text-xl font-black text-gray-900">
                             {dayIndex + 1}일차 · {day.title}
                           </h4>
                         </div>
@@ -2756,7 +2756,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
               <div id="my-course" className="scroll-mt-24 mt-10 border-t border-violet-100 pt-8">
                 <p className="font-bold text-pink-700">관광지 담기와 맞춤 일정 짜기를 한곳에서</p>
-                <h3 className="mt-2 text-2xl font-black text-gray-900 md:text-3xl">❤️ 나만의 여행코스</h3>
+                <h3 className="mt-2 text-xl md:text-2xl font-black text-gray-900 md:text-3xl">❤️ 나만의 여행코스</h3>
                 <p className="mt-3 leading-7 text-gray-600">
                   관광지 카드에서 담은 장소를 순서대로 확인하고, 위에서 만든 맞춤 일정과 함께 나만의 코스를 완성해 보세요.
                 </p>
@@ -2776,7 +2776,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <div>
                         <p className="text-sm font-black text-emerald-700">추천 최단 동선 · 예상시간</p>
-                        <h4 className="mt-1 text-xl font-black text-gray-900">{selectedIsland} {optimizedCourse.stops.length}곳 이동코스</h4>
+                        <h4 className="mt-1 text-lg md:text-xl font-black text-gray-900">{selectedIsland} {optimizedCourse.stops.length}곳 이동코스</h4>
                       </div>
                       <div className="rounded-2xl bg-white px-4 py-3 text-right shadow-sm">
                         <p className="text-xs font-bold text-gray-500">예상 총 소요시간</p>
@@ -2833,11 +2833,11 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 {/* TRAVELER FOOTPRINTS */}
 <section id="traveler-footprints" className="scroll-mt-24 max-w-7xl mx-auto px-4 sm:px-6 pb-12 md:pb-20">
   <div className="overflow-hidden rounded-[2rem] border border-amber-100 bg-gradient-to-br from-amber-50 via-white to-sky-50 shadow-sm">
-    <div className="p-6 md:p-10">
+    <div className="p-4 md:p-6 md:p-10">
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="text-sm font-extrabold tracking-[0.16em] text-amber-600">TRAVELER PHOTO STORY</p>
-          <h2 className="mt-2 text-3xl font-black text-gray-900 md:text-4xl">📸 여행자들의 섬 발자국</h2>
+          <h2 className="mt-2 text-2xl md:text-3xl font-black text-gray-900 md:text-4xl">📸 여행자들의 섬 발자국</h2>
           <p className="mt-3 max-w-3xl leading-7 text-gray-600">
             백령·대청·소청에서 만난 특별한 순간을 남겨주세요.
             당신의 사진 한 장이 다음 여행자의 설렘이 됩니다.
@@ -2848,9 +2848,9 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         </div>
       </div>
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-[0.9fr_1.4fr]">
+      <div className="mt-5 md:mt-8 grid gap-8 lg:grid-cols-[0.9fr_1.4fr]">
         <form onSubmit={handleFootprintSubmit} className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-black/5 md:p-6">
-          <h3 className="text-xl font-black text-gray-900">나의 섬 발자국 남기기</h3>
+          <h3 className="text-lg md:text-xl font-black text-gray-900">나의 섬 발자국 남기기</h3>
           <p className="mt-1 text-sm text-gray-500">직접 찍은 여행 사진과 짧은 이야기를 들려주세요.</p>
 
           <div className="mt-5 grid grid-cols-3 gap-2">
@@ -2894,7 +2894,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
               className="w-full resize-none rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-amber-400"
             />
             <label htmlFor="footprint-photo" className="block cursor-pointer rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50 p-5 text-center transition hover:border-amber-300 hover:bg-amber-50">
-              <span className="block text-2xl">🖼️</span>
+              <span className="block text-xl md:text-2xl">🖼️</span>
               <span className="mt-1 block text-sm font-extrabold text-gray-700">
                 {footprintFile ? footprintFile.name : "사진 선택하기"}
               </span>
@@ -2924,7 +2924,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         <div>
           <div className="mb-4 flex items-center justify-between">
             <div>
-              <h3 className="text-xl font-black text-gray-900">여행자들이 남긴 순간</h3>
+              <h3 className="text-lg md:text-xl font-black text-gray-900">여행자들이 남긴 순간</h3>
               <p className="mt-1 text-sm text-gray-500">세 섬에서 이어지는 여행자들의 사진 기록</p>
             </div>
             {footprints.length > 0 && (
@@ -2937,7 +2937,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           {footprintLoading ? (
             <div className="rounded-3xl bg-white p-10 text-center text-sm text-gray-500 shadow-sm">사진을 불러오는 중...</div>
           ) : footprints.length === 0 ? (
-            <div className="rounded-3xl bg-white p-6 shadow-sm">
+            <div className="rounded-3xl bg-white p-4 md:p-6 shadow-sm">
               <h3 className="text-lg font-black text-gray-900">섬 여행 사진 안내</h3>
               <p className="mt-2 text-sm leading-6 text-gray-600">
                 여행자 사진은 관리자 확인 후 공개됩니다. 아직 공개된 사진이 없을 때는
@@ -2980,11 +2980,11 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   <>
 {/* PHOTO GALLERY */}
 <section id="gallery" className={selectedIsland === "백령도" ? "scroll-mt-24 max-w-7xl mx-auto px-6 pb-20" : "hidden"}>
-  <div className="rounded-[2rem] bg-gradient-to-br from-violet-50 to-fuchsia-50 p-6 md:p-10 shadow-sm border border-violet-100">
-    <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+  <div className="rounded-[2rem] bg-gradient-to-br from-violet-50 to-fuchsia-50 p-4 md:p-6 md:p-10 shadow-sm border border-violet-100">
+    <div className="flex flex-col gap-4 md:gap-5 md:flex-row md:items-end md:justify-between">
       <div>
         <p className="font-bold text-violet-600">백령도 풍경사진</p>
-        <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
+        <h2 className="mt-2 text-2xl md:text-3xl md:text-4xl font-extrabold text-gray-900">
           📸 백령도 사진첩 한눈에 보기
         </h2>
         <p className="mt-3 leading-7 text-gray-600">
@@ -3003,12 +3003,12 @@ const [showSearchResults, setShowSearchResults] = useState(false);
     </div>
 
     {showGallery && (
-      <div className="mt-8">
+      <div className="mt-5 md:mt-8">
         <div className="mb-6 rounded-2xl bg-white/80 p-4 text-sm leading-6 text-gray-600">
           📷 사진작가 윤학진님, 옹진군 외 사진 협찬
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {Array.from({ length: 60 }, (_, i) => `/images/gallery${i + 1}.jpg`).map(
             (image, index) => (
               <a
@@ -3044,11 +3044,11 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         {(selectedCategory === "전체" ||
           selectedCategory === "숙박") && (
           <>
-            <div className="rounded-[2rem] bg-gradient-to-br from-sky-50 to-blue-50 p-6 md:p-10 shadow-sm border border-sky-100">
-              <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+            <div className="rounded-[2rem] bg-gradient-to-br from-sky-50 to-blue-50 p-4 md:p-6 md:p-10 shadow-sm border border-sky-100">
+              <div className="flex flex-col gap-4 md:gap-5 md:flex-row md:items-end md:justify-between">
                 <div>
                   <p className="font-bold text-sky-600">백령도 숙박정보</p>
-                  <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
+                  <h2 className="mt-2 text-2xl md:text-3xl md:text-4xl font-extrabold text-gray-900">
                     🏨 숙박업소 한눈에 보기
                   </h2>
                   <p className="mt-3 leading-7 text-gray-600">
@@ -3087,11 +3087,11 @@ const [showSearchResults, setShowSearchResults] = useState(false);
               </div>
 
               {showStay && (
-                <div className="mt-8">
+                <div className="mt-5 md:mt-8">
                   <div className="rounded-3xl bg-white p-5 md:p-7 shadow-lg">
                     <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                       <div className="relative flex-1">
-                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-xl">
+                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-lg md:text-xl">
                           🔎
                         </span>
                         <input
@@ -3382,11 +3382,11 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           selectedCategory === "맛집") && (
 
             <>
-              <div className="rounded-[2rem] bg-gradient-to-br from-orange-50 to-amber-50 p-6 md:p-10 mb-6 border border-orange-100">
-                <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+              <div className="rounded-[2rem] bg-gradient-to-br from-orange-50 to-amber-50 p-4 md:p-6 md:p-10 mb-6 border border-orange-100">
+                <div className="flex flex-col gap-4 md:gap-5 md:flex-row md:items-end md:justify-between">
                   <div>
                     <p className="font-bold text-orange-600">백령도 음식정보</p>
-                    <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
+                    <h2 className="mt-2 text-2xl md:text-3xl md:text-4xl font-extrabold text-gray-900">
                       🍜 음식점 한눈에 보기
                     </h2>
                     <p className="mt-3 leading-7 text-gray-600">
@@ -3790,11 +3790,11 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       >
         {(selectedCategory === "전체" ||
           selectedCategory === "개인택시") && (
-          <div className="rounded-[2rem] bg-gradient-to-br from-yellow-50 to-amber-50 p-6 md:p-10 border border-yellow-100">
-            <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div className="rounded-[2rem] bg-gradient-to-br from-yellow-50 to-amber-50 p-4 md:p-6 md:p-10 border border-yellow-100">
+            <div className="flex flex-col gap-4 md:gap-5 md:flex-row md:items-end md:justify-between">
               <div>
                 <p className="font-bold text-amber-600">백령도 이동정보</p>
-                <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
+                <h2 className="mt-2 text-2xl md:text-3xl md:text-4xl font-extrabold text-gray-900">
                   🚕 개인택시 한눈에 보기
                 </h2>
                 <p className="mt-3 leading-7 text-gray-600">
@@ -3812,7 +3812,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             </div>
 
             {showTaxi && (
-              <div className="mt-8 rounded-3xl bg-white p-5 md:p-7 shadow-lg">
+              <div className="mt-5 md:mt-8 rounded-3xl bg-white p-5 md:p-7 shadow-lg">
                 <div className="rounded-2xl bg-amber-50 p-4 text-sm leading-6 text-amber-900">
                   💡 배 도착 시간이나 관광 일정에 맞춰 이용하려면 미리 전화로 운행 가능 여부를 확인해 주세요.
                 </div>
@@ -3834,7 +3834,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                         className="rounded-2xl border border-gray-200 p-5 transition hover:border-amber-300 hover:shadow-md"
                       >
                         <div className="flex items-center gap-3">
-                          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-yellow-100 text-xl">
+                          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-yellow-100 text-lg md:text-xl">
                             🚕
                           </div>
                           <div>
@@ -3863,11 +3863,11 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         id="rentcar"
         className={selectedIsland === "백령도" ? "scroll-mt-24 max-w-7xl mx-auto px-6 pb-10" : "hidden"}
       >
-        <div className="rounded-[2rem] bg-gradient-to-br from-blue-50 to-indigo-50 p-6 md:p-10 border border-blue-100">
-          <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+        <div className="rounded-[2rem] bg-gradient-to-br from-blue-50 to-indigo-50 p-4 md:p-6 md:p-10 border border-blue-100">
+          <div className="flex flex-col gap-4 md:gap-5 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="font-bold text-blue-600">백령도 이동정보</p>
-              <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
+              <h2 className="mt-2 text-2xl md:text-3xl md:text-4xl font-extrabold text-gray-900">
                 🚗 렌터카 한눈에 보기
               </h2>
               <p className="mt-3 leading-7 text-gray-600">
@@ -3885,7 +3885,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           </div>
 
           {showRentcar && (
-            <div className="mt-8 rounded-3xl bg-white p-5 md:p-7 shadow-lg">
+            <div className="mt-5 md:mt-8 rounded-3xl bg-white p-5 md:p-7 shadow-lg">
               <div className="rounded-2xl bg-blue-50 p-4 text-sm leading-6 text-blue-900">
                 💡 성수기에는 차량이 빨리 마감될 수 있어요. 차량 종류·요금·인수 장소는 예약 전에 업체에 직접 확인해 주세요.
               </div>
@@ -3908,7 +3908,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                       className="rounded-2xl border border-gray-200 p-5 transition hover:border-blue-300 hover:shadow-md"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-100 text-xl">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-100 text-lg md:text-xl">
                           🚗
                         </div>
                         <div>
@@ -3939,11 +3939,11 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       >
         {(selectedCategory === "전체" ||
           selectedCategory === "특산물") && (
-          <div className="rounded-[2rem] bg-gradient-to-br from-rose-50 to-orange-50 p-6 md:p-10 border border-rose-100">
-            <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div className="rounded-[2rem] bg-gradient-to-br from-rose-50 to-orange-50 p-4 md:p-6 md:p-10 border border-rose-100">
+            <div className="flex flex-col gap-4 md:gap-5 md:flex-row md:items-end md:justify-between">
               <div>
                 <p className="font-bold text-rose-600">백령도 먹거리·선물</p>
-                <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
+                <h2 className="mt-2 text-2xl md:text-3xl md:text-4xl font-extrabold text-gray-900">
                   🎁 백령도 특산물 한눈에 보기
                 </h2>
                 <p className="mt-3 leading-7 text-gray-600">
@@ -3961,13 +3961,13 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             </div>
 
             {showLocal && (
-              <div className="mt-8">
+              <div className="mt-5 md:mt-8">
                 <div className="rounded-2xl bg-white p-4 text-sm leading-6 text-gray-700 shadow-sm">
                   💡 농수산물은 계절과 조업·수확 상황에 따라 판매 여부가 달라질 수 있습니다.
                   구매 전 판매처에 재고와 판매 시기를 확인해 주세요.
                 </div>
 
-                <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="mt-6 grid gap-4 md:gap-6 sm:grid-cols-2 lg:grid-cols-4">
                   {[
                     { name: "백령도 약쑥", image: "/images/specialties/mugwort.png", description: "백령도에서 자라는 향긋한 약쑥으로 다양한 지역 상품에 활용됩니다." },
                     { name: "까나리액젓", image: "/images/specialties/fish-sauce.png", description: "백령도를 대표하는 수산 가공품 중 하나로 김치와 각종 요리에 활용됩니다." },
@@ -3990,17 +3990,17 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                           className="object-cover transition duration-300 group-hover:scale-105"
                         />
                       </div>
-                      <div className="p-6">
-                        <h3 className="text-xl font-extrabold text-gray-900">{item.name}</h3>
+                      <div className="p-4 md:p-6">
+                        <h3 className="text-lg md:text-xl font-extrabold text-gray-900">{item.name}</h3>
                         <p className="mt-3 text-sm leading-7 text-gray-600">{item.description}</p>
                       </div>
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-6 rounded-3xl bg-gray-900 p-6 text-white md:flex md:items-center md:justify-between">
+                <div className="mt-6 rounded-3xl bg-gray-900 p-4 md:p-6 text-white md:flex md:items-center md:justify-between">
                   <div>
-                    <h3 className="text-xl font-extrabold">특산물 구매 전 체크</h3>
+                    <h3 className="text-lg md:text-xl font-extrabold">특산물 구매 전 체크</h3>
                     <p className="mt-2 text-sm leading-6 text-gray-300">
                       생물·냉동 제품은 여행 일정과 선박 이동시간을 고려해 포장 방법도 함께 확인하세요.
                     </p>
@@ -4019,10 +4019,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             href="https://www.ongjin.go.kr"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-3xl bg-white p-8 shadow hover:shadow-xl transition"
+            className="rounded-3xl bg-white p-5 md:p-8 shadow hover:shadow-xl transition"
           >
             <div className="text-5xl">🏛</div>
-            <h2 className="mt-5 text-3xl font-black">옹진군청</h2>
+            <h2 className="mt-5 text-2xl md:text-3xl font-black">옹진군청</h2>
             <p className="mt-4 text-gray-600 leading-8">
               관광정보, 축제, 행정서비스, 공지사항 등 백령도의 공식 정보를 확인할 수 있습니다.
             </p>
@@ -4035,10 +4035,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             href="https://www.ongjinmall.co.kr"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-3xl bg-white p-8 shadow hover:shadow-xl transition"
+            className="rounded-3xl bg-white p-5 md:p-8 shadow hover:shadow-xl transition"
           >
             <div className="text-5xl">🛍</div>
-            <h2 className="mt-5 text-3xl font-black">옹진자연몰</h2>
+            <h2 className="mt-5 text-2xl md:text-3xl font-black">옹진자연몰</h2>
             <p className="mt-4 text-gray-600 leading-8">
               백령도을 비롯한 옹진군 주민들이 직접 판매하는 특산품 쇼핑몰입니다.
             </p>
@@ -4051,19 +4051,19 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
       {/* PUBLIC BUS SECTION */}
       <section id="bus" className={selectedIsland === "백령도" ? "scroll-mt-24 max-w-7xl mx-auto px-6 pb-10" : "hidden"}>
-        <div className="rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-sky-50 p-6 md:p-8">
+        <div className="rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-sky-50 p-4 md:p-6 md:p-8">
           <button
             type="button"
             onClick={() => setShowBus(!showBus)}
-            className="w-full rounded-3xl bg-gradient-to-r from-blue-600 to-sky-500 p-6 text-left text-white shadow-lg transition hover:-translate-y-0.5"
+            className="w-full rounded-3xl bg-gradient-to-r from-blue-600 to-sky-500 p-4 md:p-6 text-left text-white shadow-lg transition hover:-translate-y-0.5"
           >
             <div className="flex items-center justify-between gap-4">
               <div>
                 <p className="text-sm font-bold text-blue-100">백령도 교통정보</p>
-                <h2 className="mt-1 text-2xl font-extrabold md:text-3xl">🚌 백령도 공영버스 시간표</h2>
+                <h2 className="mt-1 text-xl md:text-2xl font-extrabold md:text-3xl">🚌 백령도 공영버스 시간표</h2>
                 <p className="mt-2 text-sm leading-6 text-blue-50">북포리·화동 방향 시간표를 따로 크게 확인할 수 있어요.</p>
               </div>
-              <span className="text-3xl">{showBus ? "▲" : "▼"}</span>
+              <span className="text-2xl md:text-3xl">{showBus ? "▲" : "▼"}</span>
             </div>
           </button>
 
@@ -4074,12 +4074,12 @@ const [showSearchResults, setShowSearchResults] = useState(false);
               </div>
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
                 <a href="/images/bus1.jpg" target="_blank" rel="noopener noreferrer" className="rounded-2xl border-2 border-white bg-white p-5 transition hover:border-blue-300 hover:shadow-md">
-                  <div className="text-3xl">🚌</div>
+                  <div className="text-2xl md:text-3xl">🚌</div>
                   <h3 className="mt-3 text-lg font-extrabold text-gray-900">북포리 방향</h3>
                   <p className="mt-2 text-sm text-gray-500">시간표 크게 보기 →</p>
                 </a>
                 <a href="/images/bus2.jpg" target="_blank" rel="noopener noreferrer" className="rounded-2xl border-2 border-white bg-white p-5 transition hover:border-sky-300 hover:shadow-md">
-                  <div className="text-3xl">🚌</div>
+                  <div className="text-2xl md:text-3xl">🚌</div>
                   <h3 className="mt-3 text-lg font-extrabold text-gray-900">화동 방향</h3>
                   <p className="mt-2 text-sm text-gray-500">시간표 크게 보기 →</p>
                 </a>
@@ -4095,7 +4095,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   <div className="rounded-[2rem] border border-gray-200 bg-white overflow-hidden shadow-sm">
     <div className="px-6 sm:px-8 py-6 border-b border-gray-100">
       <p className="text-sm font-extrabold text-sky-600 mb-1">LOCAL GUIDE</p>
-      <h2 className="text-2xl font-black text-gray-900">백령도 현지 여행 가이드</h2>
+      <h2 className="text-xl md:text-2xl font-black text-gray-900">백령도 현지 여행 가이드</h2>
       <p className="mt-2 text-sm text-gray-500">필요한 항목만 눌러서 펼쳐보세요.</p>
     </div>
     <div className="divide-y divide-gray-100">
@@ -4106,14 +4106,14 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         <div className="bg-gray-50/50 pt-6"><section className="max-w-7xl mx-auto px-4 sm:px-6 pb-12 md:pb-20">
 
 
-        <h2 className="text-4xl font-bold text-center mb-12">
+        <h2 className="text-2xl md:text-4xl font-bold text-center mb-12">
           🎣 백령도 낚시 포인트
         </h2>
 
         <div className="grid md:grid-cols-3 gap-8">
 
-          <div className="bg-white rounded-3xl shadow-lg p-8">
-            <h3 className="text-2xl font-bold mb-3">
+          <div className="bg-white rounded-3xl shadow-lg p-5 md:p-8">
+            <h3 className="text-xl md:text-2xl font-bold mb-3">
               🎣 두무진
             </h3>
 
@@ -4122,8 +4122,8 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             </p>
           </div>
 
-          <div className="bg-white rounded-3xl shadow-lg p-8">
-            <h3 className="text-2xl font-bold mb-3">
+          <div className="bg-white rounded-3xl shadow-lg p-5 md:p-8">
+            <h3 className="text-xl md:text-2xl font-bold mb-3">
               🌊 용기포신항
             </h3>
 
@@ -4132,8 +4132,8 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             </p>
           </div>
 
-          <div className="bg-white rounded-3xl shadow-lg p-8">
-            <h3 className="text-2xl font-bold mb-3">
+          <div className="bg-white rounded-3xl shadow-lg p-5 md:p-8">
+            <h3 className="text-xl md:text-2xl font-bold mb-3">
               🎣 중화동포구
             </h3>
 
@@ -4153,14 +4153,14 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         </summary>
         <div className="bg-gray-50/50 pt-6"><section className="max-w-7xl mx-auto px-4 sm:px-6 pb-12 md:pb-20">
 
-        <h2 className="text-4xl font-bold text-center mb-12">
+        <h2 className="text-2xl md:text-4xl font-bold text-center mb-12">
           🌅 백령도 일몰 · 일출 명소
         </h2>
 
         <div className="grid md:grid-cols-2 gap-8">
 
-          <div className="bg-white rounded-3xl shadow-lg p-8">
-            <h3 className="text-2xl font-bold mb-4">
+          <div className="bg-white rounded-3xl shadow-lg p-5 md:p-8">
+            <h3 className="text-xl md:text-2xl font-bold mb-4">
               🌅 일몰 추천
             </h3>
 
@@ -4171,8 +4171,8 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             </ul>
           </div>
 
-          <div className="bg-white rounded-3xl shadow-lg p-8">
-            <h3 className="text-2xl font-bold mb-4">
+          <div className="bg-white rounded-3xl shadow-lg p-5 md:p-8">
+            <h3 className="text-xl md:text-2xl font-bold mb-4">
               🌄 일출 추천
             </h3>
 
@@ -4192,11 +4192,11 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         <summary className="cursor-pointer list-none px-6 sm:px-8 py-5 flex items-center justify-between gap-4 font-extrabold hover:bg-gray-50">
           <span>🧭 백령도 처음이라면?</span><span className="text-gray-400 group-open:rotate-180 transition">⌄</span>
         </summary>
-        <div className="bg-gray-50/50 pt-6"><section className="bg-gray-100 py-20 px-6">
+        <div className="bg-gray-50/50 pt-6"><section className="bg-gray-100 py-12 md:py-20 px-6">
 
         <div className="max-w-7xl mx-auto">
 
-          <h2 className="text-4xl font-bold text-center mb-12">
+          <h2 className="text-2xl md:text-4xl font-bold text-center mb-12">
             백령도 처음이라면?
           </h2>
 
@@ -4205,14 +4205,14 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             {/* LEFT */}
             <div>
 
-              <h2 className="text-4xl font-bold text-center mb-12">
+              <h2 className="text-2xl md:text-4xl font-bold text-center mb-12">
                 ❓ 백령도 자주 묻는 질문
               </h2>
 
               <div className="space-y-6 max-w-3xl mx-auto">
 
-<div className="bg-white rounded-3xl shadow-lg p-8 text-center">
-  <h3 className="text-2xl font-bold mb-3">
+<div className="bg-white rounded-3xl shadow-lg p-5 md:p-8 text-center">
+  <h3 className="text-xl md:text-2xl font-bold mb-3">
     🚗 백령도 차량선적 안내
   </h3>
 
@@ -4231,8 +4231,8 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   </p>
 </div>
 
-<div className="bg-white rounded-3xl shadow-lg p-8 text-center">
-  <h3 className="text-2xl font-bold mb-3">
+<div className="bg-white rounded-3xl shadow-lg p-5 md:p-8 text-center">
+  <h3 className="text-xl md:text-2xl font-bold mb-3">
     🪖 군인 면회는 자유롭게 가능한가요?
   </h3>
 
@@ -4242,8 +4242,8 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   </p>
 </div>
 
-<div className="bg-white rounded-3xl shadow-lg p-8 text-center">
-  <h3 className="text-2xl font-bold mb-3">
+<div className="bg-white rounded-3xl shadow-lg p-5 md:p-8 text-center">
+  <h3 className="text-xl md:text-2xl font-bold mb-3">
     🏪 편의점이나 마트가 있나요?
   </h3>
 
@@ -4252,8 +4252,8 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   </p>
 </div>
 
-<div className="bg-white rounded-3xl shadow-lg p-8 text-center">
-  <h3 className="text-2xl font-bold mb-3">
+<div className="bg-white rounded-3xl shadow-lg p-5 md:p-8 text-center">
+  <h3 className="text-xl md:text-2xl font-bold mb-3">
     ❄️ 겨울에도 여행 가능한가요?
   </h3>
 
@@ -4271,7 +4271,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
        {/* 한눈에보기 */}
 <div className="bg-white rounded-3xl p-4 shadow">
 
-<h3 className="text-2xl font-bold mb-3 text-center">
+<h3 className="text-xl md:text-2xl font-bold mb-3 text-center">
   📊 백령도 한눈에 보기
 </h3>
 <p className="text-center text-gray-600 mb-4">
@@ -4281,28 +4281,28 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             <div className="grid grid-cols-2 gap-2">
 
               <div className="bg-gray-100 rounded-2xl p-2 text-center">
-                <p className="text-2xl font-bold">약 4시간</p>
+                <p className="text-xl md:text-2xl font-bold">약 4시간</p>
                 <p className="text-gray-600 text-xs mt-1">
                   인천 ↔ 백령도
                 </p>
               </div>
 
               <div className="bg-gray-100 rounded-2xl p-2 text-center">
-                <p className="text-2xl font-bold">3개</p>
+                <p className="text-xl md:text-2xl font-bold">3개</p>
                 <p className="text-gray-600 text-xs mt-1">
                   주요 관광 섬
                 </p>
               </div>
 
               <div className="bg-gray-100 rounded-2xl p-2 text-center">
-                <p className="text-2xl font-bold">20+</p>
+                <p className="text-xl md:text-2xl font-bold">20+</p>
                 <p className="text-gray-600 text-xs mt-1">
                   관광명소
                 </p>
               </div>
 
               <div className="bg-gray-100 rounded-2xl p-2 text-center">
-                <p className="text-2xl font-bold">🦭</p>
+                <p className="text-xl md:text-2xl font-bold">🦭</p>
                 <p className="text-gray-600 text-xs mt-1">
                   점박이물범
                 </p>
@@ -4313,11 +4313,11 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           </div>
 
           {/* 멀미 + 차량선적 */}
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-4 md:gap-6">
 
-            <div className="bg-white rounded-3xl shadow-lg p-6">
+            <div className="bg-white rounded-3xl shadow-lg p-4 md:p-6">
 
-              <h3 className="text-2xl font-bold mb-5">
+              <h3 className="text-xl md:text-2xl font-bold mb-5">
                 💊 멀미 줄이는 방법
               </h3>
 
@@ -4330,9 +4330,9 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
             </div>
 
-            <div className="bg-white rounded-3xl shadow-lg p-6">
+            <div className="bg-white rounded-3xl shadow-lg p-4 md:p-6">
 
-              <h3 className="text-2xl font-bold mb-5">
+              <h3 className="text-xl md:text-2xl font-bold mb-5">
                 🚗 차량선적 팁
               </h3>
 
@@ -4348,15 +4348,15 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           </div>
 
           {/* 2열 카드 */}
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-4 md:gap-6">
 
             {/* 버스 + 군인면회 + 가족 */}
             <div className="space-y-6">
 
               {/* 가족여행 */}
-              <div className="bg-white rounded-3xl p-8 shadow">
+              <div className="bg-white rounded-3xl p-5 md:p-8 shadow">
 
-                <h3 className="text-2xl font-bold mb-4">
+                <h3 className="text-xl md:text-2xl font-bold mb-4">
                   👨‍👩‍👧 아이랑 가기 괜찮나요?
                 </h3>
 
@@ -4368,17 +4368,17 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           </div>
 
         {/* 생활정보 */}
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-4 md:gap-6 md:grid-cols-3">
 
-          <div className="rounded-3xl bg-white p-6 shadow">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-2xl">
+          <div className="rounded-3xl bg-white p-4 md:p-6 shadow">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-xl md:text-2xl">
               📞
             </div>
-            <h3 className="mt-4 text-2xl font-extrabold text-gray-900">
+            <h3 className="mt-4 text-xl md:text-2xl font-extrabold text-gray-900">
               백령도 생활정보
             </h3>
             <p className="mt-2 text-sm leading-6 text-gray-600">
-              편의점 · 마트 등 여행 중 필요한 생활정보를 크게 확인할 수 있어요.
+              편의점·마트 등 여행 중 필요한 생활 편의시설 정보를 확인할 수 있어요. 섬에서는 필요한 물품을 바로 구하기 어려울 수 있어 방문 전 위치와 이용 가능 여부를 확인해 두는 것이 좋습니다.
             </p>
             <a
               href="/images/lifeinfo.jpg"
@@ -4390,15 +4390,15 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             </a>
           </div>
 
-          <div className="rounded-3xl bg-white p-6 shadow">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-100 text-2xl">
+          <div className="rounded-3xl bg-white p-4 md:p-6 shadow">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-100 text-xl md:text-2xl">
               🏢
             </div>
-            <h3 className="mt-4 text-2xl font-extrabold text-gray-900">
+            <h3 className="mt-4 text-xl md:text-2xl font-extrabold text-gray-900">
               관공서 및 단체
             </h3>
             <p className="mt-2 text-sm leading-6 text-gray-600">
-              백령도에서 필요한 관공서와 주요 단체 연락처를 확인하세요.
+              백령면사무소 등 여행 중 도움이 될 수 있는 관공서와 주요 기관·단체 연락처를 확인할 수 있어요. 긴급하거나 정확한 안내가 필요한 경우 해당 기관의 최신 정보를 함께 확인하세요.
             </p>
             <a
               href="/images/contact.jpg"
@@ -4410,15 +4410,15 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             </a>
           </div>
 
-          <div className="rounded-3xl bg-white p-6 shadow">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-100 text-2xl">
+          <div className="rounded-3xl bg-white p-4 md:p-6 shadow">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-100 text-xl md:text-2xl">
               🧭
             </div>
-            <h3 className="mt-4 text-2xl font-extrabold text-gray-900">
+            <h3 className="mt-4 text-xl md:text-2xl font-extrabold text-gray-900">
               여행정보
             </h3>
             <p className="mt-2 text-sm leading-6 text-gray-600">
-              백령도 여행에 필요한 안내 정보를 이미지로 크게 확인할 수 있어요.
+              배편·교통·관광 등 백령도 여행을 준비할 때 알아두면 좋은 기본 안내를 확인할 수 있어요. 기상과 선박 운항 상황은 수시로 달라질 수 있으므로 출발 전 최신 정보를 다시 확인하는 것을 권장합니다.
             </p>
             <a
               href="/images/travelinfo.jpg"
@@ -4441,7 +4441,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         <div className="overflow-hidden rounded-[2rem] border border-sky-100 bg-gradient-to-br from-white via-sky-50 to-violet-50 shadow-sm">
           <div className="px-6 pt-8 text-center sm:px-8 sm:pt-10">
             <p className="text-sm font-black tracking-[0.22em] text-sky-600">SEASON GUIDE</p>
-            <h2 className="mt-2 text-3xl font-black text-gray-900 sm:text-4xl">🗓️ 백령도, 언제 가면 가장 좋을까요?</h2>
+            <h2 className="mt-2 text-2xl md:text-3xl font-black text-gray-900 sm:text-4xl">🗓️ 백령도, 언제 가면 가장 좋을까요?</h2>
             <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-gray-600 sm:text-base">
               계절 카드를 눌러 백령도의 계절 풍경을 만나보세요.
             </p>
@@ -4482,13 +4482,13 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
             return (
               <>
-                <div className="grid gap-4 p-6 sm:grid-cols-2 sm:p-8 lg:grid-cols-4">
+                <div className="grid gap-4 p-4 md:p-6 sm:grid-cols-2 sm:p-8 lg:grid-cols-4">
                   {seasons.map((item) => (
                     <button
                       type="button"
                       key={item.season}
                       onClick={() => { setSelectedSeason(item.season); window.open(item.image, "_blank", "noopener,noreferrer"); }}
-                      className={`group relative min-h-[290px] overflow-hidden rounded-3xl border-2 bg-gradient-to-br ${item.bg} p-6 text-left transition duration-300 hover:-translate-y-1 hover:shadow-xl ${
+                      className={`group relative min-h-[290px] overflow-hidden rounded-3xl border-2 bg-gradient-to-br ${item.bg} p-4 md:p-6 text-left transition duration-300 hover:-translate-y-1 hover:shadow-xl ${
                         selectedSeason === item.season
                           ? "border-sky-500 shadow-xl"
                           : "border-gray-400 shadow-sm hover:border-gray-500"
@@ -4496,9 +4496,9 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                     >
                       <div className="absolute -right-2 top-3 text-5xl font-black tracking-tighter text-white/70 sm:text-6xl">{item.english}</div>
                       <div className="relative flex h-full flex-col">
-                        <div className="text-4xl">{item.icon}</div>
+                        <div className="text-2xl md:text-4xl">{item.icon}</div>
                         <p className="mt-5 text-xs font-black tracking-wider text-gray-500">{item.months}</p>
-                        <h3 className="mt-1 text-2xl font-black text-gray-900">{item.season}</h3>
+                        <h3 className="mt-1 text-xl md:text-2xl font-black text-gray-900">{item.season}</h3>
                         <p className="mt-3 font-extrabold text-gray-800">{item.title}</p>
                         <p className="mt-2 text-sm leading-6 text-gray-600">{item.desc}</p>
                         <div className="mt-auto flex items-end justify-between gap-2 pt-5">
@@ -4528,10 +4528,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
       {/* TRAVEL STYLE RECOMMENDATION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-12 md:pb-20">
-        <div className="rounded-[2rem] border border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-sky-50 p-6 md:p-8">
+        <div className="rounded-[2rem] border border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-sky-50 p-4 md:p-6 md:p-8">
           <div className="mb-7">
             <p className="text-sm font-black tracking-[0.18em] text-emerald-600">TRAVEL STYLE</p>
-            <h2 className="mt-2 text-3xl font-black text-gray-900 md:text-4xl">🧳 누구와, 어떻게 여행하세요?</h2>
+            <h2 className="mt-2 text-2xl md:text-3xl font-black text-gray-900 md:text-4xl">🧳 누구와, 어떻게 여행하세요?</h2>
             <p className="mt-3 max-w-3xl leading-7 text-gray-600">
               여행 목적에 따라 백령도에서 먼저 챙겨보면 좋은 장소와 정보를 골라봤어요.
             </p>
@@ -4556,13 +4556,13 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                     item.action === "course" ? "my-course" : "place-section";
                   document.getElementById(target)?.scrollIntoView({behavior:"smooth", block:"start"});
                 }}
-                className="group rounded-3xl border border-white bg-white/90 p-6 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                className="group rounded-3xl border border-white bg-white/90 p-4 md:p-6 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
               >
                 <div className="flex items-start justify-between gap-4">
-                  <span className="text-4xl">{item.icon}</span>
+                  <span className="text-2xl md:text-4xl">{item.icon}</span>
                   <span className="text-sm font-black text-emerald-600 transition group-hover:translate-x-1">추천 보기 →</span>
                 </div>
-                <h3 className="mt-5 text-xl font-black text-gray-900">{item.title}</h3>
+                <h3 className="mt-5 text-lg md:text-xl font-black text-gray-900">{item.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-gray-600">{item.desc}</p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {item.tags.map((tag) => (
@@ -4579,9 +4579,9 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       {/* COURSE SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-12 md:pb-20">
 
-        <div className="mb-8 rounded-[2rem] bg-gradient-to-br from-cyan-50 to-sky-50 p-6 md:p-8 border border-cyan-100">
+        <div className="mb-5 md:mb-8 rounded-[2rem] bg-gradient-to-br from-cyan-50 to-sky-50 p-4 md:p-6 md:p-8 border border-cyan-100">
           <p className="font-bold text-cyan-700">백령도 일정 짜기</p>
-          <h2 className="mt-2 text-3xl md:text-4xl font-extrabold text-gray-900">
+          <h2 className="mt-2 text-2xl md:text-3xl md:text-4xl font-extrabold text-gray-900">
             🗺️ 추천 여행코스
           </h2>
           <p className="mt-3 max-w-3xl leading-7 text-gray-600">
@@ -4593,9 +4593,9 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         <div className="grid md:grid-cols-3 gap-8">
 
           {/* 당일코스 */}
-          <div className="bg-white rounded-3xl shadow-lg p-8">
+          <div className="bg-white rounded-3xl shadow-lg p-5 md:p-8">
 
-            <h3 className="text-2xl font-bold mb-5">
+            <h3 className="text-xl md:text-2xl font-bold mb-5">
               🚢 당일 여행코스
             </h3>
 
@@ -4610,9 +4610,9 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           </div>
 
           {/* 1박2일 */}
-          <div className="bg-white rounded-3xl shadow-lg p-8">
+          <div className="bg-white rounded-3xl shadow-lg p-5 md:p-8">
 
-            <h3 className="text-2xl font-bold mb-5">
+            <h3 className="text-xl md:text-2xl font-bold mb-5">
               🏕️ 1박 2일 추천코스
             </h3>
 
@@ -4628,9 +4628,9 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           </div>
 
           {/* 2박3일 */}
-          <div className="bg-white rounded-3xl shadow-lg p-8">
+          <div className="bg-white rounded-3xl shadow-lg p-5 md:p-8">
 
-            <h3 className="text-2xl font-bold mb-5">
+            <h3 className="text-xl md:text-2xl font-bold mb-5">
               🌅 2박 3일 추천코스
             </h3>
 
@@ -4650,11 +4650,11 @@ const [showSearchResults, setShowSearchResults] = useState(false);
         </div>
 
           {/* 군인면회 - 추천여행코스처럼 가로형 한 섹션으로 압축 */}
-        <div id="military-visit" className="scroll-mt-24 mt-8 bg-white rounded-3xl shadow-lg p-6 sm:p-8">
+        <div id="military-visit" className="scroll-mt-24 mt-5 md:mt-8 bg-white rounded-3xl shadow-lg p-4 md:p-6 sm:p-8">
             <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
               <div>
                 <p className="text-sm font-extrabold tracking-[0.16em] text-sky-600">MILITARY VISIT</p>
-                <h3 className="mt-2 text-2xl sm:text-3xl font-black">🪖 백령도 군인 면회</h3>
+                <h3 className="mt-2 text-xl md:text-2xl sm:text-3xl font-black">🪖 백령도 군인 면회</h3>
                 <p className="mt-2 text-sm sm:text-base text-gray-600">
                   처음 면회 오실 때 꼭 필요한 내용만 순서대로 확인하세요.
                 </p>
@@ -4677,7 +4677,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
                     key={title}
                     className="w-[235px] shrink-0 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
                   >
-                    <span className="text-2xl">{icon}</span>
+                    <span className="text-xl md:text-2xl">{icon}</span>
                     <h4 className="mt-3 font-black text-gray-900">{title}</h4>
                     <p className="mt-2 text-sm leading-6 text-gray-600">{desc}</p>
                   </div>
@@ -4689,7 +4689,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p className="text-xs font-black tracking-[0.16em] text-indigo-600">VISIT COURSE</p>
-                  <h4 className="mt-1 text-xl font-black text-gray-900">👨‍✈️ 군인 면회 추천코스</h4>
+                  <h4 className="mt-1 text-lg md:text-xl font-black text-gray-900">👨‍✈️ 군인 면회 추천코스</h4>
                 </div>
                 <p className="text-xs text-gray-500">장병의 실제 외출·복귀 시간을 먼저 확인하세요.</p>
               </div>
@@ -4739,21 +4739,21 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           </div>
 
         {/* 곰신 군인면회 후기 */}
-        <div id="military-reviews" className="mt-8 overflow-hidden rounded-[2rem] border border-pink-100 bg-gradient-to-br from-pink-50 via-white to-violet-50 shadow-sm">
+        <div id="military-reviews" className="mt-5 md:mt-8 overflow-hidden rounded-[2rem] border border-pink-100 bg-gradient-to-br from-pink-50 via-white to-violet-50 shadow-sm">
           <div className="px-6 pt-8 sm:px-8 sm:pt-10">
             <p className="text-sm font-black tracking-[0.18em] text-pink-500">REAL VISIT STORY</p>
             <div className="mt-2 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
               <div>
-                <h3 className="text-2xl font-black text-gray-900 sm:text-3xl">💌 곰신들의 백령도 면회 이야기</h3>
+                <h3 className="text-xl md:text-2xl font-black text-gray-900 sm:text-3xl">💌 곰신들의 백령도 면회 이야기</h3>
                 <p className="mt-2 text-sm leading-6 text-gray-600">직접 다녀온 경험을 남겨주세요. 다음 면회객에게 큰 도움이 됩니다.</p>
               </div>
               <span className="w-fit rounded-full bg-white px-4 py-2 text-sm font-bold text-pink-600 shadow-sm">후기 {militaryReviews.length}개</span>
             </div>
           </div>
 
-          <div className={`grid gap-6 p-6 sm:p-8 ${!militaryReviewLoading && militaryReviews.length > 0 ? "lg:grid-cols-[0.9fr_1.1fr]" : ""}`}>
+          <div className={`grid gap-4 md:gap-6 p-4 md:p-6 sm:p-8 ${!militaryReviewLoading && militaryReviews.length > 0 ? "lg:grid-cols-[0.9fr_1.1fr]" : ""}`}>
             <div className="rounded-3xl bg-white p-5 shadow-sm sm:p-6">
-              <h4 className="text-xl font-black">✍️ 면회 후기 남기기</h4>
+              <h4 className="text-lg md:text-xl font-black">✍️ 면회 후기 남기기</h4>
               <p className="mt-2 text-xs leading-5 text-gray-500">부대명·부대 위치·훈련/작전 일정·연락처 등 군사정보와 개인정보는 작성하지 마세요.</p>
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
                 <input value={militaryReviewNickname} onChange={(e)=>setMilitaryReviewNickname(e.target.value)} maxLength={20} placeholder="닉네임" className="rounded-2xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-pink-400"/>
@@ -4764,7 +4764,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
               </div>
               <div className="mt-4">
                 <p className="mb-2 text-sm font-bold text-gray-700">이번 면회여행은 어땠나요?</p>
-                <div className="flex gap-1">{[1,2,3,4,5].map((star)=><button key={star} type="button" onClick={()=>setMilitaryReviewRating(star)} className="text-2xl">{star <= militaryReviewRating ? "⭐" : "☆"}</button>)}</div>
+                <div className="flex gap-1">{[1,2,3,4,5].map((star)=><button key={star} type="button" onClick={()=>setMilitaryReviewRating(star)} className="text-xl md:text-2xl">{star <= militaryReviewRating ? "⭐" : "☆"}</button>)}</div>
               </div>
               <textarea value={militaryReviewContent} onChange={(e)=>setMilitaryReviewContent(e.target.value)} maxLength={800} rows={5} placeholder="배편, 숙소, 이동, 식사, 면회하면서 도움됐던 팁 등 다음 방문자에게 알려주고 싶은 경험을 자유롭게 남겨주세요." className="mt-4 w-full resize-none rounded-2xl border border-gray-200 px-4 py-3 text-sm leading-6 outline-none focus:border-pink-400"/>
               <button type="button" onClick={handleMilitaryReviewSubmit} disabled={militaryReviewSubmitting} className="mt-4 w-full rounded-2xl bg-gray-950 px-5 py-3.5 font-black text-white disabled:opacity-50">{militaryReviewSubmitting ? "등록 중..." : "💌 면회 후기 등록하기"}</button>
@@ -4772,7 +4772,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
             {!militaryReviewLoading && militaryReviews.length > 0 && (
               <div>
-                <div className="mb-4 flex items-center justify-between"><h4 className="text-xl font-black">백령도를 다녀온 이야기</h4><span className="text-xs text-gray-500">최신순</span></div>
+                <div className="mb-4 flex items-center justify-between"><h4 className="text-lg md:text-xl font-black">백령도를 다녀온 이야기</h4><span className="text-xs text-gray-500">최신순</span></div>
                 <div className="max-h-[570px] space-y-4 overflow-y-auto pr-1">
                   {militaryReviews.map((review)=>(
                     <article key={review.id} className="rounded-3xl bg-white p-5 shadow-sm">
@@ -4793,19 +4793,19 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       {/* Q&A - 실제 질문 등록/답변 표시 */}
       {selectedIsland === "백령도" && (
         <>
-      <section id="qna" className="scroll-mt-24 max-w-7xl mx-auto px-6 py-20">
-        <div className="rounded-[2rem] bg-gradient-to-br from-sky-50 via-white to-violet-50 border border-sky-100 p-6 md:p-10 shadow-lg">
+      <section id="qna" className="scroll-mt-24 max-w-7xl mx-auto px-6 py-12 md:py-20">
+        <div className="rounded-[2rem] bg-gradient-to-br from-sky-50 via-white to-violet-50 border border-sky-100 p-4 md:p-6 md:p-10 shadow-lg">
           <div className="text-center">
             <p className="font-bold text-sky-600">{selectedIsland} 여행, 궁금한 점을 직접 물어보세요</p>
-            <h2 className="mt-2 text-3xl md:text-4xl font-extrabold">💬 {selectedIsland} 여행 Q&amp;A</h2>
+            <h2 className="mt-2 text-2xl md:text-3xl md:text-4xl font-extrabold">💬 {selectedIsland} 여행 Q&amp;A</h2>
             <p className="mt-3 text-gray-600 leading-7">
               질문을 등록하면 관리자 답변을 이곳에서 확인할 수 있습니다.
             </p>
           </div>
 
-          <div className="mt-8 grid lg:grid-cols-[0.9fr_1.1fr] gap-6">
-            <div className="rounded-3xl bg-white p-6 md:p-8 shadow-sm border border-gray-100">
-              <h3 className="text-2xl font-extrabold">✍️ 질문 남기기</h3>
+          <div className="mt-5 md:mt-8 grid lg:grid-cols-[0.9fr_1.1fr] gap-4 md:gap-6">
+            <div className="rounded-3xl bg-white p-4 md:p-6 md:p-8 shadow-sm border border-gray-100">
+              <h3 className="text-xl md:text-2xl font-extrabold">✍️ 질문 남기기</h3>
               <p className="mt-2 text-sm text-gray-500">
                 전화번호·예약번호 등 개인정보는 작성하지 마세요.
               </p>
@@ -4853,8 +4853,8 @@ const [showSearchResults, setShowSearchResults] = useState(false);
               </div>
             </div>
 
-            <div className="rounded-3xl bg-white p-6 md:p-8 shadow-sm border border-gray-100">
-              <h3 className="text-2xl font-extrabold">📋 등록된 질문</h3>
+            <div className="rounded-3xl bg-white p-4 md:p-6 md:p-8 shadow-sm border border-gray-100">
+              <h3 className="text-xl md:text-2xl font-extrabold">📋 등록된 질문</h3>
 
               <input
                 value={qnaSearch}
@@ -4882,11 +4882,11 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
               <div className="mt-6 max-h-[650px] space-y-4 overflow-y-auto pr-1">
                 {qnaLoading ? (
-                  <div className="rounded-2xl bg-gray-50 p-6 text-center text-gray-500">
+                  <div className="rounded-2xl bg-gray-50 p-4 md:p-6 text-center text-gray-500">
                     질문을 불러오는 중입니다...
                   </div>
                 ) : filteredQnaQuestions.length === 0 ? (
-                  <div className="rounded-2xl bg-gray-50 p-6 text-center text-gray-500">
+                  <div className="rounded-2xl bg-gray-50 p-4 md:p-6 text-center text-gray-500">
                     궁금한 내용을 직접 질문해 주세요. 등록된 질문은 답변 후 이곳에서 확인할 수 있습니다.
                   </div>
                 ) : (
@@ -4938,7 +4938,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
               .getElementById("qna")
               ?.scrollIntoView({ behavior: "smooth" })
           }
-          className="bg-sky-400 text-white w-14 h-14 rounded-full shadow-2xl text-xl hover:scale-110 transition"
+          className="bg-sky-400 text-white w-14 h-14 rounded-full shadow-2xl text-lg md:text-xl hover:scale-110 transition"
         >
           💬
         </button>
@@ -4950,7 +4950,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
               .getElementById("food")
               ?.scrollIntoView({ behavior: "smooth" })
           }
-          className="bg-orange-500 text-white w-14 h-14 rounded-full shadow-2xl text-xl hover:scale-110 transition"
+          className="bg-orange-500 text-white w-14 h-14 rounded-full shadow-2xl text-lg md:text-xl hover:scale-110 transition"
         >
           🍜
         </button>
@@ -4961,7 +4961,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
               .getElementById("stay")
               ?.scrollIntoView({ behavior: "smooth" })
           }
-          className="bg-blue-500 text-white w-14 h-14 rounded-full shadow-2xl text-xl hover:scale-110 transition"
+          className="bg-blue-500 text-white w-14 h-14 rounded-full shadow-2xl text-lg md:text-xl hover:scale-110 transition"
         >
           🏨
         </button>
@@ -4972,7 +4972,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
               behavior: "smooth",
             })
           }
-          className="bg-black text-white w-14 h-14 rounded-full shadow-2xl text-xl hover:scale-110 transition"
+          className="bg-black text-white w-14 h-14 rounded-full shadow-2xl text-lg md:text-xl hover:scale-110 transition"
         >
           ⬆️
         </button>
@@ -4985,11 +4985,11 @@ const [showSearchResults, setShowSearchResults] = useState(false);
   <>
     {/* 대청도 사진첩 */}
     <section id="daecheong-gallery" className="scroll-mt-24 mx-auto max-w-7xl px-6 pb-20">
-      <div className="rounded-[2rem] border border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-cyan-50 p-6 shadow-sm md:p-10">
-        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+      <div className="rounded-[2rem] border border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-cyan-50 p-4 md:p-6 shadow-sm md:p-10">
+        <div className="flex flex-col gap-4 md:gap-5 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="font-bold text-emerald-600">대청도 풍경사진</p>
-            <h2 className="mt-2 text-3xl font-extrabold text-gray-900 md:text-4xl">📸 대청도 사진첩 한눈에 보기</h2>
+            <h2 className="mt-2 text-2xl md:text-3xl font-extrabold text-gray-900 md:text-4xl">📸 대청도 사진첩 한눈에 보기</h2>
             <p className="mt-3 leading-7 text-gray-600">
               해안사구부터 해변·전망대·기암절벽까지 대청도의 풍경을 사진으로 만나보세요.
               사진을 누르면 크게 볼 수 있어요.
@@ -5000,7 +5000,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           </button>
         </div>
         {showGallery && (
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-5 md:mt-8 grid gap-4 md:gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {daecheongGallery.map((photo) => (
               <a key={photo.name} href={photo.src} target="_blank" rel="noopener noreferrer" className="group relative overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-black/5 transition hover:-translate-y-1 hover:shadow-xl">
                 <Image src={photo.src} alt={`대청도 ${photo.name}`} width={800} height={600} className="h-64 w-full object-cover transition duration-500 group-hover:scale-105" />
@@ -5014,11 +5014,11 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
     {/* 대청도 숙소 */}
     <section id="daecheong-stay" className="scroll-mt-24 mx-auto max-w-7xl px-6 pb-20">
-      <div className="rounded-[2rem] border border-sky-100 bg-gradient-to-br from-sky-50 to-blue-50 p-6 shadow-sm md:p-10">
-        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+      <div className="rounded-[2rem] border border-sky-100 bg-gradient-to-br from-sky-50 to-blue-50 p-4 md:p-6 shadow-sm md:p-10">
+        <div className="flex flex-col gap-4 md:gap-5 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="font-bold text-sky-600">대청도 숙박정보</p>
-            <h2 className="mt-2 text-3xl font-extrabold text-gray-900 md:text-4xl">🏨 대청도 숙소 한눈에 보기</h2>
+            <h2 className="mt-2 text-2xl md:text-3xl font-extrabold text-gray-900 md:text-4xl">🏨 대청도 숙소 한눈에 보기</h2>
             <p className="mt-3 leading-7 text-gray-600">대청도 민박·펜션·여관의 연락처를 확인하고 바로 전화할 수 있어요. 요금과 객실, 픽업 여부는 예약 전에 확인해 주세요.</p>
             <div className="mt-5 flex flex-wrap gap-2">
               {["🚢 선진포항 픽업 문의", "🚗 차량·주차 확인", "🍳 식사 제공 여부", "👨‍👩‍👧 단체 객실 문의", "🌊 결항 시 변경 기준"].map((tip) => (
@@ -5031,13 +5031,13 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           </button>
         </div>
         {showStay && (
-          <div className="mt-8">
+          <div className="mt-5 md:mt-8">
             <input value={staySearch} onChange={(e) => setStaySearch(e.target.value)} placeholder="🔎 숙소명 · 대표자 · 전화번호 검색" className="w-full rounded-2xl border-2 border-sky-100 bg-white px-5 py-4 outline-none focus:border-sky-500" />
-            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-6 grid gap-4 md:gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {daecheongStay.filter(([name, owner, phone]) => `${name} ${owner} ${phone}`.toLowerCase().includes(staySearch.trim().toLowerCase())).map(([name, owner, phone]) => (
-                <article key={name} className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-sky-100">
+                <article key={name} className="rounded-3xl bg-white p-4 md:p-6 shadow-sm ring-1 ring-sky-100">
                   <span className="rounded-full bg-sky-50 px-3 py-1 text-xs font-bold text-sky-700">대청도 숙소</span>
-                  <h3 className="mt-4 text-xl font-extrabold text-gray-900">{name}</h3>
+                  <h3 className="mt-4 text-lg md:text-xl font-extrabold text-gray-900">{name}</h3>
                   <p className="mt-2 text-sm text-gray-500">대표자 {owner}</p>
                   <a href={`tel:${phone.replace(/-/g, "")}`} className="mt-5 block rounded-xl bg-sky-600 px-4 py-3 text-center font-bold text-white hover:bg-sky-700">☎ {phone}</a>
                 </article>
@@ -5050,11 +5050,11 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
     {/* 대청도 음식점 */}
     <section id="daecheong-food" className="scroll-mt-24 mx-auto max-w-7xl px-6 pb-20">
-      <div className="rounded-[2rem] border border-orange-100 bg-gradient-to-br from-orange-50 to-amber-50 p-6 shadow-sm md:p-10">
-        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+      <div className="rounded-[2rem] border border-orange-100 bg-gradient-to-br from-orange-50 to-amber-50 p-4 md:p-6 shadow-sm md:p-10">
+        <div className="flex flex-col gap-4 md:gap-5 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="font-bold text-orange-600">대청도 음식점 정보</p>
-            <h2 className="mt-2 text-3xl font-extrabold text-gray-900 md:text-4xl">🍜 대청도 음식점 한눈에 보기</h2>
+            <h2 className="mt-2 text-2xl md:text-3xl font-extrabold text-gray-900 md:text-4xl">🍜 대청도 음식점 한눈에 보기</h2>
             <p className="mt-3 leading-7 text-gray-600">대청도 음식점 연락처를 확인하고 영업 여부와 식사 가능 시간을 바로 문의해 보세요.</p>
             <div className="mt-5 flex flex-wrap gap-2">
               {["🍚 아침식사 문의", "🥡 포장 가능 여부", "👨‍👩‍👧 단체 식사", "🐟 해산물·회", "🍜 간단한 한 끼"].map((tip) => (
@@ -5067,13 +5067,13 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           </button>
         </div>
         {showFood && (
-          <div className="mt-8">
+          <div className="mt-5 md:mt-8">
             <input value={foodSearch} onChange={(e) => setFoodSearch(e.target.value)} placeholder="🔎 음식점명 · 대표자 · 전화번호 검색" className="w-full rounded-2xl border-2 border-orange-100 bg-white px-5 py-4 outline-none focus:border-orange-500" />
-            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-6 grid gap-4 md:gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {daecheongFood.filter(([name, owner, phone]) => `${name} ${owner} ${phone}`.toLowerCase().includes(foodSearch.trim().toLowerCase())).map(([name, owner, phone]) => (
-                <article key={name} className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-orange-100">
+                <article key={name} className="rounded-3xl bg-white p-4 md:p-6 shadow-sm ring-1 ring-orange-100">
                   <span className="rounded-full bg-orange-50 px-3 py-1 text-xs font-bold text-orange-700">대청도 음식점</span>
-                  <h3 className="mt-4 text-xl font-extrabold text-gray-900">{name}</h3>
+                  <h3 className="mt-4 text-lg md:text-xl font-extrabold text-gray-900">{name}</h3>
                   <p className="mt-2 text-sm text-gray-500">대표자 {owner}</p>
                   <a href={`tel:${phone.replace(/-/g, "")}`} className="mt-5 block rounded-xl bg-orange-500 px-4 py-3 text-center font-bold text-white hover:bg-orange-600">☎ {phone}</a>
                 </article>
@@ -5086,11 +5086,11 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
     {/* 대청도 낚시배 */}
     <section id="daecheong-fishing" className="scroll-mt-24 mx-auto max-w-7xl px-6 pb-20">
-      <div className="rounded-[2rem] border border-cyan-100 bg-gradient-to-br from-cyan-50 via-white to-blue-50 p-6 shadow-sm md:p-10">
-        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+      <div className="rounded-[2rem] border border-cyan-100 bg-gradient-to-br from-cyan-50 via-white to-blue-50 p-4 md:p-6 shadow-sm md:p-10">
+        <div className="flex flex-col gap-4 md:gap-5 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="font-bold text-cyan-700">대청도 바다낚시 정보</p>
-            <h2 className="mt-2 text-3xl font-extrabold text-gray-900 md:text-4xl">🎣 대청도 낚시배 정보 한눈에 보기</h2>
+            <h2 className="mt-2 text-2xl md:text-3xl font-extrabold text-gray-900 md:text-4xl">🎣 대청도 낚시배 정보 한눈에 보기</h2>
             <p className="mt-3 leading-7 text-gray-600">대청도 낚시배 이름과 선주 연락처를 확인하고 출항 여부·예약 가능 인원·요금을 직접 문의할 수 있어요.</p>
             <div className="mt-5 flex flex-wrap gap-2">
               {["🌊 출항 여부 확인", "👥 승선 인원 문의", "💳 요금·예약금 확인", "🎣 장비 대여 문의", "🦺 구명조끼·안전수칙"].map((tip) => (
@@ -5104,16 +5104,16 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           </button>
         </div>
         {showFishing && (
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-5 md:mt-8 grid gap-4 md:gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {daecheongFishing.map(([name, owner, phone]) => (
-              <article key={name} className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-cyan-100">
+              <article key={name} className="rounded-3xl bg-white p-4 md:p-6 shadow-sm ring-1 ring-cyan-100">
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <span className="rounded-full bg-cyan-50 px-3 py-1 text-xs font-bold text-cyan-700">대청도 낚시배</span>
-                    <h3 className="mt-4 text-xl font-extrabold text-gray-900">{name}</h3>
+                    <h3 className="mt-4 text-lg md:text-xl font-extrabold text-gray-900">{name}</h3>
                     <p className="mt-2 text-sm text-gray-500">선주 {owner}</p>
                   </div>
-                  <span className="text-3xl">🎣</span>
+                  <span className="text-2xl md:text-3xl">🎣</span>
                 </div>
                 <a href={`tel:${phone.replace(/-/g, "")}`} className="mt-5 block rounded-xl bg-cyan-700 px-4 py-3 text-center font-bold text-white hover:bg-cyan-800">☎ {phone}</a>
               </article>
@@ -5125,11 +5125,11 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
     {/* 대청도 특산품 */}
     <section id="daecheong-specialty" className="scroll-mt-24 mx-auto max-w-7xl px-6 pb-20">
-      <div className="rounded-[2rem] border border-teal-100 bg-gradient-to-br from-teal-50 via-white to-emerald-50 p-6 shadow-sm md:p-10">
-        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+      <div className="rounded-[2rem] border border-teal-100 bg-gradient-to-br from-teal-50 via-white to-emerald-50 p-4 md:p-6 shadow-sm md:p-10">
+        <div className="flex flex-col gap-4 md:gap-5 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="font-bold text-teal-700">대청도의 바다와 자연이 키운 먹거리</p>
-            <h2 className="mt-2 text-3xl font-extrabold text-gray-900 md:text-4xl">🎁 대청도 특산품 한눈에 보기</h2>
+            <h2 className="mt-2 text-2xl md:text-3xl font-extrabold text-gray-900 md:text-4xl">🎁 대청도 특산품 한눈에 보기</h2>
             <p className="mt-3 leading-7 text-gray-600">대청도에서 만날 수 있는 대표 수산물과 농축산물을 소개합니다. 어획 시기와 판매 여부는 계절·기상에 따라 달라질 수 있어요.</p>
           </div>
           <button type="button" onClick={() => setShowDaecheongSpecialty(!showDaecheongSpecialty)} className="shrink-0 rounded-2xl bg-gray-900 px-7 py-4 text-lg font-extrabold text-white shadow-lg transition hover:bg-teal-700">
@@ -5137,16 +5137,16 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           </button>
         </div>
         {showDaecheongSpecialty && (
-          <div className="mt-8">
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-5 md:mt-8">
+            <div className="grid gap-4 md:gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {daecheongSpecialties.map((item) => (
                 <article key={item.name} className="group overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-teal-100 transition hover:-translate-y-1 hover:shadow-xl">
                   <div className="overflow-hidden bg-stone-50">
                     <Image src={item.image} alt={`대청도 특산품 ${item.name}`} width={900} height={600} className="h-56 w-full object-cover transition duration-500 group-hover:scale-105" />
                   </div>
-                  <div className="p-6">
+                  <div className="p-4 md:p-6">
                     <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-bold text-teal-700">대청도 특산품</span>
-                    <h3 className="mt-4 text-2xl font-extrabold text-gray-900">{item.name}</h3>
+                    <h3 className="mt-4 text-xl md:text-2xl font-extrabold text-gray-900">{item.name}</h3>
                     <p className="mt-3 text-sm leading-7 text-gray-600">{item.description}</p>
                   </div>
                 </article>
@@ -5165,10 +5165,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             href="https://www.ongjin.go.kr"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-3xl bg-white p-8 shadow hover:shadow-xl transition"
+            className="rounded-3xl bg-white p-5 md:p-8 shadow hover:shadow-xl transition"
           >
             <div className="text-5xl">🏛</div>
-            <h2 className="mt-5 text-3xl font-black">옹진군청</h2>
+            <h2 className="mt-5 text-2xl md:text-3xl font-black">옹진군청</h2>
             <p className="mt-4 text-gray-600 leading-8">
               관광정보, 축제, 행정서비스, 공지사항 등 대청도의 공식 정보를 확인할 수 있습니다.
             </p>
@@ -5181,10 +5181,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             href="https://www.ongjinmall.co.kr"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-3xl bg-white p-8 shadow hover:shadow-xl transition"
+            className="rounded-3xl bg-white p-5 md:p-8 shadow hover:shadow-xl transition"
           >
             <div className="text-5xl">🛍</div>
-            <h2 className="mt-5 text-3xl font-black">옹진자연몰</h2>
+            <h2 className="mt-5 text-2xl md:text-3xl font-black">옹진자연몰</h2>
             <p className="mt-4 text-gray-600 leading-8">
               대청도을 비롯한 옹진군 주민들이 직접 판매하는 특산품 쇼핑몰입니다.
             </p>
@@ -5199,10 +5199,10 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
 {/* 여행자 사진 자동 슬라이드 */}
 {footprints.length > 0 && (
-  <section className="overflow-hidden bg-[#292929] py-12 text-white md:py-16">
+  <section className="overflow-hidden bg-[#292929] py-8 md:py-12 text-white md:py-16">
     <div className="mx-auto max-w-7xl px-5 text-center sm:px-6">
       <p className="text-sm font-black tracking-[0.2em] text-amber-500">TRAVELER MOMENTS</p>
-      <h2 className="mt-3 text-2xl font-black sm:text-3xl md:text-4xl">
+      <h2 className="mt-3 text-xl md:text-2xl font-black sm:text-3xl md:text-4xl">
         <span className="text-amber-500">{footprints.length}장</span>의 여행자 사진이 모였습니다.
       </h2>
       <p className="mt-3 text-sm leading-6 text-gray-300">백령·대청·소청에서 여행자들이 직접 남긴 소중한 순간이에요.</p>
@@ -5246,11 +5246,11 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 )}
 
 {/* 섬여행 바로가기 메뉴 */}
-<section className="mx-auto max-w-7xl px-5 py-12 sm:px-6 md:py-16">
+<section className="mx-auto max-w-7xl px-5 py-8 md:py-12 sm:px-6 md:py-16">
   <div className="rounded-[2rem] border border-gray-100 bg-gray-50 px-5 py-8 shadow-sm sm:px-8 md:py-10">
-    <div className="mb-8 text-center">
+    <div className="mb-5 md:mb-8 text-center">
       <p className="text-sm font-black tracking-[0.18em] text-sky-600">ISLAND TRAVEL</p>
-      <h2 className="mt-2 text-2xl font-black text-gray-900 sm:text-3xl">섬여행 바로가기</h2>
+      <h2 className="mt-2 text-xl md:text-2xl font-black text-gray-900 sm:text-3xl">섬여행 바로가기</h2>
       <p className="mt-3 text-sm leading-6 text-gray-500">백령·대청·소청 여행에 필요한 정보를 빠르게 찾아보세요.</p>
     </div>
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
@@ -5261,7 +5261,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
           onClick={() => handlePlatformServiceClick(item.key)}
           className="group flex min-h-44 flex-col items-center justify-center rounded-3xl border border-gray-200 bg-white px-3 py-5 text-center shadow-sm transition hover:-translate-y-1 hover:border-sky-300 hover:shadow-lg"
         >
-          <span className="flex h-16 w-16 items-center justify-center rounded-full border border-gray-300 bg-gray-50 text-3xl transition group-hover:border-sky-400 group-hover:bg-sky-50">{item.icon}</span>
+          <span className="flex h-16 w-16 items-center justify-center rounded-full border border-gray-300 bg-gray-50 text-2xl md:text-3xl transition group-hover:border-sky-400 group-hover:bg-sky-50">{item.icon}</span>
           <strong className="mt-4 break-keep text-sm font-black leading-6 text-gray-900">{item.title}</strong>
           <span className="mt-1 break-keep text-xs leading-5 text-gray-500">{item.description}</span>
         </button>
@@ -5271,24 +5271,25 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 </section>
 
 {/* 쩨쩨 소개 */}
-<section className="max-w-5xl mx-auto px-6 py-16">
+<section className="max-w-5xl mx-auto px-6 py-10 md:py-16">
 
   <div className="bg-gradient-to-r from-sky-500 to-blue-600 rounded-3xl shadow-xl p-10 text-white text-center">
 
-    <h2 className="text-4xl font-bold mb-6">
+    <h2 className="text-2xl md:text-4xl font-bold mb-6">
       👋 쩨쩨를 소개합니다
     </h2>
 
     <p className="text-lg leading-relaxed max-w-3xl mx-auto">
-      안녕하세요. 백령도에 28년째 살고 있는 쩨쩨입니다.
+      안녕하세요. 백령도에서 28년째 살아온 쩨쩨입니다.
       <br /><br />
-      관광지, 맛집, 숙소, 군인면회 정보까지
-      직접 살면서 경험한 내용을 바탕으로
-      백령도 여행에 도움이 되는 정보를 정리하고 있습니다.
+      여러 곳에 흩어져 있어 찾기 어려웠던 백령·대청·소청도의 여행 정보를
+      한곳에서 편하게 확인할 수 있도록 이 공간을 만들었습니다.
+      관광지, 배편, 맛집, 숙소, 교통, 군인면회 등 여행에 필요한 정보를
+      직접 살아온 경험을 바탕으로 정리하고 있습니다.
       <br /><br />
-      처음 백령도를 방문하시는 분들이
-      조금 더 편하고 즐겁게 여행하실 수 있도록
-      계속 업데이트해 나가겠습니다 😊
+      처음 섬을 찾는 분들에게는 실질적인 여행 길잡이가 되고,
+      제가 오래 살아온 살기 좋은 백령도와 주변 섬의 매력을
+      더 많은 분께 알릴 수 있도록 꾸준히 정보를 확인하고 업데이트하겠습니다.
     </p>
 
   </div>
@@ -5296,9 +5297,9 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 </section>
 
 {/* FOOTER */}
-<footer className="bg-gray-900 text-gray-300 px-6 py-12 mt-20">
+<footer className="bg-gray-900 text-gray-300 px-6 py-8 md:py-12 mt-20">
   <div className="max-w-7xl mx-auto text-center space-y-5">
-    <h2 className="text-2xl font-bold text-white">
+    <h2 className="text-xl md:text-2xl font-bold text-white">
       백령·대청·소청도의 모든 정보
     </h2>
 
