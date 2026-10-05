@@ -666,6 +666,47 @@ const [showSearchResults, setShowSearchResults] = useState(false);
     },
   
     {
+      name: "연꽃마을(백령심청효테마파크)",
+      island: "백령도",
+      image: "/images/lotus-village.png",
+      category: "관광지",
+      description: "연꽃 풍경과 심청의 효 이야기를 함께 만날 수 있는 백령도의 문화·휴식 명소",
+      location: "인천 옹진군 백령면",
+      link: "/place/lotus-village",
+      tip: "🪷 연꽃이 피는 계절에는 연못 풍경을 감상하고 심청 설화와 함께 둘러보기 좋아요.",
+    },
+    {
+      name: "400년 노송",
+      island: "백령도",
+      image: "/images/400year-pine.png",
+      category: "관광지",
+      description: "오랜 세월 백령도의 자연과 함께해 온 수령 약 400년의 노송",
+      location: "인천 옹진군 백령면",
+      link: "/place/400year-pine",
+      tip: "🌲 오래된 소나무의 수형과 주변 자연을 조용히 살펴보기 좋은 곳이에요.",
+    },
+    {
+      name: "남포리 습곡구조",
+      island: "백령도",
+      image: "/images/nampori-fold.png",
+      category: "관광지",
+      description: "암석층이 휘고 접힌 모습을 가까이에서 관찰할 수 있는 백령도의 지질명소",
+      location: "인천 옹진군 백령면 남포리",
+      link: "/place/nampori-fold",
+      tip: "🪨 지층이 구부러진 독특한 형태를 살펴보며 백령도의 지질 이야기를 만나보세요.",
+    },
+    {
+      name: "감람암 포획현무암 분포지",
+      island: "백령도",
+      image: "/images/olivine-basalt.png",
+      category: "관광지",
+      description: "현무암 속 감람암 포획암을 관찰할 수 있는 백령도의 독특한 지질명소",
+      location: "인천 옹진군 백령면",
+      link: "/place/olivine-basalt",
+      tip: "🌋 해안의 현무암과 암석 속 포획암을 살펴보며 백령도의 화산 지질을 관찰해 보세요.",
+    },
+  
+    {
       name: "서풍받이",
       island: "대청도",
       image: "/images/seopungbaji.png",
@@ -1350,7 +1391,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
       "자연·사진": ["두무진", "콩돌해안", "사곶해변", "끝섬전망대"],
       "아이와 가족": ["심청각", "사곶해변", "콩돌해안", "두무진"],
       "군인 면회": ["진촌 시내", "사곶해변", "콩돌해안", "심청각"],
-      "역사·안보": ["천안함 46용사 위령탑", "중화동교회", "심청각", "끝섬전망대"],
+      "역사·안보": ["천안함 46용사 위령탑", "심청각", "끝섬전망대"],
       "맛집·카페": ["백령도 현지 맛집", "바다 전망 카페", "사곶해변", "콩돌해안"],
       "힐링·느긋하게": ["하늬해안", "콩돌해안", "두무진", "끝섬전망대"],
     };
@@ -2558,32 +2599,6 @@ const [showSearchResults, setShowSearchResults] = useState(false);
             </div>
           </section>
 
-        )}
-        {selectedIsland === "백령도" && (selectedCategory === "전체" || selectedCategory === "관광지") && (
-          <section id="hidden-places" className="scroll-mt-24 max-w-7xl mx-auto px-4 sm:px-6 pb-12 md:pb-20">
-            <div className="mb-6">
-              <p className="text-sm font-black tracking-[0.18em] text-emerald-600">HIDDEN PLACES</p>
-              <h2 className="mt-2 text-2xl md:text-3xl font-black text-gray-900">🗺️ 백령도 숨은 관광명소</h2>
-              <p className="mt-2 text-gray-600">대표 관광지 다음으로 천천히 둘러보기 좋은 백령도의 또 다른 장소들이에요.</p>
-            </div>
-            <div className="grid gap-4 md:gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {[
-                ["⛪", "중화동교회", "백령도의 오래된 역사 교회", "/images/junghwadong.jpg"],
-                ["🎭", "백령심청효 테마파크(연꽃마을)", "심청전 설화를 테마로 한 관광공간", "/images/simcheong.jpg"],
-                ["🌲", "400년 노송", "백령도를 오랫동안 지켜온 상징적인 노송", "/images/nosong.jpg"],
-                ["🪨", "남포리 습곡구조", "독특한 지층 구조를 볼 수 있는 지질명소", "/images/seupgok.jpg"],
-                ["🌋", "감람암 포획 현무암 분포지", "백령도의 지질 이야기를 만날 수 있는 장소", "/images/basalt.jpg"],
-                ["🦭", "물범바위", "점박이물범 생태와 연결되는 해안 명소", "/images/seal.png"],
-              ].map(([icon, name, desc, image]) => (
-                <a key={name} href={image} target="_blank" rel="noopener noreferrer" className="group rounded-3xl border border-gray-100 bg-white p-4 md:p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-                  <div className="text-2xl md:text-3xl">{icon}</div>
-                  <h3 className="mt-4 text-lg md:text-xl font-black text-gray-900 group-hover:text-emerald-600">{name}</h3>
-                  <p className="mt-2 text-sm leading-6 text-gray-600">{desc}</p>
-                  <p className="mt-4 text-xs font-bold text-emerald-600">사진 크게 보기 →</p>
-                </a>
-              ))}
-            </div>
-          </section>
         )}
 
       {/* 섬별 맞춤 여행 플래너 */}
@@ -4636,7 +4651,7 @@ const [showSearchResults, setShowSearchResults] = useState(false);
 
             <ul className="space-y-3 text-gray-700 leading-relaxed">
               <li>🌊 1일차 · 사곶해변 → 콩돌해안</li>
-              <li>📸 2일차 · 두무진 → 중화동교회</li>
+              <li>📸 2일차 · 두무진 → 심청각</li>
               <li>🕊️ 천안함 46용사 위령탑</li>
               <li>🌅 끝섬전망대 일몰</li>
               <li>🏞️ 3일차 · 심청각 → 하늬해변</li>

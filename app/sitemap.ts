@@ -85,6 +85,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "tapdong-port",
     "tree-ring-rock",
     "yedong-port",
+    "lotus-village",
+    "400year-pine",
+    "nampori-fold",
+    "olivine-basalt",
   ];
 
   const placePages: MetadataRoute.Sitemap = placeSlugs.map((slug) => ({
